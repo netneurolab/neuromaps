@@ -1,0 +1,6 @@
+matplotlib
+nibabel>=3.0.0
+nilearn
+numpy>=1.14.0
+scikit-learn
+scipy>=0.17
