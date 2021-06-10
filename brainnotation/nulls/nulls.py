@@ -5,8 +5,16 @@ Contains functionality for running spatial null models
 
 import numpy as np
 
-from brainsmash.mapgen import Base, Sampled
-from brainspace.null_models.moran import MoranRandomization
+try:
+    from brainsmash.mapgen import Base, Sampled
+    _brainsmash_avail = True
+except ImportError:
+    _brainsmash_avail = False
+try:
+    from brainspace.null_models.moran import MoranRandomization
+    _brainspace_avail = True
+except ImportError:
+    _brainspace_avail = False
 
 from brainnotation.datasets import fetch_atlas
 from brainnotation.images import load_gifti, relabel_gifti, PARCIGNORE
@@ -401,6 +409,10 @@ Returns
 
 def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,
              n_perm=1000, seed=None, n_proc=1, **kwargs):
+    if not _brainsmash_avail:
+        raise ImportError('Cannot run burt2018 null model when `brainsmash` '
+                          'is not installed. Please `pip install brainsmash` '
+                          'and try again.')
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, **kwargs)
@@ -435,6 +447,10 @@ References
 
 def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
              n_perm=1000, seed=None, n_proc=1, **kwargs):
+    if not _brainsmash_avail:
+        raise ImportError('Cannot run burt2020 null model when `brainsmash` '
+                          'is not installed. Please `pip install brainsmash` '
+                          'and try again.')
     return _make_surrogates(data, 'burt2020', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, **kwargs)
@@ -471,6 +487,10 @@ References
 
 def moran(data, atlas='fsaverage', density='10k', parcellation=None,
           n_perm=1000, seed=None, n_proc=1, **kwargs):
+    if not _brainspace_avail:
+        raise ImportError('Cannot run moran null model when `brainspace` is '
+                          'not installed. Please `pip install brainspace` and '
+                          'try again.')
     return _make_surrogates(data, 'moran', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, **kwargs)
