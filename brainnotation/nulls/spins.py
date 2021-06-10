@@ -58,13 +58,13 @@ def get_parcel_centroids(surfaces, parcellation=None, method='surface',
         surfaces are recommended. Surfaces should be (left, right) hemisphere.
         If no parcellations are provided then returned `centroids` represent
         all vertices in `surfaces`
-    method : {'average', 'surface', 'geodesic'}, optional
-        Method for calculation of parcel centroid. See Notes for more
-        information. Default: 'surface'
-    parcellation : (2,) lit-of-str, optional
+    parcellation : (2,) list-of-str, optional
         Path to GIFTI label files containing labels of parcels on the
         (left, right) hemisphere. If not specified then vertex coordinates from
         `surfaces` are returned instead. Default: None
+    method : {'average', 'surface', 'geodesic'}, optional
+        Method for calculation of parcel centroid. See Notes for more
+        information. Default: 'surface'
     drop : list, optional
         Specifies regions in `parcellation` for which the parcel centroid
         should not be calculated. If not specified, centroids for parcels
@@ -415,29 +415,32 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
     return spinsamples
 
 
-def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
-                 spins=None, drop=None, verbose=False, **kwargs):
+def spin_parcels(surfaces, parcellation, drop=None, method='surface',
+                 n_rotate=1000, spins=None, verbose=False, **kwargs):
     """
-    Rotates parcels in `{lh,rh}annot` and re-assigns based on maximum overlap
+    Rotates parcels in `parcellation` and re-assigns based on maximum overlap
 
-    Vertex labels are rotated with :func:`netneurotools.stats.gen_spinsamples`
-    and a new label is assigned to each *parcel* based on the region maximally
-    overlapping with its boundaries.
+    Vertex labels are rotated and a new label is assigned to each *parcel*
+    based on the region maximally overlapping with its boundaries.
 
     Parameters
     ----------
-
+    surfaces : (2,) list-of-str
+        Surfaces to use for rotating parcels; generally spherical surfaces
+        are recommended. Surfaces should be (left, right) hemisphere
+    parcellation : (2,) list-of-str, optional
+        Path to GIFTI label files containing parcel labels on the (left, right)
+        hemisphere of `surfaces`
+    drop : list of str, optional
+        Which parcels in `parcellation` should be ignored (i.e., constituent
+        vertices set to NaN). If not specified will use parcels generally
+        indicative of the medial wall. Default: None
     n_rotate : int, optional
         Number of rotations to generate. Default: 1000
     spins : array_like, optional
         Pre-computed spins to use instead of generating them on the fly. If not
         provided will use other provided parameters to create them. Default:
         None
-    drop : list, optional
-        Specifies regions in {lh,rh}annot that are not present in `data`. NaNs
-        will be inserted in place of the these regions in the returned data. If
-        not specified, parcels defined in `netneurotools.freesurfer.FSIGNORE`
-        are assumed to not be present. Default: None
     seed : {int, np.random.RandomState instance, None}, optional
         Seed for random number generation. Default: None
     verbose : bool, optional
@@ -452,13 +455,9 @@ def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
     -------
     spinsamples : (N, `n_rotate`) numpy.ndarray
         Resampling matrix to use in permuting data parcellated with labels from
-        {lh,rh}annot, where `N` is the number of parcels. Indices of -1
+        `parcellation`, where `N` is the number of parcels. Indices of -1
         indicate that the parcel was completely encompassed by regions in
         `drop` and should be ignored.
-    cost : (N, `n_rotate`,) numpy.ndarray
-        Cost (specified as Euclidean distance) of re-assigning each coordinate
-        for every rotation in `spinsamples`. Only provided if `return_cost` is
-        True.
     """
 
     def overlap(vals):
@@ -512,25 +511,18 @@ def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
 
 def parcels_to_vertices(data, parcellation, drop=None):
     """
-    Projects parcellated `data` to vertices defined in annotation files
-
-    Assigns np.nan to all ROIs in `drop`
+    Projects parcellated `data` to vertices as defined by `parcellation`
 
     Parameters
     ----------
     data : (N,) numpy.ndarray
-        Parcellated data to be projected to vertices. Parcels should be ordered
-        by (left, right) hemisphere; ordering within hemisphere should
-        correspond to the provided annotation files.
-    {lh,rh}annot : str
-        Path to .annot file containing labels of parcels on the {left,right}
-        hemisphere. These must be specified as keyword arguments to avoid
-        accidental order switching.
-    drop : list, optional
-        Specifies regions in {lh,rh}annot that are not present in `data`. NaNs
-        will be inserted in place of the these regions in the returned data. If
-        not specified, parcels defined in `netneurotools.freesurfer.FSIGNORE`
-        are assumed to not be present. Default: None
+        Parcellated data to be projected to vertices
+    parcellation : tuple-of-str or os.PathLike
+        Filepaths to parcellation images to project `data` to vertices
+    drop : list of str, optional
+        Which parcels in `parcellation` should be ignored (i.e., constituent
+        vertices set to NaN). If not specified will use parcels generally
+        indicative of the medial wall. Default: None
 
     Reurns
     ------
@@ -568,29 +560,26 @@ def parcels_to_vertices(data, parcellation, drop=None):
 
 def vertices_to_parcels(data, parcellation, drop=None):
     """
-    Reduces vertex-level `data` to parcels defined in annotation files
+    Reduces vertex-level `data` to parcels defined by `parcellation`
 
-    Takes average of vertices within each parcel, excluding np.nan values
-    (i.e., np.nanmean). Assigns np.nan to parcels for which all vertices are
-    np.nan.
+    Takes average of vertices within each parcel (excluding NaN values).
+    Assigns NaN to parcels for which *all* vertices are NaN.
 
     Parameters
     ----------
     data : (N,) numpy.ndarray
         Vertex-level data to be reduced to parcels
-    {lh,rh}annot : str
-        Path to .annot file containing labels to parcels on the {left,right}
-        hemisphere
-    drop : list, optional
-        Specifies regions in {lh,rh}annot that should be removed from the
-        parcellated version of `data`. If not specified, vertices corresponding
-        to parcels defined in `netneurotools.freesurfer.FSIGNORE` will be
-        removed. Default: None
+    parcellation : tuple-of-str or os.PathLike
+        Filepaths to parcellation images to parcellate `data`
+    drop : list of str, optional
+        Which parcels in `parcellation` should be ignored. If not specified
+        will ignore parcels generally indicative of the medial wall. Default:
+        None
 
     Reurns
     ------
     reduced : numpy.ndarray
-        Parcellated `data`, without regions specified in `drop`
+        Parcellated `data`
     """
 
     if drop is None:
@@ -632,54 +621,48 @@ def vertices_to_parcels(data, parcellation, drop=None):
     return np.squeeze(reduced)[1:]
 
 
-def spin_data(data, surfaces, parcellation, method='surface', n_rotate=1000,
-              spins=None, drop=None, verbose=False, **kwargs):
+def spin_data(data, surfaces, parcellation, drop=None, method='surface',
+              n_rotate=1000, spins=None, verbose=False, **kwargs):
     """
-    Projects parcellated `data` to surface, rotates, and re-parcellates
+    Projects parcellated `data` to `surfaces`, rotates, and re-parcellates
 
-    Projection to the surface uses `{lh,rh}annot` files. Rotation uses vertex
-    coordinates from the specified fsaverage `version` and relies on
-    :func:`netneurotools.stats.gen_spinsamples`. Re-parcellated data will not
-    be exactly identical to original values due to re-averaging process.
-    Parcels subsumed by regions in `drop` will be listed as NaN.
+    Projection of `data` to `surfaces` uses provided `parcellation` files.
+    Re-parcellated data will not be exactly identical to original values due to
+    re-averaging process. Parcels subsumed by regions in `drop` will be listed
+    as NaN.
 
     Parameters
     ----------
     data : (N,) numpy.ndarray
         Parcellated data to be rotated. Parcels should be ordered by [left,
         right] hemisphere; ordering within hemisphere should correspond to the
-        provided `{lh,rh}annot` annotation files.
-    {lh,rh}annot : str
-        Path to .annot file containing labels to parcels on the {left,right}
-        hemisphere
-    version : str, optional
-        Specifies which version of `fsaverage` provided annotation files
-        correspond to. Must be one of {'fsaverage', 'fsaverage3', 'fsaverage4',
-        'fsaverage5', 'fsaverage6'}. Default: 'fsaverage'
+        provided `parcellation` files.
+    surfaces : (2,) list-of-str
+        Surfaces to use for rotating parcels; generally spherical surfaces
+        are recommended. Surfaces should be (left, right) hemisphere
+    parcellation : (2,) list-of-str, optional
+        Path to GIFTI label files containing parcel labels on the (left, right)
+        hemisphere of `surfaces` mapping `data` to vertices in `surfaces`
+    drop : list-of-str, optional
+        Which parcels in `parcellation` should be ignored. If not specified
+        will ignore parcels generally indicative of the medial wall. Default:
+        None
     n_rotate : int, optional
         Number of rotations to generate. Default: 1000
     spins : array_like, optional
         Pre-computed spins to use instead of generating them on the fly. If not
         provided will use other provided parameters to create them. Default:
         None
-    drop : list, optional
-        Specifies regions in {lh,rh}annot that are not present in `data`. NaNs
-        will be inserted in place of the these regions in the returned data. If
-        not specified, parcels defined in `netneurotools.freesurfer.FSIGNORE`
-        are assumed to not be present. Default: None
+
     verbose : bool, optional
         Whether to print occasional status messages. Default: False
     kwargs : key-value pairs
-        Keyword arguments passed to `netneurotools.stats.gen_spinsamples`
+        Keyword arguments passed to function used to generate rotations
 
     Returns
     -------
     rotated : (N, `n_rotate`) numpy.ndarray
         Rotated `data
-    cost : (N, `n_rotate`,) numpy.ndarray
-        Cost (specified as Euclidean distance) of re-assigning each coordinate
-        for every rotation in `spinsamples`. Only provided if `return_cost` is
-        True.
     """
 
     if drop is None:
