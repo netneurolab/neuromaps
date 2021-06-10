@@ -14,7 +14,7 @@ import sys
 # -- Project information -----------------------------------------------------
 
 # Add project name, copyright holder, and author(s)
-project = 'netneurotools'
+project = 'brainnotation'
 copyright = '2021, brainnotation developers'
 author = 'Network Neuroscience Lab'
 

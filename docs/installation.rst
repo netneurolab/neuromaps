@@ -40,7 +40,7 @@ Alternatively, you can install the most up-to-date version of from GitHub:
 
 .. code-block:: bash
 
-   git clone https://github.com/rmarkello/brainnotation.git
+   git clone https://github.com/netneurolab/brainnotation.git
    cd brainnotation
    pip install .
 
