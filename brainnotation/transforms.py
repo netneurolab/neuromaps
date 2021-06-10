@@ -19,7 +19,7 @@ from brainnotation.utils import tmpname, run
 METRICRESAMPLE = 'wb_command -metric-resample {metric} {src} {trg} ' \
                  'ADAP_BARY_AREA {out} -area-metrics {srcarea} {trgarea} ' \
                  '-current-roi {srcmask}'
-LABELRESAMPLE = 'wb_command -label-resample {label} {src} {trg} ' \
+LABELRESAMPLE = 'wb_command -label-resample {metric} {src} {trg} ' \
                 'ADAP_BARY_AREA {out} -area-metrics {srcarea} {trgarea} ' \
                 '-current-roi {srcmask}'
 MASKSURF = 'wb_command -metric-mask {out} {trgmask} {out}'
@@ -289,7 +289,7 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
     # if our source and target are identical just return the loaded data
     if srcparams == trgparams:
         data, _ = zip(*_check_hemi(data, hemi))
-        return tuple(nib.load(d) for d in data)
+        return tuple(load_gifti(d) for d in data)
 
     # get required atlas / templates for transforming between spaces
     for atl in (srcparams, trgparams):
@@ -301,8 +301,15 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
     func = METRICRESAMPLE if method == 'linear' else LABELRESAMPLE
     for img, hemi in _check_hemi(data, hemi):
         srcparams['hemi'] = trgparams['hemi'] = hemi
+        try:
+            img = Path(img).resolve()
+            tmpimg = None
+        except TypeError:
+            tmpimg = tmpname(suffix='.gii')
+            nib.save(img, tmpimg)
+            img = Path(tmpimg).resolve()
         params = dict(
-            metric=Path(img).resolve(),
+            metric=img,
             out=tmpname('.func.gii'),
             src=srcdir / SURFFMT.format(**srcparams),
             trg=trgdir / SURFFMT.format(**trgparams),
@@ -317,6 +324,8 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
             load_gifti(params['out']).agg_data()
         ),)
         params['out'].unlink()
+        if tmpimg is not None:
+            tmpimg.unlink()
 
     return resampled
 
