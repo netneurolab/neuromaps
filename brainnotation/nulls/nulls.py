@@ -15,13 +15,14 @@ try:
     _brainspace_avail = True
 except ImportError:
     _brainspace_avail = False
+from sklearn.utils.validation import check_random_state
 
 from brainnotation.datasets import fetch_atlas
 from brainnotation.images import load_gifti, PARCIGNORE
 from brainnotation.points import get_surface_distance
 from brainnotation.nulls.burt import batch_surrogates
 from brainnotation.nulls.spins import (gen_spinsamples, get_parcel_centroids,
-                                       spin_data, spin_parcels)
+                                       load_spins, spin_data, spin_parcels)
 HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 
@@ -51,11 +52,21 @@ n_perm : int, optional
 seed : {int, np.random.RandomState instance, None}, optional
     Seed for random number generation. Default: None\
 """,
+    spins="""\
+spins : array_like or str or os.PathLike
+    Filepath to or pre-loaded resampling array. If not specified spins are
+    generated. Default: None\
+""",
     n_proc="""\
 n_proc : int, optional
     Number of processors to use for parallelizing computations. If negative
     will use max available processors plus 1 minus the specified number.
     Default: 1 (no parallelization)\
+""",
+    distmat="""\
+distmat : tuple-of-str or os.PathLike, optional
+    Filepaths to pre-computed (left, right) surface distance matrices. Default:
+    None\
 """,
     kwargs="""\
 kwargs : key-value pairs
@@ -70,10 +81,14 @@ nulls : np.ndarray
 )
 
 
-def naive_nonparametric(data, n_perm=1000, seed=None):
+def naive_nonparametric(data, n_perm=1000, seed=None, spins=None):
     y = np.asarray(data)
-    rs = np.random.default_rng(seed)
-    spins = np.column_stack([rs.permutation(len(y)) for f in range(n_perm)])
+    rs = check_random_state(seed)
+    if spins is not None:
+        spins = np.column_stack([
+            rs.permutation(len(y)) for f in range(n_perm)
+        ])
+    spins = load_spins(spins)
     return y[spins]
 
 
@@ -88,6 +103,7 @@ Parameters
 {data}
 {n_perm}
 {seed}
+{spins}
 
 Returns
 -------
@@ -96,12 +112,15 @@ Returns
 
 
 def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,
-                    n_perm=1000, seed=None):
+                    n_perm=1000, seed=None, spins=None):
     y = np.asarray(data)
-    surfaces = fetch_atlas(atlas, density)['sphere']
-    coords, hemi = get_parcel_centroids(surfaces, parcellation=parcellation,
-                                        method='surface')
-    spins = gen_spinsamples(coords, hemi, n_rotate=n_perm, seed=seed)
+    if spins is None:
+        surfaces = fetch_atlas(atlas, density)['sphere']
+        coords, hemi = get_parcel_centroids(surfaces,
+                                            parcellation=parcellation,
+                                            method='surface')
+        spins = gen_spinsamples(coords, hemi, n_rotate=n_perm, seed=seed)
+    spins = load_spins(spins)
     return y[spins]
 
 
@@ -119,6 +138,7 @@ Parameters
 {parcellation}
 {n_perm}
 {seed}
+{spins}
 
 Returns
 -------
@@ -137,17 +157,20 @@ vazquez_rodriguez = alexander_bloch
 
 
 def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
-         n_perm=1000, seed=None):
+         n_perm=1000, seed=None, spins=None):
     if parcellation is not None:
         raise ValueError('Cannot use `vasa()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
                          'working with unparcellated data.')
     y = np.asarray(data)
-    surfaces = fetch_atlas(atlas, density)['sphere']
-    coords, hemi = get_parcel_centroids(surfaces, parcellation=parcellation,
-                                        method='surface')
-    spins = gen_spinsamples(coords, hemi, method='vasa', n_rotate=n_perm,
-                            seed=seed)
+    if spins is None:
+        surfaces = fetch_atlas(atlas, density)['sphere']
+        coords, hemi = get_parcel_centroids(surfaces,
+                                            parcellation=parcellation,
+                                            method='surface')
+        spins = gen_spinsamples(coords, hemi, method='vasa', n_rotate=n_perm,
+                                seed=seed)
+    spins = load_spins(spins)
     return y[spins]
 
 
@@ -166,6 +189,7 @@ Parameters
 {parcellation}
 {n_perm}
 {seed}
+{spins}
 
 Returns
 -------
@@ -181,17 +205,20 @@ References
 
 
 def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
-              n_perm=1000, seed=None):
+              n_perm=1000, seed=None, spins=None):
     if parcellation is not None:
         raise ValueError('Cannot use `hungarian()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
                          'instead if working with unparcellated data.')
     y = np.asarray(data)
-    surfaces = fetch_atlas(atlas, density)['sphere']
-    coords, hemi = get_parcel_centroids(surfaces, parcellation=parcellation,
-                                        method='surface')
-    spins = gen_spinsamples(coords, hemi, method='hungarian', n_rotate=n_perm,
-                            seed=seed)
+    if spins is None:
+        surfaces = fetch_atlas(atlas, density)['sphere']
+        coords, hemi = get_parcel_centroids(surfaces,
+                                            parcellation=parcellation,
+                                            method='surface')
+        spins = gen_spinsamples(coords, hemi, method='hungarian',
+                                n_rotate=n_perm, seed=seed)
+    spins = load_spins(spins)
     return y[spins]
 
 
@@ -210,6 +237,7 @@ Parameters
 {parcellation}
 {n_perm}
 {seed}
+{spins}
 
 Returns
 -------
@@ -223,14 +251,15 @@ References
 
 
 def baum(data, atlas='fsaverage', density='10k', parcellation=None,
-         n_perm=1000, seed=None):
+         n_perm=1000, seed=None, spins=None):
     if parcellation is not None:
         raise ValueError('Cannot use `baum()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
                          'working with unparcellated data.')
     y = np.asarray(data)
     surfaces = fetch_atlas(atlas, density)['sphere']
-    spins = spin_parcels(surfaces, parcellation, n_rotate=n_perm, seed=seed)
+    spins = spin_parcels(surfaces, parcellation,
+                         n_rotate=n_perm, spins=spins, seed=seed)
     nulls = y[spins]
     nulls[spins == -1] = np.nan
     return nulls
@@ -250,6 +279,7 @@ Parameters
 {parcellation}
 {n_perm}
 {seed}
+{spins}
 
 Returns
 -------
@@ -265,14 +295,15 @@ References
 
 
 def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
-              n_perm=1000, seed=None):
+              n_perm=1000, seed=None, spins=None):
     if parcellation is not None:
         raise ValueError('Cannot use `cornblath()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
                          'instead if working with unparcellated data.')
     y = np.asarray(data)
     surfaces = fetch_atlas(atlas, density)['sphere']
-    nulls = spin_data(y, surfaces, parcellation, n_rotate=n_perm, seed=seed)
+    nulls = spin_data(y, surfaces, parcellation,
+                      n_rotate=n_perm, spins=spins, seed=seed)
     return nulls
 
 
@@ -290,6 +321,7 @@ Parameters
 {parcellation}
 {n_perm}
 {seed}
+{spins}
 
 Returns
 -------
@@ -352,24 +384,28 @@ dist : (N, N) np.ndarray
 
 
 def _make_surrogates(data, method, atlas='fsaverage', density='10k',
-                     parcellation=None, n_perm=1000, seed=None, n_proc=1,
-                     **kwargs):
+                     parcellation=None, n_perm=1000, seed=None, distmat=None,
+                     n_proc=1, **kwargs):
     if method not in ('burt2018', 'burt2020', 'moran'):
         raise ValueError(f'Invalid null method: {method}')
 
     darr = np.asarray(data)
     dmin = darr[np.logical_not(np.isnan(darr))].min()
-    parcellation = tuple(load_gifti(parc) for parc in parcellation)
+    if parcellation is None:
+        parcellation = (None, None)
 
     surrogates = np.zeros((len(data), n_perm))
-    for n, hemi in enumerate(('L', 'R')):
-        dist = _get_distmat(hemi, atlas=atlas, density=density,
-                            parcellation=parcellation[n], n_proc=n_proc)
+    for n, (hemi, parc) in enumerate(zip(('L', 'R'), parcellation)):
+        if distmat is None:
+            dist = _get_distmat(hemi, atlas=atlas, density=density,
+                                parcellation=parc, n_proc=n_proc)
+        else:
+            dist = distmat[n]
 
-        if parcellation is None:
+        if parc is None:
             idx = np.arange(n * (len(data) // 2), (n + 1) * (len(data) // 2))
         else:
-            idx = np.unique(load_gifti(parcellation[n]).agg_data())[1:]
+            idx = np.unique(load_gifti(parc).agg_data())[1:]
 
         hdata = np.squeeze(data[idx])
         mask = np.logical_not(np.isnan(hdata))
@@ -381,7 +417,7 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
             surrogates[idx] = batch_surrogates(dist, hdata, n_surr=n_perm,
                                                seed=seed)
         elif method == 'burt2020':
-            if parcellation is None:
+            if parc is None:
                 index = np.argsort(dist, axis=-1)
                 dist = np.sort(dist, axis=-1)
                 surrogates[idx] = \
@@ -414,6 +450,7 @@ method : {{'burt2018', 'burt2020', 'moran'}}
 {parcellation}
 {n_perm}
 {seed}
+{distmat}
 {n_proc}
 {kwargs}
 
@@ -424,14 +461,15 @@ Returns
 
 
 def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,
-             n_perm=1000, seed=None, n_proc=1, **kwargs):
+             n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
     if not _brainsmash_avail:
         raise ImportError('Cannot run burt2018 null model when `brainsmash` '
                           'is not installed. Please `pip install brainsmash` '
                           'and try again.')
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
-                            seed=seed, n_proc=n_proc, **kwargs)
+                            seed=seed, n_proc=n_proc, distmat=distmat,
+                            **kwargs)
 
 
 burt2018.__doc__ = """\
@@ -447,6 +485,8 @@ Parameters
 {parcellation}
 {n_perm}
 {seed}
+{distmat}
+{kwargs}
 
 Returns
 -------
@@ -462,14 +502,15 @@ References
 
 
 def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
-             n_perm=1000, seed=None, n_proc=1, **kwargs):
+             n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
     if not _brainsmash_avail:
         raise ImportError('Cannot run burt2020 null model when `brainsmash` '
                           'is not installed. Please `pip install brainsmash` '
                           'and try again.')
     return _make_surrogates(data, 'burt2020', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
-                            seed=seed, n_proc=n_proc, **kwargs)
+                            seed=seed, n_proc=n_proc, distmat=distmat,
+                            **kwargs)
 
 
 burt2020.__doc__ = """\
@@ -486,6 +527,7 @@ Parameters
 {n_perm}
 {seed}
 {n_proc}
+{distmat}
 {kwargs}
 
 Returns
@@ -502,14 +544,15 @@ References
 
 
 def moran(data, atlas='fsaverage', density='10k', parcellation=None,
-          n_perm=1000, seed=None, n_proc=1, **kwargs):
+          n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
     if not _brainspace_avail:
         raise ImportError('Cannot run moran null model when `brainspace` is '
                           'not installed. Please `pip install brainspace` and '
                           'try again.')
     return _make_surrogates(data, 'moran', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
-                            seed=seed, n_proc=n_proc, **kwargs)
+                            seed=seed, n_proc=n_proc, distmat=distmat,
+                            **kwargs)
 
 
 moran.__doc__ = """\
@@ -528,6 +571,7 @@ Parameters
 {n_perm}
 {seed}
 {n_proc}
+{distmat}
 {kwargs}
 
 Returns

@@ -15,7 +15,7 @@ from brainnotation.images import load_gifti, PARCIGNORE
 from brainnotation.points import _geodesic_parcel_centroid
 
 
-def load_spins(fn, n_perm=10000):
+def load_spins(fn, n_perm=None):
     """
     Loads spins from `fn`
 
@@ -32,12 +32,16 @@ def load_spins(fn, n_perm=10000):
         Loaded spins
     """
 
-    npy = Path(fn).with_suffix('.npy')
-    if npy.exists():
-        spins = np.load(npy, allow_pickle=False, mmap_mode='c')[..., :n_perm]
-    else:
-        spins = np.loadtxt(fn, delimiter=',', dtype='int32')
-        np.save(npy, spins, allow_pickle=False)
+    try:
+        npy = Path(fn).with_suffix('.npy')
+        if npy.exists():
+            spins = np.load(npy, allow_pickle=False, mmap_mode='c')
+        else:
+            spins = np.loadtxt(fn, delimiter=',', dtype='int32')
+    except TypeError:
+        spins = np.asarray(fn, dtype='int32')
+
+    if n_perm is not None:
         spins = spins[..., :n_perm]
 
     return spins
@@ -479,6 +483,7 @@ def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
                                 verbose=verbose, **kwargs)
         if kwargs.get('return_cost'):
             spins, cost = spins
+    spins = load_spins(spins)
 
     if len(vertices) != len(spins):
         raise ValueError('Provided annotation files have a different '
@@ -651,6 +656,7 @@ def spin_data(data, surfaces, parcellation, method='surface', n_rotate=1000,
                                 verbose=verbose, **kwargs)
         if kwargs.get('return_cost'):
             spins, cost = spins
+    spins = load_spins(spins)
 
     if len(vertices) != len(spins):
         raise ValueError('Provided parcellation files have a different '
