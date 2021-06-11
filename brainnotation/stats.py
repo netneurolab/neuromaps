@@ -74,11 +74,3 @@ def correlate_images(src, trg, corrtype='pearsonr', ignore_zero=True):
         srcdata, trgdata = rankdata(srcdata), trgdata(rankdata)
 
     return np.corrcoef(srcdata, trgdata)[0, 1]
-
-
-def resample_and_correlate(src, trg, src_space, trg_space, method='linear',
-                           hemi=None, resampling='downsample_only',
-                           alt_spec=None, corrtype='pearsonr',
-                           ignore_zero=True, nulls=None, parcellation=None):
-
-    raise NotImplementedError
