@@ -117,12 +117,11 @@ def get_parcel_centroids(surfaces, parcellation=None, method='surface',
     for n, (parc, surf) in enumerate(zip(parcellation, surfaces)):
         vertices, faces = load_gifti(surf).agg_data()
         if parc is not None:
-            parc = load_gifti(parc)
-            labels = parc.agg_data()
+            labels = load_gifti(parc).agg_data()
             labeltable = parc.labeltable.get_labels_as_dict()
 
             for lab in np.unique(labels):
-                if labeltable[lab] in drop:
+                if labeltable.get(lab) in drop:
                     continue
 
                 mask = labels == lab

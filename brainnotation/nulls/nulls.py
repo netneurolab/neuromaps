@@ -138,6 +138,10 @@ vazquez_rodriguez = alexander_bloch
 
 def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
          n_perm=1000, seed=None):
+    if parcellation is not None:
+        raise ValueError('Cannot use `vasa()` null method without specifying '
+                         'a parcellation. Use `alexander_bloch() instead if '
+                         'working with unparcellated data.')
     y = np.asarray(data)
     surfaces = fetch_atlas(atlas, density)['sphere']
     coords, hemi = get_parcel_centroids(surfaces, parcellation=parcellation,
@@ -178,6 +182,10 @@ References
 
 def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
               n_perm=1000, seed=None):
+    if parcellation is not None:
+        raise ValueError('Cannot use `hungarian()` null method without '
+                         'specifying a parcellation. Use `alexander_bloch() '
+                         'instead if working with unparcellated data.')
     y = np.asarray(data)
     surfaces = fetch_atlas(atlas, density)['sphere']
     coords, hemi = get_parcel_centroids(surfaces, parcellation=parcellation,
@@ -216,6 +224,10 @@ References
 
 def baum(data, atlas='fsaverage', density='10k', parcellation=None,
          n_perm=1000, seed=None):
+    if parcellation is not None:
+        raise ValueError('Cannot use `baum()` null method without specifying '
+                         'a parcellation. Use `alexander_bloch() instead if '
+                         'working with unparcellated data.')
     y = np.asarray(data)
     surfaces = fetch_atlas(atlas, density)['sphere']
     spins = spin_parcels(surfaces, parcellation, n_rotate=n_perm, seed=seed)
@@ -254,6 +266,10 @@ References
 
 def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
               n_perm=1000, seed=None):
+    if parcellation is not None:
+        raise ValueError('Cannot use `cornblath()` null method without '
+                         'specifying a parcellation. Use `alexander_bloch() '
+                         'instead if working with unparcellated data.')
     y = np.asarray(data)
     surfaces = fetch_atlas(atlas, density)['sphere']
     nulls = spin_data(y, surfaces, parcellation, n_rotate=n_perm, seed=seed)
