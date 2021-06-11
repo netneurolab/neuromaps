@@ -13,7 +13,7 @@ from scipy.interpolate import interpn
 
 from brainnotation.datasets import (ALIAS, DENSITIES, fetch_atlas,
                                     fetch_regfusion, get_atlas_dir)
-from brainnotation.images import construct_shape_gii, load_gifti
+from brainnotation.images import construct_shape_gii, load_gifti, load_nifti
 from brainnotation.utils import tmpname, run
 
 METRICRESAMPLE = 'wb_command -metric-resample {metric} {src} {trg} ' \
@@ -92,9 +92,7 @@ def _vol_to_surf(img, space, density, method='linear'):
     if method not in ('nearest', 'linear'):
         raise ValueError('Invalid method argument: {method}')
 
-    if isinstance(img, (str, os.PathLike)):
-        img = nib.load(img)
-
+    img = load_nifti(img)
     out = ()
     for ras in fetch_regfusion(space)[density]:
         out += (_regfusion_project(img.get_fdata(), np.loadtxt(ras),
@@ -180,7 +178,7 @@ def mni152_to_fslr(img, fslr_density='32k', method='linear'):
     return _vol_to_surf(img, 'fsLR', fslr_density, method)
 
 
-def mni152_to_mni152(img, target=None, resolution='1mm', method='linear'):
+def mni152_to_mni152(img, target='1mm', method='linear'):
     """
     Resamples `img` to `target` image (if supplied) or target `resolution`
 
@@ -188,12 +186,10 @@ def mni152_to_mni152(img, target=None, resolution='1mm', method='linear'):
     ----------
     img : str or os.PathLike or niimg_like
         Image in MNI152 space to be resampled
-    target : str or os.PathLike or niimg_like
-        Image in MNI152 space to which `img` should be resampled. If not
-        specified `resolution` is used instead. Default: None
-    resolution : {'1mm', '2mm', '3mm'}, optional
-        Desired resolution of output resampled image. Ignored if `target` is
-        specified. Default: '1mm'
+    target : {str, os.PathLike, niimg_like} or {'1mm', '2mm', '3mm'}, optional
+        Image in MNI152 space to which `img` should be resampled. Can
+        alternatively specify desired resolution of output resample image.
+        Default: None
     method : {'nearest', 'linear'}, optional
         Method for resampling. Specify 'nearest' if `img` is a label image.
         Default: 'linear'
@@ -204,13 +200,10 @@ def mni152_to_mni152(img, target=None, resolution='1mm', method='linear'):
         Resampled input `img`
     """
 
-    if resolution not in DENSITIES['MNI152']:
-        raise ValueError(f'Invalid target resolution: {resolution}')
-    res = int(resolution[0])
-
-    if target is not None:
+    if target not in DENSITIES['MNI152']:
         out = nimage.resample_to_img(img, target, interpolation=method)
     else:
+        res = int(target[0])
         out = nimage.resample_img(img, np.eye(3) * res, interpolation=method)
 
     return out

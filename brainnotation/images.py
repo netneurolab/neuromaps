@@ -100,6 +100,31 @@ def fix_coordsys(fn, val=3):
     return fn
 
 
+def load_nifti(img):
+    """
+    Loads nifti file `img`
+
+    Parameters
+    ----------
+    img : os.PathLike or nib.Nifti1Image object
+        Image to be loaded
+
+    Returns
+    -------
+    img : nib.Nifti1Image
+        Loaded NIFTI image
+    """
+
+    try:
+        img = nib.load(img)
+    except (TypeError) as err:
+        msg = ('stat: path should be string, bytes, os.PathLike or integer, '
+               'not Nifti1Image')
+        if not str(err) == msg:
+            raise err
+    return img
+
+
 def load_gifti(img):
     """
     Loads gifti file `img`

@@ -3,9 +3,12 @@
 Functions for comparing data
 """
 
+import nibabel as nib
+import numpy as np
+
 from brainnotation import transforms
 from brainnotation.datasets import ALIAS, DENSITIES
-from brainnotation.images import load_gifti
+from brainnotation.images import load_gifti, load_nifti
 
 
 _resampling_docs = dict(
@@ -60,6 +63,9 @@ def _estimate_density(data, hemi=None):
 
     densities = tuple()
     for img in data:
+        if img in density_map.values():
+            densities += (img,)
+            continue
         img, hemi = zip(*transforms._check_hemi(img, hemi))
         n_vert = [len(load_gifti(d).agg_data()) for d in img]
         if not all(n == n_vert[0] for n in n_vert):
@@ -158,13 +164,10 @@ Returns
 
 def transform_to_alt(src, trg, src_space, trg_space, method='linear',
                      hemi=None, alt_space='fsaverage', alt_density='41k'):
-    src_den, trg_den = _estimate_density((src, trg), hemi)
-
-    func = getattr(transforms, f'{src_space.lower()}_to_{alt_space.lower()}')
-    src = func(src, src_den, alt_density, hemi=hemi, method=method)
-
-    func = getattr(transforms, f'{trg_space.lower()}_to_{alt_space.lower()}')
-    trg = func(trg, trg_den, alt_density, hemi=hemi, method=method)
+    src = transform_to_trg(src, alt_density, src_space, alt_space,
+                           hemi=hemi, method=method)
+    trg = transform_to_trg(trg, alt_density, trg_space, alt_space,
+                           hemi=hemi, method=method)
 
     return src, trg
 
@@ -189,24 +192,28 @@ Returns
 """.format(**_resampling_docs)
 
 
-def mni_transformation(src, trg, src_space, trg_space, method='linear'):
+def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):
     if src_space != 'MNI152':
         raise ValueError('Cannot perform MNI transformation when src_space is '
                          f'not "MNI152." Received: {src_space}.')
     trg_den = trg
     if trg_space != 'MNI152':
-        trg_den, = _estimate_density((trg_den,), None)
+        trg_den, = _estimate_density((trg_den,), hemi)
     func = getattr(transforms, f'mni152_to_{trg_space.lower()}')
     src = func(src, trg_den, method=method)
+
     return src, trg
 
 
-mni_transformation.__doc__ = """\
+mni_transform.__doc__ = """\
 Resamples `src` in MNI152 to `trg` space
 
 Parameters
 ----------
 {resample_in}
+hemi : {{'L', 'R'}}, optional
+    If `trg_space` is not "MNI152' and `trg` is not a tuple this specifies the
+    hemisphere the data represent. Default: None
 
 Returns
 -------
@@ -237,13 +244,14 @@ def _check_altspec(spec):
     invalid_spec = spec is None or len(spec) != 2
     if not invalid_spec:
         space, den = spec
+        space = ALIAS.get(space, space)
         valid = DENSITIES.get(space)
         invalid_spec = valid is None or den not in valid
     if invalid_spec:
         raise ValueError('Must provide valid alternative specification of '
                          f'format (space, density). Received: {spec}')
 
-    return (ALIAS.get(spec[0], spec[0]), spec[1])
+    return (space, den)
 
 
 def resample_images(src, trg, src_space, trg_space, method='linear',
@@ -276,16 +284,41 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
     if err is not None:
         raise ValueError(err)
 
-    if src_space == 'MNI152':
-        src, trg = mni_transformation(src, trg, src_space, trg_space, method)
-    elif trg_space == 'MNI152':
-        trg, src = mni_transformation(trg, src, trg_space, src_space, method)
+    # handling volumetric data is annoying...
+    if ((src_space == "MNI152" or trg_space == "MNI152")
+            and resampling == 'transform_to_alt'):
+        func = mni_transform if src_space == 'MNI152' else transform_to_trg
+        src = func(src, opts['alt_density'], src_space, opts['alt_space'],
+                   method=method, hemi=hemi)[0]
+        func = mni_transform if trg_space == 'MNI152' else transform_to_trg
+        trg = func(trg, opts['alt_density'], trg_space, opts['alt_space'],
+                   method=method, hemi=hemi)[0]
+    elif src_space == 'MNI152' and trg_space != 'MNI152':
+        src, trg = mni_transform(src, trg, src_space, trg_space,
+                                 method=method, hemi=hemi)
+    elif trg_space == 'MNI152' and src_space != 'MNI152':
+        trg, src = mni_transform(trg, src, trg_space, src_space,
+                                 method=method, hemi=hemi)
+    elif src_space == 'MNI152' and src_space == 'MNI152':
+        src, trg = load_nifti(src), load_nifti(trg)
+        srcres = np.prod(nib.affines.voxel_sizes(src.affine))
+        trgres = np.prod(nib.affines.voxel_sizes(trg.affine))
+        if ((resampling == 'downsample_only' and srcres > trgres)
+                or resampling == 'transform_to_src'):
+            trg, src = mni_transform(trg, src, trg_space, src_space,
+                                     method=method)
+        elif ((resampling == 'downsample_only' and srcres <= trgres)
+                or resampling == 'transform_to_trg'):
+            src, trg = mni_transform(src, trg, src_space, trg_space,
+                                     method=method)
     else:
         func = globals()[resampling]
         src, trg = func(src, trg, src_space, trg_space, hemi=hemi,
                         method=method, **opts)
+        src = tuple(load_gifti(s) for s in src),
+        trg = tuple(load_gifti(t) for t in trg)
 
-    return tuple(load_gifti(s) for s in src), tuple(load_gifti(t) for t in trg)
+    return src, trg
 
 
 resample_images.__doc__ = """\
