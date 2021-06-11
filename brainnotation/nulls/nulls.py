@@ -17,7 +17,7 @@ except ImportError:
     _brainspace_avail = False
 
 from brainnotation.datasets import fetch_atlas
-from brainnotation.images import load_gifti, relabel_gifti, PARCIGNORE
+from brainnotation.images import load_gifti, PARCIGNORE
 from brainnotation.points import get_surface_distance
 from brainnotation.nulls.burt import batch_surrogates
 from brainnotation.nulls.spins import (gen_spinsamples, get_parcel_centroids,
@@ -343,7 +343,7 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
 
     darr = np.asarray(data)
     dmin = darr[np.logical_not(np.isnan(darr))].min()
-    parcellation = relabel_gifti(parcellation)
+    parcellation = tuple(load_gifti(parc) for parc in parcellation)
 
     surrogates = np.zeros((len(data), n_perm))
     for n, hemi in enumerate(('L', 'R')):

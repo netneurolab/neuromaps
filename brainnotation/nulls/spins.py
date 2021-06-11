@@ -11,7 +11,7 @@ from scipy import optimize, spatial
 from scipy.ndimage.measurements import _stats, labeled_comprehension
 from sklearn.utils.validation import check_random_state
 
-from brainnotation.images import load_gifti, relabel_gifti, PARCIGNORE
+from brainnotation.images import load_gifti, PARCIGNORE
 from brainnotation.points import _geodesic_parcel_centroid
 
 
@@ -415,8 +415,8 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
     return spinsamples
 
 
-def spin_parcels(surfaces, parcellation, drop=None, method='surface',
-                 n_rotate=1000, spins=None, verbose=False, **kwargs):
+def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
+                 spins=None, verbose=False, **kwargs):
     """
     Rotates parcels in `parcellation` and re-assigns based on maximum overlap
 
@@ -431,10 +431,6 @@ def spin_parcels(surfaces, parcellation, drop=None, method='surface',
     parcellation : (2,) list-of-str, optional
         Path to GIFTI label files containing parcel labels on the (left, right)
         hemisphere of `surfaces`
-    drop : list of str, optional
-        Which parcels in `parcellation` should be ignored (i.e., constituent
-        vertices set to NaN). If not specified will use parcels generally
-        indicative of the medial wall. Default: None
     n_rotate : int, optional
         Number of rotations to generate. Default: 1000
     spins : array_like, optional
@@ -470,12 +466,10 @@ def spin_parcels(surfaces, parcellation, drop=None, method='surface',
         except ValueError:
             return -1
 
-    if drop is None:
-        drop = PARCIGNORE
-
     # get vertex-level labels (set drop labels to - values)
-    parcellation = relabel_gifti(parcellation, background=drop)
-    vertices = np.hstack([parc.agg_data() for parc in parcellation])
+    vertices = np.hstack([
+        load_gifti(parc).agg_data() for parc in parcellation
+    ])
     labels = np.unique(vertices)
     mask = labels != 0
 
@@ -509,7 +503,7 @@ def spin_parcels(surfaces, parcellation, drop=None, method='surface',
     return regions
 
 
-def parcels_to_vertices(data, parcellation, drop=None):
+def parcels_to_vertices(data, parcellation):
     """
     Projects parcellated `data` to vertices as defined by `parcellation`
 
@@ -519,10 +513,6 @@ def parcels_to_vertices(data, parcellation, drop=None):
         Parcellated data to be projected to vertices
     parcellation : tuple-of-str or os.PathLike
         Filepaths to parcellation images to project `data` to vertices
-    drop : list of str, optional
-        Which parcels in `parcellation` should be ignored (i.e., constituent
-        vertices set to NaN). If not specified will use parcels generally
-        indicative of the medial wall. Default: None
 
     Reurns
     ------
@@ -530,13 +520,10 @@ def parcels_to_vertices(data, parcellation, drop=None):
         Vertex-level data
     """
 
-    if drop is None:
-        drop = PARCIGNORE
-
     data = np.vstack(data).astype(float)
-
-    parcellation = relabel_gifti(parcellation, background=drop)
-    vertices = np.hstack([parc.agg_data() for parc in parcellation])
+    vertices = np.hstack([
+        load_gifti(parc).agg_data() for parc in parcellation
+    ])
     expected = np.unique(vertices)[1:].size
     n_vert = vertices.shape[0]
     if expected != len(data):
@@ -549,8 +536,7 @@ def parcels_to_vertices(data, parcellation, drop=None):
     projected = np.zeros((n_vert, data.shape[-1]), dtype=data.dtype)
     n_vert = 0
     for parc in parcellation:
-        parc = load_gifti(parc)
-        labels = parc.agg_data()
+        labels = load_gifti(parc).agg_data().astype('int')
         currdata = np.append([[np.nan]], data, axis=0)
         projected[n_vert:n_vert + len(labels), :] = currdata[labels, :]
         n_vert += len(labels)
@@ -558,7 +544,7 @@ def parcels_to_vertices(data, parcellation, drop=None):
     return np.squeeze(projected)
 
 
-def vertices_to_parcels(data, parcellation, drop=None):
+def vertices_to_parcels(data, parcellation):
     """
     Reduces vertex-level `data` to parcels defined by `parcellation`
 
@@ -571,10 +557,6 @@ def vertices_to_parcels(data, parcellation, drop=None):
         Vertex-level data to be reduced to parcels
     parcellation : tuple-of-str or os.PathLike
         Filepaths to parcellation images to parcellate `data`
-    drop : list of str, optional
-        Which parcels in `parcellation` should be ignored. If not specified
-        will ignore parcels generally indicative of the medial wall. Default:
-        None
 
     Reurns
     ------
@@ -582,13 +564,10 @@ def vertices_to_parcels(data, parcellation, drop=None):
         Parcellated `data`
     """
 
-    if drop is None:
-        drop = PARCIGNORE
-
     data = np.vstack(data)
-
-    parcellation = relabel_gifti(parcellation, background=drop)
-    vertices = np.hstack([parc.agg_data() for parc in parcellation])
+    vertices = np.hstack([
+        load_gifti(parc).agg_data() for parc in parcellation
+    ])
     n_parc = np.unique(vertices).size
     expected = vertices.shape[0]
     if expected != len(data):
@@ -598,11 +577,11 @@ def vertices_to_parcels(data, parcellation, drop=None):
                          '    RECEIVED: {} vertices'
                          .format(expected, len(data)))
 
-    reduced = np.zeros((n_parc, data.shape[-1]), dtype=data.dtype)
+    numerator = np.zeros((n_parc, data.shape[-1]), dtype=data.dtype)
+    denominator = np.zeros((n_parc, data.shape[-1]), dtype=data.dtype)
     start = end = 0
     for parc in parcellation:
-        parc = load_gifti(parc)
-        labels = parc.agg_data()
+        labels = load_gifti(parc).agg_data().astype('int')
         indices = np.unique(labels)
         end += len(labels)
 
@@ -613,16 +592,19 @@ def vertices_to_parcels(data, parcellation, drop=None):
             counts = (np.asanyarray(counts, dtype=float)
                       - np.asanyarray(nacounts, dtype=float))
 
-            with np.errstate(divide='ignore', invalid='ignore'):
-                reduced[indices, idx] = sums / counts
+            numerator[indices, idx] += sums
+            denominator[indices, idx] += counts
 
         start = end
 
-    return np.squeeze(reduced)[1:]
+    with np.errstate(divide='ignore', invalid='ignore'):
+        reduced = np.squeeze(numerator / denominator)[1:]
+
+    return reduced
 
 
-def spin_data(data, surfaces, parcellation, drop=None, method='surface',
-              n_rotate=1000, spins=None, verbose=False, **kwargs):
+def spin_data(data, surfaces, parcellation, method='surface', n_rotate=1000,
+              spins=None, verbose=False, **kwargs):
     """
     Projects parcellated `data` to `surfaces`, rotates, and re-parcellates
 
@@ -643,10 +625,6 @@ def spin_data(data, surfaces, parcellation, drop=None, method='surface',
     parcellation : (2,) list-of-str, optional
         Path to GIFTI label files containing parcel labels on the (left, right)
         hemisphere of `surfaces` mapping `data` to vertices in `surfaces`
-    drop : list-of-str, optional
-        Which parcels in `parcellation` should be ignored. If not specified
-        will ignore parcels generally indicative of the medial wall. Default:
-        None
     n_rotate : int, optional
         Number of rotations to generate. Default: 1000
     spins : array_like, optional
@@ -665,11 +643,8 @@ def spin_data(data, surfaces, parcellation, drop=None, method='surface',
         Rotated `data
     """
 
-    if drop is None:
-        drop = PARCIGNORE
-
     # get coordinates and hemisphere designation for spin generation
-    vertices = parcels_to_vertices(data, parcellation, drop=drop)
+    vertices = parcels_to_vertices(data, parcellation)
 
     if spins is None:
         coords, hemiid = get_parcel_centroids(surfaces, method=method)
@@ -690,8 +665,7 @@ def spin_data(data, surfaces, parcellation, drop=None, method='surface',
         if verbose:
             msg = f'Reducing vertices to parcels: {n:>5}/{n_rotate}'
             print(msg, end='\b' * len(msg), flush=True)
-        spun[..., n] = vertices_to_parcels(vertices[spins[:, n]],
-                                           parcellation, drop=drop)
+        spun[..., n] = vertices_to_parcels(vertices[spins[:, n]], parcellation)
 
     if verbose:
         print(' ' * len(msg) + '\b' * len(msg), end='', flush=True)

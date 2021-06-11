@@ -409,7 +409,7 @@ def relabel_gifti(parcellation, background=None, offset=None):
         lt = {v: k for k, v in img.labeltable.get_labels_as_dict().items()}
 
         # get rid of labels we want to drop
-        if background is not None:
+        if background is not None and len(labels) > 0:
             for val in background:
                 idx = lt.get(val, 0)
                 if idx == 0:
@@ -421,10 +421,11 @@ def relabel_gifti(parcellation, background=None, offset=None):
         data = _relabel(data, minval=minval, bgval=0)
         ids = np.unique(data)
         new_labels = []
-        for n, i in enumerate(ids):
-            lab = labels[n]
-            lab.key = i
-            new_labels.append(lab)
+        if len(labels) > 0:
+            for n, i in enumerate(ids):
+                lab = labels[n]
+                lab.key = i
+                new_labels.append(lab)
         minval = len(ids) - 1 if offset is None else int(offset) - 1
 
         # make new gifti image with updated information
@@ -438,7 +439,7 @@ def relabel_gifti(parcellation, background=None, offset=None):
     return relabelled
 
 
-def annot_to_gifti(parcellation):
+def annot_to_gifti(parcellation, background=None):
     """
     Converts FreeSurfer-style annotation `parcellation` files to GIFTI images
 
@@ -446,6 +447,11 @@ def annot_to_gifti(parcellation):
     ----------
     parcellation : tuple of str or os.PathLike
         Paths to surface annotation files (.annot)
+    background : list-of-str, optional
+        If provided, a list of IDs in `parcellation` that should be set to 0
+        (the presumptive background value). Other IDs will be shifted so they
+        are consecutive (i.e., 0--N). If not specified will use labels in
+        `brainnotation.images.PARCIGNORE`. Default: None
 
     Returns
     -------
@@ -471,7 +477,7 @@ def annot_to_gifti(parcellation):
 
         gifti += (nib.GiftiImage(darrays=[darr], labeltable=labeltable),)
 
-    return gifti
+    return relabel_gifti(gifti, background=background)
 
 
 def dlabel_to_gifti(parcellation):
