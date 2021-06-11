@@ -59,6 +59,12 @@ def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE'):
         Shape image
     """
 
+    intent_dtypes = {
+        'NIFTI_INTENT_SHAPE': 'float32',
+        'NIFTI_INTENT_LABEL': 'int32'
+    }
+    dtype = intent_dtypes.get(intent, 'float32')
+
     if data.ndim == 1:
         data = data[:, None]
     if names is not None:
@@ -70,8 +76,8 @@ def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE'):
         names = [{} for _ in range(data.shape[1])]
 
     return nib.GiftiImage(darrays=[
-        nib.gifti.GiftiDataArray(darr.astype('float32'), intent=intent,
-                                 datatype='NIFTI_TYPE_FLOAT32',
+        nib.gifti.GiftiDataArray(darr.astype(dtype), intent=intent,
+                                 datatype=f'NIFTI_TYPE_{dtype.upper()}',
                                  meta=meta)
         for darr, meta in zip(data.T, names)
     ])
