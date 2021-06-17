@@ -27,34 +27,33 @@ def _array_to_gifti(data):
 
 
 class Parcellater():
+    """
+    Class for parcellating arbitrary volumetric / surface data
+
+    Parameters
+    ----------
+    parcellation : str or os.PathLike or Nifti1Image or GiftiImage or tuple
+        Parcellation image or surfaces, where each region is identified by a
+        unique integer ID. All regions with an ID of 0 are ignored.
+    space : str
+        The space in which `parcellation` is defined
+    resampling_target : {'data', 'parcellation', None}, optional
+        Gives which image gives the final shape/size. For example, if
+        `resampling_target` is 'data', the `parcellation` is resampled to the
+        space + resolution of the data, if needed. If it is 'parcellation' then
+        any data provided to `.fit()` are transformed to the space + resolution
+        of `parcellation`. Providing None means no resampling; if spaces +
+        resolutions of the `parcellation` and data provided to `.fit()` do not
+        match a ValueError is raised. Default: 'data'
+    hemi : {'L', 'R'}, optional
+        If provided `parcellation` represents only one hemisphere of a surface
+        atlas then this specifies which hemisphere. If not specified it is
+        assumed that `parcellation` is (L, R) hemisphere. Ignored if `space` is
+        'MNI152'. Default: None
+    """
+
     def __init__(self, parcellation, space, resampling_target='data',
                  hemi=None):
-        """
-        Class for parcellating arbitrary volumetric / surface data
-
-        Parameters
-        ----------
-        parcellation : str or os.PathLike or Nifti1Image or GiftiImage or tuple
-            Parcellation image or surfaces, where each region is identified by
-            a unique integer ID. All regions with an ID of 0 are ignored.
-        space : str
-            The space in which `parcellation` is defined
-        resampling_target : {'data', 'parcellation', None}, optional
-            Gives which image gives the final shape/size. For example, if
-            `resampling_target` is 'data', the `parcellation` is resampled to
-            the space + resolution of the data, if needed. If it is
-            'parcellation' then any data provided to `.fit()` are transformed
-            to the space + resolution of `parcellation`. Providing None means
-            no resampling; if spaces + resolutions of the `parcellation` and
-            data provided to `.fit()` do not match a ValueError is raised.
-            Default: 'data'
-        hemi : {'L', 'R'}, optional
-            If provided `parcellation` represents only one hemisphere of a
-            surface atlas then this specifies which hemisphere. If not
-            specified it is assumed that `parcellation` is (L, R) hemisphere.
-            Ignored if `space` is 'MNI152'. Default: None
-        """
-
         self.parcellation = parcellation
         self.space = ALIAS.get(space, space)
         self.resampling_target = resampling_target
@@ -114,8 +113,8 @@ class Parcellater():
         self._check_fitted()
 
         space = ALIAS.get(space, space)
-        if (self.resampling_target == 'data' and space == 'MNI152' and
-                not self._volumetric):
+        if (self.resampling_target == 'data' and space == 'MNI152'
+                and not self._volumetric):
             raise ValueError('Cannot use resampling_target="data" when '
                              'provided parcellation is in surface space and '
                              'provided data are in MNI1512 space.')
