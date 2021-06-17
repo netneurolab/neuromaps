@@ -14,7 +14,8 @@ from brainnotation.datasets.utils import get_data_dir, get_dataset_info
 
 SURFACE = namedtuple('Surface', ('L', 'R'))
 ALIAS = dict(
-    fslr='fsLR', fsavg='fsaverage', mni152='MNI152', mni='MNI152'
+    fslr='fsLR', fsavg='fsaverage', mni152='MNI152', mni='MNI152',
+    FSLR='fsLR', CIVET='civet'
 )
 DENSITIES = dict(
     civet=['41k', '164k'],
