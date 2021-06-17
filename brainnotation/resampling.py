@@ -164,10 +164,10 @@ Returns
 
 def transform_to_alt(src, trg, src_space, trg_space, method='linear',
                      hemi=None, alt_space='fsaverage', alt_density='41k'):
-    src = transform_to_trg(src, alt_density, src_space, alt_space,
-                           hemi=hemi, method=method)
-    trg = transform_to_trg(trg, alt_density, trg_space, alt_space,
-                           hemi=hemi, method=method)
+    src, _ = transform_to_trg(src, alt_density, src_space, alt_space,
+                              hemi=hemi, method=method)
+    trg, _ = transform_to_trg(trg, alt_density, trg_space, alt_space,
+                              hemi=hemi, method=method)
 
     return src, trg
 
@@ -315,7 +315,7 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
         func = globals()[resampling]
         src, trg = func(src, trg, src_space, trg_space, hemi=hemi,
                         method=method, **opts)
-        src = tuple(load_gifti(s) for s in src),
+        src = tuple(load_gifti(s) for s in src)
         trg = tuple(load_gifti(t) for t in trg)
 
     return src, trg
