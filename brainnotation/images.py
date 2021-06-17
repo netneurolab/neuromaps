@@ -4,7 +4,9 @@ Functions for operating on images + surfaces
 """
 
 import gzip
+import os
 from pathlib import Path
+from typing import Iterable
 
 import nibabel as nib
 from nibabel.filebasedimages import ImageFileError
@@ -163,6 +165,33 @@ def load_gifti(img):
             raise err
 
     return img
+
+
+def load_data(data):
+    """
+    Small utility function to load + stack `data` images (gifti / nifti)
+
+    Parameters
+    ----------
+    data : tuple-of-str or os.PathLike or nib.GiftiImage or nib.Nifti1Image
+        Data to be loaded
+
+    Returns
+    -------
+    out : np.ndarray
+        Loaded `data`
+    """
+
+    if isinstance(data, (str, os.PathLike)) or not isinstance(data, Iterable):
+        data = (data,)
+
+    out = ()
+    for img in data:
+        try:
+            out += (load_gifti(img).agg_data(),)
+        except (AttributeError, TypeError):
+            out += (load_nifti(img).get_fdata(),)
+    return np.hstack(out)
 
 
 def obj_to_gifti(obj, fn=None):
@@ -533,7 +562,7 @@ def dlabel_to_gifti(parcellation):
     return gifti
 
 
-def minc2nii(img, fn=None):
+def minc_to_nifti(img, fn=None):
     """
     Converts MINC `img` to NIfTI format (and re-orients to RAS)
 
