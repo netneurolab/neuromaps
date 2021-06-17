@@ -23,4 +23,8 @@ if [ -n "${OPTIONAL_DEPENDS}" ]; then
     done
 fi
 
+wget https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip
+unzip workbench-linux64-v1.5.0.zip -d "${HOME}"
+echo "${HOME}/workbench/bin_linux64" >> "${GITHUB_PATH}"
+
 echo "Finished installed dependencies"
