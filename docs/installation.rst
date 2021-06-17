@@ -9,10 +9,10 @@ Installation and setup
 Requirements
 ============
 
-In order to effectively use `brainnotation` you must have the `Connectome
+In order to effectively use ``brainnotation`` you must have the `Connectome
 Workbench <https://www.humanconnectome.org/software/connectome-workbench>`_
 installed and accesible on your computer. Large portions of the functionality
-of the `brainnotation` toolbox rely on a few of the functions from the
+of the ``brainnotation`` toolbox rely on a few of the functions from the
 Connectome Workbench. You can follow `instructions here
 <https://www.humanconnectome.org/software/get-connectome-workbench>`_ for
 installing it. Once you have installed it open your terminal and type
