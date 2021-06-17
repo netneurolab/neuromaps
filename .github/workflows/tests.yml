@@ -1,0 +1,93 @@
+name: run-tests
+
+on: [push, pull_request]
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  check_skip:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.result_step.outputs.ci-skip }}
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - id: result_step
+        uses: mstachniuk/ci-skip@master
+        with:
+          commit-filter: '[skip ci];[ci skip];[skip github]'
+          commit-filter-separator: ';'
+
+  checks:
+    needs: check_skip
+    if: ${{ needs.check_skip.outputs.skip == 'false' }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['ubuntu-latest']
+        python-version: ['3.7', '3.8', '3.9']
+        architecture: ['x64', 'x86']
+        install: ['setup']
+        check: ['test']
+        optional-depends: ['']
+        include:
+          - os: ubuntu-latest
+            python-version: 3.8
+            install: setup
+            check: style
+            optional-depends: ''
+          - os: ubuntu-latest
+            python-version: 3.8
+            install: setup
+            check: doc
+            optional-depends: ''
+          - os: ubuntu-latest
+            python-version: 3.8
+            install: sdist
+            check: test
+            optional-depends: ''
+          - os: ubuntu-latest
+            python-version: 3.8
+            install: wheel
+            check: test
+            optional-depends: ''
+        exclude:
+          - os: ubuntu-latest
+            architecture: x86
+          - os: macos-latest
+            architecture: x86
+    env:
+      INSTALL_TYPE: ${{ matrix.install }}
+      CHECK_TYPE: ${{ matrix.check }}
+      OPTIONAL_DEPENDS: ${{ matrix.optional-depends }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+          fetch-depth: 0
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Display Python version
+        run: python -c "import sys; print(sys.version)"
+      - name: Install dependencies
+        run: ./tools/install_dependencies.sh
+      - name: Install brainnotation
+        run: ./tools/install_package.sh
+      - name: Run tests
+        run: ./tools/run_checks.sh
+      - uses: codecov/codecov-action@v1
+        with:
+          file: for_testing/coverage.xml
+        if: ${{ always() }}
+      - name: Upload pytest test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: pytest-results-${{ matrix.os }}-${{ matrix.python-version }}
+          path: for_testing/test-results.xml
+        if: ${{ always() && matrix.check == 'test' }}
