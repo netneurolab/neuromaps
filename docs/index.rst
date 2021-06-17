@@ -8,4 +8,5 @@ Contents
 
    installation
    usage
+   auto_examples/index.rst
    api

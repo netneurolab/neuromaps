@@ -8,23 +8,6 @@ Reference API
 .. contents:: **List of modules**
    :local:
 
-.. _ref_primary:
-
-:mod:`brainnotation` - Primary functions
-----------------------------------------
-.. automodule:: brainnotation
-   :no-members:
-   :no-inherited-members:
-
-.. currentmodule:: brainnotation
-
-.. autosummary::
-   :template: function.rst
-   :toctree: generated/
-
-   brainnotation.resample_images
-   brainnotation.correlate_images
-
 .. _ref_datasets:
 
 :mod:`brainnotation.datasets` - Dataset fetchers
@@ -67,10 +50,14 @@ Reference API
    :template: function.rst
    :toctree: generated/
 
+
+   brainnotation.images.load_gifti
+   brainnotation.images.load_nifti
+
    brainnotation.images.average_surfaces
    brainnotation.images.interp_surface
    brainnotation.images.vertex_areas
-   brainnotation.images.load_gifti
+
    brainnotation.images.relabel_gifti
    brainnotation.images.annot_to_gifti
    brainnotation.images.dlabel_to_gifti
@@ -99,9 +86,26 @@ Reference API
    brainnotation.nulls.hungarian
    brainnotation.nulls.baum
    brainnotation.nulls.cornblath
+
    brainnotation.nulls.burt2018
    brainnotation.nulls.burt2020
    brainnotation.nulls.moran
+
+.. _ref_parcellating:
+
+:mod:`brainnotation.parcellate` - Parcellation utilities
+--------------------------------------------------------
+.. automodule:: brainnotation.parcellate
+   :no-members:
+   :no-inherited-members:
+
+.. currentmodule:: brainnotation.parcellate
+
+.. autosummary::
+   :template: class.rst
+   :toctree: generated/
+
+   brainnotation.parcellate.Parcellater
 
 .. _ref_plotting:
 
@@ -118,6 +122,23 @@ Reference API
    :toctree: generated/
 
    brainnotation.plotting.plot_surf_template
+
+.. _ref_resampling:
+
+:mod:`brainnotation.resampling` - Resampling workflows
+------------------------------------------------------
+.. automodule:: brainnotation.resampling
+    :no-members:
+    :no-inherited-members:
+
+.. currentmodule:: brainnotation.resampling
+
+.. autosummary::
+    :template: function.rst
+    :toctree: generated/
+
+    brainnotation.resampling.resample_images
+
 
 .. _ref_transforms:
 
@@ -148,3 +169,20 @@ Reference API
    brainnotation.transforms.fslr_to_fslr
    brainnotation.transforms.fsaverage_to_fsaverage
 
+.. _ref_stats:
+
+:mod:`brainnotation.stats` - Statistical functions
+--------------------------------------------------
+.. automodule:: brainnotation.stats
+   :no-members:
+   :no-inherited-members:
+
+.. currentmodule:: brainnotation.stats
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
+
+   brainnotation.stats.correlate_images
+   brainnotation.stats.efficient_pearsonr
+   brainnotation.stats.permtest_pearsonr
