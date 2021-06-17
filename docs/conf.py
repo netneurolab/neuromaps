@@ -108,7 +108,10 @@ intersphinx_mapping = {
 
 doctest_global_setup = """\
 import numpy as np
-np.random.seed(1234)\
+np.random.seed(1234)
+
+from brainnotation.dasets import fetch_all_atlases
+fetch_all_atlases(verbose=0)\
 """
 
 sphinx_gallery_conf = {
