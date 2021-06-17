@@ -97,11 +97,15 @@ def naive_nonparametric(data, atlas='fsaverage', density='10k',
                         parcellation=None, n_perm=1000, seed=None, spins=None,
                         surfaces=None):
     rs = check_random_state(seed)
-    if spins is not None:
-        if surfaces is None:
-            surfaces = fetch_atlas(atlas, density)['sphere']
-        coords, _ = get_parcel_centroids(surfaces, parcellation=parcellation,
-                                         method='surface')
+    if spins is None:
+        if data is None:
+            if surfaces is None:
+                surfaces = fetch_atlas(atlas, density)['sphere']
+            coords, _ = get_parcel_centroids(surfaces,
+                                             parcellation=parcellation,
+                                             method='surface')
+        else:
+            coords = np.asarray(data)
         spins = np.column_stack([
             rs.permutation(len(coords)) for _ in range(n_perm)
         ])
