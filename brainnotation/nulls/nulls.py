@@ -27,6 +27,11 @@ HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 
 _nulls_input_docs = dict(
+    data_or_none="""\
+data : (N,) array_like
+    Input data from which to generate null maps. If None is provided then the
+    resampling array will be returned instead.\
+""",
     data="""\
 data : (N,) array_like
     Input data from which to generate null maps\
@@ -57,6 +62,12 @@ spins : array_like or str or os.PathLike
     Filepath to or pre-loaded resampling array. If not specified spins are
     generated. Default: None\
 """,
+    surfaces="""\
+surfaces : tuple-of-str or os.PathLike, optional
+    Instead of specifying `atlas` and `density` this specifies the surface
+    files on which `data` are defined. Providing this will override arguments
+    supplied to `atlas` and `density`. Default: None
+""",
     n_proc="""\
 n_proc : int, optional
     Number of processors to use for parallelizing computations. If negative
@@ -65,8 +76,9 @@ n_proc : int, optional
 """,
     distmat="""\
 distmat : tuple-of-str or os.PathLike, optional
-    Filepaths to pre-computed (left, right) surface distance matrices. Default:
-    None\
+    Filepaths to pre-computed (left, right) surface distance matrices.
+    Providing this will cause `atlas`, `density`, and `parcellation` to be
+    ignored. Default: None\
 """,
     kwargs="""\
 kwargs : key-value pairs
@@ -81,15 +93,22 @@ nulls : np.ndarray
 )
 
 
-def naive_nonparametric(data, n_perm=1000, seed=None, spins=None):
-    y = np.asarray(data)
+def naive_nonparametric(data, atlas='fsaverage', density='10k',
+                        parcellation=None, n_perm=1000, seed=None, spins=None,
+                        surfaces=None):
     rs = check_random_state(seed)
     if spins is not None:
+        if surfaces is None:
+            surfaces = fetch_atlas(atlas, density)['sphere']
+        coords, _ = get_parcel_centroids(surfaces, parcellation=parcellation,
+                                         method='surface')
         spins = np.column_stack([
-            rs.permutation(len(y)) for f in range(n_perm)
+            rs.permutation(len(coords)) for _ in range(n_perm)
         ])
     spins = load_spins(spins)
-    return y[spins]
+    if data is None:
+        data = np.arange(len(spins))
+    return np.asarray(data)[spins]
 
 
 naive_nonparametric.__doc__ = """\
@@ -100,10 +119,13 @@ topology to generate null distribution
 
 Parameters
 ----------
-{data}
+{data_or_none}
+{atlas_density}
+{parcellation}
 {n_perm}
 {seed}
 {spins}
+{surfaces}
 
 Returns
 -------
@@ -112,16 +134,18 @@ Returns
 
 
 def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,
-                    n_perm=1000, seed=None, spins=None):
-    y = np.asarray(data)
+                    n_perm=1000, seed=None, spins=None, surfaces=None):
     if spins is None:
-        surfaces = fetch_atlas(atlas, density)['sphere']
+        if surfaces is None:
+            surfaces = fetch_atlas(atlas, density)['sphere']
         coords, hemi = get_parcel_centroids(surfaces,
                                             parcellation=parcellation,
                                             method='surface')
         spins = gen_spinsamples(coords, hemi, n_rotate=n_perm, seed=seed)
     spins = load_spins(spins)
-    return y[spins]
+    if data is None:
+        data = np.arange(len(spins))
+    return np.asarray(data)[spins]
 
 
 alexander_bloch.__doc__ = """\
@@ -133,12 +157,13 @@ are projected to surface and parcels are reassigned based on minimum distances.
 
 Parameters
 ----------
-{data}
+{data_or_none}
 {atlas_density}
 {parcellation}
 {n_perm}
 {seed}
 {spins}
+{surfaces}
 
 Returns
 -------
@@ -157,21 +182,23 @@ vazquez_rodriguez = alexander_bloch
 
 
 def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
-         n_perm=1000, seed=None, spins=None):
+         n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is not None:
         raise ValueError('Cannot use `vasa()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
                          'working with unparcellated data.')
-    y = np.asarray(data)
     if spins is None:
-        surfaces = fetch_atlas(atlas, density)['sphere']
+        if surfaces is None:
+            surfaces = fetch_atlas(atlas, density)['sphere']
         coords, hemi = get_parcel_centroids(surfaces,
                                             parcellation=parcellation,
                                             method='surface')
         spins = gen_spinsamples(coords, hemi, method='vasa', n_rotate=n_perm,
                                 seed=seed)
     spins = load_spins(spins)
-    return y[spins]
+    if data is None:
+        data = np.arange(len(spins))
+    return np.asarray(data)[spins]
 
 
 vasa.__doc__ = """\
@@ -184,12 +211,13 @@ topology)
 
 Parameters
 ----------
-{data}
+{data_or_none}
 {atlas_density}
 {parcellation}
 {n_perm}
 {seed}
 {spins}
+{surfaces}
 
 Returns
 -------
@@ -205,21 +233,23 @@ References
 
 
 def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
-              n_perm=1000, seed=None, spins=None):
+              n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is not None:
         raise ValueError('Cannot use `hungarian()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
                          'instead if working with unparcellated data.')
-    y = np.asarray(data)
     if spins is None:
-        surfaces = fetch_atlas(atlas, density)['sphere']
+        if surfaces is None:
+            surfaces = fetch_atlas(atlas, density)['sphere']
         coords, hemi = get_parcel_centroids(surfaces,
                                             parcellation=parcellation,
                                             method='surface')
         spins = gen_spinsamples(coords, hemi, method='hungarian',
                                 n_rotate=n_perm, seed=seed)
     spins = load_spins(spins)
-    return y[spins]
+    if data is None:
+        data = np.arange(len(spins))
+    return np.asarray(data)[spins]
 
 
 hungarian.__doc__ = """\
@@ -232,12 +262,13 @@ the slight expense of spatial topology)
 
 Parameters
 ----------
-{data}
+{data_or_none}
 {atlas_density}
 {parcellation}
 {n_perm}
 {seed}
 {spins}
+{surfaces}
 
 Returns
 -------
@@ -251,15 +282,19 @@ References
 
 
 def baum(data, atlas='fsaverage', density='10k', parcellation=None,
-         n_perm=1000, seed=None, spins=None):
+         n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is not None:
         raise ValueError('Cannot use `baum()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
                          'working with unparcellated data.')
     y = np.asarray(data)
-    surfaces = fetch_atlas(atlas, density)['sphere']
+    if surfaces is None:
+        surfaces = fetch_atlas(atlas, density)['sphere']
     spins = spin_parcels(surfaces, parcellation,
                          n_rotate=n_perm, spins=spins, seed=seed)
+    if data is None:
+        data = np.arange(len(spins))
+    y = np.asarray(data)
     nulls = y[spins]
     nulls[spins == -1] = np.nan
     return nulls
@@ -274,12 +309,13 @@ generate null distributions. Reassigned parcels are based on the most common
 
 Parameters
 ----------
-{data}
+{data_or_none}
 {atlas_density}
 {parcellation}
 {n_perm}
 {seed}
 {spins}
+{surfaces}
 
 Returns
 -------
@@ -295,13 +331,14 @@ References
 
 
 def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
-              n_perm=1000, seed=None, spins=None):
+              n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is not None:
         raise ValueError('Cannot use `cornblath()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
                          'instead if working with unparcellated data.')
     y = np.asarray(data)
-    surfaces = fetch_atlas(atlas, density)['sphere']
+    if surfaces is None:
+        surfaces = fetch_atlas(atlas, density)['sphere']
     nulls = spin_data(y, surfaces, parcellation,
                       n_rotate=n_perm, spins=spins, seed=seed)
     return nulls
@@ -322,6 +359,7 @@ Parameters
 {n_perm}
 {seed}
 {spins}
+{surfaces}
 
 Returns
 -------
