@@ -330,20 +330,22 @@ def get_surface_distance(surface, parcellation=None, medial=None,
     surface : str or os.PathLike
         Path to surface file on which to calculate distance
     parcellation : str or os.PathLike, optional
-        Path to file with parcel labels for provided `surf`. If provided will
-        calculate parcel-parcel distances instead of vertex distances. Default:
-        None
+        Path to file with parcel labels for provided `surface`. If provided
+        will calculate parcel-parcel distances instead of vertex distances,
+        where parcel-parcel distance is the average distance between all
+        constituent vertices in two parcels. Default: None
     medial : str or os.PathLike, optional
-        Path to file containing labels for vertices corresponding to medial
-        wall. If provided (and `use_wb=False`), will disallow calculation of
-        surface distance along the medial wall. Default: None
+        Path to file indicating which vertices correspond to the medial wall
+        (0 indicates medial wall). If provided will prohibit calculation of
+        surface distance along the medial wall. Superseded by `medial_labels`
+        if both are provided. Default: None
     medial_labels : list of str, optional
         List of parcel names that comprise the medial wall and through which
-        travel should be disallowed (if `dlabel` provided and `use_wb=False`).
-        Will supersede `medial` if both are provided. Default: None
+        travel should be disallowed. Only valid if `parcellation` is provided;
+        supersedes `medial` if both are provided. Default: None
     drop : list of str, optional
         List of parcel names that should be dropped from the final distance
-        matrix (if `dlabel` is provided). If not specified, will ignore all
+        matrix (if `parcellation` is provided). If not specified, will ignore
         parcels commonly used to reference the medial wall (e.g., 'unknown',
         'corpuscallosum', '???', 'Background+FreeSurfer_Defined_Medial_Wall').
         Default: None
@@ -355,7 +357,7 @@ def get_surface_distance(surface, parcellation=None, medial=None,
     Returns
     -------
     distance : (N, N) numpy.ndarray
-        Surface distance between vertices/parcels on `surf`
+        Surface distance between vertices/parcels on `surface`
     """
 
     if drop is None:
@@ -366,12 +368,11 @@ def get_surface_distance(surface, parcellation=None, medial=None,
             medial_labels = [medial_labels]
         drop = set(drop + list(medial_labels))
 
-    # check if dlabel / medial wall files were provided
     vert, faces = load_gifti(surface).agg_data()
     n_vert = vert.shape[0]
     labels, mask = None, np.zeros(n_vert, dtype=bool)
 
-    # get data from dlabel / medial wall files if they provided
+    # get data from parcellation / medial wall files if provided
     if medial is not None:
         mask = np.logical_not(load_gifti(medial).agg_data().astype(bool))
     if parcellation is not None:
@@ -379,7 +380,7 @@ def get_surface_distance(surface, parcellation=None, medial=None,
         labels = load_gifti(parcellation).agg_data()
         mask[labels == 0] = True
 
-    # calculate distance from each vertex to all other parcels
+    # calculate distance from each vertex to all other vertices
     graph = make_surf_graph(vert, faces, mask=mask)
     dist = np.row_stack(Parallel(n_jobs=n_proc, max_nbytes=None)(
         delayed(_get_graph_distance)(n, graph, labels) for n in range(n_vert)
@@ -391,9 +392,10 @@ def get_surface_distance(surface, parcellation=None, medial=None,
             dist[labels == lab].mean(axis=0) for lab in np.unique(labels)
         ])
         dist[np.diag_indices_from(dist)] = 0
+        dist = dist[1:, 1:]
 
     # remove distances for parcels that we aren't interested in
-    return dist[1:, 1:]
+    return dist
 
 
 def _geodesic_parcel_centroid(vertices, faces, inds):
