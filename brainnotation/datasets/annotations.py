@@ -11,14 +11,14 @@ import shutil
 from nilearn.datasets.utils import _fetch_file
 
 from brainnotation.datasets.utils import (get_data_dir, get_dataset_info,
-                                          _get_session)
+                                          _get_token, _get_session)
 
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
 )
 
 
-def _groupby_match(fnames):
+def _groupby_match(fnames, return_single=False):
     """"
     Groups files in `fnames` by (source, desc, space, res/den)
 
@@ -26,6 +26,9 @@ def _groupby_match(fnames):
     ----------
     fnames : list-of-str
         Filenames to be grouped
+    return_single : bool, optional
+        If there is only group of filenames return a list instead of a dict.
+        Default: False
 
     Returns
     -------
@@ -38,7 +41,12 @@ def _groupby_match(fnames):
     for fn in fnames:
         out[MATCH.search(fn).groups()].append(fn)
 
-    return {k: v for k, v in out.items()}
+    out = {k: v if len(v) > 1 else v[0] for k, v in out.items()}
+
+    if return_single and len(out) == 1:
+        out = list(out.values())[0]
+
+    return out
 
 
 def _match_annot(info, **kwargs):
@@ -98,7 +106,7 @@ def _match_annot(info, **kwargs):
 
 def available_annotations(source=None, desc=None, space=None, den=None,
                           res=None, hemi=None, tags=None, format=None,
-                          return_restricted=True):
+                          return_restricted=False):
     """
     Lists datasets available via :func:`~.fetch_annotation`
 
@@ -120,11 +128,12 @@ def available_annotations(source=None, desc=None, space=None, den=None,
     info = _match_annot(get_dataset_info('annotations', return_restricted),
                         source=source, desc=desc, space=space, den=den,
                         res=res, hemi=hemi, tags=tags, format=format)
+    fnames = [dset['fname'] for dset in info]
 
-    return list(_groupby_match([f['fname'] for f in info]).keys())
+    return list(_groupby_match(fnames, return_single=False).keys())
 
 
-def available_tags(return_restricted=True):
+def available_tags(return_restricted=False):
     """
     Returns available tags for querying annotations
 
@@ -149,8 +158,8 @@ def available_tags(return_restricted=True):
 
 
 def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
-                     hemi=None, tags=None, format=None, token=None,
-                     data_dir=None, verbose=1):
+                     hemi=None, tags=None, format=None, return_single=False,
+                     token=None, data_dir=None, verbose=1):
     """
     Downloads files for brain annotations matching requested variables
 
@@ -159,6 +168,9 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     source, desc, space, den, res, hemi, tags, format : str or list-of-str
         Values on which to match annotations. If not specified annotations with
         any value for the relevant key will be matched. Default: None
+    return_single : bool, optional
+        If only one annotation is found matching input parameters return the
+        list of filepaths instead of the standard dictionary. Default: False
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
         also check the environmental variable 'BRAINNOTATION_OSF_TOKEN' if not
@@ -192,8 +204,10 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
                          'annotations set any of the parameters to "all".')
 
     # get info on datasets we need to fetch
+    token = _get_token(token=token)
+    return_restricted = False if (token is None or not token) else True
     data_dir = get_data_dir(data_dir=data_dir)
-    info = _match_annot(get_dataset_info('annotations'),
+    info = _match_annot(get_dataset_info('annotations', return_restricted),
                         source=source, desc=desc, space=space, den=den,
                         res=res, hemi=hemi, tags=tags, format=format)
     if verbose > 1:
@@ -214,4 +228,4 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
             shutil.move(dl_file, fn)
         data.append(str(fn))
 
-    return _groupby_match(data)
+    return _groupby_match(data, return_single=return_single)
