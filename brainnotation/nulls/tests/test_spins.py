@@ -10,7 +10,7 @@ from brainnotation.nulls import spins
 
 
 def test_load_spins():
-    out = np.random.random_integers(size=(100, 100))
+    out = np.random.randint(1000, size=(100, 100), dtype='int32')
     assert out is spins.load_spins(out)
     assert np.allclose(out[:, :10], spins.load_spins(out, n_perm=10))
 

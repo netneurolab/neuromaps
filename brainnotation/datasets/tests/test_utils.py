@@ -31,7 +31,8 @@ def test__get_token():
     os.environ['BRAINNOTATION_OSF_TOKEN'] = 'test_env'
     assert utils._get_token(None) == 'test_env'
     assert utils._get_token('test') == 'test'
-    os.environ['BRAINNOTATION_OSF_TOKEN'] = orig
+    if orig is not None:  # reset env variable
+        os.environ['BRAINNOTATION_OSF_TOKEN'] = orig
 
 
 @pytest.mark.xfail
