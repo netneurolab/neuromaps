@@ -13,7 +13,7 @@ atlases and annotations.
 # fetched "behind-the-scenes" when you call functions that depend on them, but
 # they can be access directly.
 #
-# There is a general purpose :func:`brainnotaiton.datasets.fetch_atlas`
+# There is a general purpose :func:`brainnotation.datasets.fetch_atlas`
 # function that can fetch any of the atlases provided with ``brainnotation``:
 
 from brainnotation import datasets
