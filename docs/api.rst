@@ -123,6 +123,23 @@ Reference API
 
    brainnotation.plotting.plot_surf_template
 
+.. _ref_points:
+
+:mod:`brainnotation.points` - Triangle mesh utilites
+----------------------------------------------------
+.. automodule:: brainnotation.points
+    :no-members:
+    :no-inherited-members:
+
+.. currentmodule:: brainnotation.points
+
+.. autosummary::
+    :template: function.rst
+    :toctree: generated/
+
+    brainnotation.points.make_surf_graph
+    brainnotation.points.get_surface_distance
+
 .. _ref_resampling:
 
 :mod:`brainnotation.resampling` - Resampling workflows
@@ -139,6 +156,23 @@ Reference API
 
     brainnotation.resampling.resample_images
 
+.. _ref_stats:
+
+:mod:`brainnotation.stats` - Statistical functions
+--------------------------------------------------
+.. automodule:: brainnotation.stats
+    :no-members:
+    :no-inherited-members:
+
+.. currentmodule:: brainnotation.stats
+
+.. autosummary::
+    :template: function.rst
+    :toctree: generated/
+
+    brainnotation.stats.correlate_images
+    brainnotation.stats.efficient_pearsonr
+    brainnotation.stats.permtest_pearsonr
 
 .. _ref_transforms:
 
@@ -168,21 +202,3 @@ Reference API
    brainnotation.transforms.fsaverage_to_fslr
    brainnotation.transforms.fslr_to_fslr
    brainnotation.transforms.fsaverage_to_fsaverage
-
-.. _ref_stats:
-
-:mod:`brainnotation.stats` - Statistical functions
---------------------------------------------------
-.. automodule:: brainnotation.stats
-   :no-members:
-   :no-inherited-members:
-
-.. currentmodule:: brainnotation.stats
-
-.. autosummary::
-   :template: function.rst
-   :toctree: generated/
-
-   brainnotation.stats.correlate_images
-   brainnotation.stats.efficient_pearsonr
-   brainnotation.stats.permtest_pearsonr
