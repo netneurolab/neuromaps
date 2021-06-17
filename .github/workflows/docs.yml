@@ -27,7 +27,7 @@ jobs:
       run: |
         pip install ./
 
-    - name: Build the book
+    - name: Build the docs
       run: |
         cd docs && make clean html
 
