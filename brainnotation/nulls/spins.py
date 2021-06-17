@@ -244,7 +244,7 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
     resampling array after each spin. Unfortunately, this can (with some
     frequency) lead to multiple coordinates being re-assigned the same value:
 
-        >>> from brainnotation.nulls import gen_spinsamples
+        >>> from brainnotation.nulls.spins import gen_spinsamples
         >>> coords = [[0, 0, 1], [1, 0, 0], [0, 0, 1], [1, 0, 0]]
         >>> hemi = [0, 0, 1, 1]
         >>> gen_spinsamples(coords, hemi, n_rotate=1, seed=1,
