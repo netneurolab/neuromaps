@@ -1,0 +1,4 @@
+include README.rst LICENSE requirements.txt
+recursive-include brainnotation/datasets/data *
+include versioneer.py
+include brainnotation/_version.py

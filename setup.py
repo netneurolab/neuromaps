@@ -1,12 +1,12 @@
-#!/usr/bin/env python
+import os
+from setuptools import setup
 import sys
 
-from setuptools import setup
+sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-SETUP_REQUIRES = ['setuptools >= 30.3.0']
-SETUP_REQUIRES += ['wheel'] if 'bdist_wheel' in sys.argv else []
+import versioneer
 
 if __name__ == "__main__":
     setup(name='brainnotation',
-          setup_requires=SETUP_REQUIRES,
-          version='0.0.1')
+          version=versioneer.get_version(),
+          cmdclass=versioneer.get_cmdclass())
