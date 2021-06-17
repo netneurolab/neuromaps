@@ -3,7 +3,7 @@ name: deploy-docs
 on:
   push:
     branches:
-    - master
+    - main
     paths:
     - docs/**
     - examples/**
