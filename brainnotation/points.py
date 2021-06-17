@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+"""
+Functions for working with triangle meshes + surfaces
+"""
 
 from joblib import Parallel, delayed
 import numpy as np
