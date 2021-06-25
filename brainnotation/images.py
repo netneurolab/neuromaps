@@ -453,7 +453,7 @@ def relabel_gifti(parcellation, background=None, offset=None):
                 labels = [f for f in labels if f.key != idx]
 
         # reset labels so they're consecutive and update label keys
-        data = _relabel(data, minval=minval, bgval=0)
+        data = _relabel(np.clip(data, 0, None), minval=minval, bgval=0)
         ids = np.unique(data)
         new_labels = []
         if len(labels) > 0:
