@@ -131,10 +131,13 @@ def permtest_pearsonr(a, b, n_perm=1000, seed=0, nulls=None,
     true_corr = efficient_pearsonr(a, b, nan_policy=nan_policy)[0] / 1
     abs_true = np.abs(true_corr)
 
-    if nulls is None:
-        nulls = a[rs.random_integers(len(a), n_perm).argsort()]
-    abs_null = np.abs(efficient_pearsonr(b, nulls, nan_policy=nan_policy)[0])
-    permutations = np.sum(abs_null >= abs_true) + 1
+    permutations = np.ones(true_corr.shape)
+    for perm in range(n_perm):
+        # permute `a` and determine whether correlations exceed original
+        ap = a[rs.permutation(len(a))] if nulls is None else nulls[:, perm]
+        permutations += np.abs(
+            efficient_pearsonr(ap, b, nan_policy=nan_policy)[0]
+        ) >= abs_true
 
     pvals = permutations / (n_perm + 1)  # + 1 in denom accounts for true_corr
 
