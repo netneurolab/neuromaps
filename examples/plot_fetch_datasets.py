@@ -11,14 +11,14 @@ atlases and annotations.
 # Much of the functionality of the ``brainnotation`` toolbox relies on the
 # atlases and atlas files provided with it. In many cases these atlases are
 # fetched "behind-the-scenes" when you call functions that depend on them, but
-# they can be access directly.
+# they can be accessed directly.
 #
 # There is a general purpose :func:`brainnotation.datasets.fetch_atlas`
 # function that can fetch any of the atlases provided with ``brainnotation``:
 
 from brainnotation import datasets
 
-fslr = datasets.fetch_atlas('fslr', '32k')
+fslr = datasets.fetch_atlas(atlas='fslr', density='32k')
 print(fslr.keys())
 
 ###############################################################################
