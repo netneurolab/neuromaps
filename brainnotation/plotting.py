@@ -21,8 +21,8 @@ plt.cm.register_cmap(
 )
 
 
-def plot_surf_template(data, template, density, surf='inflated', space=None,
-                       hemi=None, data_dir=None, **kwargs):
+def plot_surf_template(data, template, density, surf='inflated',
+                       hemi=None, data_dir=None, mask_medial=True, **kwargs):
     """
     Plots `data` on `template` surface
 
@@ -41,6 +41,8 @@ def plot_surf_template(data, template, density, surf='inflated', space=None,
     hemi : {'L', 'R'}, optional
         If `data` is not a tuple, which hemisphere it should be plotted on.
         Default: None
+    mask_medial : bool, optional
+        Whether to mask vertices along the medial wall. Default: True
     kwargs : key-value pairs
         Passed directly to `nilearn.plotting.plot_surf`
 
@@ -58,7 +60,7 @@ def plot_surf_template(data, template, density, surf='inflated', space=None,
                          'and plotting the projection instead.')
     surf, medial = atlas[surf], atlas['medial']
 
-    opts = dict(alpha=1.0)
+    opts = dict(alpha=1.0, threshold=np.spacing(1))
     opts.update(**kwargs)
     if kwargs.get('bg_map') is not None and kwargs.get('alpha') is None:
         opts['alpha'] = 'auto'
@@ -71,8 +73,9 @@ def plot_surf_template(data, template, density, surf='inflated', space=None,
         geom = load_gifti(getattr(surf, hemi)).agg_data()
         img = load_gifti(img).agg_data().astype('float32')
         # set medial wall to NaN; this will avoid it being plotted
-        med = load_gifti(getattr(medial, hemi)).agg_data().astype(bool)
-        img[np.logical_not(med)] = np.nan
+        if mask_medial:
+            med = load_gifti(getattr(medial, hemi)).agg_data().astype(bool)
+            img[np.logical_not(med)] = np.nan
 
         for ax, view in zip(row, ['lateral', 'medial']):
             ax.disable_mouse_rotation()
