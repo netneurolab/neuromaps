@@ -58,7 +58,7 @@ def _estimate_density(data, hemi=None):
 
     density_map = {
         2562: '3k', 4002: '4k', 7842: '8k', 10242: '10k',
-        32492: '32k', 40692: '41k', 163842: '164k'
+        32492: '32k', 40962: '41k', 163842: '164k'
     }
 
     densities = tuple()
@@ -76,7 +76,7 @@ def _estimate_density(data, hemi=None):
         density = density_map.get(n_vert)
         if density is None:
             raise ValueError('Provided data resolution is non-standard. '
-                             'Number of vertices estimated in data: {n_vert}')
+                             f'Number of vertices estimated in data: {n_vert}')
         densities += (density,)
 
     return densities
