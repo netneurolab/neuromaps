@@ -13,7 +13,7 @@ from brainnotation.images import load_data
 
 
 def correlate_images(src, trg, corrtype='pearsonr', ignore_zero=True,
-                     nulls=None):
+                     nulls=None, nan_policy='omit'):
     """
     Correlates images `src` and `trg`
 
@@ -30,7 +30,12 @@ def correlate_images(src, trg, corrtype='pearsonr', ignore_zero=True,
         Whether to perform correlations ignoring all zero values in `src` and
         `trg` data. Default: True
     nulls : array_like, optional
-        Null data for `src`
+        Null data for `src` to use in generating a non-parametric p-value.
+        If not specified a parameteric p-value is generated. Default: None
+    nan_policy : {'propagate', 'raise', 'omit'}, optional
+        Defines how to handle when input contains nan. 'propagate' returns nan,
+        'raise' throws an error, 'omit' performs the calculations ignoring nan
+        values. Default: 'omit'
 
     Returns
     -------
@@ -60,12 +65,14 @@ def correlate_images(src, trg, corrtype='pearsonr', ignore_zero=True,
     if nulls is not None:
         n_perm = nulls.shape[-1]
         nulls = nulls[mask]
-        return permtest_pearsonr(srcdata, trgdata, n_perm=n_perm, nulls=nulls)
+        return permtest_pearsonr(srcdata, trgdata, n_perm=n_perm, nulls=nulls,
+                                 nan_policy=nan_policy)
 
-    return efficient_pearsonr(srcdata, trgdata)
+    return efficient_pearsonr(srcdata, trgdata, nan_policy=nan_policy)
 
 
-def permtest_pearsonr(a, b, n_perm=1000, seed=0, nulls=None):
+def permtest_pearsonr(a, b, n_perm=1000, seed=0, nulls=None,
+                      nan_policy='propagate'):
     """
     Non-parametric equivalent of :py:func:`scipy.stats.pearsonr`
 
@@ -90,6 +97,10 @@ def permtest_pearsonr(a, b, n_perm=1000, seed=0, nulls=None):
         and `b`. Providing this will override the value supplied to `n_perm`.
         When not specified a standard permutation is used to shuffle `a`.
         Default: None
+    nan_policy : {'propagate', 'raise', 'omit'}, optional
+        Defines how to handle when input contains nan. 'propagate' returns nan,
+        'raise' throws an error, 'omit' performs the calculations ignoring nan
+        values. Default: 'omit'
 
     Returns
     -------
@@ -117,14 +128,13 @@ def permtest_pearsonr(a, b, n_perm=1000, seed=0, nulls=None):
         n_perm = nulls.shape[-1]
 
     # divide by one forces coercion to float if ndim = 0
-    true_corr = efficient_pearsonr(a, b)[0] / 1
+    true_corr = efficient_pearsonr(a, b, nan_policy=nan_policy)[0] / 1
     abs_true = np.abs(true_corr)
 
-    permutations = np.ones(true_corr.shape)
-    for perm in range(n_perm):
-        # permute `a` and determine whether correlations exceed original
-        ap = a[rs.permutation(len(a))] if nulls is None else nulls[:, perm]
-        permutations += np.abs(efficient_pearsonr(ap, b)[0]) >= abs_true
+    if nulls is None:
+        nulls = a[rs.random_integers(len(a), n_perm).argsort()]
+    abs_null = np.abs(efficient_pearsonr(b, nulls, nan_policy=nan_policy)[0])
+    permutations = np.sum(abs_null >= abs_true) + 1
 
     pvals = permutations / (n_perm + 1)  # + 1 in denom accounts for true_corr
 
@@ -143,7 +153,7 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate'):
     ddof : int, optional
         Degrees of freedom correction in the calculation of the standard
         deviation. Default: 1
-    nan_policy : bool, optional
+    nan_policy : {'propagate', 'raise', 'omit'}, optional
         Defines how to handle when input contains nan. 'propagate' returns nan,
         'raise' throws an error, 'omit' performs the calculations ignoring nan
         values. Default: 'propagate'
