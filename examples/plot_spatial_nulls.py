@@ -45,8 +45,9 @@ print('Gene PC1: ', genepc)
 # The data returned will always be pre-loaded nibabel image instances:
 
 from brainnotation import resampling
-nsynth, genepc = resampling.resample_images(nsynth, genepc,
-                                            'MNI152', 'fsaverage',
+nsynth, genepc = resampling.resample_images(src=nsynth, trg=genepc,
+                                            src_space='MNI152',
+                                            trg_space='fsaverage',
                                             resampling='transform_to_alt',
                                             alt_spec=('fsaverage', '10k'))
 print(nsynth, genepc)
@@ -80,9 +81,12 @@ print(rotated.shape)
 ###############################################################################
 # We can supply the generated null array to the
 # :func:`brainnotation.stats.correlate_images` function and it will be used to
-# generate a non-parameteric p-value. Note that the correlation remains
-# identical to that above but the p-value has now changed, revealing that the
-# correlation is no longer significant:
+# generate a non-parameteric p-value. The function assumes that the array
+# provided to the `nulls` parameter corresponds to the *first* dataset passed
+# to the function (i.e., `nsynth`).
+#
+# Note that the correlation remains identical to that above but the p-value has
+# now changed, revealing that the correlation is no longer significant:
 
 corr, pval = stats.correlate_images(nsynth, genepc, nulls=rotated)
 print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
