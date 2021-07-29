@@ -1472,6 +1472,26 @@
             "desc": "cmr02",
             "space": "fsLR",
             "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-raichle_desc-cmr02_space-fsLR_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "raichle/cmr02/fsLR/",
+            "checksum": "a3b7aaf1d185f0d6b632ad7f87ad1dce",
+            "title": null,
+            "tags": [
+                "functional", "MRI"
+            ],
+            "redir": null,
+            "url": [
+                "grh4d",
+                "60b9248fcb2a5e032d68dabe"
+            ]
+        },
+        {
+            "source": "raichle",
+            "desc": "cmr02",
+            "space": "fsLR",
+            "den": "164k",
             "hemi": "R",
             "format": "surface",
             "fname": "source-raichle_desc-cmr02_space-fsLR_den-164k_hemi-R_feature.func.gii",
@@ -1485,26 +1505,6 @@
             "url": [
                 "grh4d",
                 "60b924853a6df1034ed50927"
-            ]
-        },
-        {
-            "source": "raichle",
-            "desc": "cmro2",
-            "space": "fsLR",
-            "den": "164k",
-            "hemi": "L",
-            "format": "surface",
-            "fname": "source-raichle_desc-cmro2_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "raichle/cmro2/fsLR/",
-            "checksum": "a3b7aaf1d185f0d6b632ad7f87ad1dce",
-            "title": null,
-            "tags": [
-                "functional", "MRI"
-            ],
-            "redir": null,
-            "url": [
-                "grh4d",
-                "60b9248fcb2a5e032d68dabe"
             ]
         },
         {
