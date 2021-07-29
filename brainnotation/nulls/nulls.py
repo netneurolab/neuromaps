@@ -187,7 +187,7 @@ vazquez_rodriguez = alexander_bloch
 
 def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
          n_perm=1000, seed=None, spins=None, surfaces=None):
-    if parcellation is not None:
+    if parcellation is None:
         raise ValueError('Cannot use `vasa()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
                          'working with unparcellated data.')
@@ -238,7 +238,7 @@ References
 
 def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
               n_perm=1000, seed=None, spins=None, surfaces=None):
-    if parcellation is not None:
+    if parcellation is None:
         raise ValueError('Cannot use `hungarian()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
                          'instead if working with unparcellated data.')
@@ -287,7 +287,7 @@ References
 
 def baum(data, atlas='fsaverage', density='10k', parcellation=None,
          n_perm=1000, seed=None, spins=None, surfaces=None):
-    if parcellation is not None:
+    if parcellation is None:
         raise ValueError('Cannot use `baum()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
                          'working with unparcellated data.')
@@ -336,7 +336,7 @@ References
 
 def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
               n_perm=1000, seed=None, spins=None, surfaces=None):
-    if parcellation is not None:
+    if parcellation is None:
         raise ValueError('Cannot use `cornblath()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
                          'instead if working with unparcellated data.')
