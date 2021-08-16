@@ -12,7 +12,7 @@ import numpy as np
 from scipy.interpolate import interpn
 
 from neuromaps.datasets import (ALIAS, DENSITIES, fetch_atlas,
-                                    fetch_regfusion, get_atlas_dir)
+                                fetch_regfusion, get_atlas_dir)
 from neuromaps.images import construct_shape_gii, load_gifti, load_nifti
 from neuromaps.utils import tmpname, run
 

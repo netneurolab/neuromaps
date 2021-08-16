@@ -22,7 +22,7 @@ from neuromaps.images import load_gifti, PARCIGNORE
 from neuromaps.points import get_surface_distance
 from neuromaps.nulls.burt import batch_surrogates
 from neuromaps.nulls.spins import (gen_spinsamples, get_parcel_centroids,
-                                       load_spins, spin_data, spin_parcels)
+                                   load_spins, spin_data, spin_parcels)
 HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 
