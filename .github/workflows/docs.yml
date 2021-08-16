@@ -25,7 +25,7 @@ jobs:
         unzip workbench-linux64-v1.5.0.zip -d ${HOME}
         echo "$HOME/workbench/bin_linux64" >> $GITHUB_PATH
 
-    - name: Install brainnotation
+    - name: Install neuromaps
       run: |
         pip install ./
 

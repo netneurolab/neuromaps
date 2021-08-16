@@ -4,7 +4,7 @@ Using spatial null models
 =========================
 
 This example demonstrates how to use spatial null models in
-:mod:`brainnotation.nulls` to test the correlation between two brain
+:mod:`neuromaps.nulls` to test the correlation between two brain
 annotations.
 """
 
@@ -16,19 +16,19 @@ annotations.
 # Enter: spatial null models.
 #
 # Spatial null models need to be used whenever you're comparing brain maps. In
-# order to demonstrate how use them in ``brainnotation`` we need two
+# order to demonstrate how use them in ``neuromaps`` we need two
 # annotations to compare. We'll use the first principal component of cognitive
 # terms from NeuroSynth (Yarkoni et al., 2011, Nat Methods) and the first
 # principal component of gene expression across the brain (from the Allen Human
 # Brain Atlas).
 #
 # Note that we pass `return_single=True` to
-# :func:`brainnotation.datasets.fetch_annotation` so that the returned data are
+# :func:`neuromaps.datasets.fetch_annotation` so that the returned data are
 # a list of filepaths rather than the default dictionary format. (This only
 # works since we know that there is only one annotation matching our query; a
 # dictionary will always be returned if multiple annotations match our query.)
 
-from brainnotation import datasets
+from neuromaps import datasets
 nsynth = datasets.fetch_annotation(source='neurosynth', return_single=True)
 genepc = datasets.fetch_annotation(desc='genepc1', return_single=True)
 print('Neurosynth: ', nsynth)
@@ -44,7 +44,7 @@ print('Gene PC1: ', genepc)
 #
 # The data returned will always be pre-loaded nibabel image instances:
 
-from brainnotation import resampling
+from neuromaps import resampling
 nsynth, genepc = resampling.resample_images(src=nsynth, trg=genepc,
                                             src_space='MNI152',
                                             trg_space='fsaverage',
@@ -55,14 +55,14 @@ print(nsynth, genepc)
 ###############################################################################
 # Once the images are resampled we can easily correlate them:
 
-from brainnotation import stats
+from neuromaps import stats
 corr, pval = stats.correlate_images(nsynth, genepc)
 print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
 
 ###############################################################################
 # The returned p-value here is generated from a spatially-naive parameteric
 # distribution, which is inappropriate for brain annotations. Instead, we can
-# opt to use a null model from the :mod:`brainnotation.nulls` module.
+# opt to use a null model from the :mod:`neuromaps.nulls` module.
 #
 # Here, we'll use the original null model proposed be Alexander-Bloch et al.,
 # 2018, *NeuroImage*. We provide one of the maps we're comparing, the space +
@@ -70,9 +70,9 @@ print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
 # return array will be vertices x permutations.
 #
 # (Note that we need to pass the loaded data from the provided map to the null
-# function so we use the :func:`brainnotation.images.load_data` utility.)
+# function so we use the :func:`neuromaps.images.load_data` utility.)
 
-from brainnotation import images, nulls
+from neuromaps import images, nulls
 nsynth_data = images.load_data(nsynth)
 rotated = nulls.alexander_bloch(nsynth_data, atlas='fsaverage', density='10k',
                                 n_perm=100, seed=1234)
@@ -80,7 +80,7 @@ print(rotated.shape)
 
 ###############################################################################
 # We can supply the generated null array to the
-# :func:`brainnotation.stats.correlate_images` function and it will be used to
+# :func:`neuromaps.stats.correlate_images` function and it will be used to
 # generate a non-parameteric p-value. The function assumes that the array
 # provided to the `nulls` parameter corresponds to the *first* dataset passed
 # to the function (i.e., `nsynth`).

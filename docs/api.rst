@@ -1,6 +1,6 @@
 .. _api_ref:
 
-.. currentmodule:: brainnotation
+.. currentmodule:: neuromaps
 
 Reference API
 =============
@@ -10,195 +10,195 @@ Reference API
 
 .. _ref_datasets:
 
-:mod:`brainnotation.datasets` - Dataset fetchers
+:mod:`neuromaps.datasets` - Dataset fetchers
 ------------------------------------------------
-.. automodule:: brainnotation.datasets
+.. automodule:: neuromaps.datasets
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: brainnotation.datasets
+.. currentmodule:: neuromaps.datasets
 
 .. autosummary::
    :template: function.rst
    :toctree: generated/
 
-   brainnotation.datasets.fetch_atlas
-   brainnotation.datasets.fetch_civet
-   brainnotation.datasets.fetch_fsaverage
-   brainnotation.datasets.fetch_fslr
-   brainnotation.datasets.fetch_mni152
-   brainnotation.datasets.fetch_regfusion
-   brainnotation.datasets.fetch_all_atlases
+   neuromaps.datasets.fetch_atlas
+   neuromaps.datasets.fetch_civet
+   neuromaps.datasets.fetch_fsaverage
+   neuromaps.datasets.fetch_fslr
+   neuromaps.datasets.fetch_mni152
+   neuromaps.datasets.fetch_regfusion
+   neuromaps.datasets.fetch_all_atlases
 
-   brainnotation.datasets.available_annotations
-   brainnotation.datasets.available_tags
-   brainnotation.datasets.fetch_annotation
+   neuromaps.datasets.available_annotations
+   neuromaps.datasets.available_tags
+   neuromaps.datasets.fetch_annotation
 
-   brainnotation.datasets.get_atlas_dir
+   neuromaps.datasets.get_atlas_dir
 
 .. _ref_images:
 
-:mod:`brainnotation.images` - Image and surface handling
+:mod:`neuromaps.images` - Image and surface handling
 --------------------------------------------------------
-.. automodule:: brainnotation.images
+.. automodule:: neuromaps.images
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: brainnotation.images
+.. currentmodule:: neuromaps.images
 
 .. autosummary::
    :template: function.rst
    :toctree: generated/
 
 
-   brainnotation.images.load_gifti
-   brainnotation.images.load_nifti
+   neuromaps.images.load_gifti
+   neuromaps.images.load_nifti
 
-   brainnotation.images.average_surfaces
-   brainnotation.images.interp_surface
-   brainnotation.images.vertex_areas
+   neuromaps.images.average_surfaces
+   neuromaps.images.interp_surface
+   neuromaps.images.vertex_areas
 
-   brainnotation.images.relabel_gifti
-   brainnotation.images.annot_to_gifti
-   brainnotation.images.dlabel_to_gifti
-   brainnotation.images.obj_to_gifti
-   brainnotation.images.fssurf_to_gifti
-   brainnotation.images.fsmorph_to_gifti
+   neuromaps.images.relabel_gifti
+   neuromaps.images.annot_to_gifti
+   neuromaps.images.dlabel_to_gifti
+   neuromaps.images.obj_to_gifti
+   neuromaps.images.fssurf_to_gifti
+   neuromaps.images.fsmorph_to_gifti
 
 .. _ref_nulls:
 
-:mod:`brainnotation.nulls` - Null models
+:mod:`neuromaps.nulls` - Null models
 ----------------------------------------
-.. automodule:: brainnotation.nulls
+.. automodule:: neuromaps.nulls
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: brainnotation.nulls
+.. currentmodule:: neuromaps.nulls
 
 .. autosummary::
    :template: function.rst
    :toctree: generated/
 
-   brainnotation.nulls.naive_nonparametric
-   brainnotation.nulls.alexander_bloch
-   brainnotation.nulls.vazquez_rodriguez
-   brainnotation.nulls.vasa
-   brainnotation.nulls.hungarian
-   brainnotation.nulls.baum
-   brainnotation.nulls.cornblath
+   neuromaps.nulls.naive_nonparametric
+   neuromaps.nulls.alexander_bloch
+   neuromaps.nulls.vazquez_rodriguez
+   neuromaps.nulls.vasa
+   neuromaps.nulls.hungarian
+   neuromaps.nulls.baum
+   neuromaps.nulls.cornblath
 
-   brainnotation.nulls.burt2018
-   brainnotation.nulls.burt2020
-   brainnotation.nulls.moran
+   neuromaps.nulls.burt2018
+   neuromaps.nulls.burt2020
+   neuromaps.nulls.moran
 
 .. _ref_parcellating:
 
-:mod:`brainnotation.parcellate` - Parcellation utilities
+:mod:`neuromaps.parcellate` - Parcellation utilities
 --------------------------------------------------------
-.. automodule:: brainnotation.parcellate
+.. automodule:: neuromaps.parcellate
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: brainnotation.parcellate
+.. currentmodule:: neuromaps.parcellate
 
 .. autosummary::
    :template: class.rst
    :toctree: generated/
 
-   brainnotation.parcellate.Parcellater
+   neuromaps.parcellate.Parcellater
 
 .. _ref_plotting:
 
-:mod:`brainnotation.plotting` - Plotting functions
+:mod:`neuromaps.plotting` - Plotting functions
 --------------------------------------------------
-.. automodule:: brainnotation.plotting
+.. automodule:: neuromaps.plotting
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: brainnotation.plotting
+.. currentmodule:: neuromaps.plotting
 
 .. autosummary::
    :template: function.rst
    :toctree: generated/
 
-   brainnotation.plotting.plot_surf_template
+   neuromaps.plotting.plot_surf_template
 
 .. _ref_points:
 
-:mod:`brainnotation.points` - Triangle mesh utilites
+:mod:`neuromaps.points` - Triangle mesh utilites
 ----------------------------------------------------
-.. automodule:: brainnotation.points
+.. automodule:: neuromaps.points
     :no-members:
     :no-inherited-members:
 
-.. currentmodule:: brainnotation.points
+.. currentmodule:: neuromaps.points
 
 .. autosummary::
     :template: function.rst
     :toctree: generated/
 
-    brainnotation.points.make_surf_graph
-    brainnotation.points.get_surface_distance
+    neuromaps.points.make_surf_graph
+    neuromaps.points.get_surface_distance
 
 .. _ref_resampling:
 
-:mod:`brainnotation.resampling` - Resampling workflows
+:mod:`neuromaps.resampling` - Resampling workflows
 ------------------------------------------------------
-.. automodule:: brainnotation.resampling
+.. automodule:: neuromaps.resampling
     :no-members:
     :no-inherited-members:
 
-.. currentmodule:: brainnotation.resampling
+.. currentmodule:: neuromaps.resampling
 
 .. autosummary::
     :template: function.rst
     :toctree: generated/
 
-    brainnotation.resampling.resample_images
+    neuromaps.resampling.resample_images
 
 .. _ref_stats:
 
-:mod:`brainnotation.stats` - Statistical functions
+:mod:`neuromaps.stats` - Statistical functions
 --------------------------------------------------
-.. automodule:: brainnotation.stats
+.. automodule:: neuromaps.stats
     :no-members:
     :no-inherited-members:
 
-.. currentmodule:: brainnotation.stats
+.. currentmodule:: neuromaps.stats
 
 .. autosummary::
     :template: function.rst
     :toctree: generated/
 
-    brainnotation.stats.correlate_images
-    brainnotation.stats.efficient_pearsonr
-    brainnotation.stats.permtest_pearsonr
+    neuromaps.stats.correlate_images
+    neuromaps.stats.efficient_pearsonr
+    neuromaps.stats.permtest_pearsonr
 
 .. _ref_transforms:
 
-:mod:`brainnotation.transforms` - Transformations between spaces
+:mod:`neuromaps.transforms` - Transformations between spaces
 ----------------------------------------------------------------
-.. automodule:: brainnotation.transforms
+.. automodule:: neuromaps.transforms
    :no-members:
    :no-inherited-members:
 
-.. currentmodule:: brainnotation.transforms
+.. currentmodule:: neuromaps.transforms
 
 .. autosummary::
    :template: function.rst
    :toctree: generated/
 
-   brainnotation.transforms.mni152_to_civet
-   brainnotation.transforms.mni152_to_fsaverage
-   brainnotation.transforms.mni152_to_fslr
-   brainnotation.transforms.mni152_to_mni152
+   neuromaps.transforms.mni152_to_civet
+   neuromaps.transforms.mni152_to_fsaverage
+   neuromaps.transforms.mni152_to_fslr
+   neuromaps.transforms.mni152_to_mni152
 
-   brainnotation.transforms.civet_to_fslr
-   brainnotation.transforms.fslr_to_civet
-   brainnotation.transforms.civet_to_fsaverage
-   brainnotation.transforms.fsaverage_to_civet
-   brainnotation.transforms.civet_to_civet
-   brainnotation.transforms.fslr_to_fsaverage
-   brainnotation.transforms.fsaverage_to_fslr
-   brainnotation.transforms.fslr_to_fslr
-   brainnotation.transforms.fsaverage_to_fsaverage
+   neuromaps.transforms.civet_to_fslr
+   neuromaps.transforms.fslr_to_civet
+   neuromaps.transforms.civet_to_fsaverage
+   neuromaps.transforms.fsaverage_to_civet
+   neuromaps.transforms.civet_to_civet
+   neuromaps.transforms.fslr_to_fsaverage
+   neuromaps.transforms.fsaverage_to_fslr
+   neuromaps.transforms.fslr_to_fslr
+   neuromaps.transforms.fsaverage_to_fsaverage

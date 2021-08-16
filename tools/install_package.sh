@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-echo "Building and installing brainnotation"
+echo "Building and installing neuromaps"
 
 python -m build
 
@@ -14,8 +14,8 @@ else
   false
 fi
 
-python -c 'import brainnotation; print(brainnotation.__version__)'
+python -c 'import neuromaps; print(neuromaps.__version__)'
 
-pip install "brainnotation[$CHECK_TYPE]"
+pip install "neuromaps[$CHECK_TYPE]"
 
-echo "Done installing brainnotation"
+echo "Done installing neuromaps"

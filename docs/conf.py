@@ -14,17 +14,17 @@ import sys
 # -- Project information -----------------------------------------------------
 
 # Add project name, copyright holder, and author(s)
-project = 'brainnotation'
-copyright = '2021, brainnotation developers'
+project = 'neuromaps'
+copyright = '2021, neuromaps developers'
 author = 'Network Neuroscience Lab'
 
 # Import project to get version info
 sys.path.insert(0, os.path.abspath(os.path.pardir))
-import brainnotation  # noqa
+import neuromaps  # noqa
 # The short X.Y version
-version = brainnotation.__version__
+version = neuromaps.__version__
 # The full version, including alpha/beta/rc tags
-release = brainnotation.__version__
+release = neuromaps.__version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -96,7 +96,7 @@ html_css_files = ['theme_overrides.css']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'brainnotationdoc'
+htmlhelp_basename = 'neuromapsdoc'
 
 # -- Extension configuration -------------------------------------------------
 intersphinx_mapping = {
@@ -110,15 +110,15 @@ doctest_global_setup = """\
 import numpy as np
 np.random.seed(1234)
 
-from brainnotation.dasets import fetch_all_atlases
+from neuromaps.dasets import fetch_all_atlases
 fetch_all_atlases(verbose=0)\
 """
 
 sphinx_gallery_conf = {
-    'doc_module': 'brainnotation',
+    'doc_module': 'neuromaps',
     'backreferences_dir': os.path.join('generated', 'modules'),
     'reference_url': {
-        'brainnotation': None
+        'neuromaps': None
     },
     'thumbnail_size': (250, 250),
     'ignore_pattern': r'/wip.*\.py',

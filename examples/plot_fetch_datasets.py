@@ -3,20 +3,20 @@
 Fetching atlases and annotations
 ================================
 
-This example demonstrates how to use :mod:`brainnotation.datasets` to fetch
+This example demonstrates how to use :mod:`neuromaps.datasets` to fetch
 atlases and annotations.
 """
 
 ###############################################################################
-# Much of the functionality of the ``brainnotation`` toolbox relies on the
+# Much of the functionality of the ``neuromaps`` toolbox relies on the
 # atlases and atlas files provided with it. In many cases these atlases are
 # fetched "behind-the-scenes" when you call functions that depend on them, but
 # they can be accessed directly.
 #
-# There is a general purpose :func:`brainnotation.datasets.fetch_atlas`
-# function that can fetch any of the atlases provided with ``brainnotation``:
+# There is a general purpose :func:`neuromaps.datasets.fetch_atlas`
+# function that can fetch any of the atlases provided with ``neuromaps``:
 
-from brainnotation import datasets
+from neuromaps import datasets
 
 fslr = datasets.fetch_atlas(atlas='fslr', density='32k')
 print(fslr.keys())
@@ -34,7 +34,7 @@ lvert, ltri = nib.load(lsphere).agg_data()
 print(lvert.shape, ltri.shape)
 
 ###############################################################################
-# The other datasets that are provided with ``brainnotation`` are annotations
+# The other datasets that are provided with ``neuromaps`` are annotations
 # (i.e., brain maps!). While we are slowly making more and more of these openly
 # available, for now only a subset are accessible to the general public; these
 # are returned by default via :func:`datasets.available_annotations`.
@@ -81,7 +81,7 @@ print(fmri_annotations)
 
 ###############################################################################
 # Once we have an annotation that we want we can use the
-# :func:`brainnotation.datasets.fetch_annotation` to actually download the
+# :func:`neuromaps.datasets.fetch_annotation` to actually download the
 # files. This has a very similar signature to the
 # :func:`~.available_annotations` function, accepting almost all the same
 # keyword arguments to specify which annotations are desired.
@@ -104,5 +104,5 @@ print(abagen)
 
 ###############################################################################
 # And that's it! This example provided a quick overview on how to fetch the
-# various atlases and datasets provided with ``brainnotation``. For more
+# various atlases and datasets provided with ``neuromaps``. For more
 # information please refer to the :ref:`API reference <ref_datasets>`.

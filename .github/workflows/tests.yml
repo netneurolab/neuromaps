@@ -77,7 +77,7 @@ jobs:
         run: python -c "import sys; print(sys.version)"
       - name: Install dependencies
         run: ./tools/install_dependencies.sh
-      - name: Install brainnotation
+      - name: Install neuromaps
         run: ./tools/install_package.sh
       - name: Run tests
         run: ./tools/run_checks.sh
