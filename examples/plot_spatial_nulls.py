@@ -56,18 +56,18 @@ print(nsynth, genepc)
 # Once the images are resampled we can easily correlate them:
 
 from neuromaps import stats
-corr, pval = stats.compare_images(nsynth, genepc)
-print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
+corr = stats.compare_images(nsynth, genepc)
+print(f'Correlation: r = {corr:.02f}')
 
 ###############################################################################
-# The returned p-value here is generated from a spatially-naive parameteric
-# distribution, which is inappropriate for brain annotations. Instead, we can
-# opt to use a null model from the :mod:`neuromaps.nulls` module.
+# What if we want to assess the statistical significance of this correlation?
+# In this case, we can use a null model from the :mod:`neuromaps.nulls` module.
 #
-# Here, we'll use the original null model proposed be Alexander-Bloch et al.,
-# 2018, *NeuroImage*. We provide one of the maps we're comparing, the space +
-# density of the map, and the number of permutations we want to generate. The
-# return array will be vertices x permutations.
+# Here, we'll employ the null model proposed in Alexander-Bloch et al., 2018,
+# *NeuroImage*. We provide one of the maps we're comparing, the space + density
+# of the map, and the number of permutations we want to generate. The returned
+# array will have two dimensions, where each row corresponds to a vertex and
+# each column to a unique permutation.
 #
 # (Note that we need to pass the loaded data from the provided map to the null
 # function so we use the :func:`neuromaps.images.load_data` utility.)
@@ -85,8 +85,8 @@ print(rotated.shape)
 # provided to the `nulls` parameter corresponds to the *first* dataset passed
 # to the function (i.e., `nsynth`).
 #
-# Note that the correlation remains identical to that above but the p-value has
-# now changed, revealing that the correlation is no longer significant:
+# Note that the correlation remains identical to that above but the p-value is
+# now returned as well:
 
 corr, pval = stats.compare_images(nsynth, genepc, nulls=rotated)
 print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
