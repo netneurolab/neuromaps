@@ -10,17 +10,17 @@ from neuromaps import stats
 
 
 @pytest.mark.xfail
-def test_correlate_images():
+def test_compare_images():
     assert False
 
 
-def test_permtest_pearsonr():
+def test_permtest_metric():
     rs = np.random.default_rng(12345678)
     x, y = rs.random(size=(2, 100))
-    r, p = stats.permtest_pearsonr(x, y)
+    r, p = stats.permtest_metric(x, y)
     assert np.allclose([r, p], [0.0345815411043023, 0.7192807192807192])
 
-    r, p = stats.permtest_pearsonr(np.c_[x, x[::-1]], np.c_[y, y])
+    r, p = stats.permtest_metric(np.c_[x, x[::-1]], np.c_[y, y])
     assert np.allclose(r, [0.0345815411043023, 0.03338608427980476])
     assert np.allclose(p, [0.7192807192807192, 0.7472527472527473])
 
