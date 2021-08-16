@@ -1,5 +1,5 @@
 neuromaps
-=============
+=========
 
 The ``neuromaps`` toolbox is designed to help researchers make easy,
 statistically-rigorous comparisons between brain maps (or brain annotations).
@@ -22,7 +22,7 @@ with:
 
 .. code-block:: bash
 
-    git clone https://github.com/rmarkello/neuromaps
+    git clone https://github.com/netneurolab/neuromaps
     cd neuromaps
     pip install neuromaps
 

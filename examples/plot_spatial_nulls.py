@@ -56,7 +56,7 @@ print(nsynth, genepc)
 # Once the images are resampled we can easily correlate them:
 
 from neuromaps import stats
-corr, pval = stats.correlate_images(nsynth, genepc)
+corr, pval = stats.compare_images(nsynth, genepc)
 print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
 
 ###############################################################################
@@ -80,7 +80,7 @@ print(rotated.shape)
 
 ###############################################################################
 # We can supply the generated null array to the
-# :func:`neuromaps.stats.correlate_images` function and it will be used to
+# :func:`neuromaps.stats.compare_images` function and it will be used to
 # generate a non-parameteric p-value. The function assumes that the array
 # provided to the `nulls` parameter corresponds to the *first* dataset passed
 # to the function (i.e., `nsynth`).
@@ -88,7 +88,7 @@ print(rotated.shape)
 # Note that the correlation remains identical to that above but the p-value has
 # now changed, revealing that the correlation is no longer significant:
 
-corr, pval = stats.correlate_images(nsynth, genepc, nulls=rotated)
+corr, pval = stats.compare_images(nsynth, genepc, nulls=rotated)
 print(f'Correlation: r = {corr:.02f}, p = {pval:.04f}')
 
 ###############################################################################
