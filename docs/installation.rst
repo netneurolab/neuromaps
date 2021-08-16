@@ -32,11 +32,11 @@ This package requires Python 3.7+. Assuming you have the correct version of
 Python installed, you can install ``neuromaps`` by opening a terminal and
 running the following:
 
-.. code-block:: bash
+.. .. code-block:: bash
 
-    pip install neuromaps
+..     pip install neuromaps
 
-Alternatively, you can install the most up-to-date version of from GitHub:
+.. Alternatively, you can install the most up-to-date version of from GitHub:
 
 .. code-block:: bash
 
