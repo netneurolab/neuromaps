@@ -7,6 +7,6 @@ sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 import versioneer
 
 if __name__ == "__main__":
-    setup(name='brainnotation',
+    setup(name='neuromaps',
           version=versioneer.get_version(),
           cmdclass=versioneer.get_cmdclass())

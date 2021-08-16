@@ -1,4 +1,4 @@
 include README.rst LICENSE requirements.txt
-recursive-include brainnotation/datasets/data *
+recursive-include neuromaps/datasets/data *
 include versioneer.py
-include brainnotation/_version.py
+include neuromaps/_version.py
