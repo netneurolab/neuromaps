@@ -11,7 +11,7 @@ Reference API
 .. _ref_datasets:
 
 :mod:`neuromaps.datasets` - Dataset fetchers
-------------------------------------------------
+--------------------------------------------
 .. automodule:: neuromaps.datasets
    :no-members:
    :no-inherited-members:
@@ -39,7 +39,7 @@ Reference API
 .. _ref_images:
 
 :mod:`neuromaps.images` - Image and surface handling
---------------------------------------------------------
+----------------------------------------------------
 .. automodule:: neuromaps.images
    :no-members:
    :no-inherited-members:
@@ -68,7 +68,7 @@ Reference API
 .. _ref_nulls:
 
 :mod:`neuromaps.nulls` - Null models
-----------------------------------------
+------------------------------------
 .. automodule:: neuromaps.nulls
    :no-members:
    :no-inherited-members:
@@ -94,7 +94,7 @@ Reference API
 .. _ref_parcellating:
 
 :mod:`neuromaps.parcellate` - Parcellation utilities
---------------------------------------------------------
+----------------------------------------------------
 .. automodule:: neuromaps.parcellate
    :no-members:
    :no-inherited-members:
@@ -110,7 +110,7 @@ Reference API
 .. _ref_plotting:
 
 :mod:`neuromaps.plotting` - Plotting functions
---------------------------------------------------
+----------------------------------------------
 .. automodule:: neuromaps.plotting
    :no-members:
    :no-inherited-members:
@@ -126,7 +126,7 @@ Reference API
 .. _ref_points:
 
 :mod:`neuromaps.points` - Triangle mesh utilites
-----------------------------------------------------
+------------------------------------------------
 .. automodule:: neuromaps.points
     :no-members:
     :no-inherited-members:
@@ -143,7 +143,7 @@ Reference API
 .. _ref_resampling:
 
 :mod:`neuromaps.resampling` - Resampling workflows
-------------------------------------------------------
+--------------------------------------------------
 .. automodule:: neuromaps.resampling
     :no-members:
     :no-inherited-members:
@@ -159,7 +159,7 @@ Reference API
 .. _ref_stats:
 
 :mod:`neuromaps.stats` - Statistical functions
---------------------------------------------------
+----------------------------------------------
 .. automodule:: neuromaps.stats
     :no-members:
     :no-inherited-members:
@@ -170,14 +170,13 @@ Reference API
     :template: function.rst
     :toctree: generated/
 
-    neuromaps.stats.correlate_images
-    neuromaps.stats.efficient_pearsonr
-    neuromaps.stats.permtest_pearsonr
+    neuromaps.stats.compare_images
+    neuromaps.stats.permtest_metric
 
 .. _ref_transforms:
 
 :mod:`neuromaps.transforms` - Transformations between spaces
-----------------------------------------------------------------
+------------------------------------------------------------
 .. automodule:: neuromaps.transforms
    :no-members:
    :no-inherited-members:
