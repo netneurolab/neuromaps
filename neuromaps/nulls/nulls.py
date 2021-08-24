@@ -4,6 +4,7 @@ Contains functionality for running spatial null models
 """
 
 import numpy as np
+from sklearn.utils.validation import check_random_state
 
 try:
     from brainsmash.mapgen import Base, Sampled
@@ -15,7 +16,6 @@ try:
     _brainspace_avail = True
 except ImportError:
     _brainspace_avail = False
-from sklearn.utils.validation import check_random_state
 
 from neuromaps.datasets import fetch_atlas
 from neuromaps.images import load_gifti, PARCIGNORE
@@ -504,10 +504,6 @@ Returns
 
 def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,
              n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
-    if not _brainsmash_avail:
-        raise ImportError('Cannot run burt2018 null model when `brainsmash` '
-                          'is not installed. Please `pip install brainsmash` '
-                          'and try again.')
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
