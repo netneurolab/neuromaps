@@ -173,12 +173,12 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
         list of filepaths instead of the standard dictionary. Default: False
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
     data_dir : str, optional
         Path to use as data directory. If not specified, will check for
-        environmental variable 'neuromaps_DATA'; if that is not set, will
+        environmental variable 'NEUROMAPS_DATA'; if that is not set, will
         use `~/neuromaps-data` instead. Default: None
     verbose : int, optional
         Modifies verbosity of download, where higher numbers mean more updates.

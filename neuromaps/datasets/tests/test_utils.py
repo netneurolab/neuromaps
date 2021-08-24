@@ -25,14 +25,14 @@ def test_get_data_dir():
 
 
 def test__get_token():
-    orig = os.environ.pop('neuromaps_OSF_TOKEN', None)
+    orig = os.environ.pop('NEUROMAPS_OSF_TOKEN', None)
     assert utils._get_token(None) is None
     assert utils._get_token('test') == 'test'
-    os.environ['neuromaps_OSF_TOKEN'] = 'test_env'
+    os.environ['NEUROMAPS_OSF_TOKEN'] = 'test_env'
     assert utils._get_token(None) == 'test_env'
     assert utils._get_token('test') == 'test'
     if orig is not None:  # reset env variable
-        os.environ['neuromaps_OSF_TOKEN'] = orig
+        os.environ['NEUROMAPS_OSF_TOKEN'] = orig
 
 
 @pytest.mark.xfail

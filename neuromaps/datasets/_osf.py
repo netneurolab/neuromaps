@@ -351,7 +351,7 @@ def get_url(fname, project, token=None):
         Project ID on OSF
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
 
@@ -393,7 +393,7 @@ def generate_release_json(fname, output=OSFJSON, root='annotations',
         the URL for the generated data will not be set. Default: None
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
 
