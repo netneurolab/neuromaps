@@ -96,7 +96,7 @@ def get_data_dir(data_dir=None):
     ----------
     data_dir : str, optional
         Path to use as data directory. If not specified, will check for
-        environmental variable 'neuromaps_DATA'; if that is not set, will
+        environmental variable 'NEUROMAPS_DATA'; if that is not set, will
         use `~/neuromaps-data` instead. Default: None
 
     Returns
@@ -106,7 +106,7 @@ def get_data_dir(data_dir=None):
     """
 
     if data_dir is None:
-        data_dir = os.environ.get('neuromaps_DATA',
+        data_dir = os.environ.get('NEUROMAPS_DATA',
                                   os.path.join('~', 'neuromaps-data'))
     data_dir = os.path.expanduser(data_dir)
     if not os.path.exists(data_dir):
@@ -123,7 +123,7 @@ def _get_token(token=None):
     ----------
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
 
@@ -134,7 +134,7 @@ def _get_token(token=None):
     """
 
     if token is None:
-        token = os.environ.get('neuromaps_OSF_TOKEN', None)
+        token = os.environ.get('NEUROMAPS_OSF_TOKEN', None)
 
     return token
 
@@ -147,7 +147,7 @@ def _get_session(token=None):
     ----------
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
 

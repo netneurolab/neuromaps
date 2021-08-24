@@ -25,7 +25,9 @@ REDIR_KEYS = ['space', 'den']
 INFO_KEYS = ['source', 'refs', 'comments', 'demographics']
 
 # distribution JSON
-OSFJSON = resource_filename('neuromaps', 'data/osf.json')
+OSFJSON = resource_filename(
+    'neuromaps', os.path.join('datasets', 'data', 'osf.json')
+)
 
 
 def parse_filename(fname, return_ext=True, verbose=False):
@@ -150,9 +152,13 @@ def write_json(data, fname, root='annotations', indent=4):
         raise ValueError(f'Provided `root` must be a str. Received: {root}')
 
     # if `fname` already exists we want to update it, not overwrite it!
-    if os.path.isfile(fname):
+    output = {root: []}
+    if os.path.isfile(fname) and os.stat(fname).st_size != 0:
         output = parse_json(fname, [])
-    output[root] = data
+    if output.get(root) is None:
+        output[root] = []
+
+    output[root].extend(data)
 
     # save to disk
     with open(fname, 'w', encoding='utf-8') as dest:
@@ -245,7 +251,11 @@ def check_missing_keys(fname, root='annotations'):
         Missing keys for each entry in `fname`
     """
 
-    data = parse_json(fname, root=root)
+    try:
+        data = parse_json(fname, root=root)
+    except TypeError:
+        if isinstance(fname, dict):
+            data = [fname]
 
     is_missing_keys, info = False, []
     for item in data:
@@ -286,8 +296,9 @@ def generate_auto_keys(item):
     volfmt = pref = '_res-{res}_feature.nii.gz'
 
     # check format by checking 'hemi'
-    is_surface = item['den'] or item['hemi'] or item['format'] == 'surface'
-    is_volume = item['res'] or item['format'] == 'volume'
+    is_surface = ('den' in item or 'hemi' in item
+                  or item.get('format') == 'surface')
+    is_volume = 'res' in item or item.get('format') == 'volume'
 
     if is_surface:  # this is surface file
         item['format'] = 'surface'
@@ -296,8 +307,8 @@ def generate_auto_keys(item):
         item['format'] = 'volume'
         item['fname'] = volfmt.format(**item)
     else:
-        print('Missing keys to determine surface/volumetric format of data; '
-              'fname keys not generated')
+        raise ValueError('Missing keys to determine surface/volumetric format '
+                         'of data')
 
     item['rel_path'] = os.path.join(*[
         item[key] for key in ['source', 'desc', 'space']
@@ -306,7 +317,8 @@ def generate_auto_keys(item):
     # check file existence
     filepath = os.path.join(item['rel_path'], item['fname'])
     if item['fname'] is not None and os.path.isfile(filepath):
-        item['checksum'] = _md5_sum_file(filepath)
+        if item.get('checksum') is None:
+            item['checksum'] = _md5_sum_file(filepath)
 
     return item
 
@@ -351,7 +363,7 @@ def get_url(fname, project, token=None):
         Project ID on OSF
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
 
@@ -393,7 +405,7 @@ def generate_release_json(fname, output=OSFJSON, root='annotations',
         the URL for the generated data will not be set. Default: None
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
-        also check the environmental variable 'neuromaps_OSF_TOKEN' if not
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
         provided; if that is not set no token will be provided and restricted
         annotations will be inaccessible. Default: None
 
@@ -403,7 +415,7 @@ def generate_release_json(fname, output=OSFJSON, root='annotations',
         Path to filename where output JSON was saved
     """
 
-    output = []
+    info = []
     for item in parse_json(fname, root=root):
         item = clean_minimal_keys(generate_auto_keys(item))
         # fetch URL for file if needed (and project is specified)
@@ -411,6 +423,6 @@ def generate_release_json(fname, output=OSFJSON, root='annotations',
                 and project is not None):
             fn = os.path.join(item['rel_path'], item['fname'])
             item['url'] = [project, get_url(fn, project=project, token=token)]
-        output.append({key: item[key] for key in MINIMAL_KEYS if key in item})
-    fname = write_json(output, output, root='annotations')
+        info.append({key: item[key] for key in MINIMAL_KEYS if key in item})
+    fname = write_json(info, output, root='annotations')
     return fname
