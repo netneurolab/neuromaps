@@ -1,11 +1,11 @@
 name: Issue template
 description: Submit an issue
-title: " "
+title: ""
 body:
 - type: markdown
   attributes:
     value: "Welcome to `neuromaps`! Please fill out the following information."
-- type: textarea:
+- type: textarea
   id: description
   attributes:
     label: Description of issue

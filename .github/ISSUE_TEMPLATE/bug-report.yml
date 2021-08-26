@@ -1,11 +1,11 @@
 name: Bug report
 description: Submit a bug report
-title: "[BUG] "
+title: "[BUG] <Title>"
 labels: [bug]
 body:
 - type: markdown
   attributes:
-    value: "Welcome to `neuromaps`! Please fill out the following information describing the bug or issue you have encountered."
+    value: "Welcome to `neuromaps`! Please fill out the following information describing the bug you have encountered."
 - type: textarea
   id: summary
   attributes:
@@ -13,7 +13,7 @@ body:
     description: "Please provide a brief, 1-2 sentence overview of the issue."
   validations:
     required: true
-- type: textarea:
+- type: textarea
   id: description
   attributes:
     label: Detailed issue description
@@ -24,9 +24,9 @@ body:
     label: Steps to reproduce issue
     description: "Please describe steps that can be taken to reproduce your issue."
     value: |
-      1.
-      2.
-      3.
+      >>>
+      >>>
+      >>>
       ...
     render: python
   validations:
@@ -39,8 +39,7 @@ body:
 - type: checkboxes
   id: os
   attributes:
-    label: "What operating system did you encounter this issue on?"
-    description: You may select more than one.
+    label: "What operating system were you using when you encountered this issue?"
     options:
       - label: macOS
       - label: Windows
