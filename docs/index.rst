@@ -9,4 +9,5 @@ Contents
    installation
    usage
    auto_examples/index.rst
+   contributing
    api
