@@ -1,6 +1,6 @@
 name: Issue template
 description: Submit an issue
-title: ""
+title: " "
 body:
 - type: markdown
   attributes:
