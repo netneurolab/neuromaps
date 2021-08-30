@@ -182,16 +182,19 @@ def load_data(data):
         Loaded `data`
     """
 
-    if isinstance(data, (str, os.PathLike)) or not isinstance(data, Iterable):
+    if (isinstance(data, (str, os.PathLike, np.ndarray))
+            or not isinstance(data, Iterable)):
         data = (data,)
 
-    out = ()
-    for img in data:
-        try:
-            out += (load_gifti(img).agg_data(),)
-        except (AttributeError, TypeError):
-            out += (load_nifti(img).get_fdata(),)
-    return np.hstack(out)
+    try:
+        out = np.hstack([load_gifti(img).agg_data() for img in data])
+    except (AttributeError, TypeError):
+        out = np.stack([load_nifti(img).get_fdata() for img in data], axis=3)
+    except ValueError as err:
+        if str(err) == 'stat: embedded null character in path':
+            out = np.stack(data, axis=-1)
+
+    return np.squeeze(out)
 
 
 def obj_to_gifti(obj, fn=None):
