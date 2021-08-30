@@ -3,8 +3,10 @@
 Contains functionality for running spatial null models
 """
 
+import nibabel as nib
 import numpy as np
-from sklearn.utils.validation import check_random_state
+from scipy import ndimage
+from scipy.spatial.distance import cdist
 
 try:
     from brainsmash.mapgen import Base, Sampled
@@ -18,8 +20,11 @@ except ImportError:
     _brainspace_avail = False
 
 from neuromaps.datasets import fetch_atlas
-from neuromaps.images import load_gifti, PARCIGNORE
+from neuromaps.datasets.atlases import _sanitize_atlas
+from neuromaps.images import load_data, PARCIGNORE
 from neuromaps.points import get_surface_distance
+from neuromaps.transforms import mni152_to_mni152
+from neuromaps.utils import tmpname
 from neuromaps.nulls.burt import batch_surrogates
 from neuromaps.nulls.spins import (gen_spinsamples, get_parcel_centroids,
                                    load_spins, spin_data, spin_parcels)
@@ -146,7 +151,7 @@ def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
     if parcellation is None:
         raise ValueError('Cannot use `vasa()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
-                         'working with unparcellated data.')
+                         'working with unparcellated surface data.')
     if spins is None:
         if surfaces is None:
             surfaces = fetch_atlas(atlas, density)['sphere']
@@ -158,7 +163,7 @@ def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
     spins = load_spins(spins)
     if data is None:
         data = np.arange(len(spins))
-    return np.asarray(data)[spins]
+    return load_data(data)[spins]
 
 
 vasa.__doc__ = """\
@@ -197,7 +202,7 @@ def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
     if parcellation is None:
         raise ValueError('Cannot use `hungarian()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
-                         'instead if working with unparcellated data.')
+                         'instead if working with unparcellated surface data.')
     if spins is None:
         if surfaces is None:
             surfaces = fetch_atlas(atlas, density)['sphere']
@@ -209,7 +214,7 @@ def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
     spins = load_spins(spins)
     if data is None:
         data = np.arange(len(spins))
-    return np.asarray(data)[spins]
+    return load_data(data)[spins]
 
 
 hungarian.__doc__ = """\
@@ -246,16 +251,15 @@ def baum(data, atlas='fsaverage', density='10k', parcellation=None,
     if parcellation is None:
         raise ValueError('Cannot use `baum()` null method without specifying '
                          'a parcellation. Use `alexander_bloch() instead if '
-                         'working with unparcellated data.')
-    y = np.asarray(data)
+                         'working with unparcellated surface data.')
     if surfaces is None:
         surfaces = fetch_atlas(atlas, density)['sphere']
     spins = spin_parcels(surfaces, parcellation,
                          n_rotate=n_perm, spins=spins, seed=seed)
     if data is None:
         data = np.arange(len(spins))
-    y = np.asarray(data)
-    nulls = y[spins]
+    data = load_data(data)
+    nulls = data[spins]
     nulls[spins == -1] = np.nan
     return nulls
 
@@ -295,11 +299,11 @@ def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
     if parcellation is None:
         raise ValueError('Cannot use `cornblath()` null method without '
                          'specifying a parcellation. Use `alexander_bloch() '
-                         'instead if working with unparcellated data.')
-    y = np.asarray(data)
+                         'instead if working with unparcellated surface data.')
+    data = load_data(data)
     if surfaces is None:
         surfaces = fetch_atlas(atlas, density)['sphere']
-    nulls = spin_data(y, surfaces, parcellation,
+    nulls = spin_data(data, surfaces, parcellation,
                       n_rotate=n_perm, spins=spins, seed=seed)
     return nulls
 
@@ -381,18 +385,10 @@ dist : (N, N) np.ndarray
 """.format(**_nulls_input_docs)
 
 
-def _make_surrogates(data, method, atlas='fsaverage', density='10k',
-                     parcellation=None, n_perm=1000, seed=None, distmat=None,
-                     n_proc=1, **kwargs):
-    if method not in ('burt2018', 'burt2020', 'moran'):
-        raise ValueError(f'Invalid null method: {method}')
-
-    darr = np.asarray(data)
-    dmin = darr[np.logical_not(np.isnan(darr))].min()
+def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
     if parcellation is None:
         parcellation = (None, None)
 
-    surrogates = np.zeros((len(data), n_perm))
     for n, (hemi, parc) in enumerate(zip(('L', 'R'), parcellation)):
         if distmat is None:
             dist = _get_distmat(hemi, atlas=atlas, density=density,
@@ -403,35 +399,107 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
         if parc is None:
             idx = np.arange(n * (len(data) // 2), (n + 1) * (len(data) // 2))
         else:
-            idx = np.unique(load_gifti(parc).agg_data())[1:]
+            idx = np.trim_zeros(np.unique(load_data(parc))) - 1
 
         hdata = np.squeeze(data[idx])
-        mask = np.logical_not(np.isnan(hdata))
-        surrogates[idx[np.logical_not(mask)]] = np.nan
-        hdata, dist, idx = hdata[mask], dist[np.ix_(mask, mask)], idx[mask]
+        med = np.isinf(dist + np.diag([np.inf] * len(dist))).all(axis=1)
+        mask = np.logical_not(np.logical_or(np.isnan(hdata), med))
 
-        if method == 'burt2018':
-            hdata += np.abs(dmin) + 0.1
-            surrogates[idx] = batch_surrogates(dist, hdata, n_surr=n_perm,
-                                               seed=seed)
-        elif method == 'burt2020':
-            if parc is None:
-                index = np.argsort(dist, axis=-1)
-                dist = np.sort(dist, axis=-1)
-                surrogates[idx] = \
-                    Sampled(hdata, dist, index, n_jobs=n_proc,
-                            seed=seed, **kwargs)(n_perm).T
+        yield hdata[mask], dist[np.ix_(mask, mask)], None, idx[mask]
+
+
+def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
+    if atlas != 'MNI152':
+        raise ValueError('Cannot compute volumetric surrogates if atlas is '
+                         f'"MNI152". Received: {atlas}')
+    atlas = fetch_atlas(atlas, density)
+    mni152 = nib.load(atlas['T1w'])
+    affine = mni152.affine
+
+    # get data + coordinates of valid datapoints
+    data = load_data(data)
+    if mni152.shape != data.shape:
+        raise ValueError('Provided `data` array must have same affine as '
+                         'specified MNI152 atlas')
+    data *= load_data(atlas['brainmask'])
+    mask = np.logical_not(np.logical_or(np.isclose(data, 0), np.isnan(data)))
+    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
+
+    if parcellation is not None:
+        parcellation = load_data(
+            mni152_to_mni152(parcellation, density, 'nearest')
+        )[mask]
+        labels = np.trim_zeros(np.unique(parcellation))
+
+    # calculate distance matrix
+    index = None
+    if distmat is None:
+        if parcellation is None:  # memmap because BIG
+            distout, indout = tmpname('.mmap'), tmpname('.mmap')
+            dist = np.lib.format.open_memmap(distout, mode='w+',
+                                             dtype='float32',
+                                             shape=(len(xyz), len(xyz)))
+            index = np.lib.format.open_memmap(indout, mode='w+',
+                                              dtype='int32',
+                                              shape=(len(xyz), len(xyz)))
+        else:
+            dist = np.zeros((len(xyz), len(labels)), dtype='float32')
+        for n, row in enumerate(xyz):
+            xyz_dist = cdist(row[None], xyz).astype('float32')
+            if parcellation is not None:
+                dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
             else:
-                surrogates[idx] = \
-                    Base(hdata, dist, seed=seed, **kwargs)(n_perm, 50).T
+                index[n] = np.argsort(xyz_dist, axis=-1).astype('int32')
+                dist[n] = xyz_dist[index[n]]
+                dist.flush()
+                index.flush()
+    else:
+        dist = distmat
+        if parcellation is None:
+            index = np.argsort(dist, axis=-1)
+
+    yield data[mask], dist, index, slice(-1)
+
+
+def _make_surrogates(data, method, atlas='fsaverage', density='10k',
+                     parcellation=None, n_perm=1000, seed=None, distmat=None,
+                     n_proc=1, **kwargs):
+    if method not in ('burt2018', 'burt2020', 'moran'):
+        raise ValueError(f'Invalid null method: {method}')
+
+    atlas = _sanitize_atlas(atlas)
+    darr = load_data(data)
+    surrogates = np.full((darr.shape) + (n_perm,), np.nan)
+    genfunc = _vol_surrogates if atlas == 'MNI152' else _surf_surrogates
+    for hdata, hdist, hind, hsl in genfunc(darr, atlas, density,
+                                           parcellation, distmat, n_proc):
+        if method == 'burt2018':
+            hdata += np.abs(np.nanmin(darr)) + 0.1
+            hsurr = batch_surrogates(hdist, hdata, n_surr=n_perm, seed=seed)
+        elif method == 'burt2020':
+            if parcellation is None:
+                if hind is None:
+                    hind = np.argsort(hdist, axis=-1)
+                    hdist = np.sort(hdist, axis=-1)
+                hsurr = Sampled(hdata, hdist, hind, n_jobs=n_proc,
+                                seed=seed, **kwargs)(n_perm).T
+            else:
+                hsurr = Base(hdata, hdist, seed=seed, **kwargs)(n_perm, 50).T
+            # clean up (FIXME: this is ugly and we should fix it)
+            if hasattr(hdist, 'filename'):
+                hdist.filename.unlink()
+                hind.filename.unlink()
+                del hdist, hind
         elif method == 'moran':
-            dist = dist.astype('float64')
+            dist = hdist.astype('float64')
             np.fill_diagonal(dist, 1)
             dist **= -1
             opts = dict(joint=True, tol=1e-6, n_rep=n_perm, random_state=seed)
             opts.update(**kwargs)
             mrs = MoranRandomization(**kwargs)
-            surrogates[idx] = mrs.fit(dist).randomize(hdata).T
+            hsurr = mrs.fit(dist).randomize(hdata).T
+
+        surrogates[hsl] = hsurr
 
     return surrogates
 
