@@ -93,50 +93,6 @@ nulls : np.ndarray
 )
 
 
-def naive_nonparametric(data, atlas='fsaverage', density='10k',
-                        parcellation=None, n_perm=1000, seed=None, spins=None,
-                        surfaces=None):
-    rs = check_random_state(seed)
-    if spins is None:
-        if data is None:
-            if surfaces is None:
-                surfaces = fetch_atlas(atlas, density)['sphere']
-            coords, _ = get_parcel_centroids(surfaces,
-                                             parcellation=parcellation,
-                                             method='surface')
-        else:
-            coords = np.asarray(data)
-        spins = np.column_stack([
-            rs.permutation(len(coords)) for _ in range(n_perm)
-        ])
-    spins = load_spins(spins)
-    if data is None:
-        data = np.arange(len(spins))
-    return np.asarray(data)[spins]
-
-
-naive_nonparametric.__doc__ = """\
-Generates null maps from `data` using naive non-parametric method
-
-Method uses random permutations of `data` with no consideration for spatial
-topology to generate null distribution
-
-Parameters
-----------
-{data_or_none}
-{atlas_density}
-{parcellation}
-{n_perm}
-{seed}
-{spins}
-{surfaces}
-
-Returns
--------
-{nulls}
-""".format(**_nulls_input_docs)
-
-
 def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,
                     n_perm=1000, seed=None, spins=None, surfaces=None):
     if spins is None:
@@ -149,7 +105,7 @@ def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,
     spins = load_spins(spins)
     if data is None:
         data = np.arange(len(spins))
-    return np.asarray(data)[spins]
+    return load_data(data)[spins]
 
 
 alexander_bloch.__doc__ = """\
