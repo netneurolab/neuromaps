@@ -158,7 +158,7 @@ def available_tags(return_restricted=False):
 
 
 def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
-                     hemi=None, tags=None, format=None, return_single=False,
+                     hemi=None, tags=None, format=None, return_single=True,
                      token=None, data_dir=None, verbose=1):
     """
     Downloads files for brain annotations matching requested variables
@@ -170,7 +170,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
         any value for the relevant key will be matched. Default: None
     return_single : bool, optional
         If only one annotation is found matching input parameters return the
-        list of filepaths instead of the standard dictionary. Default: False
+        list of filepaths instead of the standard dictionary. Default: True
     token : str, optional
         OSF personal access token for accessing restricted annotations. Will
         also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
