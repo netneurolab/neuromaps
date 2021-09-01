@@ -62,7 +62,7 @@ maps for 'CSF', 'GM', and 'WM', whole-brain images for 'T1w' [T1-weighted],
 'brainmask'). These files can all be loaded with ``nibabel``:
 
 .. code-block::
-x
+
     >>> import nibabel as nib
     >>> brainmask = nib.load(mni152['brainmask'])
     >>> print(brainmask.shape)
