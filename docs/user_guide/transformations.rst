@@ -39,11 +39,15 @@ The returned ``fslr`` object is a tuple of ``nib.GiftiImage`` objects
 corresponding to data from the (left, right) hemisphere. These data can be
 accessed via the ``.agg_data()`` method on the image objects:
 
+.. code-block::
+
     >>> fslr_lh, fslr_rh = fslr
     >>> print(fslr_lh.agg_data().shape)
     (32492,)
 
 It's just as easy to transform the data to a different space:
+
+.. code-block::
 
     >>> fsavg = transforms.mni152_to_fsaverage(neurosynth, '164k')
     >>> fsavg_lh, fsavg_rh = fsavg
@@ -52,6 +56,8 @@ It's just as easy to transform the data to a different space:
 
 Note that you can also transform between different resolutions within the
 MNI152 coordinate system:
+
+.. code-block::
 
     >>> import nibabel as nib
     >>> ns2mm = nib.load(neurosynth)
@@ -69,3 +75,83 @@ interface to ensure consistency!)
 
 Transforming to/from surface spaces
 -----------------------------------
+
+Transforming between surface-based coordinate systems works bidirectionally.
+That is, data in each surface system can be transformed to and from every other
+surface system. Here, the transformation functions take the form of
+``neuromaps.transforms.XXX_to_YYY`` where ``XXX`` is the source system and
+``YYY`` is the target system.
+
+For example, to transform data from the fsaverage to the fsLR coordinate
+system:
+
+.. code-block::
+
+    >>> abagen = fetch_annotation(source='abagen')
+    >>> fslr = transforms.fsaverage_to_fslr(abagen, '32k')
+
+As with the volumetric-to-surface transformation, the returned object is a
+tuple of ``nib.GiftiImage`` objects corresponding to data from the
+(left, right) hemisphere.
+
+.. code-block::
+
+    >>> fslr_lh, fslr_rh = fslr
+    >>> print(fslr_lh.agg_data().shape)
+    (32492,)
+
+Note that, by default, all of the transformation functions assume the provided
+tuple contains data in the format (left hemisphere, right hemisphere) and
+performs linear interpolation when resampling data to the new coordinate
+system. However, the surface functions in :mod:`neuromaps.transforms` accept
+two optional keyword parameters that can modify these defaults!
+
+Single-hemisphere data
+^^^^^^^^^^^^^^^^^^^^^^
+
+What happens when you want to transform annotations for which only one
+hemisphere contains data? You can use the ``hemi`` keyword parameter to let
+the transformation functions know:
+
+.. code-block::
+
+    >>> abagen_lh = abagen[0]
+    >>> fslr = transforms.fsaverage_to_fslr(abagen_lh, '32k', hemi='L')
+
+Note that the returned object is still a tuple—it just simply has one entry
+instead of two!
+
+.. code-block::
+
+    >>> fslr_lh, = fslr
+    >>> print(fslr_lh.agg_data().shape)
+    (32492,)
+
+The ``hemi`` parameter accepts values `'L'` and `'R'` for the left and right
+hemispheres, respectively.
+
+You can also use the ``hemi`` parameter if you want to provide bilateral data
+that is not in the (left, right) hemisphere format:
+
+.. code-block::
+
+    >>> abagen_reverse = (abagen[1], abagen[0])
+    >>> fslr_rh, fslr_lh = transforms.fsaverage_to_fslr(abagen_reverse, '32k', hemi=('R', 'L'))
+
+Nearest-neighbors interpolation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default the transformation functions in :mod:`neuromaps.transforms` use
+linear interpolation when resampling data; however, this is not ideal if
+the data that are being used are integer-valued (e.g., if the data represent a
+parcellation)—or if you would simply prefer not to use linear interpolation! In
+either case you can pass the ``method`` keyword parameter to the transform
+functions and specify that you would prefer ``'nearest'`` neighbors
+interpolation instead:
+
+.. code-block::
+
+    >>> fslr_nearest = transforms.fsaverage_to_fslr(abagen, '32k', method='nearest')
+
+Note that the only accepted values for ``method`` are ``'linear'`` and
+``'nearest'``.
