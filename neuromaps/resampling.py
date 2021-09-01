@@ -41,10 +41,10 @@ def downsample_only(src, trg, src_space, trg_space, method='linear',
 
     if src_num >= trg_num:  # resample to `trg`
         func = getattr(transforms, f'{src_space}_to_{trg_space}')
-        src = func(src, src_den, trg_den, hemi=hemi, method=method)
+        src = func(src, trg_den, hemi=hemi, method=method)
     elif src_num < trg_num:  # resample to `src`
         func = getattr(transforms, f'{trg_space}_to_{src_space}')
-        trg = func(trg, trg_den, src_den, hemi=hemi, method=method)
+        trg = func(trg, src_den, hemi=hemi, method=method)
 
     return src, trg
 
@@ -71,7 +71,7 @@ def transform_to_src(src, trg, src_space, trg_space, method='linear',
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{trg_space.lower()}_to_{src_space.lower()}')
-    trg = func(trg, trg_den, src_den, hemi=hemi, method=method)
+    trg = func(trg, src_den, hemi=hemi, method=method)
 
     return src, trg
 
@@ -95,7 +95,7 @@ def transform_to_trg(src, trg, src_space, trg_space, hemi=None,
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{src_space.lower()}_to_{trg_space.lower()}')
-    src = func(src, src_den, trg_den, hemi=hemi, method=method)
+    src = func(src, trg_den, hemi=hemi, method=method)
 
     return src, trg
 
