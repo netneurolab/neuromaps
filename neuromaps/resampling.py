@@ -220,6 +220,10 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
     opts, err = {}, None
     if resampling == 'transform_to_alt':
         opts['alt_space'], opts['alt_density'] = _check_altspec(alt_spec)
+        if (opts['alt_space'] == 'MNI152'
+                and (src_space != 'MNI152' or trg_space != 'MNI152')):
+            raise ValueError('Cannot transform to "MNI152" system if either '
+                             '`src` or `trg` are not in "MNI152" system.')
     elif (resampling == 'transform_to_src' and src_space == 'MNI152'
             and trg_space != 'MNI152'):
         err = ('Specified `src_space` cannot be "MNI152" when `resampling` is '
