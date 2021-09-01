@@ -106,6 +106,8 @@ performs linear interpolation when resampling data to the new coordinate
 system. However, the surface functions in :mod:`neuromaps.transforms` accept
 two optional keyword parameters that can modify these defaults!
 
+.. _usage_transformations_hemi:
+
 Single-hemisphere data
 ^^^^^^^^^^^^^^^^^^^^^^
 
@@ -137,6 +139,8 @@ that is not in the (left, right) hemisphere format:
 
     >>> abagen_reverse = (abagen[1], abagen[0])
     >>> fslr_rh, fslr_lh = transforms.fsaverage_to_fslr(abagen_reverse, '32k', hemi=('R', 'L'))
+
+.. _usage_transformations_method:
 
 Nearest-neighbors interpolation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
