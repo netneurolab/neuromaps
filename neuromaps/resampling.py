@@ -33,58 +33,9 @@ src, trg : tuple-of-nib.GiftiImage
 )
 
 
-def _estimate_density(data, hemi=None):
-    """
-    Tries to estimate standard density of `data`
-
-    Parameters
-    ----------
-    data : (2,) tuple of str or os.PathLike or nib.GiftiImage or tuple
-        Input data for (src, trg)
-    hemi : {'L', 'R'}, optional
-        If `data` is not a tuple this specifies the hemisphere the data are
-        representing. Default: None
-
-    Returns
-    -------
-    density : str
-        String representing approximate density of data (e.g., '10k')
-
-    Raises
-    ------
-    ValueError
-        If density of `data` is not one of the standard expected values
-    """
-
-    density_map = {
-        2562: '3k', 4002: '4k', 7842: '8k', 10242: '10k',
-        32492: '32k', 40962: '41k', 163842: '164k'
-    }
-
-    densities = tuple()
-    for img in data:
-        if img in density_map.values():
-            densities += (img,)
-            continue
-        img, hemi = zip(*transforms._check_hemi(img, hemi))
-        n_vert = [len(load_gifti(d).agg_data()) for d in img]
-        if not all(n == n_vert[0] for n in n_vert):
-            raise ValueError('Provided data have different resolutions across '
-                             'hemispheres?')
-        else:
-            n_vert = n_vert[0]
-        density = density_map.get(n_vert)
-        if density is None:
-            raise ValueError('Provided data resolution is non-standard. '
-                             f'Number of vertices estimated in data: {n_vert}')
-        densities += (density,)
-
-    return densities
-
-
 def downsample_only(src, trg, src_space, trg_space, method='linear',
                     hemi=None):
-    src_den, trg_den = _estimate_density((src, trg), hemi)
+    src_den, trg_den = transforms._estimate_density((src, trg), hemi)
     src_num, trg_num = int(src_den[:-1]), int(trg_den[:-1])
     src_space, trg_space = src_space.lower(), trg_space.lower()
 
@@ -117,7 +68,7 @@ Returns
 
 def transform_to_src(src, trg, src_space, trg_space, method='linear',
                      hemi=None):
-    src_den, trg_den = _estimate_density((src, trg), hemi)
+    src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{trg_space.lower()}_to_{src_space.lower()}')
     trg = func(trg, trg_den, src_den, hemi=hemi, method=method)
@@ -141,7 +92,7 @@ Returns
 
 def transform_to_trg(src, trg, src_space, trg_space, hemi=None,
                      method='linear'):
-    src_den, trg_den = _estimate_density((src, trg), hemi)
+    src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{src_space.lower()}_to_{trg_space.lower()}')
     src = func(src, src_den, trg_den, hemi=hemi, method=method)
@@ -198,7 +149,7 @@ def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):
                          f'not "MNI152." Received: {src_space}.')
     trg_den = trg
     if trg_space != 'MNI152':
-        trg_den, = _estimate_density((trg_den,), hemi)
+        trg_den, = transforms._estimate_density((trg_den,), hemi)
     func = getattr(transforms, f'mni152_to_{trg_space.lower()}')
     src = func(src, trg_den, method=method)
 
