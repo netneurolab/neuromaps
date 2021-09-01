@@ -15,7 +15,7 @@ from scipy.interpolate import griddata
 
 PARCIGNORE = [
     'unknown', 'corpuscallosum', 'Background+FreeSurfer_Defined_Medial_Wall',
-    '???'
+    '???', 'Unknown', 'Medial_wall', 'Medial wall', 'medial_wall'
 ]
 
 
@@ -46,7 +46,8 @@ def construct_surf_gii(vert, tri):
     return img
 
 
-def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE'):
+def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE',
+                        labels=None):
     """
     Constructs shape gifti image from `data`
 
@@ -77,12 +78,20 @@ def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE'):
     else:
         names = [{} for _ in range(data.shape[1])]
 
+    labeltable = None
+    if labels is not None and intent == 'NIFTI_INTENT_LABEL':
+        labeltable = nib.gifti.GiftiLabelTable()
+        for key, label in enumerate(labels):
+            glabel = nib.gifti.GiftiLabel(key)
+            glabel.label = label
+            labeltable.labels.append(glabel)
+
     return nib.GiftiImage(darrays=[
         nib.gifti.GiftiDataArray(darr.astype(dtype), intent=intent,
                                  datatype=f'NIFTI_TYPE_{dtype.upper()}',
                                  meta=meta)
         for darr, meta in zip(data.T, names)
-    ])
+    ], labeltable=labeltable)
 
 
 def fix_coordsys(fn, val=3):
@@ -439,7 +448,7 @@ def relabel_gifti(parcellation, background=None, offset=None):
     for hemi in parcellation:
         # get necessary info from file
         img = load_gifti(hemi)
-        data = img.agg_data()
+        data = img.agg_data().copy()
         labels = img.labeltable.labels
         lt = {v: k for k, v in img.labeltable.get_labels_as_dict().items()}
 
