@@ -8,6 +8,6 @@ __all__ = [
 ]
 
 from neuromaps.nulls.nulls import (
-    naive_nonparametric, alexander_bloch, vazquez_rodriguez, vasa,
-    hungarian, baum, cornblath, burt2018, burt2020, moran
+    alexander_bloch, vazquez_rodriguez, vasa, hungarian, baum, cornblath,
+    burt2018, burt2020, moran
 )

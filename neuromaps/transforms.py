@@ -200,11 +200,10 @@ def mni152_to_mni152(img, target='1mm', method='linear'):
         Resampled input `img`
     """
 
-    if target not in DENSITIES['MNI152']:
-        out = nimage.resample_to_img(img, target, interpolation=method)
-    else:
-        res = int(target[0])
-        out = nimage.resample_img(img, np.eye(3) * res, interpolation=method)
+    if target in DENSITIES['MNI152']:
+        target = fetch_atlas('MNI152', target)['T1w']
+
+    out = nimage.resample_to_img(img, target, interpolation=method)
 
     return out
 
