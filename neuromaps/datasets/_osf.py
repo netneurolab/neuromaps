@@ -158,7 +158,21 @@ def write_json(data, fname, root='annotations', indent=4):
     if output.get(root) is None:
         output[root] = []
 
-    output[root].extend(data)
+    # update entries in output json if they already exist; otherwise, overwrite
+    keys = ('fname', 'rel_path', 'checksum')
+    missing = []
+    for n, entry in enumerate(output[root]):
+        comp = {k: entry[k] for k in keys}
+        match = False
+        for item in data:
+            red = {k: item[k] for k in keys}
+            if comp == red:
+                output[root][n] = item
+                match = True
+        if not match:
+            missing.append(item)
+
+    output[root].extend(missing)
 
     # save to disk
     with open(fname, 'w', encoding='utf-8') as dest:
@@ -293,7 +307,7 @@ def generate_auto_keys(item):
 
     pref = 'source-{source}_desc-{desc}_space-{space}'
     surffmt = pref + '_den-{den}_hemi-{hemi}_feature.func.gii'
-    volfmt = pref = '_res-{res}_feature.nii.gz'
+    volfmt = pref + '_res-{res}_feature.nii.gz'
 
     # check format by checking 'hemi'
     is_surface = ('den' in item or 'hemi' in item
@@ -421,7 +435,7 @@ def generate_release_json(fname, output=OSFJSON, root='annotations',
         # fetch URL for file if needed (and project is specified)
         if (item.get('fname') is not None and item.get('url') is None
                 and project is not None):
-            fn = os.path.join(item['rel_path'], item['fname'])
+            fn = os.path.join(root, item['rel_path'], item['fname'])
             item['url'] = [project, get_url(fn, project=project, token=token)]
         info.append({key: item[key] for key in MINIMAL_KEYS if key in item})
     fname = write_json(info, output, root='annotations')
