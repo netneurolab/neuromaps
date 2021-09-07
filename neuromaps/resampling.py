@@ -26,15 +26,23 @@ hemi : {'L', 'R'}, optional
     If `src` and `trg` are not tuples this specifies the hemisphere the data
     represent. Default: None\
 """,
+    return_space="""\
+return_space : bool, optional
+    Whether to return the output space and density of the transformed `src`
+    and `trg` data. Default: False
+""",
     resample_out="""\
 src, trg : tuple-of-nib.GiftiImage
     Resampled images\
+(space, density) : tuple-of-str
+    Output space and density of resampled `src` and `trg` images. Only returned
+    if `return_space` is set to True
 """
 )
 
 
 def downsample_only(src, trg, src_space, trg_space, method='linear',
-                    hemi=None):
+                    hemi=None, return_space=False):
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
     src_num, trg_num = int(src_den[:-1]), int(trg_den[:-1])
     src_space, trg_space = src_space.lower(), trg_space.lower()
@@ -42,10 +50,14 @@ def downsample_only(src, trg, src_space, trg_space, method='linear',
     if src_num >= trg_num:  # resample to `trg`
         func = getattr(transforms, f'{src_space}_to_{trg_space}')
         src = func(src, trg_den, hemi=hemi, method=method)
+        space, density = trg_space, trg_den
     elif src_num < trg_num:  # resample to `src`
         func = getattr(transforms, f'{trg_space}_to_{src_space}')
         trg = func(trg, src_den, hemi=hemi, method=method)
+        space, density = src_space, src_den
 
+    if return_space:
+        return src, trg, (space, density)
     return src, trg
 
 
@@ -59,6 +71,7 @@ Parameters
 ----------
 {resample_in}
 {hemi}
+{return_space}
 
 Returns
 -------
@@ -67,12 +80,14 @@ Returns
 
 
 def transform_to_src(src, trg, src_space, trg_space, method='linear',
-                     hemi=None):
+                     hemi=None, return_space=False):
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{trg_space.lower()}_to_{src_space.lower()}')
     trg = func(trg, src_den, hemi=hemi, method=method)
 
+    if return_space:
+        return src, trg, (src_space.lower(), src_den)
     return src, trg
 
 
@@ -83,6 +98,7 @@ Parameters
 ----------
 {resample_in}
 {hemi}
+{return_space}
 
 Returns
 -------
@@ -90,13 +106,15 @@ Returns
 """.format(**_resampling_docs)
 
 
-def transform_to_trg(src, trg, src_space, trg_space, hemi=None,
-                     method='linear'):
+def transform_to_trg(src, trg, src_space, trg_space, method='linear',
+                     hemi=None, return_space=False):
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{src_space.lower()}_to_{trg_space.lower()}')
     src = func(src, trg_den, hemi=hemi, method=method)
 
+    if return_space:
+        return src, trg, (trg_space.lower(), trg_den)
     return src, trg
 
 
@@ -106,6 +124,8 @@ Resamples `trg` to match space and density of `src`
 Parameters
 ----------
 {resample_in}
+{hemi}
+{return_space}
 
 Returns
 -------
@@ -114,12 +134,15 @@ Returns
 
 
 def transform_to_alt(src, trg, src_space, trg_space, method='linear',
-                     hemi=None, alt_space='fsaverage', alt_density='41k'):
+                     hemi=None, alt_space='fsaverage', alt_density='41k',
+                     return_space=False):
     src, _ = transform_to_trg(src, alt_density, src_space, alt_space,
                               hemi=hemi, method=method)
     trg, _ = transform_to_trg(trg, alt_density, trg_space, alt_space,
                               hemi=hemi, method=method)
 
+    if return_space:
+        return src, trg, (alt_space, alt_density)
     return src, trg
 
 
@@ -136,6 +159,7 @@ alt_space : {{'fsaverage', 'fsLR', 'civet'}}, optional
 alt_density : str, optional
     Resolution to which `src` and `trg` should be resampled. Must be valid
     with `alt_space`. Default: '41k'
+{return_space}
 
 Returns
 -------
@@ -143,7 +167,8 @@ Returns
 """.format(**_resampling_docs)
 
 
-def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):
+def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None,
+                  return_space=False):
     if src_space != 'MNI152':
         raise ValueError('Cannot perform MNI transformation when src_space is '
                          f'not "MNI152." Received: {src_space}.')
@@ -153,6 +178,8 @@ def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):
     func = getattr(transforms, f'mni152_to_{trg_space.lower()}')
     src = func(src, trg_den, method=method)
 
+    if return_space:
+        return src, trg, (trg_space.lower(), trg_den)
     return src, trg
 
 
@@ -165,6 +192,7 @@ Parameters
 hemi : {{'L', 'R'}}, optional
     If `trg_space` is not "MNI152' and `trg` is not a tuple this specifies the
     hemisphere the data represent. Default: None
+{return_space}
 
 Returns
 -------
@@ -206,7 +234,8 @@ def _check_altspec(spec):
 
 
 def resample_images(src, trg, src_space, trg_space, method='linear',
-                    hemi=None, resampling='downsample_only', alt_spec=None):
+                    hemi=None, resampling='downsample_only', alt_spec=None,
+                    return_space=False):
 
     resamplings = ('downsample_only', 'transform_to_src', 'transform_to_trg',
                    'transform_to_alt')
@@ -248,12 +277,15 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
         func = mni_transform if trg_space == 'MNI152' else transform_to_trg
         trg = func(trg, opts['alt_density'], trg_space, opts['alt_space'],
                    method=method, hemi=hemi)[0]
+        space, density = opts['alt_space'], opts['alt_density']
     elif src_space == 'MNI152' and trg_space != 'MNI152':
         src, trg = mni_transform(src, trg, src_space, trg_space,
                                  method=method, hemi=hemi)
+        space, (density,) = trg_space, transforms._estimate_density((trg,))
     elif trg_space == 'MNI152' and src_space != 'MNI152':
         trg, src = mni_transform(trg, src, trg_space, src_space,
                                  method=method, hemi=hemi)
+        space, (density,) = src_space, transforms._estimate_density((src,))
     elif src_space == 'MNI152' and src_space == 'MNI152':
         src, trg = load_nifti(src), load_nifti(trg)
         srcres = np.prod(nib.affines.voxel_sizes(src.affine))
@@ -262,16 +294,22 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
                 or resampling == 'transform_to_src'):
             trg, src = mni_transform(trg, src, trg_space, src_space,
                                      method=method)
+            space, (density,) = src_space, transforms._estimate_density((src,))
         elif ((resampling == 'downsample_only' and srcres <= trgres)
                 or resampling == 'transform_to_trg'):
             src, trg = mni_transform(src, trg, src_space, trg_space,
                                      method=method)
+            space, (density,) = trg_space, transforms._estimate_density((trg,))
     else:
         func = globals()[resampling]
-        src, trg = func(src, trg, src_space, trg_space, hemi=hemi,
-                        method=method, **opts)
+        src, trg, (space, density) = func(src, trg, src_space, trg_space,
+                                          hemi=hemi, method=method,
+                                          return_space=True, **opts)
         src = tuple(load_gifti(s) for s in src)
         trg = tuple(load_gifti(t) for t in trg)
+
+    if return_space:
+        return src, trg, (space, density)
 
     return src, trg
 
@@ -287,9 +325,10 @@ resampling : str, optional
     Name of resampling function to resample `src` and `trg`. Must be one of:
     'downsample_only', 'transform_to_src', 'transform_to_trg',
     'transform_to_alt'. See Notes for more info. Default: 'downsample_only'
-alt_spec : (2,) tuple-of-str
+alt_spec : (2,) tuple-of-str, optional
     Where entries are (space, density) of desired target space. Only used if
     `resampling='transform_to_alt'`. Default: None
+{return_space}
 
 Returns
 -------
