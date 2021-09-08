@@ -348,6 +348,7 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
 
     resampled = ()
     func = METRICRESAMPLE if method == 'linear' else LABELRESAMPLE
+    intent = f'NIFTI_INTENT_{"SHAPE" if method == "linear" else "LABEL"}'
     for img, hemi in _check_hemi(data, hemi):
         srcparams['hemi'] = trgparams['hemi'] = hemi
         try:
@@ -369,7 +370,8 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
         )
         for fn in (func, MASKSURF):
             run(fn.format(**params), quiet=True)
-        resampled += (construct_shape_gii(load_data(params['out'])),)
+        resampled += (construct_shape_gii(load_data(params['out']),
+                                          intent=intent),)
         params['out'].unlink()
         if tmpimg is not None:
             tmpimg.unlink()
