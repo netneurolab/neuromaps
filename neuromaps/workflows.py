@@ -9,7 +9,11 @@ import json
 
 import nibabel as nib
 
-from neuromaps import datasets, images, resampling, transforms, stats
+from neuromaps import datasets, transforms
+from neuromaps.images import load_nifti
+from neuromaps.parcellate import Parcellater
+from neuromaps.resampling import transform_to_trg, resample_images
+from neuromaps.stats import compare_images
 
 
 def _get_null_func(null_method, space):
@@ -56,8 +60,8 @@ class Analysis:
             If `annotation` is a single surface hemisphere this specifies which
             hemisphere the data represent. Default: None
         parcellation : tuple-of-str or os.PathLike, optional
-            Filepaths to parcellation image(s) that map `annotation` to
-            template `space`. Default: None
+            Filepaths to parcellation image(s) that map data array `annotation`
+            to template `space`. Default: None
         method : {'nearest', 'linear'}, optional
             Method for resampling. Should generally be kept at 'linear'; here
             largely for compatibility purposes. Default: 'linear'
@@ -116,12 +120,12 @@ class Analysis:
         self.seed = seed
         self.null_kwargs = null_kwargs if null_kwargs is not None else {}
 
+        img = parcellation if parcellation is not None else annotation
         if self.space != 'MNI152':
-            self.density, = transforms._estimate_density((self.annotation,))
-            self.annotation, self.hemi = \
-                zip(*transforms._check_hemi(annotation, hemi))
+            self.density, = transforms._estimate_density((img,))
+            _, self.hemi = zip(*transforms._check_hemi(img, hemi))
         else:
-            aff = images.load_nifti(self.annotation).affine
+            aff = load_nifti(img).affine
             self.density, = set(nib.affines.voxel_sizes(aff))
             self.hemi = ('L', 'R') if hemi is None else hemi
 
@@ -129,6 +133,10 @@ class Analysis:
         self.null_method = null_method
         self._fetch_annotations()
         self._stats = defaultdict(dict)
+        if self.parcellation is not None:
+            self.parcellation = Parcellater(self.parcellation, self.space,
+                                            resampling_target='data',
+                                            hemi=self.hemi).fit()
 
     def _generate_nulls(self, space, density, n_perm=None):
         """ Generates null maps for specified `space` and `density`
@@ -159,10 +167,11 @@ class Analysis:
         if nulls is None and self.n_perm is not None and self.n_perm > 0:
             parcellation = None
             if self.parcellation is not None:
-                parcellation = resampling.transform_to_trg(self.parcellation,
-                                                           density, self.space,
-                                                           space, self.hemi,
-                                                           method='nearest')
+                imgs = self.parcellation.parcellation
+                parcellation = transform_to_trg(imgs, density,
+                                                self.space, space,
+                                                hemi=self.hemi,
+                                                method='nearest')[0]
             null_method = _get_null_func(self.null_method, space)
             nulls = null_method(self.annotation, atlas=space,
                                 density=density, parcellation=parcellation,
@@ -242,16 +251,21 @@ class Analysis:
                 yield key, statistic
                 continue
 
-            args = (self.annotation, annot, self.space, key[2])
-            kwargs = dict(method=self.method, hemi=self.hemi,
-                          resampling=self.resampling, alt_spec=self.alt_spec,
-                          return_space=True)
-            src, trg, space = resampling.resample_images(*args, **kwargs)
+            if self.parcellation is None:
+                args = (self.annotation, annot, self.space, key[2])
+                kwargs = dict(method=self.method, hemi=self.hemi,
+                              resampling=self.resampling,
+                              alt_spec=self.alt_spec, return_space=True)
+                src, trg, space = resample_images(*args, **kwargs)
+            else:
+                src = self.annotation
+                trg = self.parcellation.transform(annot, key[2])
+                space = (self.space, self.parcellation._density)
             nulls = self._generate_nulls(*space)
-            statistic = stats.compare_images(src, trg, metric=self.metric,
-                                             nulls=nulls,
-                                             ignore_zero=self.ignore_zero,
-                                             nan_policy=self.nan_policy)
+            statistic = compare_images(src, trg, metric=self.metric,
+                                       nulls=nulls,
+                                       ignore_zero=self.ignore_zero,
+                                       nan_policy=self.nan_policy)
 
             self._stats[hashkey][key] = statistic
             yield key, statistic
