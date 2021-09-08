@@ -199,8 +199,9 @@ def load_data(data):
         out = np.hstack([load_gifti(img).agg_data() for img in data])
     except (AttributeError, TypeError):
         out = np.stack([load_nifti(img).get_fdata() for img in data], axis=3)
-    except ValueError as err:
-        if str(err) == 'stat: embedded null character in path':
+    except (ValueError, FileNotFoundError) as err:
+        if (str(err) == 'stat: embedded null character in path'
+                or str(err).startswith('No such file or no access:')):
             out = np.stack(data, axis=-1)
 
     return np.squeeze(out)
