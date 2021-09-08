@@ -22,3 +22,4 @@ on `GitHub <https://github.com/netneurolab/neuromaps/issues>`_.
    user_guide/transformations.rst
    user_guide/comparisons.rst
    user_guide/nulls.rst
+   user_guide/reporting.rst
