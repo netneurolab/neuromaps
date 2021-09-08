@@ -10,7 +10,7 @@ import numpy as np
 from neuromaps.datasets import ALIAS, DENSITIES
 from neuromaps.images import construct_shape_gii, load_gifti
 from neuromaps.resampling import resample_images
-from neuromaps.transforms import _check_hemi
+from neuromaps.transforms import _check_hemi, _estimate_density
 from neuromaps.nulls.spins import vertices_to_parcels, parcels_to_vertices
 
 
@@ -59,6 +59,7 @@ class Parcellater():
         self.resampling_target = resampling_target
         self.hemi = hemi
         self._volumetric = self.space == 'MNI152'
+        self._density, = _estimate_density((self.parcellation,), self.hemi)
 
         if self.resampling_target == 'parcellation':
             self._resampling = 'transform_to_trg'
