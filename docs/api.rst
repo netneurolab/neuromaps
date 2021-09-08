@@ -79,7 +79,6 @@ Reference API
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.nulls.naive_nonparametric
    neuromaps.nulls.alexander_bloch
    neuromaps.nulls.vazquez_rodriguez
    neuromaps.nulls.vasa

@@ -9,7 +9,7 @@ Resampling brain maps
 So you've got a new brain map and you want to compare it to some of the
 annotations in the ``neuromaps`` repository. You know how to :ref:`fetch the
 relevant annotations <usage_annotations>` and can :ref:`transform maps between
-coordinate systems <usage_transformation>`. What now?
+coordinate systems <usage_transformations>`. What now?
 
 The :mod:`neuromaps.resampling` and :mod:`neuromaps.stats` modules contain
 functions designed to streamline the process of making these comparisons.
