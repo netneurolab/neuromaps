@@ -304,7 +304,7 @@ def mni152_to_mni152(img, target='1mm', method='linear'):
     """
 
     if target in DENSITIES['MNI152']:
-        target = fetch_atlas('MNI152', target)['T1w']
+        target = str(fetch_atlas('MNI152', target)['T1w'])
 
     out = nimage.resample_to_img(img, target, interpolation=method)
 
