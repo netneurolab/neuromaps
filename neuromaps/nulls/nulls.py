@@ -408,7 +408,7 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
         yield hdata[mask], dist[np.ix_(mask, mask)], None, idx[mask]
 
 
-def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
+def _vol_surrogates(data, atlas, density, parcellation, distmat, *args):
     if atlas != 'MNI152':
         raise ValueError('Cannot compute volumetric surrogates if atlas is '
                          f'"MNI152". Received: {atlas}')
@@ -418,18 +418,24 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
 
     # get data + coordinates of valid datapoints
     data = load_data(data)
-    if mni152.shape != data.shape:
-        raise ValueError('Provided `data` array must have same affine as '
-                         'specified MNI152 atlas')
-    data *= load_data(atlas['brainmask'])
-    mask = np.logical_not(np.logical_or(np.isclose(data, 0), np.isnan(data)))
+    if parcellation is None:
+        if mni152.shape != data.shape:
+            raise ValueError('Provided `data` array must have same affine as '
+                             'specified MNI152 atlas')
+        data *= load_data(atlas['brainmask'])
+        xyzdata = data
+    else:
+        parcellation = load_data(
+            mni152_to_mni152(parcellation, density, 'nearest')
+        )
+        labels = np.trim_zeros(np.unique(parcellation))
+        xyzdata = parcellation
+
+    mask = ~np.logical_or(np.isclose(xyzdata, 0), np.isnan(xyzdata))
     xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
 
     if parcellation is not None:
-        parcellation = load_data(
-            mni152_to_mni152(parcellation, density, 'nearest')
-        )[mask]
-        labels = np.trim_zeros(np.unique(parcellation))
+        parcellation = parcellation[mask]
 
     # calculate distance matrix
     index = None
