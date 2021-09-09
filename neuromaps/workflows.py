@@ -164,10 +164,11 @@ class Analysis:
             parcellation = None
             if self.parcellation is not None:
                 imgs = self.parcellation.parcellation
-                parcellation = transform_to_trg(imgs, density,
-                                                self.space, space,
-                                                hemi=self.hemi,
-                                                method='nearest')[0]
+                parcellation = resample_images(imgs, density,
+                                               self.space, space,
+                                               hemi=self.hemi,
+                                               resampling='transform_to_trg',
+                                               method='nearest')[0]
             null_method = _get_null_func(self.null_method, space)
             nulls = null_method(self.annotation, atlas=space,
                                 density=density, parcellation=parcellation,
