@@ -31,6 +31,9 @@ DENSITY_MAP = {
     642: '1k', 2562: '3k', 4002: '4k', 7842: '8k', 10242: '10k',
     32492: '32k', 40962: '41k', 163842: '164k'
 }
+RESOLUTION_MAP = {
+    1: '1mm', 8: '2mm', 27: '3mm'
+}
 
 
 def _estimate_density(data, hemi=None):
@@ -83,6 +86,49 @@ def _estimate_density(data, hemi=None):
         densities += (density,)
 
     return densities
+
+
+def _estimate_resolution(data):
+    """
+    Tries to estimates resolution of volumetric `data`
+
+    Parameters
+    ----------
+    data : (2,) tuple of str or os.PathLike or nib.Nifti1Image
+        Input data for (src, trg), where src and trg are images
+
+    Returns
+    -------
+    resolution : tuple-of-str
+        Tuple of strings representing approximate resolution of data
+
+    Raises
+    ------
+    ValueError
+        If resolution of `data` is not one of the standard expected values
+    """
+
+    resolutions = tuple()
+    for img in data:
+        if img in RESOLUTION_MAP.values():
+            resolutions += (img,)
+            continue
+
+        affine = load_nifti(img).affine
+        vs = nib.affines.voxel_sizes(affine)
+
+        if len(set(vs)) != 1:
+            raise ValueError('Provided data have non-isotropic voxel sizes.')
+
+        res = int(np.prod(vs))
+        resolution = RESOLUTION_MAP.get(res)
+        if resolution is None:
+            raise ValueError('Provided data resolution is non-standard. '
+                             f'Must be 1/2/3mm isotropic. Received: {res}mm^3')
+
+        resolutions += (resolution,)
+
+    return resolutions
 
 
 def _regfusion_project(data, ras, affine, method='linear'):
