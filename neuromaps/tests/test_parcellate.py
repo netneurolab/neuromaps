@@ -17,5 +17,11 @@ def test__array_to_gifti():
 
 
 @pytest.mark.xfail
-def test_Parcellater():
+@pytest.mark.workbench
+def test_surfparc_Parcellater(surfparc):
+    assert False
+
+
+@pytest.mark.xfail
+def test_volparc_Parcellater(volparc):
     assert False
