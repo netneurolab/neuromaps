@@ -190,6 +190,12 @@ class Analysis:
 
         if self.target_annotations is None:
             targets = datasets.fetch_annotation(source='all', hemi=self.hemi)
+        elif isinstance(self.target_annotations, dict):
+            for k in self.target_annotations:
+                if len(k) != 4:
+                    raise ValueError('Provided `target_annotations` in '
+                                     f'invalid format. Incorrect key: {k}')
+            targets = self.target_annotations
         else:
             targets = {}
             volfmt = ('source', 'desc', 'space', 'res')
