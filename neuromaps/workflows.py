@@ -7,12 +7,9 @@ from collections import defaultdict
 from hashlib import sha256
 import json
 
-import nibabel as nib
-
 from neuromaps import datasets, transforms
-from neuromaps.images import load_nifti
 from neuromaps.parcellate import Parcellater
-from neuromaps.resampling import transform_to_trg, resample_images
+from neuromaps.resampling import resample_images
 from neuromaps.stats import compare_images
 
 
@@ -125,8 +122,7 @@ class Analysis:
             self.density, = transforms._estimate_density((img,))
             _, self.hemi = zip(*transforms._check_hemi(img, hemi))
         else:
-            aff = load_nifti(img).affine
-            self.density, = set(nib.affines.voxel_sizes(aff))
+            self.density, = transforms._estimate_resolution((img,))
             self.hemi = ('L', 'R') if hemi is None else hemi
 
         self.nulls = {(self.space, self.density): nulls}

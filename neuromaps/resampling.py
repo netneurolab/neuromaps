@@ -3,12 +3,9 @@
 Functions for comparing data
 """
 
-import nibabel as nib
-import numpy as np
-
 from neuromaps import transforms
 from neuromaps.datasets import ALIAS, DENSITIES
-from neuromaps.images import load_gifti, load_nifti
+from neuromaps.images import load_gifti
 
 
 _resampling_docs = dict(
@@ -287,19 +284,19 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
                                  method=method, hemi=hemi)
         space, (density,) = src_space, transforms._estimate_density((src,))
     elif src_space == 'MNI152' and src_space == 'MNI152':
-        src, trg = load_nifti(src), load_nifti(trg)
-        srcres = np.prod(nib.affines.voxel_sizes(src.affine))
-        trgres = np.prod(nib.affines.voxel_sizes(trg.affine))
+        srcres, trgres = transforms._estimate_resolution((src, trg))
         if ((resampling == 'downsample_only' and srcres > trgres)
                 or resampling == 'transform_to_src'):
             trg, src = mni_transform(trg, src, trg_space, src_space,
                                      method=method)
-            space, (density,) = src_space, transforms._estimate_density((src,))
+            space = src_space
+            density, = transforms._estimate_resolution((src,))
         elif ((resampling == 'downsample_only' and srcres <= trgres)
                 or resampling == 'transform_to_trg'):
             src, trg = mni_transform(src, trg, src_space, trg_space,
                                      method=method)
-            space, (density,) = trg_space, transforms._estimate_density((trg,))
+            space = trg_space
+            density, = transforms._estimate_resolution((trg,))
     else:
         func = globals()[resampling]
         src, trg, (space, density) = func(src, trg, src_space, trg_space,
