@@ -306,8 +306,10 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
         src, trg, (space, density) = func(src, trg, src_space, trg_space,
                                           hemi=hemi, method=method,
                                           return_space=True, **opts)
-        src = tuple(load_gifti(s) for s in src)
-        trg = tuple(load_gifti(t) for t in trg)
+        if not isinstance(src, str):
+            src = tuple(load_gifti(s) for s in src)
+        if not isinstance(trg, str):
+            trg = tuple(load_gifti(t) for t in trg)
 
     if return_space:
         return src, trg, (space, density)
