@@ -172,6 +172,8 @@ def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None,
     trg_den = trg
     if trg_space != 'MNI152':
         trg_den, = transforms._estimate_density((trg_den,), hemi)
+    else:
+        trg_den, = transforms._estimate_resolution((trg_den,))
     func = getattr(transforms, f'mni152_to_{trg_space.lower()}')
     src = func(src, trg_den, method=method)
 
@@ -276,27 +278,29 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
                    method=method, hemi=hemi)[0]
         space, density = opts['alt_space'], opts['alt_density']
     elif src_space == 'MNI152' and trg_space != 'MNI152':
-        src, trg = mni_transform(src, trg, src_space, trg_space,
-                                 method=method, hemi=hemi)
-        space, (density,) = trg_space, transforms._estimate_density((trg,))
+        src, trg, (space, density) = mni_transform(src, trg,
+                                                   src_space, trg_space,
+                                                   method=method, hemi=hemi,
+                                                   return_space=True)
     elif trg_space == 'MNI152' and src_space != 'MNI152':
-        trg, src = mni_transform(trg, src, trg_space, src_space,
-                                 method=method, hemi=hemi)
-        space, (density,) = src_space, transforms._estimate_density((src,))
+        trg, src, (space, density) = mni_transform(trg, src,
+                                                   trg_space, src_space,
+                                                   method=method, hemi=hemi,
+                                                   return_space=True)
     elif src_space == 'MNI152' and src_space == 'MNI152':
         srcres, trgres = transforms._estimate_resolution((src, trg))
         if ((resampling == 'downsample_only' and srcres > trgres)
                 or resampling == 'transform_to_src'):
-            trg, src = mni_transform(trg, src, trg_space, src_space,
-                                     method=method)
-            space = src_space
-            density, = transforms._estimate_resolution((src,))
+            trg, src, (space, density) = mni_transform(trg, src,
+                                                       trg_space, src_space,
+                                                       method=method,
+                                                       return_space=True)
         elif ((resampling == 'downsample_only' and srcres <= trgres)
                 or resampling == 'transform_to_trg'):
-            src, trg = mni_transform(src, trg, src_space, trg_space,
-                                     method=method)
-            space = trg_space
-            density, = transforms._estimate_resolution((trg,))
+            src, trg, (space, density) = mni_transform(src, trg,
+                                                       src_space, trg_space,
+                                                       method=method,
+                                                       return_space=True)
     else:
         func = globals()[resampling]
         src, trg, (space, density) = func(src, trg, src_space, trg_space,
