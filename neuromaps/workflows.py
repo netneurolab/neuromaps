@@ -14,6 +14,8 @@ from neuromaps.stats import compare_images
 
 
 def _get_null_func(null_method, space):
+    """ Gets null function for `null_method` and `space
+    """
     from neuromaps import nulls
 
     if null_method == 'auto':
