@@ -24,7 +24,7 @@ with:
 
     git clone https://github.com/netneurolab/neuromaps
     cd neuromaps
-    pip install neuromaps
+    pip install .
 
 You will also need to have `Connectome Workbench <https://www.humanconnectome.
 org/software/connectome-workbench>`_ installed and available on your path in
