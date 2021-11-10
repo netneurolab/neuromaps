@@ -5,6 +5,9 @@ echo "Installing dependencies"
 python -m pip install --upgrade pip build wheel
 python -m pip install --upgrade -r requirements.txt
 
+sudo apt-get update
+sudo apt-get install -y libglu1-mesa
+
 if [ -n "${OPTIONAL_DEPENDS}" ]; then
     for DEP in ${OPTIONAL_DEPENDS}; do
         if [ ${DEP} == "mayavi" ]; then
@@ -18,8 +21,7 @@ if [ -n "${OPTIONAL_DEPENDS}" ]; then
                                     libopengl0 \
                                     libglx0 \
                                     libdbus-1-3 \
-                                    qt5-default \
-                                    libglu1-mesa
+                                    qt5-default
         fi
         python -m pip install $DEP || true
     done
