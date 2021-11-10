@@ -7,12 +7,11 @@ from collections import defaultdict
 from pathlib import Path
 import re
 import shutil
-import requests
 
 from nilearn.datasets.utils import _fetch_file
 
 from neuromaps.datasets.utils import (get_data_dir, get_dataset_info,
-                                      _get_token)
+                                      _get_token, _get_session)
 
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
@@ -214,6 +213,9 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     if verbose > 1:
         print(f'Identified {len(info)} datsets matching specified parameters')
 
+    # get session for requests
+    session = _get_session(token=token)
+
     # TODO: current work-around to handle that _fetch_files() does not support
     # session instances. hopefully a future version will and we can just use
     # that function to handle this instead of calling _fetch_file() directly
@@ -223,7 +225,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
         if not fn.exists():
             dl_file = _fetch_file(dset['url'], str(fn.parent),
                                   verbose=verbose, md5sum=dset['checksum'],
-                                  session=requests.Session())
+                                  session=session)
             shutil.move(dl_file, fn)
         data.append(str(fn))
 

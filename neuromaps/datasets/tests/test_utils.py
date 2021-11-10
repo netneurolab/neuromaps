@@ -33,6 +33,8 @@ def test__get_token():
     assert utils._get_token('test') == 'test'
     if orig is not None:  # reset env variable
         os.environ['NEUROMAPS_OSF_TOKEN'] = orig
+    else:
+        os.environ.pop('NEUROMAPS_OSF_TOKEN', None)
 
 
 @pytest.mark.xfail
