@@ -213,9 +213,6 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     if verbose > 1:
         print(f'Identified {len(info)} datsets matching specified parameters')
 
-    # get session for requests
-    session = _get_session(token=token)
-
     # TODO: current work-around to handle that _fetch_files() does not support
     # session instances. hopefully a future version will and we can just use
     # that function to handle this instead of calling _fetch_file() directly
@@ -223,8 +220,9 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     for dset in info:
         fn = Path(data_dir) / 'annotations' / dset['rel_path'] / dset['fname']
         if not fn.exists():
-            dl_file = _fetch_file(dset['url'], str(fn.parent), verbose=verbose,
-                                  md5sum=dset['checksum'], session=session)
+            dl_file = _fetch_file(dset['url'], str(fn.parent),
+                                  verbose=verbose, md5sum=dset['checksum'],
+                                  session=_get_session(token=token))
             shutil.move(dl_file, fn)
         data.append(str(fn))
 
