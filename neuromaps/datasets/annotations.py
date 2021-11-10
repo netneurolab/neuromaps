@@ -7,6 +7,7 @@ from collections import defaultdict
 from pathlib import Path
 import re
 import shutil
+import requests
 
 from nilearn.datasets.utils import _fetch_file
 
@@ -222,7 +223,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
         if not fn.exists():
             dl_file = _fetch_file(dset['url'], str(fn.parent),
                                   verbose=verbose, md5sum=dset['checksum'],
-                                  session=_get_session(token=token))
+                                  session=requests.Session())
             shutil.move(dl_file, fn)
         data.append(str(fn))
 
