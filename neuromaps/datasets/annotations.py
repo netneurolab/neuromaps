@@ -12,7 +12,7 @@ import requests
 from nilearn.datasets.utils import _fetch_file
 
 from neuromaps.datasets.utils import (get_data_dir, get_dataset_info,
-                                      _get_token, _get_session)
+                                      _get_token)
 
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
