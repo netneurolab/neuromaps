@@ -9,6 +9,7 @@ if [ -n "${OPTIONAL_DEPENDS}" ]; then
     for DEP in ${OPTIONAL_DEPENDS}; do
         if [ ${DEP} == "mayavi" ]; then
             python -m pip install numpy vtk
+            sudo apt-get update
             sudo apt-get install -y xvfb \
                                     x11-utils \
                                     mencoder \
@@ -17,7 +18,8 @@ if [ -n "${OPTIONAL_DEPENDS}" ]; then
                                     libopengl0 \
                                     libglx0 \
                                     libdbus-1-3 \
-                                    qt5-default
+                                    qt5-default \
+                                    libglu1-mesa
         fi
         python -m pip install $DEP || true
     done
