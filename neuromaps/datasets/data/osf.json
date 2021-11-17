@@ -1884,6 +1884,42 @@
                 "grh4d",
                 "60b922099096b7034f63e03f"
             ]
+        },
+        {
+            "source": "hcps1200",
+            "desc": "myelinmap",
+            "space": "fsLR",
+            "den": "32k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-hcps1200_desc-myelinmap_space-fsLR_den-32k_hemi-R_feature.func.gii",
+            "rel_path": "hcps1200/myelinmap/fsLR",
+            "checksum": null,
+            "title": null,
+            "tags": null,
+            "redir": null,
+            "url": [
+                "gk78c",
+                "61950c980b0c1e01527fcbb5"
+            ]
+        },
+        {
+            "source": "hcps1200",
+            "desc": "myelinmap",
+            "space": "fsLR",
+            "den": "32k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-hcps1200_desc-myelinmap_space-fsLR_den-32k_hemi-L_feature.func.gii",
+            "rel_path": "hcps1200/myelinmap/fsLR",
+            "checksum": null,
+            "title": null,
+            "tags": null,
+            "redir": null,
+            "url": [
+                "gk78c",
+                "61950c911088a70152bcda40"
+            ]
         }
     ]
 }
