@@ -114,7 +114,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-L_feature.func.gii",
-            "rel_path": "abagen/genepc1/fsaverage",
+            "rel_path": "abagen/genepc1/fsaverage/",
             "checksum": "3ec7cd923a9f5cc1eb83230ad3728f38",
             "title": null,
             "tags": [
@@ -134,7 +134,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii",
-            "rel_path": "abagen/genepc1/fsaverage",
+            "rel_path": "abagen/genepc1/fsaverage/",
             "checksum": "435fedeb475f3f6f5c5d24a18acedf1a",
             "title": null,
             "tags": [
@@ -153,7 +153,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-aghourian2017_desc-feobv_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "aghourian2017/feobv/MNI152",
+            "rel_path": "aghourian2017/feobv/MNI152/",
             "checksum": "256b2ff5d7ad929d83d89bbe5a02f00d",
             "title": null,
             "tags": [
@@ -162,8 +162,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b92446cb2a5e032668d1c3"
+                "4mw3a",
+                "6196ca94bbe37803aa59fd16"
             ]
         },
         {
@@ -173,7 +173,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-alarkurtti2015_desc-raclopride_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "alarkurtti2015/raclopride/MNI152",
+            "rel_path": "alarkurtti2015/raclopride/MNI152/",
             "checksum": "be946d5d276a672635a4d68c2b331f57",
             "title": null,
             "tags": [
@@ -182,8 +182,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922019096b7035063f1be"
+                "4mw3a",
+                "6196cafa0b0c1e03c67fccad"
             ]
         },
         {
@@ -193,7 +193,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-bedard2019_desc-feobv_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "bedard2019/feobv/MNI152",
+            "rel_path": "bedard2019/feobv/MNI152/",
             "checksum": "2b6bed22f2879f11d0744f3434de3ad8",
             "title": null,
             "tags": [
@@ -202,8 +202,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b9225f9096b7034f63e132"
+                "4mw3a",
+                "6196caa3bbe37803c059ebb3"
             ]
         },
         {
@@ -213,7 +213,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-beliveau2017_desc-az10419369_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "beliveau2017/az10419369/MNI152",
+            "rel_path": "beliveau2017/az10419369/MNI152/",
             "checksum": "af1c8628f2c76dfbb590294daeccb84f",
             "title": null,
             "tags": [
@@ -222,8 +222,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922543a6df1034ed4fee3"
+                "4mw3a",
+                "6196cb28bbe37803c059ee6d"
             ]
         },
         {
@@ -233,7 +233,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-beliveau2017_desc-cimbi36_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "beliveau2017/cimbi36/MNI152",
+            "rel_path": "beliveau2017/cimbi36/MNI152/",
             "checksum": "7f0f2aa3d4132d7365e3cf12e3d3c0df",
             "title": null,
             "tags": [
@@ -242,8 +242,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b9224b3a6df10348d51335"
+                "4mw3a",
+                "6196cb34bbe37803bd59f194"
             ]
         },
         {
@@ -253,7 +253,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-beliveau2017_desc-cumi101_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "beliveau2017/cumi101/MNI152",
+            "rel_path": "beliveau2017/cumi101/MNI152/",
             "checksum": "5d1284e2a9e3401ac82c3f1c425cffb1",
             "title": null,
             "tags": [
@@ -262,8 +262,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922413a6df10349d4f5dc"
+                "4mw3a",
+                "6196cb3f0b0c1e03d87fbf65"
             ]
         },
         {
@@ -273,7 +273,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-beliveau2017_desc-dasb_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "beliveau2017/dasb/MNI152",
+            "rel_path": "beliveau2017/dasb/MNI152/",
             "checksum": "7ccea5d10ff4421b88ce859159039057",
             "title": null,
             "tags": [
@@ -282,8 +282,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922373a6df1034ed4fe7b"
+                "4mw3a",
+                "6196cb1c0b0c1e03ca7fd263"
             ]
         },
         {
@@ -293,7 +293,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-beliveau2017_desc-sb207145_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "beliveau2017/sb207145/MNI152",
+            "rel_path": "beliveau2017/sb207145/MNI152/",
             "checksum": "a9195d94a8ae80b617bd232ac890f17d",
             "title": null,
             "tags": [
@@ -302,8 +302,28 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b9222c9096b7034864552e"
+                "4mw3a",
+                "6196cb10bbe37803b559fe58"
+            ]
+        },
+        {
+            "source": "ding2010",
+            "desc": "mrb",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-ding2010_desc-mrb_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "ding2010/mrb/MNI152",
+            "checksum": "10333676136be9ebe19c299ec9cb1170",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "619518c61088a70163bcdb78"
             ]
         },
         {
@@ -313,7 +333,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-dubois2015_desc-abp688_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "dubois2015/abp688/MNI152",
+            "rel_path": "dubois2015/abp688/MNI152/",
             "checksum": "23429b45d7926882537ac531e799b422",
             "title": null,
             "tags": [
@@ -322,8 +342,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b920e73a6df1034ed4f8e9"
+                "4mw3a",
+                "6196cae31088a703dabcf13d"
             ]
         },
         {
@@ -333,7 +353,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-dukart2018_desc-flumazenil_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "dukart2018/flumazenil/MNI152",
+            "rel_path": "dukart2018/flumazenil/MNI152/",
             "checksum": "d0e8c7ad747afafa3c56329c503b6ebe",
             "title": null,
             "tags": [
@@ -342,8 +362,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b924579096b7034f63e6a1"
+                "4mw3a",
+                "6196ca8c0b0c1e03c67fcc32"
             ]
         },
         {
@@ -353,7 +373,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-dukart2018_desc-fpcit_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "dukart2018/fpcit/MNI152",
+            "rel_path": "dukart2018/fpcit/MNI152/",
             "checksum": "c703674179b5656f7a020e5f21af54b6",
             "title": null,
             "tags": [
@@ -362,8 +382,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b9244d3a6df1034dd4f323"
+                "4mw3a",
+                "6196ca820b0c1e03d87fbb2e"
             ]
         },
         {
@@ -373,7 +393,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-fazio2016_desc-madam_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "fazio2016/madam/MNI152",
+            "rel_path": "fazio2016/madam/MNI152/",
             "checksum": "7f32b5c0f1e51d0a225e61c6ad7a7293",
             "title": null,
             "tags": [
@@ -382,8 +402,48 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b924329096b7034f63e621"
+                "4mw3a",
+                "6196ca650b0c1e03d87fbab8"
+            ]
+        },
+        {
+            "source": "gallezot2010",
+            "desc": "p943",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-gallezot2010_desc-p943_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "gallezot2010/p943/MNI152",
+            "checksum": "a653c53adb6ce070a22243f88c301a79",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "619519001088a70173bce511"
+            ]
+        },
+        {
+            "source": "gallezot2017",
+            "desc": "gsk189254",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-gallezot2017_desc-gsk189254_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "gallezot2017/gsk189254/MNI152",
+            "checksum": "33ab8b4bf7023a51a011e6d7acbfd79b",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "61956b36bbe37801c559fd24"
             ]
         },
         {
@@ -394,7 +454,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-megalpha_space-fsLR_den-4k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/megalpha/fsLR",
+            "rel_path": "hcps1200/megalpha/fsLR/",
             "checksum": "7f6709b5a95206d4d78a9189605fdb1f",
             "title": null,
             "tags": [
@@ -403,8 +463,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe62af610c0212dfd100"
+                "grh4d",
+                "60b9235fcb2a5e032c68c69d"
             ]
         },
         {
@@ -415,7 +475,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-megalpha_space-fsLR_den-4k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/megalpha/fsLR",
+            "rel_path": "hcps1200/megalpha/fsLR/",
             "checksum": "3b8d92a5b94e8d04c4c47da85652eb46",
             "title": null,
             "tags": [
@@ -424,8 +484,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe6fab8bca0226edd089"
+                "grh4d",
+                "60b92353cb2a5e032c68c688"
             ]
         },
         {
@@ -436,7 +496,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-megbeta_space-fsLR_den-4k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/megbeta/fsLR",
+            "rel_path": "hcps1200/megbeta/fsLR/",
             "checksum": "32e0f0b14421f2f5654ba72d00c7292e",
             "title": null,
             "tags": [
@@ -445,8 +505,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe90af610c0216dfde19"
+                "grh4d",
+                "60b923149096b7034f63e353"
             ]
         },
         {
@@ -457,7 +517,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-megbeta_space-fsLR_den-4k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/megbeta/fsLR",
+            "rel_path": "hcps1200/megbeta/fsLR/",
             "checksum": "a54083189af1cd53a860b4e21aa61fa1",
             "title": null,
             "tags": [
@@ -466,8 +526,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe9caf610c0216dfde35"
+                "grh4d",
+                "60b923209096b7035063f6ee"
             ]
         },
         {
@@ -478,7 +538,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-megdelta_space-fsLR_den-4k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/megdelta/fsLR",
+            "rel_path": "hcps1200/megdelta/fsLR/",
             "checksum": "5db3b83f8d64c55db702cea003eced8f",
             "title": null,
             "tags": [
@@ -487,8 +547,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130febeab8bca0226edd198"
+                "grh4d",
+                "60b922e0cb2a5e032c68c542"
             ]
         },
         {
@@ -499,7 +559,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-megdelta_space-fsLR_den-4k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/megdelta/fsLR",
+            "rel_path": "hcps1200/megdelta/fsLR/",
             "checksum": "c6559a3eb807ac95e99905ebdcc7dbdd",
             "title": null,
             "tags": [
@@ -508,8 +568,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fecbab8bca0226edd1c6"
+                "grh4d",
+                "60b922d29096b7035063f588"
             ]
         },
         {
@@ -520,7 +580,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-meggamma1_space-fsLR_den-4k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/meggamma1/fsLR",
+            "rel_path": "hcps1200/meggamma1/fsLR/",
             "checksum": "578c8c77bfd9a63e31082e3366f3fbc9",
             "title": null,
             "tags": [
@@ -529,8 +589,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe86af610c0217dfe770"
+                "grh4d",
+                "60b9230a9096b7035063f68b"
             ]
         },
         {
@@ -541,7 +601,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-meggamma1_space-fsLR_den-4k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/meggamma1/fsLR",
+            "rel_path": "hcps1200/meggamma1/fsLR/",
             "checksum": "9ac80aa74dfaf037f26fa9c040c0a4e8",
             "title": null,
             "tags": [
@@ -550,8 +610,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe7a4e5ee50219291b6e"
+                "grh4d",
+                "60b922ff3a6df1034dd4ef54"
             ]
         },
         {
@@ -562,7 +622,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-meggamma2_space-fsLR_den-4k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/meggamma2/fsLR",
+            "rel_path": "hcps1200/meggamma2/fsLR/",
             "checksum": "5bbd3f00d3140a965c489bd631b35f7c",
             "title": null,
             "tags": [
@@ -571,8 +631,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fea54e5ee502182911a0"
+                "grh4d",
+                "60b922f53a6df1034dd4ef2f"
             ]
         },
         {
@@ -583,7 +643,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-meggamma2_space-fsLR_den-4k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/meggamma2/fsLR",
+            "rel_path": "hcps1200/meggamma2/fsLR/",
             "checksum": "b235df678c8578221947c39e0c5d35f4",
             "title": null,
             "tags": [
@@ -592,8 +652,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130feb4af610c0216dfde66"
+                "grh4d",
+                "60b922ea9096b7035063f5ef"
             ]
         },
         {
@@ -604,7 +664,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-megtheta_space-fsLR_den-4k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/megtheta/fsLR",
+            "rel_path": "hcps1200/megtheta/fsLR/",
             "checksum": "6625037636732c489a004627957512c4",
             "title": null,
             "tags": [
@@ -613,8 +673,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe57af610c020ddfebd0"
+                "grh4d",
+                "60b923369096b7034f63e3b1"
             ]
         },
         {
@@ -625,7 +685,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-megtheta_space-fsLR_den-4k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/megtheta/fsLR",
+            "rel_path": "hcps1200/megtheta/fsLR/",
             "checksum": "ca5c487f9031b8bf25cb720b5e2ebf29",
             "title": null,
             "tags": [
@@ -634,8 +694,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe49ab8bca0225edc476"
+                "grh4d",
+                "60b92329cb2a5e032d68d5d6"
             ]
         },
         {
@@ -646,7 +706,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-myelinmap_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/myelinmap/fsLR",
+            "rel_path": "hcps1200/myelinmap/fsLR/",
             "checksum": "d633cbfe37fec25ed428d16f35780652",
             "title": null,
             "tags": [
@@ -655,8 +715,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe1c4e5ee50219291a2a"
+                "grh4d",
+                "60b922c79096b7035063f557"
             ]
         },
         {
@@ -667,7 +727,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-myelinmap_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/myelinmap/fsLR",
+            "rel_path": "hcps1200/myelinmap/fsLR/",
             "checksum": "0d7e844ee6a74d64e48e0a72a8a83291",
             "title": null,
             "tags": [
@@ -676,8 +736,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe29af610c0216dfdd20"
+                "grh4d",
+                "60b922bc9096b7035063f521"
             ]
         },
         {
@@ -688,7 +748,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-hcps1200_desc-thickness_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "hcps1200/thickness/fsLR",
+            "rel_path": "hcps1200/thickness/fsLR/",
             "checksum": "c4cfeae8608f570ecfee6f5ccc995e13",
             "title": null,
             "tags": [
@@ -697,8 +757,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe34af610c0217dfe61a"
+                "grh4d",
+                "60b9233fcb2a5e032d68d63a"
             ]
         },
         {
@@ -709,7 +769,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hcps1200_desc-thickness_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "hcps1200/thickness/fsLR",
+            "rel_path": "hcps1200/thickness/fsLR/",
             "checksum": "1bdc330c2e87cb06766dbe5dac8ee043",
             "title": null,
             "tags": [
@@ -718,8 +778,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fe40ab8bca0225edc458"
+                "grh4d",
+                "60b92349cb2a5e032c68c677"
             ]
         },
         {
@@ -729,7 +789,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-hesse2017_desc-methylreboxetine_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "hesse2017/methylreboxetine/MNI152",
+            "rel_path": "hesse2017/methylreboxetine/MNI152/",
             "checksum": "b035fdeb7c986fe5ab6be444d6492cf2",
             "title": null,
             "tags": [
@@ -738,8 +798,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b9245f9096b7034864586f"
+                "4mw3a",
+                "6196caa9bbe37803c059ebe0"
             ]
         },
         {
@@ -750,7 +810,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hill2010_desc-devexp_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "hill2010/devexp/fsLR",
+            "rel_path": "hill2010/devexp/fsLR/",
             "checksum": "94c3cd92b4ceca3c0fd1568a531ef2ad",
             "title": null,
             "tags": [
@@ -759,8 +819,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff0d4e5ee50219291d77"
+                "grh4d",
+                "60b922789096b703486455ac"
             ]
         },
         {
@@ -771,7 +831,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-hill2010_desc-evoexp_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "hill2010/evoexp/fsLR",
+            "rel_path": "hill2010/evoexp/fsLR/",
             "checksum": "73879ae1806f48d03bea2c1ff1e14ea6",
             "title": null,
             "tags": [
@@ -780,8 +840,28 @@
             ],
             "redir": null,
             "url": [
+                "grh4d",
+                "60b9228dcb2a5e032d68d38f"
+            ]
+        },
+        {
+            "source": "hillmer2016",
+            "desc": "flubatine",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-hillmer2016_desc-flubatine_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "hillmer2016/flubatine/MNI152",
+            "checksum": "4b88cbfb677ff5a3fe8ff7e7cfdf8874",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
                 "4mw3a",
-                "6130ff02ab8bca0212ee54f8"
+                "619518edbbe378017159e8d2"
             ]
         },
         {
@@ -791,7 +871,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-jaworska2020_desc-fallypride_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "jaworska2020/fallypride/MNI152",
+            "rel_path": "jaworska2020/fallypride/MNI152/",
             "checksum": "5a30f4cb0a4daae3830afcd290cd383b",
             "title": null,
             "tags": [
@@ -800,8 +880,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b924cacb2a5e032c68c9dc"
+                "4mw3a",
+                "6196cb01bbe37803ba59f121"
             ]
         },
         {
@@ -811,7 +891,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-kaller2017_desc-sch23390_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "kaller2017/sch23390/MNI152",
+            "rel_path": "kaller2017/sch23390/MNI152/",
             "checksum": "e57031b5761f448fb667eba0557234de",
             "title": null,
             "tags": [
@@ -820,8 +900,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b924d2cb2a5e032d68dbf4"
+                "4mw3a",
+                "6196ca6c1088a703cdbcee58"
             ]
         },
         {
@@ -831,7 +911,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-kantonen2020_desc-carfentanil_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "kantonen2020/carfentanil/MNI152",
+            "rel_path": "kantonen2020/carfentanil/MNI152/",
             "checksum": "3bceb339f11b6b259509fdbf76d97db5",
             "title": null,
             "tags": [
@@ -840,8 +920,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b9242b3a6df1034ed50753"
+                "4mw3a",
+                "6196ca9a1088a703e9bce6b5"
             ]
         },
         {
@@ -851,7 +931,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-laurikainen2018_desc-fmpepd2_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "laurikainen2018/fmpepd2/MNI152",
+            "rel_path": "laurikainen2018/fmpepd2/MNI152/",
             "checksum": "d72c07ad574b195983eb119163ff93f7",
             "title": null,
             "tags": [
@@ -860,8 +940,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b924673a6df1034ed50894"
+                "4mw3a",
+                "6196ca7a1088a703e8bcdfd8"
             ]
         },
         {
@@ -872,7 +952,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient01_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient01/fsLR",
+            "rel_path": "margulies2016/fcgradient01/fsLR/",
             "checksum": "f3ef7c4601a4e8f44cafc59afb8aaa30",
             "title": null,
             "tags": [
@@ -894,7 +974,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient01_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient01/fsLR",
+            "rel_path": "margulies2016/fcgradient01/fsLR/",
             "checksum": "463b8be657529800fd41ea3fc418c363",
             "title": null,
             "tags": [
@@ -916,7 +996,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient02_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient02/fsLR",
+            "rel_path": "margulies2016/fcgradient02/fsLR/",
             "checksum": "837c8e7aa719495b0fb5a07645b23983",
             "title": null,
             "tags": [
@@ -938,7 +1018,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient02_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient02/fsLR",
+            "rel_path": "margulies2016/fcgradient02/fsLR/",
             "checksum": "1b1334761da62401f5519753500a49b0",
             "title": null,
             "tags": [
@@ -960,7 +1040,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient03_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient03/fsLR",
+            "rel_path": "margulies2016/fcgradient03/fsLR/",
             "checksum": "f6f3264ff311c4d629ffdb7d499f7a76",
             "title": null,
             "tags": [
@@ -982,7 +1062,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient03_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient03/fsLR",
+            "rel_path": "margulies2016/fcgradient03/fsLR/",
             "checksum": "946d6c41a5cc46c7391323778fb580db",
             "title": null,
             "tags": [
@@ -1004,7 +1084,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient04_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient04/fsLR",
+            "rel_path": "margulies2016/fcgradient04/fsLR/",
             "checksum": "19b3a5d41e991edfbaf5ba6639670170",
             "title": null,
             "tags": [
@@ -1026,7 +1106,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient04_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient04/fsLR",
+            "rel_path": "margulies2016/fcgradient04/fsLR/",
             "checksum": "1d675f6bacb94dc2d5b14f0381837cf0",
             "title": null,
             "tags": [
@@ -1048,7 +1128,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient05_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient05/fsLR",
+            "rel_path": "margulies2016/fcgradient05/fsLR/",
             "checksum": "608d60276eebccafd47ab6277be9601c",
             "title": null,
             "tags": [
@@ -1070,7 +1150,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient05_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient05/fsLR",
+            "rel_path": "margulies2016/fcgradient05/fsLR/",
             "checksum": "7029a8ba95fb7df0f9c6d88afed3d842",
             "title": null,
             "tags": [
@@ -1092,7 +1172,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient06_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient06/fsLR",
+            "rel_path": "margulies2016/fcgradient06/fsLR/",
             "checksum": "4335bbd73eed786bbdcd5888dca9edce",
             "title": null,
             "tags": [
@@ -1114,7 +1194,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient06_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient06/fsLR",
+            "rel_path": "margulies2016/fcgradient06/fsLR/",
             "checksum": "cf0e2e94ba7a29e11277aa63990dfc89",
             "title": null,
             "tags": [
@@ -1136,7 +1216,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient07_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient07/fsLR",
+            "rel_path": "margulies2016/fcgradient07/fsLR/",
             "checksum": "d2bbcc4162774cf8ec8fb5355f72a3bf",
             "title": null,
             "tags": [
@@ -1158,7 +1238,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient07_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient07/fsLR",
+            "rel_path": "margulies2016/fcgradient07/fsLR/",
             "checksum": "895187a70f8e2a8b194be91f0b1590a5",
             "title": null,
             "tags": [
@@ -1180,7 +1260,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient08_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient08/fsLR",
+            "rel_path": "margulies2016/fcgradient08/fsLR/",
             "checksum": "f357c7145a4363c087ebadaa4b92bfbb",
             "title": null,
             "tags": [
@@ -1202,7 +1282,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient08_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient08/fsLR",
+            "rel_path": "margulies2016/fcgradient08/fsLR/",
             "checksum": "4a835ce339d010064beddcb89fec43b5",
             "title": null,
             "tags": [
@@ -1224,7 +1304,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient09_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient09/fsLR",
+            "rel_path": "margulies2016/fcgradient09/fsLR/",
             "checksum": "cab550d9eea2e1636eb6974bb4689271",
             "title": null,
             "tags": [
@@ -1246,7 +1326,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient09_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient09/fsLR",
+            "rel_path": "margulies2016/fcgradient09/fsLR/",
             "checksum": "d539c68735f42c2ce70eda0dfb0c714c",
             "title": null,
             "tags": [
@@ -1268,7 +1348,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient10_space-fsLR_den-32k_hemi-L_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient10/fsLR",
+            "rel_path": "margulies2016/fcgradient10/fsLR/",
             "checksum": "755b9d61162091dbaa5a15de3dec6c02",
             "title": null,
             "tags": [
@@ -1290,7 +1370,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-margulies2016_desc-fcgradient10_space-fsLR_den-32k_hemi-R_feature.func.gii",
-            "rel_path": "margulies2016/fcgradient10/fsLR",
+            "rel_path": "margulies2016/fcgradient10/fsLR/",
             "checksum": "fcb889621c85b6871ac275d3d0d2773c",
             "title": null,
             "tags": [
@@ -1312,7 +1392,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-mueller2013_desc-intersubjvar_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "mueller2013/intersubjvar/fsLR",
+            "rel_path": "mueller2013/intersubjvar/fsLR/",
             "checksum": "e60d1b8bb942982120959754073f2248",
             "title": null,
             "tags": [
@@ -1322,8 +1402,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff274e5ee50219291de1"
+                "grh4d",
+                "60bf8c023a6df105f2d4f6a3"
             ]
         },
         {
@@ -1334,7 +1414,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-mueller2013_desc-intersubjvar_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "mueller2013/intersubjvar/fsLR",
+            "rel_path": "mueller2013/intersubjvar/fsLR/",
             "checksum": "250e34aabb02a03686306063be549e89",
             "title": null,
             "tags": [
@@ -1344,8 +1424,28 @@
             ],
             "redir": null,
             "url": [
+                "grh4d",
+                "60bf8c029096b705b563cf6d"
+            ]
+        },
+        {
+            "source": "naganawa2020",
+            "desc": "lsn3172176",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-naganawa2020_desc-lsn3172176_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "naganawa2020/lsn3172176/MNI152",
+            "checksum": "4df88b8c43af410e4f6df5249d7aa2c6",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
                 "4mw3a",
-                "6130ff33ab8bca0225edc685"
+                "61956b461088a701d5bce978"
             ]
         },
         {
@@ -1355,7 +1455,7 @@
             "res": "2mm",
             "format": "volume",
             "fname": "source-neurosynth_desc-cogpc1_space-MNI152_res-2mm_feature.nii.gz",
-            "rel_path": "neurosynth/cogpc1/MNI152",
+            "rel_path": "neurosynth/cogpc1/MNI152/",
             "checksum": "bb6c53f7ef91c61bb597c7eaf5e4b076",
             "title": null,
             "tags": [
@@ -1378,7 +1478,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-norgaard2020_desc-flumazenil_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "norgaard2020/flumazenil/MNI152",
+            "rel_path": "norgaard2020/flumazenil/MNI152/",
             "checksum": "e4eab79ed371d7362741f66bb44388d8",
             "title": null,
             "tags": [
@@ -1387,8 +1487,48 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b924c1cb2a5e032d68dba5"
+                "4mw3a",
+                "6196caeb0b0c1e03bf7fdd23"
+            ]
+        },
+        {
+            "source": "normandin2015",
+            "desc": "omar",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-normandin2015_desc-omar_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "normandin2015/omar/MNI152",
+            "checksum": "df9b898b4f1c012410148e7196003c95",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "61956b3e1088a701d1bceac4"
+            ]
+        },
+        {
+            "source": "radnakrishnan2018",
+            "desc": "gsk215083",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-radnakrishnan2018_desc-gsk215083_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "radnakrishnan2018/gsk215083/MNI152",
+            "checksum": "dad6c6866c7d00fb4f5439a8545222a4",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "619518dcbbe378017159e898"
             ]
         },
         {
@@ -1399,7 +1539,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-raichle_desc-cbf_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "raichle/cbf/fsLR",
+            "rel_path": "raichle/cbf/fsLR/",
             "checksum": "0962f6e9e9947ee2f34262543e5d3668",
             "title": null,
             "tags": [
@@ -1408,8 +1548,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff4b4e5ee50219291e73"
+                "grh4d",
+                "60b9247acb2a5e032d68da87"
             ]
         },
         {
@@ -1420,7 +1560,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-raichle_desc-cbf_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "raichle/cbf/fsLR",
+            "rel_path": "raichle/cbf/fsLR/",
             "checksum": "e6c2b2501139529c65c99b0bb8fe1fe8",
             "title": null,
             "tags": [
@@ -1429,8 +1569,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff58ab8bca0218ee532f"
+                "grh4d",
+                "60b9246fcb2a5e032d68da5e"
             ]
         },
         {
@@ -1441,7 +1581,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-raichle_desc-cbv_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "raichle/cbv/fsLR",
+            "rel_path": "raichle/cbv/fsLR/",
             "checksum": "337b0ce11b94f16b4bc75b257e96f32e",
             "title": null,
             "tags": [
@@ -1450,8 +1590,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff8faf610c0213dfd7ed"
+                "grh4d",
+                "60b924ba9096b7034f63e7b1"
             ]
         },
         {
@@ -1462,7 +1602,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-raichle_desc-cbv_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "raichle/cbv/fsLR",
+            "rel_path": "raichle/cbv/fsLR/",
             "checksum": "2ad821ab3825457cb17c727af2525d57",
             "title": null,
             "tags": [
@@ -1471,19 +1611,19 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff9bab8bca0226edd520"
+                "grh4d",
+                "60b924ae3a6df1034ed509da"
             ]
         },
         {
             "source": "raichle",
-            "desc": "cmro2",
+            "desc": "cmr02",
             "space": "fsLR",
             "den": "164k",
             "hemi": "L",
             "format": "surface",
-            "fname": "source-raichle_desc-cmro2_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "raichle/cmro2/fsLR",
+            "fname": "source-raichle_desc-cmr02_space-fsLR_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "raichle/cmr02/fsLR/",
             "checksum": "a3b7aaf1d185f0d6b632ad7f87ad1dce",
             "title": null,
             "tags": [
@@ -1492,19 +1632,19 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff624e5ee50218291365"
+                "grh4d",
+                "60b9248fcb2a5e032d68dabe"
             ]
         },
         {
             "source": "raichle",
-            "desc": "cmro2",
+            "desc": "cmr02",
             "space": "fsLR",
             "den": "164k",
             "hemi": "R",
             "format": "surface",
-            "fname": "source-raichle_desc-cmro2_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "raichle/cmro2/fsLR",
+            "fname": "source-raichle_desc-cmr02_space-fsLR_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "raichle/cmr02/fsLR/",
             "checksum": "c68e02d4a68cd064bd00e6ba8e265219",
             "title": null,
             "tags": [
@@ -1513,8 +1653,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff6eaf610c0217dfeaa3"
+                "grh4d",
+                "60b924853a6df1034ed50927"
             ]
         },
         {
@@ -1525,7 +1665,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-raichle_desc-cmruglu_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "raichle/cmruglu/fsLR",
+            "rel_path": "raichle/cmruglu/fsLR/",
             "checksum": "0f427e8f30382f5db7f267a82bb1d92c",
             "title": null,
             "tags": [
@@ -1534,8 +1674,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff79ab8bca0226edd4a8"
+                "grh4d",
+                "60b924a33a6df10348d51705"
             ]
         },
         {
@@ -1546,7 +1686,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-raichle_desc-cmruglu_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "raichle/cmruglu/fsLR",
+            "rel_path": "raichle/cmruglu/fsLR/",
             "checksum": "ee06cb63b4c21ef661b7d86689bb59ab",
             "title": null,
             "tags": [
@@ -1555,8 +1695,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ff854e5ee5021029a186"
+                "grh4d",
+                "60b924983a6df1034ed50984"
             ]
         },
         {
@@ -1567,7 +1707,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-reardon2018_desc-scalinghcp_space-civet_den-41k_hemi-L_feature.func.gii",
-            "rel_path": "reardon2018/scalinghcp/civet",
+            "rel_path": "reardon2018/scalinghcp/civet/",
             "checksum": "3236ded1f3db516ef1d31a90b3524e9f",
             "title": null,
             "tags": [
@@ -1576,8 +1716,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "613100104e5ee5021029a221"
+                "grh4d",
+                "60b924e83a6df10348d5176c"
             ]
         },
         {
@@ -1588,7 +1728,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-reardon2018_desc-scalinghcp_space-civet_den-41k_hemi-R_feature.func.gii",
-            "rel_path": "reardon2018/scalinghcp/civet",
+            "rel_path": "reardon2018/scalinghcp/civet/",
             "checksum": "b57d2cff0c0e80cf9d65acb2bf7cbb26",
             "title": null,
             "tags": [
@@ -1597,8 +1737,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "613100044e5ee5021929210c"
+                "grh4d",
+                "60b924db9096b7034f63e832"
             ]
         },
         {
@@ -1609,7 +1749,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-reardon2018_desc-scalingnih_space-civet_den-41k_hemi-L_feature.func.gii",
-            "rel_path": "reardon2018/scalingnih/civet",
+            "rel_path": "reardon2018/scalingnih/civet/",
             "checksum": "dfb3b4e1b73a619f2cd26c303c770d54",
             "title": null,
             "tags": [
@@ -1618,8 +1758,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ffd5af610c0216dfe093"
+                "grh4d",
+                "60b9253ccb2a5e032c68caef"
             ]
         },
         {
@@ -1630,7 +1770,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-reardon2018_desc-scalingnih_space-civet_den-41k_hemi-R_feature.func.gii",
-            "rel_path": "reardon2018/scalingnih/civet",
+            "rel_path": "reardon2018/scalingnih/civet/",
             "checksum": "3d71892b49874ae253435223ee6a9503",
             "title": null,
             "tags": [
@@ -1639,8 +1779,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ffe24e5ee5021829148a"
+                "grh4d",
+                "60b925493a6df10348d517df"
             ]
         },
         {
@@ -1651,7 +1791,7 @@
             "hemi": "L",
             "format": "surface",
             "fname": "source-reardon2018_desc-scalingpnc_space-civet_den-41k_hemi-L_feature.func.gii",
-            "rel_path": "reardon2018/scalingpnc/civet",
+            "rel_path": "reardon2018/scalingpnc/civet/",
             "checksum": "5385cc40294f5165d7324347a7301f02",
             "title": null,
             "tags": [
@@ -1660,8 +1800,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130ffedab8bca0225edc80c"
+                "grh4d",
+                "60b9250c9096b7034864596e"
             ]
         },
         {
@@ -1672,7 +1812,7 @@
             "hemi": "R",
             "format": "surface",
             "fname": "source-reardon2018_desc-scalingpnc_space-civet_den-41k_hemi-R_feature.func.gii",
-            "rel_path": "reardon2018/scalingpnc/civet",
+            "rel_path": "reardon2018/scalingpnc/civet/",
             "checksum": "3ba8aff22ebf26340f4aa8267777bfb3",
             "title": null,
             "tags": [
@@ -1681,8 +1821,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6130fff94e5ee502182914c1"
+                "grh4d",
+                "60b925193a6df1034dd4f58e"
             ]
         },
         {
@@ -1693,7 +1833,7 @@
             "format": "volume",
             "fname": "source-rosaneto_desc-abp688_space-MNI152_res-1mm_feature.nii.gz",
             "rel_path": "rosaneto/abp688/MNI152",
-            "checksum": "cbcc614dd6bcfdcb19cddab59379223e",
+            "checksum": "c966cc351e36769f4ce945d07199ea08",
             "title": null,
             "tags": [
                 "receptors",
@@ -1701,8 +1841,48 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922243a6df1034ed4fe20"
+                "4mw3a",
+                "619519080b0c1e017b7fc438"
+            ]
+        },
+        {
+            "source": "sandiego2015",
+            "desc": "flb457",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-sandiego2015_desc-flb457_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "sandiego2015/flb457/MNI152",
+            "checksum": "80380e0663468ac16c887fc8f5c89064",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "619518e50b0c1e017d7fbdad"
+            ]
+        },
+        {
+            "source": "sasaki2012",
+            "desc": "fepe2i",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-sasaki2012_desc-fepe2i_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "sasaki2012/fepe2i/MNI152",
+            "checksum": "c23a39856ffb1f45cd8ef1defd535166",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "619519280b0c1e01757fcbb0"
             ]
         },
         {
@@ -1712,7 +1892,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-satterthwaite2014_desc-meancbf_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "satterthwaite2014/meancbf/MNI152",
+            "rel_path": "satterthwaite2014/meancbf/MNI152/",
             "checksum": "965011c681b616bc92754677f2317c0c",
             "title": null,
             "tags": [
@@ -1721,8 +1901,8 @@
             ],
             "redir": null,
             "url": [
-                "4mw3a",
-                "6131007a4e5ee50219292291"
+                "grh4d",
+                "60b9256bcb2a5e032d68de13"
             ]
         },
         {
@@ -1732,7 +1912,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-savli2012_desc-altanserin_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "savli2012/altanserin/MNI152",
+            "rel_path": "savli2012/altanserin/MNI152/",
             "checksum": "15ef500ca7cf70171e45418f1bb459f3",
             "title": null,
             "tags": [
@@ -1741,8 +1921,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b920d93a6df1034dd4e973"
+                "4mw3a",
+                "6196cabdbbe37803c059ec30"
             ]
         },
         {
@@ -1752,7 +1932,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-savli2012_desc-dasb_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "savli2012/dasb/MNI152",
+            "rel_path": "savli2012/dasb/MNI152/",
             "checksum": "cdd056d42721049b3a9fbb2f5c4abe1e",
             "title": null,
             "tags": [
@@ -1761,8 +1941,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b920c8cb2a5e032c68c012"
+                "4mw3a",
+                "6196cab1bbe37803bd59efbd"
             ]
         },
         {
@@ -1772,7 +1952,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-savli2012_desc-p943_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "savli2012/p943/MNI152",
+            "rel_path": "savli2012/p943/MNI152/",
             "checksum": "84cebc02d6418dc66f428463b2f0e279",
             "title": null,
             "tags": [
@@ -1781,8 +1961,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b920d13a6df10348d51106"
+                "4mw3a",
+                "6196cac91088a703e9bce778"
             ]
         },
         {
@@ -1792,7 +1972,7 @@
             "res": "3mm",
             "format": "volume",
             "fname": "source-savli2012_desc-way100635_space-MNI152_res-3mm_feature.nii.gz",
-            "rel_path": "savli2012/way100635/MNI152",
+            "rel_path": "savli2012/way100635/MNI152/",
             "checksum": "658e3db053b283c13dca122f803f2464",
             "title": null,
             "tags": [
@@ -1801,8 +1981,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b920bf9096b7035063ec44"
+                "4mw3a",
+                "6196cad4bbe37803bd59f027"
             ]
         },
         {
@@ -1812,7 +1992,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-smart2019_desc-abp688_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "smart2019/abp688/MNI152",
+            "rel_path": "smart2019/abp688/MNI152/",
             "checksum": "ae03fe0f0071a2e6223218d0f9ba2775",
             "title": null,
             "tags": [
@@ -1821,8 +2001,28 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922199096b7035063f241"
+                "4mw3a",
+                "6196ca730b0c1e03d87fbaea"
+            ]
+        },
+        {
+            "source": "smith2017",
+            "desc": "flb457",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-smith2017_desc-flb457_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "smith2017/flb457/MNI152",
+            "checksum": "94421a0e04d4385bcc9c4e830bedc988",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "619519161088a70155bcdc6e"
             ]
         },
         {
@@ -1832,7 +2032,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-spreng_desc-feobv_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "spreng/feobv/MNI152",
+            "rel_path": "spreng/feobv/MNI152/",
             "checksum": "15ee182fc5f1a1cfc332667a13970bd0",
             "title": null,
             "tags": [
@@ -1852,7 +2052,7 @@
             "res": "2mm",
             "format": "volume",
             "fname": "source-tuominen_desc-feobv_space-MNI152_res-2mm_feature.nii.gz",
-            "rel_path": "tuominen/feobv/MNI152",
+            "rel_path": "tuominen/feobv/MNI152/",
             "checksum": "9789d43eefd33ce410b77da041dd0ad6",
             "title": null,
             "tags": [
@@ -1861,8 +2061,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922113a6df10348d512eb"
+                "4mw3a",
+                "6196cb091088a703e8bce19f"
             ]
         },
         {
@@ -1872,7 +2072,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-turtonen2020_desc-carfentanil_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "turtonen2020/carfentanil/MNI152",
+            "rel_path": "turtonen2020/carfentanil/MNI152/",
             "checksum": "4041b17d30bad447baa6382d977fb7bd",
             "title": null,
             "tags": [
@@ -1881,8 +2081,8 @@
             ],
             "redir": null,
             "url": [
-                "grh4d",
-                "60b922099096b7034f63e03f"
+                "4mw3a",
+                "6196cadc1088a703e8bce0f4"
             ]
         }
     ]
