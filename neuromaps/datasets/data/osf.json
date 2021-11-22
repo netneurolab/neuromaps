@@ -313,7 +313,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-ding2010_desc-mrb_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "ding2010/mrb/MNI152",
+            "rel_path": "ding2010/mrb/MNI152/",
             "checksum": "10333676136be9ebe19c299ec9cb1170",
             "title": null,
             "tags": [
@@ -413,7 +413,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-gallezot2010_desc-p943_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "gallezot2010/p943/MNI152",
+            "rel_path": "gallezot2010/p943/MNI152/",
             "checksum": "a653c53adb6ce070a22243f88c301a79",
             "title": null,
             "tags": [
@@ -433,7 +433,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-gallezot2017_desc-gsk189254_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "gallezot2017/gsk189254/MNI152",
+            "rel_path": "gallezot2017/gsk189254/MNI152/",
             "checksum": "33ab8b4bf7023a51a011e6d7acbfd79b",
             "title": null,
             "tags": [
@@ -851,7 +851,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-hillmer2016_desc-flubatine_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "hillmer2016/flubatine/MNI152",
+            "rel_path": "hillmer2016/flubatine/MNI152/",
             "checksum": "4b88cbfb677ff5a3fe8ff7e7cfdf8874",
             "title": null,
             "tags": [
@@ -1435,7 +1435,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-naganawa2020_desc-lsn3172176_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "naganawa2020/lsn3172176/MNI152",
+            "rel_path": "naganawa2020/lsn3172176/MNI152/",
             "checksum": "4df88b8c43af410e4f6df5249d7aa2c6",
             "title": null,
             "tags": [
@@ -1498,7 +1498,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-normandin2015_desc-omar_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "normandin2015/omar/MNI152",
+            "rel_path": "normandin2015/omar/MNI152/",
             "checksum": "df9b898b4f1c012410148e7196003c95",
             "title": null,
             "tags": [
@@ -1518,7 +1518,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-radnakrishnan2018_desc-gsk215083_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "radnakrishnan2018/gsk215083/MNI152",
+            "rel_path": "radnakrishnan2018/gsk215083/MNI152/",
             "checksum": "dad6c6866c7d00fb4f5439a8545222a4",
             "title": null,
             "tags": [
@@ -1852,7 +1852,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-sandiego2015_desc-flb457_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "sandiego2015/flb457/MNI152",
+            "rel_path": "sandiego2015/flb457/MNI152/",
             "checksum": "80380e0663468ac16c887fc8f5c89064",
             "title": null,
             "tags": [
@@ -1872,7 +1872,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-sasaki2012_desc-fepe2i_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "sasaki2012/fepe2i/MNI152",
+            "rel_path": "sasaki2012/fepe2i/MNI152/",
             "checksum": "c23a39856ffb1f45cd8ef1defd535166",
             "title": null,
             "tags": [
@@ -2012,7 +2012,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-smith2017_desc-flb457_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "smith2017/flb457/MNI152",
+            "rel_path": "smith2017/flb457/MNI152/",
             "checksum": "94421a0e04d4385bcc9c4e830bedc988",
             "title": null,
             "tags": [
