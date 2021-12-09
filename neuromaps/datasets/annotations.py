@@ -207,6 +207,8 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     token = _get_token(token=token)
     return_restricted = False if (token is None or not token) else True
     data_dir = get_data_dir(data_dir=data_dir)
+    if space == 'MNI152' and hemi == ('L', 'R'):
+        hemi = None
     info = _match_annot(get_dataset_info('annotations', return_restricted),
                         source=source, desc=desc, space=space, den=den,
                         res=res, hemi=hemi, tags=tags, format=format)
