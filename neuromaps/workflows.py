@@ -262,6 +262,10 @@ class Analysis:
                               resampling=self.resampling,
                               alt_spec=self.alt_spec, return_space=True)
                 src, trg, space = resample_images(*args, **kwargs)
+                # should update this to work for any single hemisphere
+                # target annotations
+                if key[0] == 'hill2010':
+                    src, _ = zip(*transforms._check_hemi(src, 'R'))
             else:
                 src = self.annotation
                 trg = self.parcellation.transform(annot, key[2])
