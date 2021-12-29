@@ -36,6 +36,8 @@ Reference API
 
    neuromaps.datasets.get_atlas_dir
 
+   neuromaps.datasets.upload_annotation
+
 .. _ref_images:
 
 :mod:`neuromaps.images` - Image and surface handling
