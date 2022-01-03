@@ -4,11 +4,40 @@
 Contributing a new brain map
 ----------------------------
 
-We're always eager to incorporate new brain annotations into ``neuromaps``!
-While we work on putting together an automated workflow for contributing new
-maps, we encourage you to reach out to the maintainers by `opening an issue
-<https://github.com/netneurolab/neuromaps/issues/new?assignees=&labels=
-enhancement&template=brain-map-request.yml&title=%5BENH%5D+Request+to+add+
-brain+map>`_ on GitHub with information about the maps you're interested in
-adding. (You can also do this if there is a journal article that has been
-published with a map that you would like to see added to ``neuromaps``!)
+We are always looking to expand the ``neuromaps`` toolbox with more data!
+This data should be shared in the original format that it was gathered, 
+at the surface (fsaverage, fsLR, or CIVET) or volumetric (MNI-152) format.
+In the case of surface data, hemispheres should be in separate files.
+
+Surface files should be named according to this format: 
+``source-[source]_desc-[description]_space-[space]_den-[density]_hemi-[hemisphere]_feature.func.gii``.
+
+Volumetric files should be named according to this format: 
+``source-[source]_desc-[description]_space-MNI152_res-[resolution]_feature.nii.gz``.
+
+The source of the data is typically the last name of the first author 
+on the paper that first presents the data, followed by the year of the 
+paper's publication. Alternatively, it could be the name of the toolbox 
+that generated the data. Here are three examples:
+
+``source-reardon2018_desc-scalingpnc_space-civet_den-41k_hemi-L_feature.func.gii``
+
+``source-abagen_desc-genepc1_space-fsaverage_den-10k_hemi-R_feature.func.gii``
+
+``source-satterthwaite2014_desc-meancbf_space-MNI152_res-1mm_feature.nii.gz``
+
+Note that the ``reardon2018`` and ``abagen`` maps would be accompanied 
+with a second file with the other hemisphere.
+
+New brain maps can be contributed to ``neuromaps`` using the 
+:func:`neuromaps.datasets.contributions.upload_annotation` function.
+
+.. code-block::
+
+    >>> from neuromaps.datasets.contributions import upload_annotation
+    >>> files = ["path/to/files"]  # tuple of all the files you want to upload
+    >>> upload_annotation(files, "your.email@institution.com")
+
+If this returns a response object of ``200``, it worked!
+Note that your data will not be integrated with neuromaps until the maintainers 
+have approved of the data.

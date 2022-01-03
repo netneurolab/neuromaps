@@ -159,3 +159,41 @@ interpolation instead:
 
 Note that the only accepted values for ``method`` are ``'linear'`` and
 ``'nearest'``.
+
+
+.. _usage_transformations_parcellations:
+
+Parcellations
+-------------
+
+We can use an instance of the :class:`neuromaps.parcellate.Parcellater` class 
+to parcellate our data.The ``Parcellater`` class expects a path to the parcellation 
+files or a tuple of parcellation files (left and right). Note that hemisphere 
+business can be handled with the ``hemi`` parameter. The ``Parcellater`` class also 
+expects these files to contain a unique interger ID for each parcel (brain region), 
+and it will ignore all IDs of 0. This means that if your parcellation is not in the 
+right format, you will need to rework it using helper functions such as 
+:func:`neuromaps.images.relabel_gifti` and :func:`neuromaps.images.annot_to_gifti` .
+
+See :ref:`nulls with parcellated data <usage_nulls>` for another example parcellating.
+
+Here, we will parcellate MNI-152 data into the Lausanne-125 (234-node) atlas.
+
+.. code-block::
+    >>> from neuromaps.datasets import fetch_annotation
+    >>> abagen = fetch_annotation(source='abagen')
+
+You can fetch your parcelltion files as you usually do, but here's one method 
+that uses the ``netneurotools`` toolbox.
+
+.. code-block::
+    >>> from netneurotools import datasets as nntdata
+    >>> from neuromaps.parcellate import Parcellater
+
+    >>> lausanne = nntdata.fetch_cammoun2012(version='MNI152Lin2009aSym')
+    >>> parc = Parcellater(lausanne['scale125'], 'mni152')
+    >>> abagen_parc = parc.fit_transform(abagen, 'mni152')
+    >>> print(abagen_parc.shape)
+
+Note that the ``Parcellater`` class needs to know the space you are working in 
+(in this case, ``MNI-152``).
