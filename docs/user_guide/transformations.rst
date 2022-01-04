@@ -180,6 +180,7 @@ See :ref:`nulls with parcellated data <usage_nulls>` for another example parcell
 Here, we will parcellate MNI-152 data into the Lausanne-125 (234-node) atlas.
 
 .. code-block::
+
     >>> from neuromaps.datasets import fetch_annotation
     >>> abagen = fetch_annotation(source='abagen')
 
@@ -187,6 +188,7 @@ You can fetch your parcelltion files as you usually do, but here's one method
 that uses the ``netneurotools`` toolbox.
 
 .. code-block::
+    
     >>> from netneurotools import datasets as nntdata
     >>> from neuromaps.parcellate import Parcellater
 
