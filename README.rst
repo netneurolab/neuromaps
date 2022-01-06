@@ -1,4 +1,5 @@
 .. image:: neuromaps_logo.png
+
 The ``neuromaps`` toolbox is designed to help researchers make easy,
 statistically-rigorous comparisons between brain maps (or brain annotations).
 
