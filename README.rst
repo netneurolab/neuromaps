@@ -32,6 +32,11 @@ order to use most of the transformation / resampling functionality of
 
 .. _installation:
 
+Citation
+--------
+
+If you use the ``neuromaps`` toolbox, please cite our `preprint <https://www.biorxiv.org/content/10.1101/2022.01.06.475081v1>`_.
+
 License information
 -------------------
 
