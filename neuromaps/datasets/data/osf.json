@@ -2216,7 +2216,10 @@
             "rel_path": "xu2020/evoexp/fsLR/",
             "checksum": "6390e5d42bfdf3edd05f2cb85d6ae5e4",
             "title": null,
-            "tags": null,
+            "tags": [
+                "structural",
+                "MRI"
+            ],
             "redir": null,
             "url": [
                 "4mw3a",
@@ -2234,7 +2237,10 @@
             "rel_path": "xu2020/evoexp/fsLR/",
             "checksum": "4b54afbabb87da5e48b4b27ed4252ee5",
             "title": null,
-            "tags": null,
+            "tags": [
+                "structural",
+                "MRI"
+            ],
             "redir": null,
             "url": [
                 "4mw3a",
