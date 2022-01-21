@@ -91,12 +91,27 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
     }
 
     if atlas == 'MNI152':
-        filenames = [
-            f'tpl-MNI152NLin2009cAsym_res-{density}{suff}.nii.gz'
-            for suff in ('_T1w', '_T2w', '_PD', '_desc-brain_mask',
-                         '_label-csf_probseg', '_label-gm_probseg',
-                         '_label-wm_probseg')
-        ]
+        if density == '1mm' or density == '2mm':
+            filenames = [
+                f'tpl-MNI152NLin{version}_res-{density}{suff}.nii.gz'
+                for version, suff in (['2009cAsym', '_T1w'],
+                                      ['2009cAsym', '_T2w'],
+                                      ['2009cAsym', '_PD'],
+                                      ['2009cAsym', '_desc-brain_mask'],
+                                      ['2009cAsym', '_label-csf_probseg'],
+                                      ['2009cAsym', '_label-gm_probseg'],
+                                      ['2009cAsym', '_label-wm_probseg'],
+                                      ['6Asym', '_T1w'],
+                                      ['6Asym', '_desc-brain_mask'])
+            ]
+        elif density == '3mm':
+            filenames = [
+                f'tpl-MNI152NLin2009cAsym_res-{density}{suff}.nii.gz'
+                for suff in ('_T1w', '_T2w', '_PD', '_desc-brain_mask',
+                             '_label-csf_probseg', '_label-gm_probseg',
+                             '_label-wm_probseg')
+            ]
+
     else:
         filenames = [
             'tpl-{}_den-{}_hemi-{}_{}.surf.gii'
@@ -198,7 +213,14 @@ Returns
 
 
 def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):
-    keys = ['T1w', 'T2w', 'PD', 'brainmask', 'CSF', 'GM', 'WM']
+    if density == '1mm' or density == '2mm':
+        keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
+                '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
+                '2009cAsym_WM', '6Asym_T1w', '6Asym_brainmask']
+    elif density == '3mm':
+        keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
+                '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
+                '2009cAsym_WM']
     return _fetch_atlas(
         'MNI152', density, keys, url=url, data_dir=data_dir, verbose=verbose
     )

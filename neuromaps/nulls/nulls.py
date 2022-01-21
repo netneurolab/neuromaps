@@ -7,8 +7,9 @@ import nibabel as nib
 import numpy as np
 from scipy import ndimage
 from scipy.spatial.distance import cdist
-
+from packaging import version
 try:
+    import brainsmash
     from brainsmash.mapgen import Base, Sampled
     _brainsmash_avail = True
 except ImportError:
@@ -411,54 +412,87 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
 def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
     if atlas != 'MNI152':
         raise ValueError('Cannot compute volumetric surrogates if atlas is '
-                         f'"MNI152". Received: {atlas}')
+                         'not 'f'"MNI152". Received: {atlas}')
+
+    data = load_data(data)
     atlas = fetch_atlas(atlas, density)
-    mni152 = nib.load(atlas['T1w'])
-    affine = mni152.affine
 
     # get data + coordinates of valid datapoints
-    data = load_data(data)
-    if mni152.shape != data.shape:
-        raise ValueError('Provided `data` array must have same affine as '
-                         'specified MNI152 atlas')
-    data *= load_data(atlas['brainmask'])
-    mask = np.logical_not(np.logical_or(np.isclose(data, 0), np.isnan(data)))
-    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
-
-    if parcellation is not None:
-        parcellation = load_data(
-            mni152_to_mni152(parcellation, density, 'nearest')
-        )[mask]
+    if parcellation is None:
+        if nib.load(atlas['2009cASym_T1w']).shape == data.shape:
+            data *= load_data(atlas['2009cASym_brainmask'])
+        elif (
+             (density == '1mm' or density == '2mm')
+            and nib.load(atlas['6Asym_T1w']).shape == data.shape
+        ):
+            data *= load_data(atlas['6Asym_brainmask'])
+        else:
+            data *= mni152_to_mni152(nib.load(atlas['6Asym_brainmask']),
+                                     data, 'nearest')
+        mask = np.logical_not(
+            np.logical_or(np.isclose(data, 0), np.isnan(data))
+        )
+        xyz = nib.affines.apply_affine(data.affine,
+                                       np.column_stack(np.where(mask)))
+    else:
         labels = np.trim_zeros(np.unique(parcellation))
+        mask = np.logical_not(
+            np.logical_or(np.isclose(parcellation, 0), np.isnan(parcellation))
+        )
+        xyz = nib.affines.apply_affine(parcellation.affine,
+                                       np.column_stack(np.where(mask)))
+        parcellation = parcellation[mask]
 
     # calculate distance matrix
     index = None
     if distmat is None:
         if parcellation is None:  # memmap because BIG
             distout, indout = tmpname('.mmap'), tmpname('.mmap')
-            dist = np.lib.format.open_memmap(distout, mode='w+',
-                                             dtype='float32',
-                                             shape=(len(xyz), len(xyz)))
-            index = np.lib.format.open_memmap(indout, mode='w+',
-                                              dtype='int32',
-                                              shape=(len(xyz), len(xyz)))
+            try:
+                dist = np.lib.format.open_memmap(distout, mode='w+',
+                                                 dtype='float32',
+                                                 shape=(len(xyz), len(xyz)))
+                index = np.lib.format.open_memmap(indout, mode='w+',
+                                                  dtype='int32',
+                                                  shape=(len(xyz), len(xyz)))
+            except OSError:
+                if 'dist' in locals():
+                    dist._mmap.close()
+                    dist.filename.unlink()
+                if 'index' in locals():
+                    index._mmap.close()
+                    index.filename.unlink()
         else:
-            dist = np.zeros((len(xyz), len(labels)), dtype='float32')
+            row_dist = np.zeros((len(xyz), len(labels)), dtype='float32')
         for n, row in enumerate(xyz):
             xyz_dist = cdist(row[None], xyz).astype('float32')
             if parcellation is not None:
-                dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
+                row_dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
             else:
-                index[n] = np.argsort(xyz_dist, axis=-1).astype('int32')
-                dist[n] = xyz_dist[index[n]]
-                dist.flush()
-                index.flush()
+                try:
+                    index[n] = np.argsort(xyz_dist, axis=-1).astype('int32')
+                    dist[n] = xyz_dist[:, index[n]]
+                    dist.flush()
+                    index.flush()
+                except:
+                    dist._mmap.close()
+                    index._mmap.close()
+                    dist.filename.unlink()
+                    index.filename.unlink()
+        if parcellation is not None:
+            dist = np.zeros((len(labels), len(labels)), dtype='float32')
+            for n in range(len(labels)):
+                dist[n] = ndimage.mean(row_dist[:, n], parcellation, labels)
+
     else:
         dist = distmat
         if parcellation is None:
             index = np.argsort(dist, axis=-1)
 
-    yield data[mask], dist, index, slice(-1)
+    if parcellation is None:
+        yield data[mask], dist, index, mask
+    else:
+        yield data, dist, index, np.arange(len(labels))
 
 
 def _make_surrogates(data, method, atlas='fsaverage', density='10k',
@@ -472,7 +506,8 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
     surrogates = np.full((darr.shape) + (n_perm,), np.nan)
     genfunc = _vol_surrogates if atlas == 'MNI152' else _surf_surrogates
     for hdata, hdist, hind, hsl in genfunc(darr, atlas, density,
-                                           parcellation, distmat, n_proc):
+                                           parcellation, distmat,
+                                           n_proc=n_proc):
         if method == 'burt2018':
             hdata += np.abs(np.nanmin(darr)) + 0.1
             hsurr = batch_surrogates(hdist, hdata, n_surr=n_perm, seed=seed)
@@ -485,8 +520,12 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
                                 seed=seed, **kwargs)(n_perm).T
             else:
                 hsurr = Base(hdata, hdist, seed=seed, **kwargs)(n_perm, 50).T
+            if hsurr.ndim == 1:
+                hsurr = np.expand_dims(hsurr, axis=1)
             # clean up (FIXME: this is ugly and we should fix it)
             if hasattr(hdist, 'filename'):
+                hdist._mmap.close()
+                hind._mmap.close()
                 hdist.filename.unlink()
                 hind.filename.unlink()
                 del hdist, hind
@@ -569,6 +608,10 @@ def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
         raise ImportError('Cannot run burt2020 null model when `brainsmash` '
                           'is not installed. Please `pip install brainsmash` '
                           'and try again.')
+    elif version.parse(brainsmash.__version__) < version.parse('0.10.0'):
+        raise ImportError('The burt2020 null model needs version >= 0.10.0 of '
+                          '`brainsmash. Please `pip install brainsmash`'
+                          '`--upgrade` and try again.')
     return _make_surrogates(data, 'burt2020', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
