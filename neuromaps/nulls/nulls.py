@@ -22,7 +22,7 @@ except ImportError:
 
 from neuromaps.datasets import fetch_atlas
 from neuromaps.datasets.atlases import _sanitize_atlas
-from neuromaps.images import load_data, PARCIGNORE
+from neuromaps.images import load_data, load_nifti, PARCIGNORE
 from neuromaps.points import get_surface_distance
 from neuromaps.transforms import mni152_to_mni152
 from neuromaps.utils import tmpname
@@ -33,14 +33,29 @@ HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 
 _nulls_input_docs = dict(
-    data_or_none="""\
+    data_or_none_parcel="""\
 data : (N,) array_like
-    Input data from which to generate null maps. If None is provided then the
+    Input data from which to generate null maps. The data should be already
+    parcellated with N being the number of parcels in the parcellation.
+    If None is provided then the resampling array will be returned instead.\
+""",
+    data_parcel="""\
+data : (N,) array_like
+    Input data from which to generate null maps. The data should be already
+    parcellated with N being the number of parcels in the parcellation.\
+""",
+    data_or_none="""\
+data : array_like or str or os.PathLike
+    Input data from which to generate null maps. If a parcellation is
+    provided, the data should already be parcellated. Otherwise, Filepaths to
+    the parcellation image should be provided. If None is provided then the
     resampling array will be returned instead.\
 """,
     data="""\
-data : (N,) array_like
-    Input data from which to generate null maps\
+data : array_like or str or os.PathLike
+    Input data from which to generate null maps. If a parcellation is
+    provided, the data should already be parcellated. Otherwise, Filepaths to
+    the parcellation image should be provided. \
 """,
     atlas_density="""\
 atlas : {'fsLR', 'fsaverage', 'civet'}, optional
@@ -177,7 +192,7 @@ topology)
 
 Parameters
 ----------
-{data_or_none}
+{data_or_none_parcel}
 {atlas_density}
 {parcellation}
 {n_perm}
@@ -228,7 +243,7 @@ the slight expense of spatial topology)
 
 Parameters
 ----------
-{data_or_none}
+{data_or_none_parcel}
 {atlas_density}
 {parcellation}
 {n_perm}
@@ -274,7 +289,7 @@ generate null distributions. Reassigned parcels are based on the most common
 
 Parameters
 ----------
-{data_or_none}
+{data_or_none_parcel}
 {atlas_density}
 {parcellation}
 {n_perm}
@@ -318,7 +333,7 @@ of the vertices in each parcel within the rotated data
 
 Parameters
 ----------
-{data}
+{data_parcel}
 {atlas_density}
 {parcellation}
 {n_perm}
@@ -387,6 +402,9 @@ dist : (N, N) np.ndarray
 
 
 def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
+
+    data = load_data(data)
+
     if parcellation is None:
         parcellation = (None, None)
 
@@ -410,38 +428,51 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
 
 
 def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
+
     if atlas != 'MNI152':
         raise ValueError('Cannot compute volumetric surrogates if atlas is '
                          'not 'f'"MNI152". Received: {atlas}')
 
-    data = load_data(data)
+    if parcellation is not None:
+        if not isinstance(data, np.ndarray):
+            e = '"data" must be np.array when parcellation is not "None"\n'
+            e += 'got type {}'.format(type(data))
+            raise TypeError(e)
+        if data.ndim != 1:
+            e = "Brain map must be one-dimensional\n"
+            e += "got shape {}".format(data.shape)
+            raise ValueError(e)
+
+    darr = load_data(data)
     atlas = fetch_atlas(atlas, density)
 
     # get data + coordinates of valid datapoints
     if parcellation is None:
-        if nib.load(atlas['2009cASym_T1w']).shape == data.shape:
-            data *= load_data(atlas['2009cASym_brainmask'])
-        elif (
-             (density == '1mm' or density == '2mm')
-            and nib.load(atlas['6Asym_T1w']).shape == data.shape
-        ):
-            data *= load_data(atlas['6Asym_brainmask'])
+        if nib.load(atlas['2009cAsym_T1w']).shape == darr.shape:
+            darr *= load_data(atlas['2009cAsym_brainmask'])
+        elif ((density == '1mm' or density == '2mm')
+                and nib.load(atlas['6Asym_T1w']).shape == darr.shape):
+            darr *= load_data(atlas['6Asym_brainmask'])
         else:
-            data *= mni152_to_mni152(nib.load(atlas['6Asym_brainmask']),
-                                     data, 'nearest')
+            darr *= load_data(
+                mni152_to_mni152(nib.load(atlas['2009cAsym_brainmask']),
+                                 data,
+                                 'nearest')
+            )
         mask = np.logical_not(
-            np.logical_or(np.isclose(data, 0), np.isnan(data))
+            np.logical_or(np.isclose(darr, 0), np.isnan(darr))
         )
-        xyz = nib.affines.apply_affine(data.affine,
+        xyz = nib.affines.apply_affine(load_nifti(data).affine,
                                        np.column_stack(np.where(mask)))
     else:
-        labels = np.trim_zeros(np.unique(parcellation))
+        parr = load_data(parcellation)
+        labels = np.trim_zeros(np.unique(parr))
         mask = np.logical_not(
-            np.logical_or(np.isclose(parcellation, 0), np.isnan(parcellation))
+            np.logical_or(np.isclose(parr, 0), np.isnan(parr))
         )
-        xyz = nib.affines.apply_affine(parcellation.affine,
+        xyz = nib.affines.apply_affine(load_nifti(parcellation).affine,
                                        np.column_stack(np.where(mask)))
-        parcellation = parcellation[mask]
+        parcellation = parr[mask]
 
     # calculate distance matrix
     index = None
@@ -455,31 +486,28 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
                 index = np.lib.format.open_memmap(indout, mode='w+',
                                                   dtype='int32',
                                                   shape=(len(xyz), len(xyz)))
-            except OSError:
-                if 'dist' in locals():
-                    dist._mmap.close()
-                    dist.filename.unlink()
-                if 'index' in locals():
-                    index._mmap.close()
-                    index.filename.unlink()
-        else:
-            row_dist = np.zeros((len(xyz), len(labels)), dtype='float32')
-        for n, row in enumerate(xyz):
-            xyz_dist = cdist(row[None], xyz).astype('float32')
-            if parcellation is not None:
-                row_dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
-            else:
-                try:
+                for n, row in enumerate(xyz):
+                    xyz_dist = cdist(row[None], xyz).astype('float32')
                     index[n] = np.argsort(xyz_dist, axis=-1).astype('int32')
                     dist[n] = xyz_dist[:, index[n]]
                     dist.flush()
                     index.flush()
-                except:
+            except Exception as err:
+                if 'dist' in locals():
                     dist._mmap.close()
-                    index._mmap.close()
                     dist.filename.unlink()
+                    del dist
+                if 'index' in locals() and index is not None:
+                    index._mmap.close()
                     index.filename.unlink()
-        if parcellation is not None:
+                    del index
+                raise err
+
+        else:
+            row_dist = np.zeros((len(xyz), len(labels)), dtype='float32')
+            for n, row in enumerate(xyz):
+                xyz_dist = cdist(row[None], xyz).astype('float32')
+                row_dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
             dist = np.zeros((len(labels), len(labels)), dtype='float32')
             for n in range(len(labels)):
                 dist[n] = ndimage.mean(row_dist[:, n], parcellation, labels)
@@ -490,7 +518,7 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
             index = np.argsort(dist, axis=-1)
 
     if parcellation is None:
-        yield data[mask], dist, index, mask
+        yield darr[mask], dist, index, mask
     else:
         yield data, dist, index, np.arange(len(labels))
 
@@ -505,7 +533,7 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
     darr = load_data(data)
     surrogates = np.full((darr.shape) + (n_perm,), np.nan)
     genfunc = _vol_surrogates if atlas == 'MNI152' else _surf_surrogates
-    for hdata, hdist, hind, hsl in genfunc(darr, atlas, density,
+    for hdata, hdist, hind, hsl in genfunc(data, atlas, density,
                                            parcellation, distmat,
                                            n_proc=n_proc):
         if method == 'burt2018':
