@@ -24,7 +24,7 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
     Parameters
     ----------
     src, trg : str or os.PathLike or nib.GiftiImage or niimg_like or tuple
-        Images to be compared
+        Images or 1d np.array with same length (for parcellated data) to be compared
     metric : {'pearsonr', 'spearmanr', callable}, optional
         Type of similarity metric to use to compare `src` and `trg` images. If
         a callable function is provided it must accept two inputs and return a
@@ -57,7 +57,13 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
                 raise ValueError('Provided callable `metric` must accept two '
                                  'inputs and return single value.')
 
-    srcdata, trgdata = load_data(src), load_data(trg)
+    if isinstance(src,np.ndarray)&isinstance(trg,np.ndarray):
+        if not src.shape[0]==trg.shape[0]:
+            raise ValueError('Parcellated data arrays should have the same length')
+        else:
+            srcdata, trgdata=src, trg
+    else:
+        srcdata, trgdata = load_data(src), load_data(trg)
 
     mask = np.zeros(len(srcdata), dtype=bool)
     if ignore_zero:
