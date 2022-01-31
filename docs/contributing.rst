@@ -18,7 +18,7 @@ Volumetric files should be named according to this format:
 The source of the data is typically the last name of the first author 
 on the paper that first presents the data, followed by the year of the 
 paper's publication. Alternatively, it could be the name of the toolbox 
-that generated the data. Here are three examples:
+that generated the data. Here are four examples:
 
 ``source-reardon2018_desc-scalingpnc_space-civet_den-41k_hemi-L_feature.func.gii``
 
@@ -26,8 +26,10 @@ that generated the data. Here are three examples:
 
 ``source-satterthwaite2014_desc-meancbf_space-MNI152_res-1mm_feature.nii.gz``
 
-Note that the ``reardon2018`` and ``abagen`` maps would be accompanied 
-with a second file with the other hemisphere.
+``source-sydnor2021_desc-SAaxis_space-fsLR_den-32k_hemi-L_feature.func.gii``
+
+Note that the surface based maps would be accompanied with a second file 
+with the other hemisphere.
 
 New brain maps can be contributed to ``neuromaps`` using the 
 :func:`neuromaps.datasets.contributions.upload_annotation` function.
