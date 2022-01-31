@@ -41,7 +41,7 @@ you can use the following Zenodo reference:
     </script>
 
     <p style="margin-left: 30px">
-      <span id="neuromaps_citation">neuromaps</span> Available from: <a id="neuromaps_doi_url" href="https://doi.org/10.5281/zenodo.5842498">10.5281/zenodo.5842498</a>.
+      <span id="neuromaps_citation">neuromaps</span> available from: <a id="neuromaps_doi_url" href="https://doi.org/10.5281/zenodo.5842498">10.5281/zenodo.5842498</a>.
       <img src onerror='fillCitation()' alt="" />
     </p>
 
