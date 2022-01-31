@@ -167,35 +167,54 @@ Parcellations
 -------------
 
 We can use an instance of the :class:`neuromaps.parcellate.Parcellater` class 
-to parcellate our data.The ``Parcellater`` class expects a path to the parcellation 
+to parcellate our data. The ``Parcellater`` class expects a path to the parcellation 
 files or a tuple of parcellation files (left and right). Note that hemisphere 
 business can be handled with the ``hemi`` parameter. The ``Parcellater`` class also 
-expects these files to contain a unique interger ID for each parcel (brain region), 
+expects these files to contain a unique integer ID for each parcel (brain region), 
 and it will ignore all IDs of 0. This means that if your parcellation is not in the 
 right format, you will need to rework it using helper functions such as 
 :func:`neuromaps.images.relabel_gifti` and :func:`neuromaps.images.annot_to_gifti` .
 
-See :ref:`nulls with parcellated data <usage_nulls>` for another example parcellating.
+See :ref:`nulls with parcellated data <usage_nulls>` for another example parcellating,
+in the context of spatial nulls. 
 
-Here, we will parcellate MNI-152 data into the Lausanne-125 (234-node) atlas.
+Here is an example of parcellating volumetric (MNI-152) data into the Lausanne-125 
+(234-node) atlas.
 
 .. code-block::
 
     >>> from neuromaps.datasets import fetch_annotation
-    >>> abagen = fetch_annotation(source='abagen')
-
-You can fetch your parcelltion files as you usually do, but here's one method 
-that uses the ``netneurotools`` toolbox.
-
-.. code-block::
-    
     >>> from netneurotools import datasets as nntdata
     >>> from neuromaps.parcellate import Parcellater
 
-    >>> lausanne = nntdata.fetch_cammoun2012(version='MNI152Lin2009aSym')
+    >>> glutamate = fetch_annotation(source='smart2019', desc='abp688', space='MNI152', den='1mm')
+    >>> lausanne = nntdata.fetch_cammoun2012(version='MNI152NLin2009aSym')
     >>> parc = Parcellater(lausanne['scale125'], 'mni152')
-    >>> abagen_parc = parc.fit_transform(abagen, 'mni152')
-    >>> print(abagen_parc.shape)
+    >>> glutamate_parc = parc.fit_transform(glutamate, 'mni152')
+
 
 Note that the ``Parcellater`` class needs to know the space you are working in 
-(in this case, ``MNI-152``).
+(in this case, ``MNI-152``). 
+
+Here is another example in which surface data (fslR) is parcellated into the 
+Schaefer-400 atlas. Note that in this case the atlas is in ``dlabel.nii`` format. 
+``neuromaps`` requires tuples of gifti (``*.gii``) files but this can be handled 
+using the :func:`neuromaps.images.dlabel_to_gifti` .
+
+.. code-block::
+
+    >>> from neuromaps.datasets import fetch_annotation
+    >>> from netneurotools import datasets as nntdata
+    >>> from neuromaps.parcellate import Parcellater
+    >>> from neuromaps.images import dlabel_to_gifti 
+
+    >>> fc_grad = fetch_annotation(source='margulies2016', desc='fcgradient01', space='fsLR', den='32k')
+    >>> schaefer = nntdata.fetch_schaefer2018('fslr32k')['400Parcels7Networks']
+    >>> parc = Parcellater(dlabel_to_gifti(schaefer), 'fsLR')
+    >>> fc_grad_parc = parc.fit_transform(fcgradient, 'fsLR')
+
+In these two examples, parcellations were fetched using `netneurotools <https://netneurotools.readthedocs.io/en/latest/>`__ .
+But of course you can fetch your parcellation files from wherever you would 
+normally get them. Just make sure they are in ``neuromaps`` format and check 
+that your parcellation makes sense (i.e. looks the way it should) afterwards.
+
