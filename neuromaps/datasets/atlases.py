@@ -213,14 +213,11 @@ Returns
 
 
 def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):
-    if density == '1mm' or density == '2mm':
-        keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
-                '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
-                '2009cAsym_WM', '6Asym_T1w', '6Asym_brainmask']
-    elif density == '3mm':
-        keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
-                '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
-                '2009cAsym_WM']
+    keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
+            '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
+            '2009cAsym_WM']
+    if density in ('1mm', '2mm'):
+        keys += ['6Asym_T1w', '6Asym_brainmask']
     return _fetch_atlas(
         'MNI152', density, keys, url=url, data_dir=data_dir, verbose=verbose
     )

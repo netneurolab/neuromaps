@@ -3,6 +3,8 @@
 Contains functionality for running spatial null models
 """
 
+import os
+import tempfile
 import nibabel as nib
 import numpy as np
 from scipy import ndimage
@@ -25,7 +27,6 @@ from neuromaps.datasets.atlases import _sanitize_atlas
 from neuromaps.images import load_data, load_nifti, PARCIGNORE
 from neuromaps.points import get_surface_distance
 from neuromaps.transforms import mni152_to_mni152
-from neuromaps.utils import tmpname
 from neuromaps.nulls.burt import batch_surrogates
 from neuromaps.nulls.spins import (gen_spinsamples, get_parcel_centroids,
                                    load_spins, spin_data, spin_parcels)
@@ -431,84 +432,66 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
 
     if atlas != 'MNI152':
         raise ValueError('Cannot compute volumetric surrogates if atlas is '
-                         'not 'f'"MNI152". Received: {atlas}')
+                         f'not "MNI152". Received: {atlas}')
 
     if parcellation is not None:
-        if not isinstance(data, np.ndarray):
-            e = '"data" must be np.array when parcellation is not "None"\n'
-            e += 'got type {}'.format(type(data))
-            raise TypeError(e)
+        try:
+            data = np.asarray(data, dtype='float32').squeeze()
+        except (TypeError, ValueError) as err:
+            msg = ('`data` must be array_like and represent a '
+                   'parcellated brain map when `parcellation` is not '
+                   '"None"')
+            raise TypeError(msg) from err
         if data.ndim != 1:
-            e = "Brain map must be one-dimensional\n"
-            e += "got shape {}".format(data.shape)
-            raise ValueError(e)
+            raise ValueError('Brain map must be one-dimensional. Got shape '
+                             f'{data.shape}')
 
-    darr = load_data(data)
     atlas = fetch_atlas(atlas, density)
 
     # get data + coordinates of valid datapoints
     if parcellation is None:
+        darr = load_data(data)
         if nib.load(atlas['2009cAsym_T1w']).shape == darr.shape:
-            darr *= load_data(atlas['2009cAsym_brainmask'])
-        elif ((density == '1mm' or density == '2mm')
-                and nib.load(atlas['6Asym_T1w']).shape == darr.shape):
-            darr *= load_data(atlas['6Asym_brainmask'])
+            bmask = atlas['2009cAsym_brainmask']
+        elif (density in ('1mm', '2mm')
+              and nib.load(atlas['6Asym_T1w']).shape == darr.shape):
+            bmask = atlas['6Asym_brainmask']
         else:
-            darr *= load_data(
-                mni152_to_mni152(nib.load(atlas['2009cAsym_brainmask']),
-                                 data,
-                                 'nearest')
-            )
-        mask = np.logical_not(
-            np.logical_or(np.isclose(darr, 0), np.isnan(darr))
-        )
-        xyz = nib.affines.apply_affine(load_nifti(data).affine,
-                                       np.column_stack(np.where(mask)))
+            bmask = mni152_to_mni152(nib.load(atlas['2009cAsym_brainmask']),
+                                     data,
+                                     'nearest')
+        darr *= load_data(bmask)
+        affine = load_nifti(bmask).affine
     else:
-        parr = load_data(parcellation)
-        labels = np.trim_zeros(np.unique(parr))
-        mask = np.logical_not(
-            np.logical_or(np.isclose(parr, 0), np.isnan(parr))
-        )
-        xyz = nib.affines.apply_affine(load_nifti(parcellation).affine,
-                                       np.column_stack(np.where(mask)))
-        parcellation = parr[mask]
+        darr = load_data(parcellation)
+        affine = load_nifti(parcellation).affine
+        labels = np.trim_zeros(np.unique(darr))
+    mask = np.logical_not(np.logical_or(np.isclose(darr, 0), np.isnan(darr)))
+    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
 
     # calculate distance matrix
     index = None
     if distmat is None:
         if parcellation is None:  # memmap because BIG
-            distout, indout = tmpname('.mmap'), tmpname('.mmap')
-            try:
-                dist = np.lib.format.open_memmap(distout, mode='w+',
-                                                 dtype='float32',
-                                                 shape=(len(xyz), len(xyz)))
-                index = np.lib.format.open_memmap(indout, mode='w+',
-                                                  dtype='int32',
-                                                  shape=(len(xyz), len(xyz)))
-                for n, row in enumerate(xyz):
-                    xyz_dist = cdist(row[None], xyz).astype('float32')
-                    index[n] = np.argsort(xyz_dist, axis=-1).astype('int32')
-                    dist[n] = xyz_dist[:, index[n]]
-                    dist.flush()
-                    index.flush()
-            except Exception as err:
-                if 'dist' in locals():
-                    dist._mmap.close()
-                    dist.filename.unlink()
-                    del dist
-                if 'index' in locals() and index is not None:
-                    index._mmap.close()
-                    index.filename.unlink()
-                    del index
-                raise err
-
+            distout = tempfile.NamedTemporaryFile(suffix='.mmap')
+            dist = np.memmap(distout, mode='w+', dtype='float32',
+                             shape=(len(xyz), len(xyz)))
+            indout = tempfile.NamedTemporaryFile(suffix='.mmap')
+            index = np.memmap(indout, mode='w+', dtype='int32',
+                              shape=(len(xyz), len(xyz)))
+            for n, row in enumerate(xyz):
+                xyz_dist = cdist(row[None], xyz).astype('float32')
+                index[n] = np.argsort(xyz_dist, axis=-1).astype('int32')
+                dist[n] = xyz_dist[:, index[n]]
+                dist.flush()
+                index.flush()
         else:
+            parcellation = darr[mask]
             row_dist = np.zeros((len(xyz), len(labels)), dtype='float32')
+            dist = np.zeros((len(labels), len(labels)), dtype='float32')
             for n, row in enumerate(xyz):
                 xyz_dist = cdist(row[None], xyz).astype('float32')
                 row_dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
-            dist = np.zeros((len(labels), len(labels)), dtype='float32')
             for n in range(len(labels)):
                 dist[n] = ndimage.mean(row_dist[:, n], parcellation, labels)
 
@@ -520,7 +503,7 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
     if parcellation is None:
         yield darr[mask], dist, index, mask
     else:
-        yield data, dist, index, np.arange(len(labels))
+        yield data, dist, index, np.ones(len(labels), dtype=bool)
 
 
 def _make_surrogates(data, method, atlas='fsaverage', density='10k',
@@ -554,8 +537,8 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
             if hasattr(hdist, 'filename'):
                 hdist._mmap.close()
                 hind._mmap.close()
-                hdist.filename.unlink()
-                hind.filename.unlink()
+                os.unlink(hdist.filename)
+                os.unlink(hind.filename)
                 del hdist, hind
         elif method == 'moran':
             dist = hdist.astype('float64')
