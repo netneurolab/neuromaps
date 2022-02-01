@@ -10,4 +10,5 @@ Contents
    usage
    auto_examples/index.rst
    contributing
+   citing
    api
