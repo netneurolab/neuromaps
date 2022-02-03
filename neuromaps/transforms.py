@@ -31,6 +31,9 @@ DENSITY_MAP = {
     642: '1k', 2562: '3k', 4002: '4k', 7842: '8k', 10242: '10k',
     32492: '32k', 40962: '41k', 163842: '164k'
 }
+RESOLUTION_MAP = {
+    1: '1mm', 8: '2mm', 27: '3mm'
+}
 
 
 def _estimate_density(data, hemi=None):
@@ -83,6 +86,49 @@ def _estimate_density(data, hemi=None):
         densities += (density,)
 
     return densities
+
+
+def _estimate_resolution(data):
+    """
+    Tries to estimates resolution of volumetric `data`
+
+    Parameters
+    ----------
+    data : (2,) tuple of str or os.PathLike or nib.Nifti1Image
+        Input data for (src, trg), where src and trg are images
+
+    Returns
+    -------
+    resolution : tuple-of-str
+        Tuple of strings representing approximate resolution of data
+
+    Raises
+    ------
+    ValueError
+        If resolution of `data` is not one of the standard expected values
+    """
+
+    resolutions = tuple()
+    for img in data:
+        if img in RESOLUTION_MAP.values():
+            resolutions += (img,)
+            continue
+
+        affine = load_nifti(img).affine
+        vs = nib.affines.voxel_sizes(affine)
+
+        if len(set(vs)) != 1:
+            raise ValueError('Provided data have non-isotropic voxel sizes.')
+
+        res = int(np.prod(vs))
+        resolution = RESOLUTION_MAP.get(res)
+        if resolution is None:
+            raise ValueError('Provided data resolution is non-standard. '
+                             f'Must be 1/2/3mm isotropic. Received: {res}mm^3')
+
+        resolutions += (resolution,)
+
+    return resolutions
 
 
 def _regfusion_project(data, ras, affine, method='linear'):
@@ -258,7 +304,7 @@ def mni152_to_mni152(img, target='1mm', method='linear'):
     """
 
     if target in DENSITIES['MNI152']:
-        target = fetch_atlas('MNI152', target)['T1w']
+        target = str(fetch_atlas('MNI152', target)['T1w'])
 
     out = nimage.resample_to_img(img, target, interpolation=method)
 
@@ -348,6 +394,7 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
 
     resampled = ()
     func = METRICRESAMPLE if method == 'linear' else LABELRESAMPLE
+    intent = f'NIFTI_INTENT_{"SHAPE" if method == "linear" else "LABEL"}'
     for img, hemi in _check_hemi(data, hemi):
         srcparams['hemi'] = trgparams['hemi'] = hemi
         try:
@@ -369,7 +416,8 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
         )
         for fn in (func, MASKSURF):
             run(fn.format(**params), quiet=True)
-        resampled += (construct_shape_gii(load_data(params['out'])),)
+        resampled += (construct_shape_gii(load_data(params['out']),
+                                          intent=intent),)
         params['out'].unlink()
         if tmpimg is not None:
             tmpimg.unlink()

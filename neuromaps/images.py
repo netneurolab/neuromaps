@@ -7,6 +7,7 @@ import gzip
 import os
 from pathlib import Path
 from typing import Iterable
+import warnings
 
 import nibabel as nib
 from nibabel.filebasedimages import ImageFileError
@@ -133,7 +134,9 @@ def load_nifti(img):
     """
 
     try:
-        img = nib.load(img)
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=DeprecationWarning)
+            img = nib.load(img)
     except (TypeError) as err:
         msg = ('stat: path should be string, bytes, os.PathLike or integer, '
                'not Nifti1Image')
@@ -161,7 +164,9 @@ def load_gifti(img):
     """
 
     try:
-        img = nib.load(img)
+        with warnings.catch_warnings():
+            warnings.filterwarnings('ignore', category=DeprecationWarning)
+            img = nib.load(img)
     except (ImageFileError, TypeError) as err:
         # it's gzipped, so read the gzip and pipe it in
         if isinstance(err, ImageFileError) and str(err).endswith('.gii.gz"'):
@@ -199,8 +204,9 @@ def load_data(data):
         out = np.hstack([load_gifti(img).agg_data() for img in data])
     except (AttributeError, TypeError):
         out = np.stack([load_nifti(img).get_fdata() for img in data], axis=3)
-    except ValueError as err:
-        if str(err) == 'stat: embedded null character in path':
+    except (ValueError, FileNotFoundError) as err:
+        if (str(err) == 'stat: embedded null character in path'
+                or str(err).startswith('No such file or no access:')):
             out = np.stack(data, axis=-1)
 
     return np.squeeze(out)

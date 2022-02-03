@@ -48,50 +48,60 @@ def test__check_hemi():
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test__surf_to_surf():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_civet_to_fslr():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_fslr_to_civet():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_civet_to_fsaverage():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_fsaverage_to_civet():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_fslr_to_fsaverage():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_fsaverage_to_fslr():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_civet_to_civet():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_fslr_to_fslr():
     assert False
 
 
 @pytest.mark.xfail
+@pytest.mark.workbench
 def test_fsaverage_to_fsaverage():
     assert False

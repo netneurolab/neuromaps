@@ -408,7 +408,7 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
         yield hdata[mask], dist[np.ix_(mask, mask)], None, idx[mask]
 
 
-def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
+def _vol_surrogates(data, atlas, density, parcellation, distmat, *args):
     if atlas != 'MNI152':
         raise ValueError('Cannot compute volumetric surrogates if atlas is '
                          f'"MNI152". Received: {atlas}')
@@ -418,18 +418,24 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
 
     # get data + coordinates of valid datapoints
     data = load_data(data)
-    if mni152.shape != data.shape:
-        raise ValueError('Provided `data` array must have same affine as '
-                         'specified MNI152 atlas')
-    data *= load_data(atlas['brainmask'])
-    mask = np.logical_not(np.logical_or(np.isclose(data, 0), np.isnan(data)))
-    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
-
-    if parcellation is not None:
+    if parcellation is None:
+        if mni152.shape != data.shape:
+            raise ValueError('Provided `data` array must have same affine as '
+                             'specified MNI152 atlas')
+        data *= load_data(atlas['brainmask'])
+        mask = ~np.logical_or(np.isclose(data, 0), np.isnan(data))
+        data = data[mask]
+    else:
         parcellation = load_data(
             mni152_to_mni152(parcellation, density, 'nearest')
-        )[mask]
+        )
         labels = np.trim_zeros(np.unique(parcellation))
+        mask = ~np.logical_or(
+            np.isclose(parcellation, 0), np.isnan(parcellation)
+        )
+        parcellation = parcellation[mask]
+
+    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
 
     # calculate distance matrix
     index = None
@@ -458,7 +464,13 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
         if parcellation is None:
             index = np.argsort(dist, axis=-1)
 
-    yield data[mask], dist, index, slice(-1)
+    if parcellation is not None:
+        dist = np.row_stack([
+            dist[parcellation == lab].mean(axis=0) for lab in labels
+        ])
+        dist[np.diag_indices_from(dist)] = 0
+
+    yield data, dist, index, slice(None)
 
 
 def _make_surrogates(data, method, atlas='fsaverage', density='10k',

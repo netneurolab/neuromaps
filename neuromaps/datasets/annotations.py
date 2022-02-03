@@ -207,6 +207,8 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     token = _get_token(token=token)
     return_restricted = False if (token is None or not token) else True
     data_dir = get_data_dir(data_dir=data_dir)
+    if space == 'MNI152' and hemi == ('L', 'R'):
+        hemi = None
     info = _match_annot(get_dataset_info('annotations', return_restricted),
                         source=source, desc=desc, space=space, den=den,
                         res=res, hemi=hemi, tags=tags, format=format)
@@ -223,8 +225,9 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     for dset in info:
         fn = Path(data_dir) / 'annotations' / dset['rel_path'] / dset['fname']
         if not fn.exists():
-            dl_file = _fetch_file(dset['url'], str(fn.parent), verbose=verbose,
-                                  md5sum=dset['checksum'], session=session)
+            dl_file = _fetch_file(dset['url'], str(fn.parent),
+                                  verbose=verbose, md5sum=dset['checksum'],
+                                  session=session)
             shutil.move(dl_file, fn)
         data.append(str(fn))
 
