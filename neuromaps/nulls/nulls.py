@@ -47,9 +47,9 @@ data : (N,) array_like
 """,
     data_alexander_bloch="""\
 data : array_like or tuple-of-str or PathLike or nib.GiftiImage
-    Input data from which to generate null maps. If a parcellation is
-    provided, the data must be parcellated. If None is provided then
-    the resampling array will be returned instead.\
+    Input data from which to generate null maps. If None is provided then
+    the resampling array will be returned instead. If a parcellation is
+    provided, the data must be parcellated.\
 """,
     data="""\
 data : array_like or str or os.PathLike or niimg_like or tuple
