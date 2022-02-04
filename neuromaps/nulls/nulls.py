@@ -36,27 +36,25 @@ HEMI = dict(left='L', lh='L', right='R', rh='R')
 _nulls_input_docs = dict(
     data_or_none_parcel="""\
 data : (N,) array_like
-    Input data from which to generate null maps. The data should be already
-    parcellated with N being the number of parcels in the parcellation.
-    If None is provided then the resampling array will be returned instead.\
+    Input data from which to generate null maps. The data must be
+    parcellated. If None is provided then the resampling array will be returned
+    instead.\
 """,
     data_parcel="""\
 data : (N,) array_like
-    Input data from which to generate null maps. The data should be already
-    parcellated with N being the number of parcels in the parcellation.\
+    Input data from which to generate null maps. The data must be
+    parcellated.\
 """,
-    data_or_none="""\
-data : array_like or str or os.PathLike
+    data_alexander_bloch="""\
+data : array_like or tuple-of-str or PathLike or nib.GiftiImage
     Input data from which to generate null maps. If a parcellation is
-    provided, the data should already be parcellated. Otherwise, Filepaths to
-    the parcellation image should be provided. If None is provided then the
-    resampling array will be returned instead.\
+    provided, the data must be parcellated. If None is provided then
+    the resampling array will be returned instead.\
 """,
     data="""\
-data : array_like or str or os.PathLike
+data : array_like or str or os.PathLike or niimg_like or tuple
     Input data from which to generate null maps. If a parcellation is
-    provided, the data should already be parcellated. Otherwise, Filepaths to
-    the parcellation image should be provided. \
+    provided, the data must be parcellated.\
 """,
     atlas_density="""\
 atlas : {'fsLR', 'fsaverage', 'civet'}, optional
@@ -139,7 +137,7 @@ are projected to surface and parcels are reassigned based on minimum distances.
 
 Parameters
 ----------
-{data_or_none}
+{data_alexander_bloch}
 {atlas_density}
 {parcellation}
 {n_perm}
