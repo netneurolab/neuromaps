@@ -97,6 +97,12 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
                          '_label-csf_probseg', '_label-gm_probseg',
                          '_label-wm_probseg')
         ]
+        if density in ('1mm', '2mm'):
+            filenames += [
+                f'tpl-MNI152NLin6Asym_res-{density}{suff}.nii.gz'
+                for suff in ('_T1w', '_desc-brain_mask')
+            ]
+
     else:
         filenames = [
             'tpl-{}_den-{}_hemi-{}_{}.surf.gii'
@@ -198,7 +204,11 @@ Returns
 
 
 def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):
-    keys = ['T1w', 'T2w', 'PD', 'brainmask', 'CSF', 'GM', 'WM']
+    keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
+            '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
+            '2009cAsym_WM']
+    if density in ('1mm', '2mm'):
+        keys += ['6Asym_T1w', '6Asym_brainmask']
     return _fetch_atlas(
         'MNI152', density, keys, url=url, data_dir=data_dir, verbose=verbose
     )
