@@ -91,25 +91,16 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
     }
 
     if atlas == 'MNI152':
-        if density == '1mm' or density == '2mm':
-            filenames = [
-                f'tpl-MNI152NLin{version}_res-{density}{suff}.nii.gz'
-                for version, suff in (['2009cAsym', '_T1w'],
-                                      ['2009cAsym', '_T2w'],
-                                      ['2009cAsym', '_PD'],
-                                      ['2009cAsym', '_desc-brain_mask'],
-                                      ['2009cAsym', '_label-csf_probseg'],
-                                      ['2009cAsym', '_label-gm_probseg'],
-                                      ['2009cAsym', '_label-wm_probseg'],
-                                      ['6Asym', '_T1w'],
-                                      ['6Asym', '_desc-brain_mask'])
-            ]
-        elif density == '3mm':
-            filenames = [
-                f'tpl-MNI152NLin2009cAsym_res-{density}{suff}.nii.gz'
-                for suff in ('_T1w', '_T2w', '_PD', '_desc-brain_mask',
-                             '_label-csf_probseg', '_label-gm_probseg',
-                             '_label-wm_probseg')
+        filenames = [
+            f'tpl-MNI152NLin2009cAsym_res-{density}{suff}.nii.gz'
+            for suff in ('_T1w', '_T2w', '_PD', '_desc-brain_mask',
+                         '_label-csf_probseg', '_label-gm_probseg',
+                         '_label-wm_probseg')
+        ]
+        if density in ('1mm', '2mm'):
+            filenames += [
+                f'tpl-MNI152NLin6Asym_res-{density}{suff}.nii.gz'
+                for suff in ('_T1w', '_desc-brain_mask')
             ]
 
     else:
