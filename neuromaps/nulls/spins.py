@@ -8,7 +8,10 @@ import warnings
 
 import numpy as np
 from scipy import optimize, spatial
-from scipy.ndimage.measurements import _stats, labeled_comprehension
+try:  # scipy >= 1.8.0
+    from scipy.ndimage._measurements import _stats, labeled_comprehension
+except ImportError:  # scipy < 1.8.0
+    from scipy.ndimage.measurements import _stats, labeled_comprehension
 from sklearn.utils.validation import check_random_state
 
 from neuromaps.images import load_gifti, PARCIGNORE
