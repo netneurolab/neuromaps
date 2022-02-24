@@ -117,7 +117,7 @@ class Parcellater():
                 and not self._volumetric):
             raise ValueError('Cannot use resampling_target="data" when '
                              'provided parcellation is in surface space and '
-                             'provided data are in MNI1512 space.')
+                             'provided data are in MNI152 space.')
         elif (self.resampling_target == 'parcellation' and self._volumetric
                 and space != 'MNI152'):
             raise ValueError('Cannot use resampling_target="parcellation" '
