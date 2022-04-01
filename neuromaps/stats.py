@@ -26,8 +26,9 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
 
     Parameters
     ----------
-    src, trg : str or os.PathLike or nib.GiftiImage or niimg_like or tuple
-        Images to be compared
+    src, trg : tuple or str or os.PathLike or img_like or array-like
+        Images (nib.Nifti1Image or nib.GiftiImage) or parcellated data
+        to be compared.
     metric : {'pearsonr', 'spearmanr', callable}, optional
         Type of similarity metric to use to compare `src` and `trg` images. If
         a callable function is provided it must accept two inputs and return a

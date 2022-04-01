@@ -119,7 +119,8 @@ def fix_coordsys(fn, val=3):
 
 def load_nifti(img):
     """
-    Loads nifti file `img`
+    Loads nifti file `img`. If `img` is already a loaded (i.e. is a
+    nib.Nifti1Image object), it is returned as-is.
 
     Parameters
     ----------
@@ -178,12 +179,14 @@ def load_gifti(img):
 
 def load_data(data):
     """
-    Small utility function to load + stack `data` images (gifti / nifti)
+    Small utility function to load + stack `data` images (gifti / nifti).
 
     Parameters
     ----------
-    data : tuple-of-str or os.PathLike or nib.GiftiImage or nib.Nifti1Image
-        Data to be loaded
+    data: tuple or str or path_like or img_like or array_like
+        Data to be loaded. If `data` is img_like (i.e. a nib.Nifti1Image or
+        nib.GiftiImage object) or array-like (e.g. parcellated data), then
+        `data` is stacked, but not loaded.
 
     Returns
     -------
@@ -200,7 +203,8 @@ def load_data(data):
     except (AttributeError, TypeError):
         out = np.stack([load_nifti(img).get_fdata() for img in data], axis=3)
     except ValueError as err:
-        if str(err) == 'stat: embedded null character in path':
+        if (str(err) == 'stat: embedded null character in path'
+                or isinstance(err, UnicodeDecodeError)):
             out = np.stack(data, axis=-1)
 
     return np.squeeze(out)
