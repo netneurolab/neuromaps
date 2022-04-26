@@ -267,14 +267,15 @@ def mni152_to_mni152(img, target='1mm', method='linear'):
 
 
 def _check_hemi(data, hemi):
-    """ Utility to check that `data` and `hemi` jibe
+    """
+    Utility to check that `data` and `hemi` jibe
 
     Parameters
     ----------
     data : str or os.PathLike or tuple
         Input data
     hemi : str
-        Hemisphere(s) corresponding to `data
+        Hemisphere(s) corresponding to `data`
 
     Returns
     -------
