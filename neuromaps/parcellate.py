@@ -170,7 +170,7 @@ class Parcellater():
         """
 
         if not self._volumetric:
-            verts = parcels_to_vertices(data, self.parcellation, self.drop)
+            verts = parcels_to_vertices(data, self.parcellation)
             img = _array_to_gifti(verts)
         else:
             data = np.atleast_2d(data)
