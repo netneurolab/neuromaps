@@ -45,28 +45,29 @@ data : (N,) array_like
     Input data from which to generate null maps. The data must be
     parcellated.\
 """,
-    data_alexander_bloch="""\
-data : array_like or tuple-of-str or PathLike or nib.GiftiImage
-    Input data from which to generate null maps. If None is provided then
-    the resampling array will be returned instead. If a parcellation is
-    provided, the data must be parcellated.\
-""",
     data="""\
-data : array_like or str or os.PathLike or niimg_like or tuple
-    Input data from which to generate null maps. If a parcellation is
-    provided, the data must be parcellated.\
+data : array_like or str or os.PathLike or img_like or tuple
+    Input data (niimg_like or nib.GiftiImage) from which to generate null
+    maps. If a parcellation is provided, the data must be parcellated.\
 """,
-    atlas_density="""\
+    atlas_density_surface="""\
 atlas : {'fsLR', 'fsaverage', 'civet'}, optional
     Name of surface atlas on which `data` are defined. Default: 'fsaverage'
 density : str, optional
     Density of surface mesh on which `data` are defined. Must be
     compatible with specified `atlas`. Default: '10k'\
 """,
+    atlas_density="""\
+atlas : {'fsLR', 'fsaverage', 'civet', 'mni152'}, optional
+    Name of atlas on which `data` are defined. Default: 'fsaverage'
+density : str, optional
+    Density of atlas on which `data` are defined. Must be
+    compatible with specified `atlas`. Default: '10k'\
+""",
     parcellation="""\
 parcellation : tuple-of-str or os.PathLike, optional
     Filepaths to parcellation images ([left, right] hemisphere) mapping `data`
-    to surface mesh specified by `atlas` and `density`. Should only be supplied
+    to atlas specified by `atlas` and `density`. Should only be supplied
     if `data` represents a parcellated null map. Default: None\
 """,
     n_perm="""\
@@ -137,8 +138,11 @@ are projected to surface and parcels are reassigned based on minimum distances.
 
 Parameters
 ----------
-{data_alexander_bloch}
-{atlas_density}
+data : array_like or str or os.PathLike or nib.GiftiImage or tuple
+    Input data from which to generate null maps. If None is provided then
+    the resampling array will be returned instead. If a parcellation is
+    provided, the data must be parcellated.
+{atlas_density_surface}
 {parcellation}
 {n_perm}
 {seed}
@@ -192,7 +196,7 @@ topology)
 Parameters
 ----------
 {data_or_none_parcel}
-{atlas_density}
+{atlas_density_surface}
 {parcellation}
 {n_perm}
 {seed}
@@ -243,7 +247,7 @@ the slight expense of spatial topology)
 Parameters
 ----------
 {data_or_none_parcel}
-{atlas_density}
+{atlas_density_surface}
 {parcellation}
 {n_perm}
 {seed}
@@ -289,7 +293,7 @@ generate null distributions. Reassigned parcels are based on the most common
 Parameters
 ----------
 {data_or_none_parcel}
-{atlas_density}
+{atlas_density_surface}
 {parcellation}
 {n_perm}
 {seed}
@@ -333,7 +337,7 @@ of the vertices in each parcel within the rotated data
 Parameters
 ----------
 {data_parcel}
-{atlas_density}
+{atlas_density_surface}
 {parcellation}
 {n_perm}
 {seed}
@@ -383,7 +387,7 @@ Parameters
 ----------
 hemisphere : {{'L', 'R'}}
     Hemisphere of surface from which to generate distance matrix
-{atlas_density}
+{atlas_density_surface}
 {parcellation}
 drop : list-of-str, optional
     If `parcellation` is not None, which parcels should be ignored / dropped
