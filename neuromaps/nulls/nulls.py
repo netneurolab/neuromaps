@@ -34,6 +34,12 @@ HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 
 _nulls_input_docs = dict(
+    data_or_none_surface="""\
+data : array_like or str or os.PathLike or nib.GiftiImage or tuple
+    Input data from which to generate null maps. If None is provided then
+    the resampling array will be returned instead. If a parcellation is
+    provided, the data must be parcellated.\
+""",
     data_or_none_parcel="""\
 data : (N,) array_like
     Input data from which to generate null maps. The data must be
@@ -138,10 +144,7 @@ are projected to surface and parcels are reassigned based on minimum distances.
 
 Parameters
 ----------
-data : array_like or str or os.PathLike or nib.GiftiImage or tuple
-    Input data from which to generate null maps. If None is provided then
-    the resampling array will be returned instead. If a parcellation is
-    provided, the data must be parcellated.
+{data_or_none_surface}
 {atlas_density_surface}
 {parcellation}
 {n_perm}
