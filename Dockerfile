@@ -1,13 +1,22 @@
 FROM python:3.9.7-slim
 
-ENV RELEASE=https://api.github.com/repos/netneurolab/neuromaps/releases/latest
+RUN apt-get update \
+    && apt-get install -y \
+        wget \
+        unzip \
+        libgl1-mesa-glx \
+        libglu1-mesa \
+        libgomp1 \
+        libglib2.0-0
 
-RUN apt-get update && apt-get install -y curl jq
+COPY . neuromaps
 
-RUN curl -L $( curl -Ls ${RELEASE} | jq -r '.tarball_url' ) > tmp.tar.gz \
-    && tar xzvf tmp.tar.gz \
-    && rm tmp.tar.gz \
-    && cd $( find . -type d -name "netneurolab-neuromaps-*" ) \
+RUN cd neuromaps \
     && python -m pip install .
+
+RUN wget https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip \
+    && unzip workbench-linux64-v1.5.0.zip -d "/"
+
+ENV PATH="/workbench/bin_linux64:$PATH"
 
 ENTRYPOINT [ "python3" ]
