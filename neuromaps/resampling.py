@@ -270,6 +270,8 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
         func = globals()[resampling]
         src, trg = func(src, trg, src_space, trg_space, hemi=hemi,
                         method=method, **opts)
+        src, _ = zip(*transforms._check_hemi(src, hemi))
+        trg, _ = zip(*transforms._check_hemi(trg, hemi))
         src = tuple(load_gifti(s) for s in src)
         trg = tuple(load_gifti(t) for t in trg)
 
