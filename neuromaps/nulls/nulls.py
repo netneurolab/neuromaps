@@ -35,26 +35,32 @@ HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 _nulls_input_docs = dict(
     data_or_none_surface="""\
-data : array_like or str or os.PathLike or nib.GiftiImage or tuple
+data : array_like or path_like or giimg_like or tuple
     Input data from which to generate null maps. If None is provided then
-    the resampling array will be returned instead. If a parcellation is
-    provided, the data must be parcellated.\
+    the resampling array will be returned instead. When a parcellation is
+    provided, the data must be parcellated and array-like. Otherwise, the data
+    must be a surface-based image (giimg_like, e.g. nib.GiftiImage) or a
+    path-like object (`str` or `os.PathLike`) pointing to an image file.\
 """,
     data_or_none_parcel="""\
 data : (N,) array_like
     Input data from which to generate null maps. The data must be
-    parcellated. If None is provided then the resampling array will be returned
-    instead.\
+    parcellated and array-like. If None is provided then the resampling array
+    will be returned instead.\
 """,
     data_parcel="""\
 data : (N,) array_like
     Input data from which to generate null maps. The data must be
-    parcellated.\
+    parcellated and array-like.\
 """,
     data="""\
-data : array_like or str or os.PathLike or img_like or tuple
-    Input data (niimg_like or nib.GiftiImage) from which to generate null
-    maps. If a parcellation is provided, the data must be parcellated.\
+data : array_like or path_like or niimg_like or giimg_like or tuple
+    Input data from which to generate null maps. When a parcellation is
+    provided, the data must be parcellated and array-like. Otherwise, the data
+    can either be a volumetric image (niimg_like, e.g. nib.Nifti1Image) or a
+    surface-based image (giimg_like, e.g. nib.GiftiImage). Alternatively, it
+    can be a path-like object (`str` or `os.PathLike`) pointing to an image
+    file.\
 """,
     atlas_density_surface="""\
 atlas : {'fsLR', 'fsaverage', 'civet'}, optional
