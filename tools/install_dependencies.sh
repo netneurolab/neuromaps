@@ -23,8 +23,10 @@ if [ -n "${OPTIONAL_DEPENDS}" ]; then
     done
 fi
 
-wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --no-dns-cache \
-    https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip
+while true; do
+    wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --no-dns-cache -c \
+        https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip && break
+done
 unzip workbench-linux64-v1.5.0.zip -d "${HOME}"
 echo "${HOME}/workbench/bin_linux64" >> "${GITHUB_PATH}"
 
