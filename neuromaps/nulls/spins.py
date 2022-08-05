@@ -551,12 +551,16 @@ def parcels_to_vertices(data, parcellation):
     return np.squeeze(projected)
 
 
-def vertices_to_parcels(data, parcellation):
+def vertices_to_parcels(data, parcellation, background=None):
     """
-    Reduces vertex-level `data` to parcels defined by `parcellation`
+    Reduces vertex-level `data` to parcels defined by `parcellation`.
 
-    Takes average of vertices within each parcel (excluding NaN values).
-    Assigns NaN to parcels for which *all* vertices are NaN.
+    Compute the average `data` within each parcel. This average ignores
+    vertices with background `data` values (e.g. medial wall) or with NaN
+    values.
+
+    Assigns NaN to parcels for which *all* vertices are background or NaN
+    values.
 
     Parameters
     ----------
@@ -564,14 +568,21 @@ def vertices_to_parcels(data, parcellation):
         Vertex-level data to be reduced to parcels
     parcellation : tuple-of-str or os.PathLike
         Filepaths to parcellation images to parcellate `data`
+    background: None or float
+        Specifies the background value to ignore when computing the averages.
+        If None, then only vertices with NaN values are ignored. Default: None
 
-    Reurns
+    Returns
     ------
     reduced : numpy.ndarray
         Parcellated `data`
     """
 
     data = np.vstack(data)
+
+    if background is not None:
+        data[data == background] = np.nan
+
     vertices = np.hstack([
         load_gifti(parc).agg_data() for parc in parcellation
     ])
