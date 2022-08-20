@@ -179,14 +179,19 @@ def load_gifti(img):
 
 def load_data(data):
     """
-    Small utility function to load + stack `data` images (gifti / nifti).
+    Small utility function to load and stack `data` images (gifti / nifti) into
+    numpy arrays.
 
     Parameters
     ----------
-    data: tuple or str or path_like or img_like or array_like
-        Data to be loaded. If `data` is img_like (i.e. a nib.Nifti1Image or
-        nib.GiftiImage object) or array-like (e.g. parcellated data), then
-        `data` is stacked, but not loaded.
+    data: path_like or niimg_like or giimg_like or array_like or tuple
+        Data images to be loaded. `data` can be a path-like object (`str` or
+        `os.PathLike`) pointing to an image file, a volumetric image
+        (niimg_like, e.g. nib.Nifti1Image) or a surface-based image
+        (giimg_like, e.g. nib.GiftiImage). If `data` is already parcellated
+        (array-like), it is converted to an array and returned as-is.
+        Images stored in a tuple will be loaded into numpy arrays, then
+        stacked.
 
     Returns
     -------
@@ -199,13 +204,22 @@ def load_data(data):
         data = (data,)
 
     try:
+        # giimg_like or path_like (gifti)
         out = np.hstack([load_gifti(img).agg_data() for img in data])
-    except (AttributeError, TypeError):
-        out = np.stack([load_nifti(img).get_fdata() for img in data], axis=3)
-    except ValueError as err:
-        if (str(err) == 'stat: embedded null character in path'
-                or isinstance(err, UnicodeDecodeError)):
-            out = np.stack(data, axis=-1)
+    except (AttributeError, TypeError, ValueError, OSError) as err:
+        # niimg_like or path_like (nifti)
+        if (isinstance(err, AttributeError)
+            or str(err) == 'stat: path should be string, bytes, os.'
+                           'PathLike or integer, not Nifti1Image'):
+            out = np.stack([load_nifti(img).get_fdata() for img in data],
+                           axis=3)
+        # array_like (parcellated)
+        else:
+            data = np.asarray(data)
+            if data.dtype.name.startswith(('float', 'int')):
+                out = np.stack(data, axis=-1)
+            else:
+                raise err
 
     return np.squeeze(out)
 
