@@ -88,11 +88,10 @@ def plot_surf_template(data, template, density, surf='inflated',
 
     if not opts.get('colorbar', False):
         fig.tight_layout()
-
-    if n_surf == 1:
-        fig.subplots_adjust(wspace=-0.1)
-    else:
-        fig.subplots_adjust(wspace=-0.4, hspace=-0.15)
+        if n_surf == 1:
+            fig.subplots_adjust(wspace=-0.1)
+        else:
+            fig.subplots_adjust(wspace=-0.4, hspace=-0.15)
 
     return fig
 

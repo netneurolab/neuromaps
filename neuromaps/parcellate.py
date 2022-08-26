@@ -5,12 +5,14 @@ Functionality for parcellating data
 
 import nibabel as nib
 from nilearn.input_data import NiftiLabelsMasker
+from nilearn.image import new_img_like
+from nilearn.masking import compute_background_mask
 import numpy as np
 
-from neuromaps.datasets import ALIAS, DENSITIES
-from neuromaps.images import construct_shape_gii, load_gifti
+from neuromaps.datasets import ALIAS, DENSITIES, fetch_atlas
+from neuromaps.images import construct_shape_gii, load_gifti, load_data
 from neuromaps.resampling import resample_images
-from neuromaps.transforms import _check_hemi
+from neuromaps.transforms import _check_hemi, _estimate_density
 from neuromaps.nulls.spins import vertices_to_parcels, parcels_to_vertices
 
 
@@ -88,7 +90,8 @@ class Parcellater():
         self._fit = True
         return self
 
-    def transform(self, data, space, hemi=None):
+    def transform(self, data, space, ignore_background_data=False,
+                  background_value=None, hemi=None):
         """
         Applies parcellation to `data` in `space`
 
@@ -103,6 +106,20 @@ class Parcellater():
             dataset then this specifies which hemisphere. If not specified it
             is assumed that `data` is (L, R) hemisphere. Ignored if `space` is
             'MNI152'. Default: None
+        ignore_background_data: bool
+            Specifies whether the background data values should be ignored
+            when computing the average `data` within each parcel. If set to
+            True and `background_value` is set to None, the background_value is
+            estimated from the data: if there are NaNs in the data, the
+            background value is set to NaN. Otherwise, it is estimated as
+            the median of the values on the border of the images for
+            volumetric images or as the median of the values within the medial
+            wall for surface images. The background value can also be set
+            manually using the `background_value` parameter. Default: False
+        background_value: float
+            Specifies the background value to ignore when computing the
+            averages and when `ignore_background_data` is True.
+            Default: None
 
         Returns
         -------
@@ -122,7 +139,7 @@ class Parcellater():
                 and space != 'MNI152'):
             raise ValueError('Cannot use resampling_target="parcellation" '
                              'when provided parcellation is in MNI152 space '
-                             'and provided are in surface space.')
+                             'and provided data are in surface space.')
 
         if hemi is not None and hemi not in self.hemi:
             raise ValueError('Cannot parcellate data from {hemi} hemisphere '
@@ -131,26 +148,48 @@ class Parcellater():
 
         if isinstance(data, np.ndarray):
             data = _array_to_gifti(data)
+        if self.resampling_target in ('data', None):
+            resampling_method = 'nearest'
+        else:
+            resampling_method = 'linear'
         data, parc = resample_images(data, self.parcellation,
                                      space, self.space, hemi=hemi,
                                      resampling=self._resampling,
-                                     method='nearest')
+                                     method=resampling_method)
 
         if ((self.resampling_target == 'data'
              and space.lower() == 'mni152')
                 or (self.resampling_target == 'parcellation'
                     and self._volumetric)):
             data = nib.concat_images([nib.squeeze_image(data)])
+            if ignore_background_data:
+                if background_value is None:
+                    mask_img = compute_background_mask(data)
+                else:
+                    mask_img = new_img_like(
+                        data, data.get_fdata() != background_value)
+            else:
+                mask_img = None
             parcellated = NiftiLabelsMasker(
-                parc, resampling_target=self.resampling_target
+                parc, mask_img=mask_img, resampling_target=None
             ).fit_transform(data)
         else:
             if not self._volumetric:
                 for n, _ in enumerate(parc):
                     parc[n].labeltable.labels = \
                         self.parcellation[n].labeltable.labels
-            data = _gifti_to_array(data)
-            parcellated = vertices_to_parcels(data, parc)
+            darr = _gifti_to_array(data)
+            if ignore_background_data and background_value is None:
+                density, = _estimate_density((data,), hemi=hemi)
+                if self.resampling_target in ('data', None):
+                    mask_space = space
+                elif self.resampling_target == 'parcellation':
+                    mask_space = self.space
+                nomedialwall = load_data(
+                    fetch_atlas(mask_space, density)['medial'])
+                background_value = np.median(darr[nomedialwall == 0])
+            parcellated = vertices_to_parcels(
+                darr, parc, background=background_value)
 
         return parcellated
 
@@ -178,10 +217,12 @@ class Parcellater():
                                                       .inverse_transform(data)
         return img
 
-    def fit_transform(self, data, space, hemi=None):
+    def fit_transform(self, data, space, ignore_background_data=False,
+                      background_value=None, hemi=None):
         """ Prepare and perform parcellation of `data`
         """
-        return self.fit().transform(data, space, hemi)
+        return self.fit().transform(data, space, ignore_background_data,
+                                    background_value, hemi)
 
     def _check_fitted(self):
         if not hasattr(self, '_fit'):
