@@ -12,10 +12,10 @@ import warnings
 import nibabel as nib
 import requests
 
-from neuromaps.datasets import _osf
 from neuromaps.datasets.annotations import MATCH, available_annotations
 from neuromaps.datasets.atlases import DENSITIES
-from neuromaps.datasets.utils import _get_token
+from neuromaps.datasets.utils import \
+    _get_token, parse_filename, clean_contrib_keys
 
 HEROKU = 'https://neuromaps-web.herokuapp.com'
 VERT_MAP = {
@@ -64,12 +64,6 @@ def upload_annotation(files, user, osf_token=None, nmweb_token=None):
     if isinstance(files, (str, os.PathLike)):
         files = (files,)
 
-    tags = []
-    if tags is not None:
-        if isinstance(tags, str):
-            tags = [tags]
-        tags = list(tags)
-
     package = []
     package_hash = hashlib.md5()
     for fname in files:
@@ -93,7 +87,7 @@ def upload_annotation(files, user, osf_token=None, nmweb_token=None):
 
         # basic filename checks for expected keys
         base = os.path.basename(fname)
-        info = _osf.parse_filename(base, return_ext=False)
+        info = parse_filename(base, return_ext=False)
         for key in ['source', 'desc', 'space']:
             if key not in info:
                 raise ValueError(f'Filename must have {key} key: {base}')
@@ -166,10 +160,8 @@ def upload_annotation(files, user, osf_token=None, nmweb_token=None):
         # fill additional information on file
         bytestream = img.to_bytes()
         package_hash.update(bytestream)
-        info = _osf.complete_json([info])[0]
-        info = _osf.clean_minimal_keys(_osf.generate_auto_keys(info))
+        info = clean_contrib_keys(info)
         info['checksum'] = hashlib.md5(bytestream).hexdigest()
-        info['tags'] = tags
         info['data'] = b64encode(nib.load(fname).to_bytes()).decode()
         package.append(info)
 
