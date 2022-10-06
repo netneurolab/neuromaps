@@ -12,11 +12,11 @@ RUN apt-get update \
 COPY . neuromaps
 
 RUN cd neuromaps \
-    && python -m pip install .
+    && python3 -m pip install '.[nulls]'
 
 RUN wget https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip \
     && unzip workbench-linux64-v1.5.0.zip -d "/"
 
 ENV PATH="/workbench/bin_linux64:$PATH"
 
-ENTRYPOINT [ "python3" ]
+CMD python3
