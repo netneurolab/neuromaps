@@ -3,6 +3,8 @@
 The ``neuromaps`` toolbox is designed to help researchers make easy,
 statistically-rigorous comparisons between brain maps (or brain annotations).
 
+The accompanying paper is published in `Nature Methods <https://www.nature.com/articles/s41592-022-01625-w>`_.
+
 .. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.5842499.svg
    :target: https://doi.org/10.5281/zenodo.5842499
 
@@ -38,7 +40,9 @@ order to use most of the transformation / resampling functionality of
 Citation
 --------
 
-If you use the ``neuromaps`` toolbox, please cite our `preprint <https://www.biorxiv.org/content/10.1101/2022.01.06.475081v1>`_.
+If you use the ``neuromaps`` toolbox, please cite our `paper <https://www.nature.com/articles/s41592-022-01625-w>`_.
+If you use data included in the ``neuromaps`` repository, be sure to cite the original paper that published this data.
+A table with references for each brain map can be found in the Wiki.
 
 License information
 -------------------
