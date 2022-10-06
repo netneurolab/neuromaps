@@ -4,10 +4,23 @@
 import json
 import os
 from pkg_resources import resource_filename
-
+from nilearn.datasets.utils import _md5_sum_file
 import requests
 
+# osf repo prefix
 RESTRICTED = ["grh4d"]
+
+# uniquely identify each item ('hemi' can be None)
+FNAME_SURF_KEYS = ['source', 'desc', 'space', 'den', 'hemi']
+FNAME_VOL_KEYS = ['source', 'desc', 'space', 'res']
+# auto-generated (checksum can be None if file doest not exist)
+AUTO_KEYS = ['format', 'fname', 'rel_path', 'checksum']
+# required keys but values are all optional
+COND_KEYS = ['title', 'tags', 'redir', 'url']
+# keys for more metadata in info.json
+INFO_KEYS = ['annot', 'full_desc', 'refs', 'demographics']
+INFO_REFS_KEYS = ['primary', 'secondary']
+INFO_DEMO_KEYS = ['N', 'age']
 
 
 def _osfify_urls(data, return_restricted=True):
@@ -156,3 +169,185 @@ def _get_session(token=None):
         session.headers['Authorization'] = 'Bearer {}'.format(token)
 
     return session
+
+
+def parse_filename(fname, return_ext=True, verbose=False):
+    """
+    Parses `fname` (in BIDS-inspired format) and returns dictionary
+
+    Parameters
+    ----------
+    fname : str os os.PathLike
+        Filename to parse
+    return_ext : bool, optional
+        Whether to return extension of `fname` in addition to key-value dict.
+        Default: False
+    verbose : bool, optional
+        Whether to print status messages. Default: False
+
+    Returns
+    -------
+    info : dict
+        Key-value pairs extracted from `fname`
+    ext : str
+        Extension of `fname`, only returned if `return_ext=True`
+    """
+
+    try:
+        base, *ext = fname.split('.')
+        fname_dict = dict([
+            pair.split('-') for pair in base.split('_') if pair != 'feature'
+        ])
+    except ValueError:
+        print('Wrong filename format!')
+        return
+
+    if verbose:
+        print(fname_dict)
+
+    if return_ext:
+        return fname_dict, '.'.join(ext)
+
+    return fname_dict
+
+
+def parse_fname_list(fname, verbose=False):
+    """
+    Reads in list of BIDS-inspired filenames from `fname` and parses keys
+
+    Parameters
+    ----------
+    fname : str os os.PathLike
+    verbose : bool, optional
+        Whether to print status messages. Default: False
+
+    Returns
+    -------
+    data : list-of-dict
+        Information about filenames in `fname`
+    """
+
+    with open(fname, 'r', encoding='utf-8') as src:
+        fname_list = [name.strip() for name in src.readlines()]
+    data = [
+        parse_filename(name, return_ext=False, verbose=verbose)
+        for name in fname_list
+    ]
+    if verbose:
+        print(fname_list)
+
+    return data
+
+
+def parse_json(fname, root='annotations'):
+    """
+    Loads JSON from `fname` and returns value of `root` key(s)
+
+    Parameters
+    ----------
+    fname : str or os.PathLike
+        Filepath to JSON file
+    root : str or list-of-str, optional
+        Root key(s) to query JSON file. Default: 'annotations'
+
+    Returns
+    -------
+    data : dict
+        Data from `fname` JSON file
+    """
+
+    if isinstance(root, str):
+        root = [root]
+
+    with open(fname, 'r', encoding='utf-8') as src:
+        data = json.load(src)
+
+    for key in root:
+        data = data[key]
+
+    return data
+
+
+def generate_auto_keys(data_dict, file_path=None):
+    """
+    Adds automatically-generated keys to `item`
+
+    Generated keys include: ['format', 'fname', 'rel_path', 'checksum']
+    Supposedly this function will fill these keys, however, if file_path
+    is not give, 'checksum' will be None. The 'format' key can also be
+    pre-given.
+
+    Parameters
+    ----------
+    data_dict : dict
+        Dict about annotation
+    file_path : str or os.PathLike, optional
+        Full path to file to generate checksum for. Default: None
+
+    Returns
+    -------
+    item : dict
+        Updated dict about annotation
+    """
+
+    item = data_dict.copy()
+
+    pref = 'source-{source}_desc-{desc}_space-{space}'
+    surffmt = pref + '_den-{den}_hemi-{hemi}_feature.func.gii'
+    volfmt = pref + '_res-{res}_feature.nii.gz'
+
+    # 'format' and 'fname'
+    if ('den' in data_dict or 'hemi' in data_dict) and 'res' not in data_dict:
+        item['format'] = 'surface'
+        item['fname'] = surffmt.format(**item)
+    elif 'res' in data_dict and \
+         'den' not in data_dict and \
+         'hemi' not in data_dict:
+        item['format'] = 'volume'
+        item['fname'] = volfmt.format(**item)
+    else:
+        raise ValueError('Wrong data_dict keys passed: '
+                         'conflicts in file format.')
+
+    # 'rel_path'
+    item['rel_path'] = os.path.join(*[
+        item[key] for key in ['source', 'desc', 'space']
+    ])
+
+    # 'checksum', optionally
+    if file_path is not None and os.path.isfile(file_path):
+        item['checksum'] = _md5_sum_file(file_path)
+    else:
+        item['checksum'] = None
+
+    return item
+
+
+def clean_contrib_keys(info, file_path=None):
+    """
+    Cleans contributor keys in `info` dictionary for the contribution pipeline
+
+    Parameters
+    ----------
+    info : dict
+        Dict about annotation
+    file_path : str or os.PathLike, optional
+        Full path to file to generate checksum for. Default: None
+
+    Returns
+    -------
+    output : dict
+        Updated dict about annotation
+    """
+    if 'den' in info:
+        curr_keys = FNAME_SURF_KEYS + AUTO_KEYS + COND_KEYS
+    elif 'res' in info:
+        curr_keys = FNAME_VOL_KEYS + AUTO_KEYS + COND_KEYS
+    else:
+        raise ValueError('Error in input info dict')
+
+    output = {key: (info[key] if key in info else None) for key in curr_keys}
+
+    output = generate_auto_keys(output, file_path)
+
+    return output
