@@ -8,9 +8,9 @@ We're thrilled you've found ``neuromaps`` useful in your work! Please cite the
 following manuscripts when referencing your use of the toolbox:
 
 1. Markello, RD, Hansen, JY, Liu, ZQ, Bazinet, V, Shafiei, G, Suarez, LE, 
-   Blostein, N, Seidlitz, J, Baillet, S, Satterthwaite, TD & Chakravarty, M. 
-   (2022). Neuromaps: structural and functional interpretation of brain maps. 
-   Biorxiv. doi:`10.1101/bioRxiv.475081 <https://doi.org/10.1101/2022.01.06.475081>`__
+   Blostein, N, Seidlitz, J, Baillet, S, Satterthwaite, TD, Chakravarty, MM, Raznahan, A, Misic, B. 
+   (2022). neuromaps: structural and functional interpretation of brain maps. 
+   Nature Methods. doi:`10.1038/s41592-022-01625-w <https://doi.org/10.1038/s41592-022-01625-w>`__
 
 Additionally, to cite the specific version of the toolbox used in your analyses
 you can use the following Zenodo reference:
@@ -51,9 +51,8 @@ you can use the following Zenodo reference:
 .. page=1&size=20&q=conceptrecid:%223451463%22&sort=-version&all_versions=True>`__.
 
 If you use data included in the ``neuromaps`` repository, be sure to cite the original 
-paper that published this data. The first item of the annotation (the source) will 
-represent the last name of the first author and the year of publication. Alternatively, 
-the source may be a toolbox. Most citations can be found in the `preprint <https://www.biorxiv.org/content/10.1101/2022.01.06.475081v1>`_ 
+paper that published this data.
+A table with references for each brain map can be found in the `Wiki <https://github.com/netneurolab/neuromaps/wiki/Annotation-information>`_.
 
 For more information about why citing software is important please refer to
 `this article <https://www.software.ac.uk/how-cite-software>`_ from the
