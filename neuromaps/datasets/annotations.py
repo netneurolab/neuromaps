@@ -3,8 +3,12 @@
 
 from collections import defaultdict
 from pathlib import Path
+import json
+import os
 import re
 import shutil
+import pandas as pd
+from pkg_resources import resource_filename
 import numpy as np
 import warnings
 
@@ -16,6 +20,12 @@ except ImportError:
 
 from neuromaps.datasets.utils import (get_data_dir, get_dataset_info,
                                       _get_token, _get_session)
+
+try:
+    from rich.console import Console
+    _rich_avail = True
+except ImportError:
+    _rich_avail = False
 
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
@@ -238,3 +248,128 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
                       'den=\'164k\'). MNI152 maps should only be used for '
                       'subcortical data.', stacklevel=2)
     return _groupby_match(data, return_single=return_single)
+
+
+def get_annotations_desc(annots, expand_index=False):
+    """
+    Returns detailed descriptions for annotations
+
+    Parameters
+    ----------
+    annots : tuple or list of tuples
+        List of tuples identifying annotations, in the same form as returned
+        by `available_annotations()`.
+    expand_index : bool, optional
+        Decides if the tuple will be expanded in the returned DataFrame.
+        Default: False
+
+    Returns
+    -------
+    df_annot_info
+        Pandas DataFrame with detailed descriptions for annotations
+    """
+    if not isinstance(annots, list):
+        annots = [annots]
+
+    fn = resource_filename(
+        'neuromaps',
+        os.path.join('datasets', 'data', 'info.json')
+    )
+
+    with open(fn) as f:
+        info = json.load(f)["annotations"]
+
+    df_annot_info = []
+
+    for annot in annots:
+        for item_dict in info:
+            if tuple(item_dict["annot"].values()) == annot:
+                _item_dict = item_dict.copy()
+                if not expand_index:
+                    _item_dict["annot"] = annot
+                df_annot_info.append((_item_dict))
+                break
+    df_annot_info = pd.json_normalize(df_annot_info)
+
+    return df_annot_info
+
+
+def get_annotations_summary(annots, return_full=False):
+    """
+    Prints summary information for annotations in the console
+
+    Parameters
+    ----------
+    annots : tuple or list of tuples
+        List of tuples identifying annotations, in the same form as returned
+        by `available_annotations()`.
+    return_full : bool, optional
+        If all metadata should be printed. Default: False
+    """
+    df_annot_info = get_annotations_desc(annots, expand_index=False)
+
+    if not _rich_avail:
+        raise ImportError("This function requires the rich package to work. "
+                          "Please `pip install rich` as try again.")
+
+    console = Console()
+    for index, row in df_annot_info.iterrows():
+        console.print(
+            f'[magenta]{index+1:}[/magenta] '
+            f'[dim italic black]'
+            f'{str(row["annot"]):}'
+            f'[/dim italic black]'
+        )
+        console.print(f'\t[black]{row["full_desc"]}[/black]')
+
+        if return_full:
+            console.print(
+                f'\t[black]'
+                f'N {str(row["demographics.N"])} '
+                f'Age {str(row["demographics.age"])}'
+                f'[/black]'
+            )
+            if row["refs.primary"] is not None:
+                console.print(
+                    f'\t[italic]'
+                    f'{", ".join(row["refs.primary"])}'
+                    f'[/italic]'
+                )
+            if row["refs.secondary"] is not None:
+                console.print(
+                    f'\t[dim italic]'
+                    f'{", ".join(row["refs.secondary"])}'
+                    f'[/dim italic]',
+                    overflow="ellipsis"
+                )
+
+
+def get_annotations_report(annots):
+    """
+    Generates a latex table report for annotations
+
+    Parameters
+    ----------
+    annots : tuple or list of tuples
+        List of tuples identifying annotations, in the same form as returned
+        by `available_annotations()`.
+    """
+    df_annot_info = get_annotations_desc(annots, expand_index=False)
+
+    df_annot_info_latex = df_annot_info[["full_desc", "refs.primary"]].copy()
+
+    for i, row in df_annot_info_latex.iterrows():
+        df_annot_info_latex.loc[i, "refs.primary"] = \
+            r"\citep{" + ",".join(row["refs.primary"]) + "}"
+
+    df_annot_info_latex = df_annot_info_latex.rename(
+        columns={"full_desc": "Annotation", "refs.primary": "References"}
+    )
+
+    print(df_annot_info_latex.style.hide(axis="index").to_latex())
+
+    fn = resource_filename(
+        'neuromaps',
+        os.path.join('datasets', 'data', 'refs.bib')
+    )
+    print(f"Bibtex location: {fn}")
