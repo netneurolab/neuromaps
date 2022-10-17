@@ -1,13 +1,44 @@
-.. image:: neuromaps_logo.png
+.. image:: https://github.com/netneurolab/neuromaps/raw/main/docs/_static/neuromaps_logo.png
+
+|
+
+.. image:: https://zenodo.org/badge/375755159.svg
+   :target: https://zenodo.org/badge/latestdoi/375755159
+   :alt: Zenodo record
+
+.. image:: https://img.shields.io/pypi/v/neuromaps
+   :target: https://pypi.python.org/pypi/neuromaps/
+   :alt: Latest PyPI version
+
+.. image:: https://img.shields.io/badge/docker-netneurolab/neuromaps-brightgreen.svg?logo=docker&style=flat
+  :target: https://hub.docker.com/r/netneurolab/neuromaps/tags/
+  :alt: Latest Docker image
+
+.. image:: https://github.com/netneurolab/neuromaps/actions/workflows/tests.yml/badge.svg
+  :target: https://github.com/netneurolab/neuromaps/actions/workflows/tests.yml
+  :alt: run-tests status
+
+.. image:: https://github.com/netneurolab/neuromaps/actions/workflows/docs.yml/badge.svg
+  :target: https://netneurolab.github.io/neuromaps/
+  :alt: deploy-docs status
+
+|
 
 The ``neuromaps`` toolbox is designed to help researchers make easy,
 statistically-rigorous comparisons between brain maps (or brain annotations).
 Documentation can be found `here <https://netneurolab.github.io/neuromaps/>`_.
 
-The accompanying paper is published in `Nature Methods <https://www.nature.com/articles/s41592-022-01625-w>`_.
+The accompanying paper is published in `Nature Methods <https://www.nature.com/articles/s41592-022-01625-w>`_ (`postprint <https://github.com/netneurolab/neuromaps/blob/main/markello2022natmethods.pdf>`_).
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.5842499.svg
-   :target: https://doi.org/10.5281/zenodo.5842499
+Features
+--------
+
+- A growing repo of brain maps in their original coordinate space, including microstructure, function, electrophysiology, receptors, and more
+- Robust transforms between MNI-152, fsaverage, fsLR, and CIVET spaces
+- Integrated spatial null models for statistically assessing correspondences between brain maps
+
+.. image:: https://github.com/netneurolab/neuromaps/raw/main/docs/_static/neuromaps_features.png
+
 
 Installation requirements
 -------------------------
