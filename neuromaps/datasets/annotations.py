@@ -229,14 +229,15 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
                                   md5sum=dset['checksum'], session=session)
             shutil.move(dl_file, fn)
         data.append(str(fn))
-    
+
     # warning for specific maps
     warn = [np.logical_and(np.logical_or(dset['source'] == 'beliveau2017',
                                          dset['source'] == 'norgaard2021'),
                            dset['space'] == 'MNI152') for dset in info]
     if any(warn):
-        warnings.warn('Data from beliveau2017 and norgaard2021 is best used in '
-                      'the provided fsaverage space '
-                      '(e.g. source=\'beliveau2017\', space=\'fsaverage\', den=\'164k\'). '
-                      'MNI152 maps should only be used for subcortical data.')
+        warnings.warn('Data from beliveau2017 and norgaard2021 is best used in'
+                      ' the provided fsaverage space '
+                      '(e.g. source=\'beliveau2017\', space=\'fsaverage\', '
+                      'den=\'164k\'). MNI152 maps should only be used for '
+                      'subcortical data.')
     return _groupby_match(data, return_single=return_single)
