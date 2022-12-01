@@ -54,6 +54,13 @@ It's just as easy to transform the data to a different space:
     >>> print(fsavg_lh.agg_data().shape)
     (163842,)
 
+.. important::
+
+    Partial volume effects (PVE) in PET images are increased when volumetric
+    data is transformed to the surface, resulting in maps that are heavily
+    biased by the underlying curvature of the surface. For this reason, it is
+    generally not recommended to transform PET volumes to the surface.
+
 Note that you can also transform between different resolutions within the
 MNI152 coordinate system:
 
