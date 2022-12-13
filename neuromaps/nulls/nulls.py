@@ -113,6 +113,12 @@ distmat : tuple-of-str or os.PathLike, optional
     Providing this will cause `atlas`, `density`, and `parcellation` to be
     ignored. Default: None\
 """,
+    tempdir="""\
+tempdir: os.PathLike, optional
+    Directory specifying where the temporary distance matrix computed when
+    generating volumetric nulls without parcellations should be stored. If
+    None, a default directory is used. Default: None\
+""",
     kwargs="""\
 kwargs : key-value pairs
     Other keyword arguments passed directly to the underlying null method
@@ -413,7 +419,8 @@ dist : (N, N) np.ndarray
 """.format(**_nulls_input_docs)
 
 
-def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
+def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc,
+                     **kwargs):
 
     data = load_data(data)
 
@@ -439,7 +446,8 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
         yield hdata[mask], dist[np.ix_(mask, mask)], None, idx[mask]
 
 
-def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
+def _vol_surrogates(data, atlas, density, parcellation, distmat, tempdir=None,
+                    **kwargs):
 
     if atlas != 'MNI152':
         raise ValueError('Cannot compute volumetric surrogates if atlas is '
@@ -484,10 +492,10 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
     index = None
     if distmat is None:
         if parcellation is None:  # memmap because BIG
-            distout = tempfile.NamedTemporaryFile(suffix='.mmap')
+            distout = tempfile.NamedTemporaryFile(suffix='.mmap', dir=tempdir)
             dist = np.memmap(distout, mode='w+', dtype='float32',
                              shape=(len(xyz), len(xyz)))
-            indout = tempfile.NamedTemporaryFile(suffix='.mmap')
+            indout = tempfile.NamedTemporaryFile(suffix='.mmap', dir=tempdir)
             index = np.memmap(indout, mode='w+', dtype='int32',
                               shape=(len(xyz), len(xyz)))
             for n, row in enumerate(xyz):
@@ -519,7 +527,7 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
 
 def _make_surrogates(data, method, atlas='fsaverage', density='10k',
                      parcellation=None, n_perm=1000, seed=None, distmat=None,
-                     n_proc=1, **kwargs):
+                     n_proc=1, tempdir=None, **kwargs):
     if method not in ('burt2018', 'burt2020', 'moran'):
         raise ValueError(f'Invalid null method: {method}')
 
@@ -529,7 +537,7 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
     genfunc = _vol_surrogates if atlas == 'MNI152' else _surf_surrogates
     for hdata, hdist, hind, hsl in genfunc(data, atlas, density,
                                            parcellation, distmat,
-                                           n_proc=n_proc):
+                                           n_proc=n_proc, tempdir=tempdir):
         if method == 'burt2018':
             hdata += np.abs(np.nanmin(darr)) + 0.1
             hsurr = batch_surrogates(hdist, hdata, n_surr=n_perm, seed=seed)
@@ -579,6 +587,7 @@ method : {{'burt2018', 'burt2020', 'moran'}}
 {seed}
 {distmat}
 {n_proc}
+{tempdir}
 {kwargs}
 
 Returns
@@ -588,11 +597,12 @@ Returns
 
 
 def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,
-             n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
+             n_perm=1000, seed=None, distmat=None, tempdir=None, n_proc=1,
+             **kwargs):
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
-                            **kwargs)
+                            tempdir=None, **kwargs)
 
 
 burt2018.__doc__ = """\
@@ -609,6 +619,7 @@ Parameters
 {n_perm}
 {seed}
 {distmat}
+{tempdir}
 {kwargs}
 
 Returns
@@ -625,7 +636,8 @@ References
 
 
 def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
-             n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
+             n_perm=1000, seed=None, distmat=None, n_proc=1, tempdir=None,
+             **kwargs):
     if not _brainsmash_avail:
         raise ImportError('Cannot run burt2020 null model when `brainsmash` '
                           'is not installed. Please `pip install brainsmash` '
@@ -637,7 +649,7 @@ def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
     return _make_surrogates(data, 'burt2020', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
-                            **kwargs)
+                            tempdir=tempdir, **kwargs)
 
 
 burt2020.__doc__ = """\
@@ -655,6 +667,7 @@ Parameters
 {seed}
 {n_proc}
 {distmat}
+{tempdir}
 {kwargs}
 
 Returns
@@ -671,7 +684,8 @@ References
 
 
 def moran(data, atlas='fsaverage', density='10k', parcellation=None,
-          n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
+          n_perm=1000, seed=None, distmat=None, tempdir=None, n_proc=1,
+          **kwargs):
     if not _brainspace_avail:
         raise ImportError('Cannot run moran null model when `brainspace` is '
                           'not installed. Please `pip install brainspace` and '
@@ -679,7 +693,7 @@ def moran(data, atlas='fsaverage', density='10k', parcellation=None,
     return _make_surrogates(data, 'moran', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
-                            **kwargs)
+                            tempdir=None, **kwargs)
 
 
 moran.__doc__ = """\
@@ -699,6 +713,7 @@ Parameters
 {seed}
 {n_proc}
 {distmat}
+{tempdir}
 {kwargs}
 
 Returns
