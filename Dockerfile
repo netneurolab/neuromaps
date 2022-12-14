@@ -14,8 +14,12 @@ COPY . neuromaps
 RUN cd neuromaps \
     && python3 -m pip install '.[nulls]'
 
-RUN wget https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip \
-    && unzip workbench-linux64-v1.5.0.zip -d "/"
+RUN while true; do \
+        wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --no-dns-cache -c \
+            https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip \
+        && unzip workbench-linux64-v1.5.0.zip -d "/" \
+        && break; \
+    done
 
 ENV PATH="/workbench/bin_linux64:$PATH"
 
