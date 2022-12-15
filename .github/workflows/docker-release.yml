@@ -1,4 +1,4 @@
-name: Publish Docker image
+name: publish-docker-image
 
 on:
   push:
@@ -9,6 +9,7 @@ on:
 
 jobs:
   push_to_registry:
+    if: github.repository_owner == 'netneurolab'
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
     steps:
