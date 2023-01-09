@@ -40,9 +40,10 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         Null data for `src` to use in generating a non-parametric p-value.
         If not specified a parameteric p-value is generated. Default: None
     nan_policy : {'propagate', 'raise', 'omit'}, optional
-        Defines how to handle when input contains nan. 'propagate' returns nan,
-        'raise' throws an error, 'omit' performs the calculations ignoring nan
-        values. Default: 'omit'
+        Defines how to handle when input contains nan. 'propagate' propagates
+        the nan values to the callable metric (will return nan if the metric
+        is `spearmanr` `or pearsonr`), 'raise' throws an error, 'omit' performs
+        the calculations ignoring nan values. Default: 'omit'
 
     Returns
     -------
@@ -63,15 +64,20 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
 
     srcdata, trgdata = load_data(src), load_data(trg)
 
-    mask = np.zeros(len(srcdata), dtype=bool)
+    # drop NaNs (if nan_policy==`omit`) and zeros (if ignore_zero=True)
+    zeromask = np.zeros(len(srcdata), dtype=bool)
     if ignore_zero:
-        mask = np.logical_or(np.isclose(srcdata, 0), np.isclose(trgdata, 0))
-
-    # drop NaNs
+        zeromask = np.logical_or(np.isclose(srcdata, 0),
+                                 np.isclose(trgdata, 0))
     nanmask = np.logical_or(np.isnan(srcdata), np.isnan(trgdata))
-    if np.any(nanmask) and nan_policy == 'raise':
-        raise ValueError('Inputs contain nan')
-    mask = np.logical_and(np.logical_not(mask), np.logical_not(nanmask))
+    if nan_policy == 'raise':
+        if np.any(nanmask):
+            raise ValueError('Inputs contain nan')
+    elif nan_policy == 'omit':
+        mask = np.logical_and(np.logical_not(zeromask),
+                              np.logical_not(nanmask))
+    elif nan_policy == 'propagate':
+        mask = np.logical_not(zeromask)
     srcdata, trgdata = srcdata[mask], trgdata[mask]
 
     if metric in methods:
