@@ -531,6 +531,10 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
                                            parcellation, distmat,
                                            n_proc=n_proc):
         if method == 'burt2018':
+            if parcellation is None:
+                if hind is not None:
+                    hdist = np.take_along_axis(
+                        hdist, np.argsort(hind, axis=-1), axis=-1)
             hdata += np.abs(np.nanmin(darr)) + 0.1
             hsurr = batch_surrogates(hdist, hdata, n_surr=n_perm, seed=seed)
         elif method == 'burt2020':
@@ -552,12 +556,16 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
                 os.unlink(hind.filename)
                 del hdist, hind
         elif method == 'moran':
+            if parcellation is None:
+                if hind is not None:
+                    hdist = np.take_along_axis(
+                        hdist, np.argsort(hind, axis=-1), axis=-1)
             dist = hdist.astype('float64')
             np.fill_diagonal(dist, 1)
             dist **= -1
             opts = dict(joint=True, tol=1e-6, n_rep=n_perm, random_state=seed)
             opts.update(**kwargs)
-            mrs = MoranRandomization(**kwargs)
+            mrs = MoranRandomization(**opts)
             hsurr = mrs.fit(dist).randomize(hdata).T
 
         surrogates[hsl] = hsurr
