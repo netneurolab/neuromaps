@@ -54,6 +54,9 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
          Comparison metric between `src` and `trg`
     pvalue : float
         The p-value of `similarity`, if `nulls` is not None
+    nulls : (n_perm, ) array_like
+        Null distribution of similarity metrics. Only returned if
+        `return_nulls` is True.
     """
 
     methods = ('pearsonr', 'spearmanr')
@@ -144,7 +147,7 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         Similarity metric
     pvalue : float
         Non-parametric p-value
-    nulls : (n_perm, ) array)like
+    nulls : (n_perm, ) array_like
         Null distribution of similarity metrics. Only returned if
         `return_nulls` is True.
 
@@ -188,18 +191,18 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     abs_true = np.abs(true_sim)
 
     permutations = np.ones(true_sim.shape)
-    nulldist = []
+    nulldist = np.zeros(((n_perm, ) + true_sim.shape))
     for perm in range(n_perm):
         # permute `a` and determine whether correlations exceed original
         ap = a[rs.permutation(len(a))] if nulls is None else nulls[:, perm]
         nullcomp = compfunc(ap, b, nan_policy=nan_policy)
         permutations += np.abs(nullcomp) >= abs_true
-        nulldist.append(nullcomp)
+        nulldist[perm] = nullcomp
 
     pvals = permutations / (n_perm + 1)  # + 1 in denom accounts for true_sim
 
     if return_nulls:
-        return true_sim, pvals, np.array(nulldist)
+        return true_sim, pvals, nulldist
 
     return true_sim, pvals
 
