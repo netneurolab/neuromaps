@@ -41,8 +41,8 @@ Citation
 --------
 
 If you use the ``neuromaps`` toolbox, please cite our `paper <https://www.nature.com/articles/s41592-022-01625-w>`_.
-If you use data included in the ``neuromaps`` repository, be sure to cite the original paper that published this data.
-A table with references for each brain map can be found in the Wiki.
+
+**Importantly**, ``neuromaps`` redistributes original work performed by other groups. Therefore, if you use data included in the ``neuromaps`` repository, please make sure to cite the original papers that published this data. A table with references for each brain map can be found at this link: https://docs.google.com/spreadsheets/d/1oZecOsvtQEh5pQkIf8cB6CyhPKVrQuko.
 
 License information
 -------------------
