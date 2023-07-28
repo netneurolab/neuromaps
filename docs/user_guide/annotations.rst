@@ -9,7 +9,18 @@ These annotations are spatial maps representing some feature of interest and
 are available in at least one of the four standard coordinate systems.
 
 We have curated a set of brain annotations that we make available through a
-standard interface. You can search for available annotations using the
+standard interface.
+More details about each annotation can be found in our `Wiki 
+<https://github.com/netneurolab/neuromaps/wiki/Annotation-information>`_.
+
+.. important::
+
+    ``neuromaps`` curates data that was acquired by other groups.
+    If you fetch data from ``neuromaps``, please cite the accompanying
+    papers listed for each annotation in the `Wiki
+    <https://github.com/netneurolab/neuromaps/wiki/Annotation-information>`_.
+    
+You can search for available annotations using the
 :func:`neuromaps.datasets.available_annotations` function:
 
 .. code-block::
@@ -39,9 +50,7 @@ second entry in the tuple provides a brief description of what the map
 represents. (Because these descriptors are encoded directly in the filenames of
 the relevant maps we are somewhat limited in terms of space.) The last two
 entries in the tuple correspond to the coordinate system and density/resolution
-in which the annotations are provided. More details on each annotation, as well
-as papers to cite if you use the data, exist on our `Wiki 
-<https://github.com/netneurolab/neuromaps/wiki/Annotation-information>`_.
+in which the annotations are provided.
 
 This function also accepts keyword arguments in case we want to narrow down the
 list of returned annotations:
