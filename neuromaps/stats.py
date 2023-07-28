@@ -17,7 +17,7 @@ from neuromaps.images import load_data
 
 
 def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
-                   nan_policy='omit'):
+                   nan_policy='omit', return_nulls=False):
     """
     Compares images `src` and `trg`
 
@@ -44,6 +44,9 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         the nan values to the callable metric (will return nan if the metric
         is `spearmanr` `or pearsonr`), 'raise' throws an error, 'omit' performs
         the calculations ignoring nan values. Default: 'omit'
+    return_nulls : bool, optional
+        Whether to return the null distribution of comparisons. Can only be set
+        to `True` if `nulls` is not None. Default: False
 
     Returns
     -------
@@ -51,6 +54,9 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
          Comparison metric between `src` and `trg`
     pvalue : float
         The p-value of `similarity`, if `nulls` is not None
+    nulls : (n_perm, ) array_like
+        Null distribution of similarity metrics. Only returned if
+        `return_nulls` is True.
     """
 
     methods = ('pearsonr', 'spearmanr')
@@ -61,6 +67,9 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
             if not isinstance(metric([1, 1], [1, 1]), float):
                 raise ValueError('Provided callable `metric` must accept two '
                                  'inputs and return single value.')
+
+    if return_nulls and nulls is None:
+        raise ValueError('`return_nulls` cannot be True when `nulls` is None.')
 
     srcdata, trgdata = load_data(src), load_data(trg)
 
@@ -90,13 +99,14 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         n_perm = nulls.shape[-1]
         nulls = nulls[mask]
         return permtest_metric(srcdata, trgdata, metric, n_perm=n_perm,
-                               nulls=nulls, nan_policy=nan_policy)
+                               nulls=nulls, nan_policy=nan_policy,
+                               return_nulls=return_nulls)
 
     return metric(srcdata, trgdata)
 
 
 def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
-                    nan_policy='propagate'):
+                    nan_policy='propagate', return_nulls=False):
     """
     Generates non-parameteric p-value of `a` and `b` for `metric`
 
@@ -128,6 +138,8 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         Defines how to handle when inputs contain nan. 'propagate' returns nan,
         'raise' throws an error, 'omit' performs the calculations ignoring nan
         values. Default: 'propagate'
+    return_nulls : bool, optional
+        Whether to return the null distribution of comparisons. Default: False
 
     Returns
     -------
@@ -135,6 +147,9 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         Similarity metric
     pvalue : float
         Non-parametric p-value
+    nulls : (n_perm, ) array_like
+        Null distribution of similarity metrics. Only returned if
+        `return_nulls` is True.
 
     Notes
     -----
@@ -176,14 +191,18 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     abs_true = np.abs(true_sim)
 
     permutations = np.ones(true_sim.shape)
+    nulldist = np.zeros(((n_perm, ) + true_sim.shape))
     for perm in range(n_perm):
         # permute `a` and determine whether correlations exceed original
         ap = a[rs.permutation(len(a))] if nulls is None else nulls[:, perm]
-        permutations += np.abs(
-            compfunc(ap, b, nan_policy=nan_policy)
-        ) >= abs_true
+        nullcomp = compfunc(ap, b, nan_policy=nan_policy)
+        permutations += np.abs(nullcomp) >= abs_true
+        nulldist[perm] = nullcomp
 
     pvals = permutations / (n_perm + 1)  # + 1 in denom accounts for true_sim
+
+    if return_nulls:
+        return true_sim, pvals, nulldist
 
     return true_sim, pvals
 
