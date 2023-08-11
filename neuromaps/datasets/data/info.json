@@ -31,7 +31,7 @@
             "refs": {
                 "primary": [
                     "aghourian2017molpsychiatry",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -70,7 +70,7 @@
             "refs": {
                 "primary": [
                     "bedard2019sleepmed",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -85,6 +85,25 @@
                 "desc": "az10419369",
                 "space": "MNI152",
                 "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT1b (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    "beliveau2017jneurosci"
+                ],
+                "secondary": null
+            },
+            "demographics": {
+                "N": 36,
+                "age": "27.8 +/- 6.9"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "az10419369",
+                "space": "fsaverage",
+                "res": "164k"
             },
             "full_desc": "PET tracer binding (Bmax) to 5-HT1b (serotonin receptor)",
             "refs": {
@@ -120,9 +139,47 @@
         {
             "annot": {
                 "source": "beliveau2017",
+                "desc": "cimbi36",
+                "space": "fsaverage",
+                "res": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT2a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    "beliveau2017jneurosci"
+                ],
+                "secondary": null
+            },
+            "demographics": {
+                "N": 29,
+                "age": "22.6 +/- 2.7"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
                 "desc": "cumi101",
                 "space": "MNI152",
                 "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT1a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    "beliveau2017jneurosci"
+                ],
+                "secondary": null
+            },
+            "demographics": {
+                "N": 8,
+                "age": "28.4 +/- 8.8"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "cumi101",
+                "space": "fsaverage",
+                "res": "164k"
             },
             "full_desc": "PET tracer binding (Bmax) to 5-HT1a (serotonin receptor)",
             "refs": {
@@ -158,9 +215,47 @@
         {
             "annot": {
                 "source": "beliveau2017",
+                "desc": "dasb",
+                "space": "fsaverage",
+                "res": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HTT (serotonin transporter)",
+            "refs": {
+                "primary": [
+                    "beliveau2017jneurosci"
+                ],
+                "secondary": null
+            },
+            "demographics": {
+                "N": 100,
+                "age": "25.1 +/- 5.8"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
                 "desc": "sb207145",
                 "space": "MNI152",
                 "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT4 (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    "beliveau2017jneurosci"
+                ],
+                "secondary": null
+            },
+            "demographics": {
+                "N": 59,
+                "age": "25.9 +/- 5.3"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "sb207145",
+                "space": "fsaverage",
+                "res": "164k"
             },
             "full_desc": "PET tracer binding (Bmax) to 5-HT4 (serotonin receptor)",
             "refs": {
@@ -185,7 +280,7 @@
             "refs": {
                 "primary": [
                     "ding2010synapse",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": [
                     "li2014neuroimage",
@@ -209,7 +304,7 @@
             "refs": {
                 "primary": [
                     "dubois2016eurjnuclmedmolimaging",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -320,7 +415,7 @@
             "refs": {
                 "primary": [
                     "gallezot2010jcerebbloodflowmetab",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": [
                     "murrough2011psychopharm",
@@ -347,7 +442,7 @@
             "refs": {
                 "primary": [
                     "gallezot2010jcerebbloodflowmetab",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": [
                     "ashworth2010jnuclmed",
@@ -605,7 +700,7 @@
             "refs": {
                 "primary": [
                     "hillmer2016neuroimage",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": [
                     "baldassarri2018nicotinetobres"
@@ -627,7 +722,7 @@
             "refs": {
                 "primary": [
                     "jaworska2020neuropsychopharmacology",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -913,7 +1008,7 @@
             "refs": {
                 "primary": [
                     "naganawa2021jnuclmed",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -945,10 +1040,29 @@
         },
         {
             "annot": {
-                "source": "norgaard2020",
+                "source": "norgaard2021",
                 "desc": "flumazenil",
                 "space": "MNI152",
                 "res": "1mm"
+            },
+            "full_desc": "PET and autoradiography informed GABAa benzodiazepine binding-site density (Bmax; gaba receptor)",
+            "refs": {
+                "primary": [
+                    "norgaard2021neuroimage"
+                ],
+                "secondary": null
+            },
+            "demographics": {
+                "N": 16,
+                "age": "26.6 +/- 8"
+            }
+        },
+        {
+            "annot": {
+                "source": "norgaard2021",
+                "desc": "flumazenil",
+                "space": "fsaverage",
+                "res": "164k"
             },
             "full_desc": "PET and autoradiography informed GABAa benzodiazepine binding-site density (Bmax; gaba receptor)",
             "refs": {
@@ -1149,7 +1263,7 @@
             "full_desc": "PET tracer binding (BPnd) to mGluR5 (glutamate receptor)",
             "refs": {
                 "primary": [
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -1169,7 +1283,7 @@
             "refs": {
                 "primary": [
                     "sandiego2015jcerebbloodflowmetab",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": [
                     "smith2019jcerebbloodflowmetab",
@@ -1308,7 +1422,7 @@
             "refs": {
                 "primary": [
                     "smart2019eurjnuclmedmolimaging",
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
@@ -1338,34 +1452,15 @@
         },
         {
             "annot": {
-                "source": "spreng",
-                "desc": "feobv",
-                "space": "MNI152",
-                "res": "1mm"
-            },
-            "full_desc": "Sensory-association mean rank axis",
-            "refs": {
-                "primary": [
-                    "sydnor2021neuron"
-                ],
-                "secondary": null
-            },
-            "demographics": {
-                "N": null,
-                "age": null
-            }
-        },
-        {
-            "annot": {
                 "source": "sydnor2021",
                 "desc": "SAaxis",
                 "space": "fsLR",
                 "den": "32k"
             },
-            "full_desc": "PET tracer binding (SUVR) to VAChT (acetylcholine transporter)",
+            "full_desc": "Sensory-association mean rank axis",
             "refs": {
                 "primary": [
-                    "hansen2021biorxiv"
+                    "sydnor2021neuron"
                 ],
                 "secondary": null
             },
@@ -1384,7 +1479,7 @@
             "full_desc": "PET tracer binding (SUVR) to VAChT (acetylcholine transporter)",
             "refs": {
                 "primary": [
-                    "hansen2021biorxiv"
+                    "hansen2022natneuro"
                 ],
                 "secondary": null
             },
