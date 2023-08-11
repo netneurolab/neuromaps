@@ -28,7 +28,7 @@ except ImportError:
     _rich_avail = False
 
 try:
-    import jinja2
+    import jinja2  # noqa: F401
     _jinja2_avail = True
 except ImportError:
     _jinja2_avail = False
@@ -286,8 +286,15 @@ def get_annotations_desc(annots):
         info = json.load(f)["annotations"]
 
     df_annot_info = pd.json_normalize(info)
-    df_annot_info["annot.denres"] = df_annot_info["annot.den"].combine_first(df_annot_info["annot.res"])
-    df_annot_info["annot.key"] = list(zip(df_annot_info["annot.source"], df_annot_info["annot.desc"], df_annot_info["annot.space"], df_annot_info["annot.denres"]))
+    df_annot_info["annot.denres"] = df_annot_info["annot.den"].combine_first(
+        df_annot_info["annot.res"]
+    )
+    df_annot_info["annot.key"] = list(zip(
+        df_annot_info["annot.source"],
+        df_annot_info["annot.desc"],
+        df_annot_info["annot.space"],
+        df_annot_info["annot.denres"]
+    ))
     df_annot_info_keys_list = df_annot_info["annot.key"].tolist()
 
     # find the annotations that are not available
@@ -296,12 +303,19 @@ def get_annotations_desc(annots):
         if annot not in df_annot_info_keys_list:
             annots_not_avail.append(annot)
     if len(annots_not_avail) > 0:
-        raise warnings.warn(f"Annotations {annots_not_avail} are not available.")
+        raise warnings.warn(
+            f"Annotations {annots_not_avail} are not available."
+        )
 
     annots_avail = [_ for _ in annots if _ not in annots_not_avail]
-    df_annot_info = df_annot_info.set_index("annot.key").loc[annots_avail, :].reset_index()
+    df_annot_info = \
+        df_annot_info.set_index("annot.key").loc[annots_avail, :].reset_index()
 
-    return df_annot_info[["annot.key", "full_desc", "refs.primary", "refs.secondary", "demographics.N", "demographics.age"]]
+    return df_annot_info[
+        ["annot.key", "full_desc",
+         "refs.primary", "refs.secondary",
+         "demographics.N", "demographics.age"]
+    ]
 
 
 def get_annotations_summary(annots, return_full=False):
