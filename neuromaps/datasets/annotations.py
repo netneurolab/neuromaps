@@ -27,6 +27,12 @@ try:
 except ImportError:
     _rich_avail = False
 
+try:
+    import jinja2
+    _jinja2_avail = True
+except ImportError:
+    _jinja2_avail = False
+
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
 )
@@ -250,9 +256,9 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     return _groupby_match(data, return_single=return_single)
 
 
-def get_annotations_desc(annots, expand_index=False):
+def get_annotations_desc(annots):
     """
-    Returns detailed descriptions for annotations
+    Returns detailed descriptions for annotations as a pandas dataframe
 
     Parameters
     ----------
@@ -279,19 +285,23 @@ def get_annotations_desc(annots, expand_index=False):
     with open(fn) as f:
         info = json.load(f)["annotations"]
 
-    df_annot_info = []
+    df_annot_info = pd.json_normalize(info)
+    df_annot_info["annot.denres"] = df_annot_info["annot.den"].combine_first(df_annot_info["annot.res"])
+    df_annot_info["annot.key"] = list(zip(df_annot_info["annot.source"], df_annot_info["annot.desc"], df_annot_info["annot.space"], df_annot_info["annot.denres"]))
+    df_annot_info_keys_list = df_annot_info["annot.key"].tolist()
 
+    # find the annotations that are not available
+    annots_not_avail = []
     for annot in annots:
-        for item_dict in info:
-            if tuple(item_dict["annot"].values()) == annot:
-                _item_dict = item_dict.copy()
-                if not expand_index:
-                    _item_dict["annot"] = annot
-                df_annot_info.append((_item_dict))
-                break
-    df_annot_info = pd.json_normalize(df_annot_info)
+        if annot not in df_annot_info_keys_list:
+            annots_not_avail.append(annot)
+    if len(annots_not_avail) > 0:
+        raise warnings.warn(f"Annotations {annots_not_avail} are not available.")
 
-    return df_annot_info
+    annots_avail = [_ for _ in annots if _ not in annots_not_avail]
+    df_annot_info = df_annot_info.set_index("annot.key").loc[annots_avail, :].reset_index()
+
+    return df_annot_info[["annot.key", "full_desc", "refs.primary", "refs.secondary", "demographics.N", "demographics.age"]]
 
 
 def get_annotations_summary(annots, return_full=False):
@@ -354,6 +364,10 @@ def get_annotations_report(annots):
         List of tuples identifying annotations, in the same form as returned
         by `available_annotations()`.
     """
+    if not _jinja2_avail:
+        raise ImportError("This function requires the Jinja2 package to work. "
+                          "Please `pip install Jinja2` as try again.")
+
     df_annot_info = get_annotations_desc(annots, expand_index=False)
 
     df_annot_info_latex = df_annot_info[["full_desc", "refs.primary"]].copy()
