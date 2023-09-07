@@ -219,8 +219,8 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
         True may increase the runtime of this function! Default: True
     method : {'original', 'vasa', 'hungarian'}, optional
         Method by which to match non- and rotated coordinates. Specifying
-        'original' will use the method described in [ST1]_. Specfying 'vasa'
-        will use the method described in [ST4]_. Specfying 'hungarian' will use
+        'original' will use the method described in [ST1]_. Specifying 'vasa'
+        will use the method described in [ST4]_. Specifying 'hungarian' will use
         the Hungarian algorithm to minimize the global cost of reassignment
         (will dramatically increase runtime). Default: 'original'
     seed : {int, np.random.RandomState instance, None}, optional

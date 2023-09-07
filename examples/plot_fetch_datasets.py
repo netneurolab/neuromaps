@@ -72,7 +72,7 @@ tags = datasets.available_tags()
 print(tags)
 
 ###############################################################################
-# Tags can be used as a keyword argumnet with :func:`~.available_annotations`.
+# Tags can be used as a keyword argument with :func:`~.available_annotations`.
 # You can supply either a single tag or a list of tags. Note that supplying a
 # list will only return those annotations that match ALL supplied tags:
 

@@ -17,7 +17,7 @@ system is involved), which we discuss below.
 Transforming from volumetric spaces
 -----------------------------------
 
-Curently ``neuromaps`` only supports transforming brain annotations *from*
+Currently ``neuromaps`` only supports transforming brain annotations *from*
 MNI152 volumetric space to one of the other three surface-based coordinate
 systems (though work in ongoing to integrate transformations in the other
 direction!). This transformation is achieved through a process known as

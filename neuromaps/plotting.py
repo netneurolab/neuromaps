@@ -116,7 +116,7 @@ def _fix_facecolors(ax, facecolors, vertices, faces, view, hemi):
     Returns
     -------
     colors : (F,) array_like
-        Updated facecolors with approriate shading
+        Updated facecolors with appropriate shading
     """
 
     hemi_view = {'R': {'lateral': 'medial', 'medial': 'lateral'}}

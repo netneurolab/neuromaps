@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Utilites for loading / creating datasets
+Utilities for loading / creating datasets
 """
 
 import json
@@ -21,7 +21,7 @@ def _osfify_urls(data, return_restricted=True):
     data : object
         If dict with a `url` key, will format OSF_API with relevant values
     return_restricted : bool, optional
-        Whether to return restricted annotations. These will only be accesible
+        Whether to return restricted annotations. These will only be accessible
         with a valid OSF token. Default: True
 
     Returns
@@ -65,7 +65,7 @@ def get_dataset_info(name, return_restricted=True):
     name : str
         Name of dataset
     return_restricted : bool, optional
-        Whether to return restricted annotations. These will only be accesible
+        Whether to return restricted annotations. These will only be accessible
         with a valid OSF token. Default: True
 
     Returns
