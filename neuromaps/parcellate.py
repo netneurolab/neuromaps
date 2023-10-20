@@ -4,7 +4,7 @@ Functionality for parcellating data
 """
 
 import nibabel as nib
-from nilearn.input_data import NiftiLabelsMasker
+from nilearn.maskers import NiftiLabelsMasker
 from nilearn.image import new_img_like
 from nilearn.masking import compute_background_mask
 import numpy as np
