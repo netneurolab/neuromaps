@@ -254,7 +254,7 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
     elif trg_space == 'MNI152' and src_space != 'MNI152':
         trg, src = mni_transform(trg, src, trg_space, src_space,
                                  method=method, hemi=hemi)
-    elif src_space == 'MNI152' and src_space == 'MNI152':
+    elif src_space == 'MNI152' and trg_space == 'MNI152':
         src, trg = load_nifti(src), load_nifti(trg)
         srcres = np.prod(nib.affines.voxel_sizes(src.affine))
         trgres = np.prod(nib.affines.voxel_sizes(trg.affine))
