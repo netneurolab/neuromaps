@@ -33,7 +33,7 @@ The accompanying paper is published in `Nature Methods <https://www.nature.com/a
 Features
 --------
 
-- A growing repo of brain maps in their original coordinate space, including microstructure, function, electrophysiology, receptors, and more
+- A growing library of brain maps ("annotations") in their original coordinate space, including microstructure, function, electrophysiology, receptors, and more
 - Robust transforms between MNI-152, fsaverage, fsLR, and CIVET spaces
 - Integrated spatial null models for statistically assessing correspondences between brain maps
 
