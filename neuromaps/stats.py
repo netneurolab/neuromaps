@@ -64,7 +64,7 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         if not callable(metric):
             raise ValueError(f'Invalid `metric`: {metric}')
         else:
-            if not isinstance(metric([1, 1], [1, 1]), float):
+            if not np.isscalar(metric([1, 1], [1, 1])):
                 raise ValueError('Provided callable `metric` must accept two '
                                  'inputs and return single value.')
 
