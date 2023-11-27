@@ -118,7 +118,7 @@ def available_annotations(source=None, desc=None, space=None, den=None,
         Values on which to match annotations. If not specified annotations with
         any value for the relevant key will be matched. Default: None
     return_restricted : bool, optional
-        Whether to return restricted annotations. These will only be accesible
+        Whether to return restricted annotations. These will only be accessible
         with a valid OSF token. Default: True
 
     Returns
@@ -142,7 +142,7 @@ def available_tags(return_restricted=False):
     Parameters
     ----------
     return_restricted : bool, optional
-        Whether to return restricted annotations. These will only be accesible
+        Whether to return restricted annotations. These will only be accessible
         with a valid OSF token. Default: True
 
 
@@ -213,7 +213,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
                         source=source, desc=desc, space=space, den=den,
                         res=res, hemi=hemi, tags=tags, format=format)
     if verbose > 1:
-        print(f'Identified {len(info)} datsets matching specified parameters')
+        print(f'Identified {len(info)} datasets matching specified parameters')
 
     # get session for requests
     session = _get_session(token=token)

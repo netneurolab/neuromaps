@@ -11,7 +11,7 @@ Requirements
 
 In order to effectively use ``neuromaps`` you must have the `Connectome
 Workbench <https://www.humanconnectome.org/software/connectome-workbench>`_
-installed and accesible on your computer. Large portions of the functionality
+installed and accessible on your computer. Large portions of the functionality
 of the ``neuromaps`` toolbox rely on a few of the functions from the
 Connectome Workbench. You can follow `instructions here
 <https://www.humanconnectome.org/software/get-connectome-workbench>`_ for

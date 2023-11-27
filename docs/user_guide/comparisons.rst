@@ -50,7 +50,7 @@ There are four options for the ``resampling`` parameters:
 
 The default ('downsample_only') specifies that the higher-resolution map will
 be transformed to the space of the lower-resolution map. This ensures that we
-are never artifically "creating" (i.e., upsampling) data that does not exist.
+are never artificially "creating" (i.e., upsampling) data that does not exist.
 
 .. note::
 
