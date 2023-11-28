@@ -38,7 +38,7 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         `trg` data. Default: True
     nulls : array_like, optional
         Null data for `src` to use in generating a non-parametric p-value.
-        If not specified a parameteric p-value is generated. Default: None
+        If not specified a parametric p-value is generated. Default: None
     nan_policy : {'propagate', 'raise', 'omit'}, optional
         Defines how to handle when input contains nan. 'propagate' propagates
         the nan values to the callable metric (will return nan if the metric
