@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for fetching annotations (from the internet, if necessary)
-"""
+"""Functions for fetching annotations (from the internet, if necessary)."""
 
 from collections import defaultdict
 from pathlib import Path
@@ -21,8 +19,8 @@ MATCH = re.compile(
 
 
 def _groupby_match(fnames, return_single=False):
-    """"
-    Groups files in `fnames` by (source, desc, space, res/den)
+    """
+    Group files in `fnames` by (source, desc, space, res/den).
 
     Parameters
     ----------
@@ -38,7 +36,6 @@ def _groupby_match(fnames, return_single=False):
         Where keys are tuple (source, desc, space, res/den) and values are
         lists of filenames
     """
-
     out = defaultdict(list)
     for fn in fnames:
         out[MATCH.search(fn).groups()].append(fn)
@@ -53,7 +50,7 @@ def _groupby_match(fnames, return_single=False):
 
 def _match_annot(info, **kwargs):
     """
-    Matches datasets in `info` to relevant keys
+    Match datasets in `info` to relevant keys.
 
     Parameters
     ----------
@@ -67,7 +64,6 @@ def _match_annot(info, **kwargs):
     matched : list-of-dict
         Annotations with specified values for keys
     """
-
     # tags should always be a list
     tags = kwargs.get('tags')
     if tags is not None and isinstance(tags, str):
@@ -110,7 +106,7 @@ def available_annotations(source=None, desc=None, space=None, den=None,
                           res=None, hemi=None, tags=None, format=None,
                           return_restricted=False):
     """
-    Lists datasets available via :func:`~.fetch_annotation`
+    List datasets available via :func:`~.fetch_annotation`.
 
     Parameters
     ----------
@@ -126,7 +122,6 @@ def available_annotations(source=None, desc=None, space=None, den=None,
     datasets : list-of-str
         List of available annotations
     """
-
     info = _match_annot(get_dataset_info('annotations', return_restricted),
                         source=source, desc=desc, space=space, den=den,
                         res=res, hemi=hemi, tags=tags, format=format)
@@ -137,7 +132,7 @@ def available_annotations(source=None, desc=None, space=None, den=None,
 
 def available_tags(return_restricted=False):
     """
-    Returns available tags for querying annotations
+    Return available tags for querying annotations.
 
     Parameters
     ----------
@@ -151,7 +146,6 @@ def available_tags(return_restricted=False):
     tags : list-of-str
         Available tags
     """
-
     tags = set()
     for dset in get_dataset_info('annotations', return_restricted):
         if dset['tags'] is not None:
@@ -163,7 +157,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
                      hemi=None, tags=None, format=None, return_single=True,
                      token=None, data_dir=None, verbose=1):
     """
-    Downloads files for brain annotations matching requested variables
+    Download files for brain annotations matching requested variables.
 
     Parameters
     ----------
@@ -193,7 +187,6 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
         (source, desc, space, den/res) and values are lists of corresponding
         filenames
     """
-
     # check input parameters to ensure we're fetching _something_
     supplied = False
     for val in (source, desc, space, den, res, hemi, tags, format):
@@ -239,5 +232,5 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
                       ' the provided fsaverage space '
                       '(e.g. source=\'beliveau2017\', space=\'fsaverage\', '
                       'den=\'164k\'). MNI152 maps should only be used for '
-                      'subcortical data.')
+                      'subcortical data.', stacklevel=2)
     return _groupby_match(data, return_single=return_single)

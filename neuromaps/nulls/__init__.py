@@ -1,6 +1,4 @@
-"""
-Functions for computing null models
-"""
+"""Functions for computing null models."""
 
 __all__ = [
     'naive_nonparametric', 'alexander_bloch', 'vazquez_rodriguez', 'vasa',

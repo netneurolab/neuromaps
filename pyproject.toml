@@ -79,7 +79,9 @@ line-length = 88
 exclude = [
   "setup.py",
   "versioneer.py",
-  "neuromaps/_version.py"
+  "neuromaps/_version.py",
+  "docs/conf.py",
+  "examples/*",
 ]
 target-version = "py38"
 

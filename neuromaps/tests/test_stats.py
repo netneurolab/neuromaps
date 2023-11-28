@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-For testing neuromaps.stats functionality
-"""
+"""For testing neuromaps.stats functionality."""
 
 import numpy as np
 import pytest
@@ -11,10 +9,12 @@ from neuromaps import stats
 
 @pytest.mark.xfail
 def test_compare_images():
+    """Test comparing images."""
     assert False
 
 
 def test_permtest_metric():
+    """Test permutation testing of a metric."""
     rs = np.random.default_rng(12345678)
     x, y = rs.random(size=(2, 100))
     r, p = stats.permtest_metric(x, y)
@@ -39,10 +39,12 @@ def test_permtest_metric():
      ([1.0, 1.0], [0.0, 0.0]))
 ])
 def test_efficient_pearsonr(x, y, expected):
+    """Test efficient Pearson correlation."""
     assert np.allclose(stats.efficient_pearsonr(x, y), expected)
 
 
 def test_efficient_pearsonr_errors():
+    """Test efficient Pearson correlation errors."""
     with pytest.raises(ValueError):
         stats.efficient_pearsonr(range(4), range(5))
 
