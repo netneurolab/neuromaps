@@ -13,7 +13,7 @@ from neuromaps.datasets.utils import _get_session
 
 # uniquely identify each item ('hemi' can be None)
 FNAME_KEYS = ['source', 'desc', 'space', 'den', 'res', 'hemi']
-# auto-generated (checksum can be None if file doest not exist)
+# auto-generated (checksum can be None if file doesn't not exist)
 AUTO_KEYS = ['format', 'fname', 'rel_path', 'checksum']
 # required keys but values are all optional
 COND_KEYS = ['title', 'tags', 'redir', 'url']
