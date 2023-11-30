@@ -140,7 +140,14 @@ class Parcellater():
                              'hemisphere: {self.hemi}')
 
         if isinstance(data, np.ndarray):
-            data = _array_to_gifti(data)
+            if space == 'MNI152':
+                raise ValueError('Volumetric data to be parcellated should be '
+                                 'provided as a Nifti1Image with the correct '
+                                 'affine defined. You can use '
+                                 'nibabel.nifti1.Nifti1Image to construct a '
+                                 'Nifti1Image from your array.')
+            else:
+                data = _array_to_gifti(data)
         if self.resampling_target in ('data', None):
             resampling_method = 'nearest'
         else:
