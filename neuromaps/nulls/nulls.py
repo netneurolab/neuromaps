@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Contains functionality for running spatial null models
-"""
+"""Functionality for running spatial null models."""
 
 import os
 import tempfile
@@ -126,7 +124,7 @@ nulls : np.ndarray
 )
 
 
-def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,
+def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
                     n_perm=1000, seed=None, spins=None, surfaces=None):
     if spins is None:
         if surfaces is None:
@@ -142,7 +140,7 @@ def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 alexander_bloch.__doc__ = """\
-Generates null maps from `data` using method from [SN1]_
+Generate null maps from `data` using method from [SN1]_.
 
 Method projects data to a spherical surface and uses arbitrary rotations to
 generate null distribution. If `data` are parcellated then parcel centroids
@@ -174,7 +172,7 @@ References
 vazquez_rodriguez = alexander_bloch
 
 
-def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
+def vasa(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
          n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `vasa()` null method without specifying '
@@ -195,7 +193,7 @@ def vasa(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 vasa.__doc__ = """\
-Generates null maps for parcellated `data` using method from [SN2]_
+Generate null maps for parcellated `data` using method from [SN2]_.
 
 Method projects parcels to a spherical surface and uses arbitrary rotations
 with iterative reassignments to generate null distribution. All nulls are
@@ -225,7 +223,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
+def hungarian(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
               n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `hungarian()` null method without '
@@ -246,7 +244,7 @@ def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 hungarian.__doc__ = """\
-Generates null maps for parcellated `data` using the Hungarian method ([SN3]_)
+Generate null maps for parcellated `data` using the Hungarian method ([SN3]_).
 
 Method projects parcels to a spherical surface and uses arbitrary rotations
 with reassignments based on optimization via the Hungarian method to generate
@@ -274,7 +272,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def baum(data, atlas='fsaverage', density='10k', parcellation=None,
+def baum(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
          n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `baum()` null method without specifying '
@@ -293,7 +291,7 @@ def baum(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 baum.__doc__ = """\
-Generates null maps for parcellated `data` using method from [SN4]_
+Generate null maps for parcellated `data` using method from [SN4]_.
 
 Method projects `data` to spherical surface and uses arbitrary rotations to
 generate null distributions. Reassigned parcels are based on the most common
@@ -322,7 +320,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
+def cornblath(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
               n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `cornblath()` null method without '
@@ -337,7 +335,7 @@ def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 cornblath.__doc__ = """\
-Generates null maps for parcellated `data` using method from [SN5]_
+Generate null maps for parcellated `data` using method from [SN5]_.
 
 Method projects `data` to spherical surface and uses arbitrary rotations to
 generate null distributions. Reassigned parcels are based on the average value
@@ -366,7 +364,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def _get_distmat(hemisphere, atlas='fsaverage', density='10k',
+def _get_distmat(hemisphere, atlas='fsaverage', density='10k', # noqa: D103
                  parcellation=None, drop=None, n_proc=1):
     hemi = HEMI.get(hemisphere, hemisphere)
     if hemi not in ('L', 'R'):
@@ -387,7 +385,7 @@ def _get_distmat(hemisphere, atlas='fsaverage', density='10k',
 
 
 _get_distmat.__doc__ = """\
-Generates surface distance matrix for specified `hemisphere`
+Generate surface distance matrix for specified `hemisphere`.
 
 If `parcellation` is provided then the returned distance matrix will be a
 parcel-parcel matrix.
@@ -574,7 +572,7 @@ def _make_surrogates(data, method, atlas='fsaverage', density='10k',
 
 
 _make_surrogates.__doc__ = """\
-Generates null surrogates for specified `data` using `method`
+Generate null surrogates for specified `data` using `method`.
 
 Parameters
 ----------
@@ -595,7 +593,7 @@ Returns
 """.format(**_nulls_input_docs)
 
 
-def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,
+def burt2018(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
              n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
@@ -604,7 +602,7 @@ def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 burt2018.__doc__ = """\
-Generates null maps for `data` using method from [SN6]_
+Generate null maps for `data` using method from [SN6]_.
 
 Method uses a spatial auto-regressive model to estimate distance-dependent
 relationship of `data` and generates surrogate maps with similar properties
@@ -632,7 +630,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
+def burt2020(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
              n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
     if not _brainsmash_avail:
         raise ImportError('Cannot run burt2020 null model when `brainsmash` '
@@ -649,7 +647,7 @@ def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 burt2020.__doc__ = """\
-Generates null maps for `data` using method from [SN7]_ and [SN8]_
+Generate null maps for `data` using method from [SN7]_ and [SN8]_.
 
 Method uses variograms to estimate spatial autocorrelation of `data` and
 generates surrogate maps with similar variogram properties
@@ -678,7 +676,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def moran(data, atlas='fsaverage', density='10k', parcellation=None,
+def moran(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
           n_perm=1000, seed=None, distmat=None, n_proc=1, **kwargs):
     if not _brainspace_avail:
         raise ImportError('Cannot run moran null model when `brainspace` is '
@@ -691,7 +689,7 @@ def moran(data, atlas='fsaverage', density='10k', parcellation=None,
 
 
 moran.__doc__ = """\
-Generates null maps for `data` using method from [SN9]_
+Generate null maps for `data` using method from [SN9]_.
 
 Method uses a spatial decomposition of a distance-based weight matrix to
 estimate eigenvectors that are used to generate surrogate maps by imposing a

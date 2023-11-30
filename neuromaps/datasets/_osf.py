@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for working with data/osf.json file
-"""
+"""Functions for working with data/osf.json file."""
 
 import os
 from pkg_resources import resource_filename
@@ -13,7 +11,7 @@ from neuromaps.datasets.utils import _get_session
 
 # uniquely identify each item ('hemi' can be None)
 FNAME_KEYS = ['source', 'desc', 'space', 'den', 'res', 'hemi']
-# auto-generated (checksum can be None if file doesn't not exist)
+# auto-generated (checksum can be None if file does not exist)
 AUTO_KEYS = ['format', 'fname', 'rel_path', 'checksum']
 # required keys but values are all optional
 COND_KEYS = ['title', 'tags', 'redir', 'url']
@@ -32,7 +30,7 @@ OSFJSON = resource_filename(
 
 def parse_filename(fname, return_ext=True, verbose=False):
     """
-    Parses `fname` (in BIDS-inspired format) and returns dictionary
+    Parse `fname` (in BIDS-inspired format) and returns dictionary.
 
     Parameters
     ----------
@@ -51,7 +49,6 @@ def parse_filename(fname, return_ext=True, verbose=False):
     ext : str
         Extension of `fname`, only returned if `return_ext=True`
     """
-
     try:
         base, *ext = fname.split('.')
         fname_dict = dict([
@@ -72,7 +69,7 @@ def parse_filename(fname, return_ext=True, verbose=False):
 
 def parse_fname_list(fname, verbose=False):
     """
-    Reads in list of BIDS-inspired filenames from `fname` and parses keys
+    Read in list of BIDS-inspired filenames from `fname` and parses keys.
 
     Parameters
     ----------
@@ -85,7 +82,6 @@ def parse_fname_list(fname, verbose=False):
     data : list-of-dict
         Information about filenames in `fname`
     """
-
     with open(fname, 'r', encoding='utf-8') as src:
         fname_list = [name.strip() for name in src.readlines()]
     data = [
@@ -100,7 +96,7 @@ def parse_fname_list(fname, verbose=False):
 
 def parse_json(fname, root='annotations'):
     """
-    Loads JSON from `fname` and returns value of `root` key(s)
+    Load JSON from `fname` and returns value of `root` key(s).
 
     Parameters
     ----------
@@ -114,7 +110,6 @@ def parse_json(fname, root='annotations'):
     data : dict
         Data from `fname` JSON file
     """
-
     if isinstance(root, str):
         root = [root]
 
@@ -129,7 +124,7 @@ def parse_json(fname, root='annotations'):
 
 def write_json(data, fname, root='annotations', indent=4):
     """
-    Saves `data` to `fname` JSON
+    Save `data` to `fname` JSON.
 
     Parameters
     ----------
@@ -147,7 +142,6 @@ def write_json(data, fname, root='annotations', indent=4):
     fname : str
         Path to saved file
     """
-
     if not isinstance(root, str):
         raise ValueError(f'Provided `root` must be a str. Received: {root}')
 
@@ -184,6 +178,8 @@ def write_json(data, fname, root='annotations', indent=4):
 def complete_json(input_data, ref_keys='minimal', input_root=None,
                   output_fname=None, output_root=None):
     """
+    Complete information in `input_data` based on `ref_keys`.
+
     Parameters
     ----------
     input_data : str or os.PathLike or list-of-dict
@@ -248,7 +244,7 @@ def complete_json(input_data, ref_keys='minimal', input_root=None,
 
 def check_missing_keys(fname, root='annotations'):
     """
-    Checks whether data in `fname` JSON are missing required keys
+    Check whether data in `fname` JSON are missing required keys.
 
     Required keys are specified in ``neuromaps.datasets._osf.MINIMAL_KEYS``
 
@@ -264,7 +260,6 @@ def check_missing_keys(fname, root='annotations'):
     info : list of list-of-str
         Missing keys for each entry in `fname`
     """
-
     try:
         data = parse_json(fname, root=root)
     except TypeError:
@@ -288,7 +283,7 @@ def check_missing_keys(fname, root='annotations'):
 
 def generate_auto_keys(item):
     """
-    Adds automatically-generated keys to `item`
+    Add automatically-generated keys to `item`.
 
     Generated keys include: ['format', 'fname', 'rel_path', 'checksum']
 
@@ -302,7 +297,6 @@ def generate_auto_keys(item):
     item : dict
         Updated information about annotation
     """
-
     item = item.copy()
 
     pref = 'source-{source}_desc-{desc}_space-{space}'
@@ -339,7 +333,7 @@ def generate_auto_keys(item):
 
 def clean_minimal_keys(item):
     """
-    Removes incompatible keys from `item` based on `item['format']`
+    Remove incompatible keys from `item` based on `item['format']`.
 
     Parameters
     ----------
@@ -351,7 +345,6 @@ def clean_minimal_keys(item):
     item : dict
         Updated information about annotation
     """
-
     keys = {'surface': ['res'], 'volume': ['den', 'hemi']}
     fmt = item.get('format')
     if fmt is None:
@@ -367,7 +360,7 @@ def clean_minimal_keys(item):
 
 def get_url(fname, project, token=None):
     """
-    Gets OSF API URL path for `fname` in `project`
+    Get OSF API URL path for `fname` in `project`.
 
     Parameters
     ----------
@@ -386,7 +379,6 @@ def get_url(fname, project, token=None):
     path : str
         Path to `fname` on OSF project `project`
     """
-
     url = f'https://files.osf.io/v1/resources/{project}/providers/osfstorage/'
     session = _get_session(token=token)
     path = ''
@@ -404,7 +396,7 @@ def get_url(fname, project, token=None):
 def generate_release_json(fname, output=OSFJSON, root='annotations',
                           project=None, token=None):
     """
-    Generates distribution-ready JSON file for fetching annotation data
+    Generate distribution-ready JSON file for fetching annotation data.
 
     Parameters
     ----------
@@ -428,7 +420,6 @@ def generate_release_json(fname, output=OSFJSON, root='annotations',
     output : str
         Path to filename where output JSON was saved
     """
-
     info = []
     for item in parse_json(fname, root=root):
         item = clean_minimal_keys(generate_auto_keys(item))

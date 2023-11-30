@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functionality for plotting
-"""
+"""Functionality for plotting."""
 
 from matplotlib import colors as mcolors, pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D  # noqa
@@ -24,7 +22,7 @@ plt.cm.register_cmap(
 def plot_surf_template(data, template, density, surf='inflated',
                        hemi=None, data_dir=None, mask_medial=True, **kwargs):
     """
-    Plots `data` on `template` surface
+    Plot `data` on `template` surface.
 
     Parameters
     ----------
@@ -51,7 +49,6 @@ def plot_surf_template(data, template, density, surf='inflated',
     fig : matplotlib.Figure instance
         Plotted figure
     """
-
     atlas = fetch_atlas(template, density, data_dir=data_dir, verbose=0)
     template = ALIAS.get(template, template)
     if template == 'MNI152':
@@ -98,7 +95,7 @@ def plot_surf_template(data, template, density, surf='inflated',
 
 def _fix_facecolors(ax, facecolors, vertices, faces, view, hemi):
     """
-    Updates `facecolors` to reflect shading of mesh geometry
+    Update `facecolors` to reflect shading of mesh geometry.
 
     Parameters
     ----------
@@ -118,7 +115,6 @@ def _fix_facecolors(ax, facecolors, vertices, faces, view, hemi):
     colors : (F,) array_like
         Updated facecolors with appropriate shading
     """
-
     hemi_view = {'R': {'lateral': 'medial', 'medial': 'lateral'}}
     views = {
         'lateral': plt.cm.colors.LightSource(azdeg=225, altdeg=19.4712),

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for statistical analyses
-"""
+"""Functions for statistical analyses."""
 
 from functools import partial
 
@@ -19,7 +17,7 @@ from neuromaps.images import load_data
 def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
                    nan_policy='omit', return_nulls=False):
     """
-    Compares images `src` and `trg`
+    Compare images `src` and `trg`.
 
     If `src` and `trg` represent data from multiple hemispheres the data are
     concatenated across hemispheres prior to comparison
@@ -58,7 +56,6 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         Null distribution of similarity metrics. Only returned if
         `return_nulls` is True.
     """
-
     methods = ('pearsonr', 'spearmanr')
     if metric not in methods:
         if not callable(metric):
@@ -108,7 +105,7 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
 def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
                     nan_policy='propagate', return_nulls=False):
     """
-    Generates non-parameteric p-value of `a` and `b` for `metric`
+    Generate non-parameteric p-value of `a` and `b` for `metric`.
 
     Calculates two-tailed p-value for hypothesis of whether samples `a` and `b`
     are related using permutation tests
@@ -209,7 +206,7 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
 
 def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     """
-    Computes correlation of matching columns in `a` and `b`
+    Compute correlation of matching columns in `a` and `b`.
 
     Parameters
     ----------
@@ -236,7 +233,6 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     If either input contains nan and nan_policy is set to 'omit', both arrays
     will be masked to omit the nan entries.
     """
-
     a, b, axis = _chk2_asarray(a, b, 0)
     if len(a) != len(b):
         raise ValueError('Provided arrays do not have same length')

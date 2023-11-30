@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Utilities for loading / creating datasets
-"""
+"""Utilities for loading / creating datasets."""
 
 import json
 import os
@@ -14,7 +12,7 @@ RESTRICTED = ["grh4d"]
 
 def _osfify_urls(data, return_restricted=True):
     """
-    Formats `data` object with OSF API URL
+    Format `data` object with OSF API URL.
 
     Parameters
     ----------
@@ -29,7 +27,6 @@ def _osfify_urls(data, return_restricted=True):
     data : object
         Input data with all `url` dict keys formatted
     """
-
     OSF_API = "https://files.osf.io/v1/resources/{}/providers/osfstorage/{}"
 
     if isinstance(data, str) or data is None:
@@ -58,7 +55,7 @@ def _osfify_urls(data, return_restricted=True):
 
 def get_dataset_info(name, return_restricted=True):
     """
-    Returns information for requested dataset `name`
+    Return information for requested dataset `name`.
 
     Parameters
     ----------
@@ -73,7 +70,6 @@ def get_dataset_info(name, return_restricted=True):
     dataset : dict or list-of-dict
         Information on requested data
     """
-
     fn = resource_filename('neuromaps',
                            os.path.join('datasets', 'data', 'osf.json'))
     with open(fn) as src:
@@ -83,14 +79,14 @@ def get_dataset_info(name, return_restricted=True):
         resource = osf_resources[name]
     except KeyError:
         raise KeyError("Provided dataset '{}' is not valid. Must be one of: {}"
-                       .format(name, sorted(osf_resources.keys())))
+                       .format(name, sorted(osf_resources.keys()))) from None
 
     return resource
 
 
 def get_data_dir(data_dir=None):
     """
-    Gets path to neuromaps data directory
+    Get path to neuromaps data directory.
 
     Parameters
     ----------
@@ -104,7 +100,6 @@ def get_data_dir(data_dir=None):
     data_dir : str
         Path to use as data directory
     """
-
     if data_dir is None:
         data_dir = os.environ.get('NEUROMAPS_DATA',
                                   os.path.join('~', 'neuromaps-data'))
@@ -117,7 +112,7 @@ def get_data_dir(data_dir=None):
 
 def _get_token(token=None):
     """
-    Returns `token` if provided or set as environmental variable
+    Return `token` if provided or set as environmental variable.
 
     Parameters
     ----------
@@ -132,7 +127,6 @@ def _get_token(token=None):
     token : str
         OSF token
     """
-
     if token is None:
         token = os.environ.get('NEUROMAPS_OSF_TOKEN', None)
 
@@ -141,7 +135,7 @@ def _get_token(token=None):
 
 def _get_session(token=None):
     """
-    Returns requests.Session with `token` auth in header if supplied
+    Return requests.Session with `token` auth in header if supplied.
 
     Parameters
     ----------
@@ -156,7 +150,6 @@ def _get_session(token=None):
     session : requests.Session
         Session instance with authentication in header
     """
-
     session = requests.Session()
     token = _get_token(token)
     if token is not None:
