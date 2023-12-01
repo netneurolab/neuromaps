@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Workflow for adding new datasets to `neuromaps`
-"""
+"""Workflow for adding new datasets to `neuromaps`."""
 
 from base64 import b64encode
 import hashlib
@@ -32,7 +30,7 @@ REV_VERT_MAP = {v: k for k, v in VERT_MAP.items()}
 
 def upload_annotation(files, user, osf_token=None, nmweb_token=None):
     """
-    Workflow for contributing new brain annotation `files` to `neuromaps`
+    Workflow for contributing new brain annotation `files` to `neuromaps`.
 
     Parameters
     ----------
@@ -53,7 +51,6 @@ def upload_annotation(files, user, osf_token=None, nmweb_token=None):
     response : requests.Response
         Response object from `neuromaps-web` API
     """
-
     url = HEROKU
     if int(os.environ.get('NMWEB_DEBUG', 0)):
         url = 'http://127.0.0.1:5000'
@@ -85,7 +82,7 @@ def upload_annotation(files, user, osf_token=None, nmweb_token=None):
                     auth = True
                 else:
                     warnings.warn('Token authorization failed; admin access '
-                                  'to OSF repo not permitted.')
+                                  'to OSF repo not permitted.', stacklevel=2)
             if not auth:
                 raise ValueError(f'Provided file {fname} is too large. Max '
                                  'file size for brain map is 30 MB. '

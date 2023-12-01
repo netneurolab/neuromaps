@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for fetching datasets (from the internet, if necessary)
-"""
+"""Functions for fetching datasets (from the internet, if necessary)."""
 
 from collections import namedtuple
 import os
@@ -54,8 +52,7 @@ atlas : dict
 
 
 def _sanitize_atlas(atlas):
-    """ Checks for aliases of `atlas` and confirms valid input
-    """
+    """Check for aliases of `atlas` and confirms valid input."""
     atlas = ALIAS.get(atlas, atlas)
     if atlas not in DENSITIES:
         raise ValueError(f'Invalid atlas: {atlas}.')
@@ -63,17 +60,14 @@ def _sanitize_atlas(atlas):
 
 
 def _bunch_outputs(keys, values, surface=True):
-    """ Groups `values` together (L/R) if `surface` and zips with `keys`
-    """
+    """Group `values` together (L/R) if `surface` and zips with `keys`."""
     if surface:
         values = [SURFACE(*values[i:i + 2]) for i in range(0, len(values), 2)]
     return Bunch(**dict(zip(keys, values)))
 
 
 def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
-    """ Helper function to get requested `atlas`
-    """
-
+    """Get requested `atlas`."""
     atlas = _sanitize_atlas(atlas)
     densities = DENSITIES[atlas]
     if density not in densities:
@@ -129,7 +123,7 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
     return _bunch_outputs(keys, data, atlas != 'MNI152')
 
 
-def fetch_civet(density='41k', url=None, data_dir=None, verbose=1):
+def fetch_civet(density='41k', url=None, data_dir=None, verbose=1): # noqa: D103
     keys = ['white', 'midthickness', 'inflated', 'veryinflated', 'sphere']
     return _fetch_atlas(
         'civet', density, keys, url=url, data_dir=data_dir, verbose=verbose
@@ -137,7 +131,7 @@ def fetch_civet(density='41k', url=None, data_dir=None, verbose=1):
 
 
 fetch_civet.__doc__ = """
-Fetches CIVET surface atlas
+Fetch CIVET surface atlas.
 
 Parameters
 ----------
@@ -153,7 +147,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['civet']))
 
 
-def fetch_fsaverage(density='41k', url=None, data_dir=None, verbose=1):
+def fetch_fsaverage(density='41k', url=None, data_dir=None, verbose=1): # noqa: D103
     keys = ['white', 'pial', 'inflated', 'sphere']
     return _fetch_atlas(
         'fsaverage', density, keys, url=url, data_dir=data_dir, verbose=verbose
@@ -161,7 +155,7 @@ def fetch_fsaverage(density='41k', url=None, data_dir=None, verbose=1):
 
 
 fetch_fsaverage.__doc__ = """
-Fetches fsaverage surface atlas
+Fetch fsaverage surface atlas.
 
 Parameters
 ----------
@@ -177,7 +171,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsaverage']))
 
 
-def fetch_fslr(density='32k', url=None, data_dir=None, verbose=1):
+def fetch_fslr(density='32k', url=None, data_dir=None, verbose=1): # noqa: D103
     keys = ['midthickness', 'inflated', 'veryinflated', 'sphere']
     if density in ('4k', '8k'):
         keys.remove('veryinflated')
@@ -187,7 +181,7 @@ def fetch_fslr(density='32k', url=None, data_dir=None, verbose=1):
 
 
 fetch_fslr.__doc__ = """
-Fetches fsLR surface atlas
+Fetch fsLR surface atlas.
 
 Parameters
 ----------
@@ -203,7 +197,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsLR']))
 
 
-def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):
+def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1): # noqa: D103
     keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
             '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
             '2009cAsym_WM']
@@ -215,7 +209,7 @@ def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):
 
 
 fetch_mni152.__doc__ = """
-Fetches MNI152 atlas
+Fetch MNI152 atlas.
 
 Parameters
 ----------
@@ -231,7 +225,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['MNI152']))
 
 
-def fetch_regfusion(atlas, url=None, data_dir=None, verbose=1):
+def fetch_regfusion(atlas, url=None, data_dir=None, verbose=1): # noqa: D103
     atlas = _sanitize_atlas(atlas)
     densities = DENSITIES[atlas].copy()
     invalid = dict(civet=('164k',), fsLR=('4k', '8k'))
@@ -265,7 +259,7 @@ def fetch_regfusion(atlas, url=None, data_dir=None, verbose=1):
 
 
 fetch_regfusion.__doc__ = """
-Fetches regfusion inputs for mapping MNI152 to specified surface `atlas`
+Fetch regfusion inputs for mapping MNI152 to specified surface `atlas`.
 
 Parameters
 ----------
@@ -282,14 +276,14 @@ regfusion : dict
 """.format(**_atlas_docs)
 
 
-def fetch_atlas(atlas, density, url=None, data_dir=None, verbose=1):
+def fetch_atlas(atlas, density, url=None, data_dir=None, verbose=1): # noqa: D103
     atlas = _sanitize_atlas(atlas)
     fetcher = globals()[f'fetch_{atlas.lower()}']
     return fetcher(density, url=url, data_dir=data_dir, verbose=verbose)
 
 
 fetch_atlas.__doc__ = """
-Fetches specified `atlas` and `density`
+Fetch specified `atlas` and `density`.
 
 Parameters
 ----------
@@ -307,7 +301,7 @@ Returns
 """.format(**_atlas_docs, atlases="', '".join(DENSITIES.keys()))
 
 
-def fetch_all_atlases(data_dir=None, verbose=1):
+def fetch_all_atlases(data_dir=None, verbose=1): # noqa: D103
     atlases = {'regfusion': {}}
     for key, resolutions in DENSITIES.items():
         atlases[key] = {}
@@ -322,7 +316,7 @@ def fetch_all_atlases(data_dir=None, verbose=1):
 
 
 fetch_all_atlases.__doc__ = """
-Fetches (and caches) all available atlases
+Fetch (and cache) all available atlases.
 
 Parameters
 ----------
@@ -336,7 +330,7 @@ atlases : dict
 """
 
 
-def get_atlas_dir(atlas, data_dir=None):
+def get_atlas_dir(atlas, data_dir=None): # noqa: D103
     try:
         atlas = _sanitize_atlas(atlas)
     except ValueError as err:
@@ -346,7 +340,7 @@ def get_atlas_dir(atlas, data_dir=None):
 
 
 get_atlas_dir.__doc__ = """
-Returns filepath to specified `atlas`
+Return filepath to specified `atlas`.
 
 Parameters
 ----------

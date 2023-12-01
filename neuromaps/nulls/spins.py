@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Contains helper code for running spatial nulls models
-"""
+"""Helper code for running spatial nulls models."""
 
 from pathlib import Path
 import warnings
@@ -20,7 +18,7 @@ from neuromaps.points import _geodesic_parcel_centroid
 
 def load_spins(fn, n_perm=None):
     """
-    Loads spins from `fn`
+    Load spins from `fn`.
 
     Parameters
     ----------
@@ -34,7 +32,6 @@ def load_spins(fn, n_perm=None):
     spins : (N, P) array_like
         Loaded spins
     """
-
     try:
         npy = Path(fn).with_suffix('.npy')
         if npy.exists():
@@ -53,7 +50,7 @@ def load_spins(fn, n_perm=None):
 def get_parcel_centroids(surfaces, parcellation=None, method='surface',
                          drop=None):
     """
-    Returns vertex coordinates corresponding to parcel centroids
+    Return vertex coordinates corresponding to parcel centroids.
 
     If `parcellation` is not specified then returned `centroids` are vertex
     coordinates of `surfaces`
@@ -109,7 +106,6 @@ def get_parcel_centroids(surfaces, parcellation=None, method='surface',
        more time-consuming than the other two methods, especially for
        high-resolution meshes.
     """
-
     methods = ['average', 'surface', 'geodesic']
     if method not in methods:
         raise ValueError('Provided method for centroid calculation {} is '
@@ -153,7 +149,7 @@ def get_parcel_centroids(surfaces, parcellation=None, method='surface',
 
 def _gen_rotation(seed=None):
     """
-    Generates random matrix for rotating spherical coordinates
+    Generate random matrix for rotating spherical coordinates.
 
     Parameters
     ----------
@@ -165,7 +161,6 @@ def _gen_rotation(seed=None):
     rotate_{l,r} : (3, 3) numpy.ndarray
         Rotations for left and right hemisphere coordinates, respectively
     """
-
     rs = check_random_state(seed)
 
     # for reflecting across Y-Z plane
@@ -187,7 +182,7 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
                     method='original', seed=None, verbose=False,
                     return_cost=False):
     """
-    Returns a resampling array for `coords` obtained from rotations / spins
+    Return a resampling array for `coords` obtained from rotations / spins.
 
     Using the method initially proposed in [ST1]_ (and later modified + updated
     based on findings in [ST2]_ and [ST3]_), this function applies random
@@ -219,10 +214,11 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
         True may increase the runtime of this function! Default: True
     method : {'original', 'vasa', 'hungarian'}, optional
         Method by which to match non- and rotated coordinates. Specifying
-        'original' will use the method described in [ST1]_. Specfying 'vasa'
-        will use the method described in [ST4]_. Specfying 'hungarian' will use
-        the Hungarian algorithm to minimize the global cost of reassignment
-        (will dramatically increase runtime). Default: 'original'
+        'original' will use the method described in [ST1]_. Specifying 'vasa'
+        will use the method described in [ST4]_. Specifying 'hungarian' will
+        use the Hungarian algorithm to minimize the global cost of
+        reassignment (will dramatically increase runtime).
+        Default: 'original'
     seed : {int, np.random.RandomState instance, None}, optional
         Seed for random number generation. Default: None
     verbose : bool, optional
@@ -303,7 +299,6 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
 
     .. [ST5] https://github.com/spin-test/spin-test
     """
-
     methods = ['original', 'vasa', 'hungarian']
     if method not in methods:
         raise ValueError('Provided method "{}" invalid. Must be one of {}.'
@@ -366,7 +361,7 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
                     dist = spatial.distance_matrix(coor, coor @ rot)
                     # min of max a la Vasa et al., 2018
                     col = np.zeros(len(coor), dtype='int32')
-                    for r in range(len(dist)):
+                    for _ in range(len(dist)):
                         # find parcel whose closest neighbor is farthest away
                         # overall; assign to that
                         row = dist.min(axis=1).argmax()
@@ -407,7 +402,8 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
         # this should only be triggered if check_duplicates is set to True
         if count == 500 and not warned:
             warnings.warn('Duplicate rotations used. Check resampling array '
-                          'to determine real number of unique permutations.')
+                          'to determine real number of unique permutations.',
+                          stacklevel=2)
             warned = True
 
         spinsamples[:, n] = resampled
@@ -424,7 +420,7 @@ def gen_spinsamples(coords, hemiid, n_rotate=1000, check_duplicates=True,
 def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
                  spins=None, verbose=False, **kwargs):
     """
-    Rotates parcels in `parcellation` and re-assigns based on maximum overlap
+    Rotate parcels in `parcellation` and re-assigns based on maximum overlap.
 
     Vertex labels are rotated and a new label is assigned to each *parcel*
     based on the region maximally overlapping with its boundaries.
@@ -463,8 +459,7 @@ def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
     """
 
     def overlap(vals):
-        """ Returns most common positive value in `vals`; -1 if all negative
-        """
+        """Return most common positive value in `vals`; -1 if all negative."""
         vals = np.asarray(vals)
         vals, counts = np.unique(vals[vals > 0], return_counts=True)
         try:
@@ -512,7 +507,7 @@ def spin_parcels(surfaces, parcellation, method='surface', n_rotate=1000,
 
 def parcels_to_vertices(data, parcellation):
     """
-    Projects parcellated `data` to vertices as defined by `parcellation`
+    Project parcellated `data` to vertices as defined by `parcellation`.
 
     Parameters
     ----------
@@ -526,7 +521,6 @@ def parcels_to_vertices(data, parcellation):
     projected : numpy.ndarray
         Vertex-level data
     """
-
     data = np.vstack(data).astype(float)
     vertices = np.hstack([
         load_gifti(parc).agg_data() for parc in parcellation
@@ -553,7 +547,7 @@ def parcels_to_vertices(data, parcellation):
 
 def vertices_to_parcels(data, parcellation, background=None):
     """
-    Reduces vertex-level `data` to parcels defined by `parcellation`.
+    Reduce vertex-level `data` to parcels defined by `parcellation`.
 
     Compute the average `data` within each parcel. This average ignores
     vertices with background `data` values (e.g. medial wall) or with NaN
@@ -573,11 +567,10 @@ def vertices_to_parcels(data, parcellation, background=None):
         If None, then only vertices with NaN values are ignored. Default: None
 
     Returns
-    ------
+    -------
     reduced : numpy.ndarray
         Parcellated `data`
     """
-
     data = np.vstack(data)
 
     if background is not None:
@@ -624,7 +617,7 @@ def vertices_to_parcels(data, parcellation, background=None):
 def spin_data(data, surfaces, parcellation, method='surface', n_rotate=1000,
               spins=None, verbose=False, **kwargs):
     """
-    Projects parcellated `data` to `surfaces`, rotates, and re-parcellates
+    Project parcellated `data` to `surfaces`, rotates, and re-parcellates.
 
     Projection of `data` to `surfaces` uses provided `parcellation` files.
     Re-parcellated data will not be exactly identical to original values due to
@@ -660,7 +653,6 @@ def spin_data(data, surfaces, parcellation, method='surface', n_rotate=1000,
     rotated : (N, `n_rotate`) numpy.ndarray
         Rotated `data
     """
-
     # get coordinates and hemisphere designation for spin generation
     vertices = parcels_to_vertices(data, parcellation)
 
