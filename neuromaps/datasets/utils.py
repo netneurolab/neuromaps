@@ -3,17 +3,7 @@
 
 import json
 import os
-<<<<<<< HEAD
 import importlib.resources
-=======
-try:
-    import importlib.resources
-    _importlib_avail = True
-except ImportError:
-    from pkg_resources import resource_filename
-    _importlib_avail = False
-
->>>>>>> [FIX] Fix deprecations
 import requests
 
 # osf repo prefix
@@ -199,7 +189,6 @@ def get_dataset_info(name, return_restricted=True):
     dataset : dict or list-of-dict
         Information on requested data
     """
-<<<<<<< HEAD
     try:
         if return_restricted:
             return NEUROMAPS_DATASETS[name]
@@ -218,18 +207,6 @@ NEUROMAPS_META = _load_resource_json('datasets/data/meta.json')
 def get_meta_info(name):
     """
     Return metadata for requested dataset `name`.
-=======
-    if _importlib_avail:
-        fn = importlib.resources.files("neuromaps") / "datasets/data/osf.json"
-    else:
-        fn = resource_filename(
-            'neuromaps',
-            os.path.join('datasets', 'data', 'osf.json')
-        )
-
-    with open(fn) as src:
-        osf_resources = _osfify_urls(json.load(src), return_restricted)
->>>>>>> [FIX] Fix deprecations
 
     Parameters
     ----------
