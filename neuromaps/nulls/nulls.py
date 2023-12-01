@@ -498,13 +498,17 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
                 index.flush()
         else:
             parcellation = darr[mask]
-            row_dist = np.zeros((len(xyz), len(labels)), dtype='float32')
+            xyz_labels = {}
+            n_labels = len(labels)
+            for i_label in labels:
+                xyz_labels[i_label] = xyz[np.where(parcellation==i_label)]
             dist = np.zeros((len(labels), len(labels)), dtype='float32')
-            for n, row in enumerate(xyz):
-                xyz_dist = cdist(row[None], xyz).astype('float32')
-                row_dist[n] = ndimage.mean(xyz_dist, parcellation, labels)
-            for n in range(len(labels)):
-                dist[n] = ndimage.mean(row_dist[:, n], parcellation, labels)
+            for i, i_label in enumerate(labels):
+                j = i
+                for _ in range(n_labels - j):
+                    dist[i, j] = cdist(xyz_labels[i_label], xyz_labels[labels[j]]).mean().astype('float32')
+                    j += 1
+            dist = dist + dist.T - np.diag(np.diag(dist))
 
     else:
         dist = distmat
