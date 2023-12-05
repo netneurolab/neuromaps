@@ -5,7 +5,7 @@ import os
 import tempfile
 import nibabel as nib
 import numpy as np
-from scipy import ndimage
+from tqdm.auto import tqdm, trange
 from scipy.spatial.distance import cdist
 from packaging import version
 try:
@@ -19,6 +19,12 @@ try:
     _brainspace_avail = True
 except ImportError:
     _brainspace_avail = False
+
+try:
+    from numba import njit, prange
+    use_numba = True
+except ImportError:
+    use_numba = False
 
 from neuromaps.datasets import fetch_atlas
 from neuromaps.datasets.atlases import _sanitize_atlas
@@ -437,6 +443,36 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
         yield hdata[mask], dist[np.ix_(mask, mask)], None, idx[mask]
 
 
+
+# def _fast_cdist_1samp(xyz):
+#     pass
+
+# if use_numba:
+#     _fast_cdist_1samp = njit(
+#         "(float64[:,:])", parallel=True, fastmath=True
+#     )(_fast_cdist_1samp)
+
+def _fast_cdist_2samp_mean(xyz_1, xyz_2):
+    n1, n2 = len(xyz_1), len(xyz_2)
+    total = 0.0
+    for i in prange(n1):
+        p1 = xyz_1[i, :]
+        for j in range(n2):
+            p2 = xyz_2[j]
+            _x = p2[0] - p1[0]
+            _y = p2[1] - p1[1]
+            _z = p2[2] - p1[2]
+            _d = np.sqrt(_x**2 + _y**2 + _z**2)
+            total += _d
+    return total / (n1 * n2)
+
+
+if use_numba:
+    _fast_cdist_2samp_mean = njit(
+        "(float32[:,:], float32[:,:])", parallel=True, fastmath=True
+    )(_fast_cdist_2samp_mean)
+
+
 def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
 
     if atlas != 'MNI152':
@@ -476,7 +512,7 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
         affine = load_nifti(parcellation).affine
         labels = np.trim_zeros(np.unique(darr))
     mask = np.logical_not(np.logical_or(np.isclose(darr, 0), np.isnan(darr)))
-    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask)))
+    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask))).astype('float32')
 
     # calculate distance matrix
     index = None
@@ -496,18 +532,21 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
                 index.flush()
         else:
             parcellation = darr[mask]
-            xyz_labels = {}
             n_labels = len(labels)
-            for i_label in labels:
-                xyz_labels[i_label] = xyz[np.where(parcellation==i_label)]
+            xyz_labels = {}
+            for l in labels:
+                xyz_labels[l] = xyz[np.where(parcellation==l)]
             dist = np.zeros((len(labels), len(labels)), dtype='float32')
-            for i, i_label in enumerate(labels):
-                j = i
-                for _ in range(n_labels - j):
-                    dist[i, j] = cdist(xyz_labels[i_label], xyz_labels[labels[j]]).mean().astype('float32')
-                    j += 1
+            if use_numba:
+                dist_func = _fast_cdist_2samp_mean
+            else:
+                dist_func = cdist
+            for i in trange(n_labels):
+                for j in range(i, n_labels):
+                    dist[i, j] = dist_func(
+                        xyz_labels[labels[i]], xyz_labels[labels[j]]
+                    )
             dist = dist + dist.T - np.diag(np.diag(dist))
-
     else:
         dist = distmat
         if parcellation is None:
