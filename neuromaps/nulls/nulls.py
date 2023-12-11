@@ -5,7 +5,6 @@ import os
 import tempfile
 import nibabel as nib
 import numpy as np
-from tqdm.auto import trange
 from scipy.spatial.distance import cdist
 from packaging import version
 try:
@@ -533,7 +532,7 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
                 dist_func = _fast_cdist_2samp_mean
             else:
                 dist_func = cdist
-            for i in trange(n_labels):
+            for i in range(n_labels):
                 for j in range(i, n_labels):
                     dist[i, j] = dist_func(
                         xyz_labels[labels[i]], xyz_labels[labels[j]]
