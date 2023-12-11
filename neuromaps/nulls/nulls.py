@@ -5,7 +5,7 @@ import os
 import tempfile
 import nibabel as nib
 import numpy as np
-from tqdm.auto import tqdm, trange
+from tqdm.auto import trange
 from scipy.spatial.distance import cdist
 from packaging import version
 try:
@@ -443,15 +443,6 @@ def _surf_surrogates(data, atlas, density, parcellation, distmat, n_proc):
         yield hdata[mask], dist[np.ix_(mask, mask)], None, idx[mask]
 
 
-
-# def _fast_cdist_1samp(xyz):
-#     pass
-
-# if use_numba:
-#     _fast_cdist_1samp = njit(
-#         "(float64[:,:])", parallel=True, fastmath=True
-#     )(_fast_cdist_1samp)
-
 def _fast_cdist_2samp_mean(xyz_1, xyz_2):
     n1, n2 = len(xyz_1), len(xyz_2)
     total = 0.0
@@ -512,7 +503,8 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
         affine = load_nifti(parcellation).affine
         labels = np.trim_zeros(np.unique(darr))
     mask = np.logical_not(np.logical_or(np.isclose(darr, 0), np.isnan(darr)))
-    xyz = nib.affines.apply_affine(affine, np.column_stack(np.where(mask))).astype('float32')
+    xyz = nib.affines.apply_affine(
+        affine, np.column_stack(np.where(mask))).astype('float32')
 
     # calculate distance matrix
     index = None
@@ -534,8 +526,8 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, **kwargs):
             parcellation = darr[mask]
             n_labels = len(labels)
             xyz_labels = {}
-            for l in labels:
-                xyz_labels[l] = xyz[np.where(parcellation==l)]
+            for lab in labels:
+                xyz_labels[lab] = xyz[np.where(parcellation==lab)]
             dist = np.zeros((len(labels), len(labels)), dtype='float32')
             if use_numba:
                 dist_func = _fast_cdist_2samp_mean
