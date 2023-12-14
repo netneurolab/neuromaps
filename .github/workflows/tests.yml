@@ -65,7 +65,7 @@ jobs:
           unzip workbench-linux64-v1.5.0.zip -d ${HOME}
           echo "$HOME/workbench/bin_linux64" >> $GITHUB_PATH
       - name: Install neuromaps
-        run: python -m pip install -e .
+        run: python -m pip install .
       - name: Print neuromaps version
         run: python -c "import neuromaps; print(neuromaps.__version__)"
       - name: Test submodule import
