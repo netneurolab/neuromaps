@@ -68,6 +68,10 @@ jobs:
         run: python -m pip install -e .
       - name: Print neuromaps version
         run: python -c "import neuromaps; print(neuromaps.__version__)"
+      - name: Test submodule import
+        run: |
+          cd ..
+          python -c "from neuromaps import parcellate; from neuromaps.datasets import available_annotations"
       - name: Run tests
         run: pytest --doctest-modules --cov=neuromaps --cov-report=xml --junitxml=junit/test-results.xml --verbose --pyargs neuromaps
       - uses: codecov/codecov-action@v3
