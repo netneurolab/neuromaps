@@ -205,7 +205,8 @@ def load_data(data):
             or (
                 "os.PathLike" in str(err) 
                 and "not Nifti1Image" in str(err)
-            ):
+                )
+           ):
             out = np.stack([load_nifti(img).get_fdata() for img in data],
                            axis=3)
         # array_like (parcellated)
