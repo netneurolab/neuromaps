@@ -132,9 +132,7 @@ def load_nifti(img):
     try:
         img = nib.load(img)
     except (TypeError) as err:
-        msg = ('expected str, bytes or os.PathLike '
-               'object, not Nifti1Image')
-        if not str(err) == msg:
+        if not ("os.PathLike" in str(err) and "not Nifti1Image" in str(err)):
             raise err
     return img
 
@@ -165,8 +163,9 @@ def load_gifti(img):
                 img = nib.GiftiImage.from_bytes(gz.read())
         # it's not a pre-loaded GiftiImage so error out
         elif (isinstance(err, TypeError)
-              and not str(err) == 'expected str, bytes or os.PathLike '
-                                  'object, not GiftiImage'):
+              and not (
+                  "os.PathLike" in str(err) and "not GiftiImage" in str(err)
+              ):
             raise err
 
     return img
@@ -202,8 +201,10 @@ def load_data(data):
     except (AttributeError, TypeError, ValueError, OSError) as err:
         # niimg_like or path_like (nifti)
         if (isinstance(err, AttributeError)
-            or str(err) == 'expected str, bytes or os.PathLike '
-                           'object, not Nifti1Image'):
+            or (
+                "os.PathLike" in str(err) 
+                and "not Nifti1Image" in str(err)
+            ):
             out = np.stack([load_nifti(img).get_fdata() for img in data],
                            axis=3)
         # array_like (parcellated)
