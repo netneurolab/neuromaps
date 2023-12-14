@@ -58,8 +58,8 @@ test = [
 requires = ["setuptools", "versioneer[toml]"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-packages = ["neuromaps"]
+[tool.setuptools.packages]
+find = {}
 
 [tool.setuptools.dynamic]
 version = {attr = "neuromaps.__version__"}
