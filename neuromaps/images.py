@@ -165,6 +165,7 @@ def load_gifti(img):
         elif (isinstance(err, TypeError)
               and not (
                   "os.PathLike" in str(err) and "not GiftiImage" in str(err)
+                  )
               ):
             raise err
 
