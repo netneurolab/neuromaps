@@ -31,19 +31,11 @@ body:
     render: python
   validations:
     required: true
-- type: input
+- type: textarea
   id: version
   attributes:
     label: Software version
-    description: "What version of `neuromaps` are you using? (If you are unsure you can run `python -c 'import neuromaps; print(neuromaps.__version__)'`.)"
-- type: checkboxes
-  id: os
-  attributes:
-    label: "What operating system were you using when you encountered this issue?"
-    options:
-      - label: macOS
-      - label: Windows
-      - label: Linux
+    description: "Please run the following script in the terminal and paste the output here: `python -c 'import sys,neuromaps; print(sys.version); print(neuromaps.__version__)'`." 
 - type: checkboxes
   id: terms
   attributes:
