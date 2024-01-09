@@ -360,7 +360,17 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
         )
         for fn in (func, MASKSURF):
             run(fn.format(**params), quiet=True)
-        resampled += (construct_shape_gii(load_data(params['out'])),)
+
+        if img.read_text().find("NIFTI_INTENT_TIME_SERIES") != -1:
+            params["out"].write_text(
+                params["out"].read_text().replace(
+                    "NIFTI_INTENT_NORMAL", "NIFTI_INTENT_TIME_SERIES"
+                )
+            )
+            out_data = load_data(params['out']).T
+        else:
+            out_data = load_data(params['out'])
+        resampled += (construct_shape_gii(out_data),)
         params['out'].unlink()
         if tmpimg is not None:
             tmpimg.unlink()
