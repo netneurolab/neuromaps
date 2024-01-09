@@ -60,6 +60,7 @@ def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE',
     """
     intent_dtypes = {
         'NIFTI_INTENT_SHAPE': 'float32',
+        'NIFTI_INTENT_TIME_SERIES': 'float32',
         'NIFTI_INTENT_LABEL': 'int32'
     }
     dtype = intent_dtypes.get(intent, 'float32')

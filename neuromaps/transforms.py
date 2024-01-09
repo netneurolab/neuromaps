@@ -367,10 +367,11 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
                     "NIFTI_INTENT_NORMAL", "NIFTI_INTENT_TIME_SERIES"
                 )
             )
-            out_data = load_data(params['out']).T
+            intent = "NIFTI_INTENT_TIME_SERIES"
         else:
-            out_data = load_data(params['out'])
-        resampled += (construct_shape_gii(out_data),)
+            intent = "NIFTI_INTENT_SHAPE"
+ 
+        resampled += (construct_shape_gii(load_data(params["out"]), intent=intent),)
         params['out'].unlink()
         if tmpimg is not None:
             tmpimg.unlink()
