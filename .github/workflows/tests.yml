@@ -1,93 +1,85 @@
-name: run-tests
+name: neuromaps-tests
 
-on: [push, pull_request]
-
-defaults:
-  run:
-    shell: bash
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
 
 jobs:
-  check_skip:
+  check_style:
     runs-on: ubuntu-latest
-    outputs:
-      skip: ${{ steps.result_step.outputs.ci-skip }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - id: result_step
-        uses: mstachniuk/ci-skip@master
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
         with:
-          commit-filter: '[skip ci];[ci skip];[skip github]'
-          commit-filter-separator: ';'
-
-  checks:
-    needs: check_skip
-    if: ${{ needs.check_skip.outputs.skip == 'false' }}
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install ruff
+      - name: Run style checks
+        run: ruff .
+  codespell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Run codespell
+        uses: codespell-project/actions-codespell@v2
+  
+  run_tests:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: ['ubuntu-latest']
-        python-version: ['3.7', '3.8', '3.9']
-        architecture: ['x64', 'x86']
-        install: ['setup']
-        check: ['test']
-        optional-depends: ['']
-        include:
-          - os: ubuntu-latest
-            python-version: 3.8
-            install: setup
-            check: style
-            optional-depends: ''
-          - os: ubuntu-latest
-            python-version: 3.8
-            install: setup
-            check: doc
-            optional-depends: ''
-          - os: ubuntu-latest
-            python-version: 3.8
-            install: sdist
-            check: test
-            optional-depends: ''
-          - os: ubuntu-latest
-            python-version: 3.8
-            install: wheel
-            check: test
-            optional-depends: ''
-        exclude:
-          - os: ubuntu-latest
-            architecture: x86
-          - os: macos-latest
-            architecture: x86
-    env:
-      INSTALL_TYPE: ${{ matrix.install }}
-      CHECK_TYPE: ${{ matrix.check }}
-      OPTIONAL_DEPENDS: ${{ matrix.optional-depends }}
+        python-version: ['3.8', '3.9', '3.10']
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
         run: python -c "import sys; print(sys.version)"
       - name: Install dependencies
-        run: ./tools/install_dependencies.sh
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install pytest pytest-cov codecov
+          python -m pip install git+https://github.com/netneurolab/netneurotools
+      - name: Install connectome workbench
+        run: |
+          while true; do
+            wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 --no-dns-cache -c \
+              https://www.humanconnectome.org/storage/app/media/workbench/workbench-linux64-v1.5.0.zip && break
+          done
+          unzip workbench-linux64-v1.5.0.zip -d ${HOME}
+          echo "$HOME/workbench/bin_linux64" >> $GITHUB_PATH
       - name: Install neuromaps
-        run: ./tools/install_package.sh
+        run: python -m pip install .
+      - name: Print neuromaps version
+        run: python -c "import neuromaps; print(neuromaps.__version__)"
+      - name: Test submodule import
+        run: |
+          cd ..
+          python -c "from neuromaps import parcellate; from neuromaps.datasets import available_annotations"
       - name: Run tests
-        run: ./tools/run_checks.sh
-      - uses: codecov/codecov-action@v1
+        run: pytest --doctest-modules --cov=neuromaps --cov-report=xml --junitxml=junit/test-results.xml --verbose --pyargs neuromaps
+      - uses: codecov/codecov-action@v3
         with:
-          file: for_testing/coverage.xml
-        if: ${{ always() }}
+          files: ./coverage.xml
+          verbose: true
       - name: Upload pytest test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: pytest-results-${{ matrix.os }}-${{ matrix.python-version }}
-          path: for_testing/test-results.xml
-        if: ${{ always() && matrix.check == 'test' }}
+          path: junit/test-results.xml

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for working with triangle meshes + surfaces
-"""
+"""Functions for working with triangle meshes + surfaces."""
 
 from joblib import Parallel, delayed
 import numpy as np
@@ -12,7 +10,7 @@ from neuromaps.images import load_gifti, relabel_gifti, PARCIGNORE
 
 def point_in_triangle(point, triangle, return_pdist=True):
     """
-    Checks whether `point` falls inside `triangle`
+    Check whether `point` falls inside `triangle`.
 
     Parameters
     ----------
@@ -31,7 +29,6 @@ def point_in_triangle(point, triangle, return_pdist=True):
         The approximate distance of the point to the plane of the triangle.
         Only returned if `return_pdist` is True
     """
-
     A, B, C = triangle
     v0 = C - A
     v1 = B - A
@@ -56,7 +53,7 @@ def point_in_triangle(point, triangle, return_pdist=True):
 
 def which_triangle(point, triangles):
     """
-    Determines which of `triangles` the provided `point` falls inside
+    Determine which of `triangles` the provided `point` falls inside.
 
     Parameters
     ----------
@@ -71,7 +68,6 @@ def which_triangle(point, triangles):
         Index of `triangles` that `point` is inside of. If `point` does not
         fall within any of `triangles` then this will be None
     """
-
     idx, planar = None, np.inf
     for n, tri in enumerate(triangles):
         inside, pdist = point_in_triangle(point, tri)
@@ -83,7 +79,7 @@ def which_triangle(point, triangles):
 
 def _get_edges(faces):
     """
-    Gets set of edges from `faces`
+    Get set of edges from `faces`.
 
     Parameters
     ----------
@@ -95,7 +91,6 @@ def _get_edges(faces):
     edges : (F*3, 2) array_like
         All edges in `faces`
     """
-
     faces = np.asarray(faces)
     edges = np.sort(faces[:, [0, 1, 1, 2, 2, 0]].reshape((-1, 2)), axis=1)
 
@@ -104,7 +99,7 @@ def _get_edges(faces):
 
 def get_shared_triangles(faces):
     """
-    Returns dictionary of triangles sharing edges from `faces`
+    Return dictionary of triangles sharing edges from `faces`.
 
     Parameters
     ----------
@@ -117,7 +112,6 @@ def get_shared_triangles(faces):
         Where keys are len-2 tuple of vertex ids for the shared edge and values
         are the triangles that have this shared edge.
     """
-
     # first generate the list of edges for the provided faces and the
     # index for which face the edge is from (which is just the index of the
     # face repeated thrice, since each face generates three direct edges)
@@ -170,7 +164,7 @@ def get_shared_triangles(faces):
 
 def get_direct_edges(vertices, faces):
     """
-    Gets (unique) direct edges and weights in mesh describes by inputs.
+    Get (unique) direct edges and weights in mesh describes by inputs.
 
     Parameters
     ----------
@@ -186,7 +180,6 @@ def get_direct_edges(vertices, faces):
     weights : (E, 1) array_like
         Distances between `edges`
     """
-
     edges = np.unique(_get_edges(faces), axis=0)
     weights = np.linalg.norm(np.diff(vertices[edges], axis=1), axis=-1)
     return edges, weights.squeeze()
@@ -194,7 +187,7 @@ def get_direct_edges(vertices, faces):
 
 def get_indirect_edges(vertices, faces):
     """
-    Gets indirect edges and weights in mesh described by inputs
+    Get indirect edges and weights in mesh described by inputs.
 
     Indirect edges are between two vertices that participate in faces sharing
     an edge
@@ -217,7 +210,6 @@ def get_indirect_edges(vertices, faces):
     ----------
     https://github.com/mikedh/trimesh (MIT licensed)
     """
-
     triangles = np.stack(list(get_shared_triangles(faces).values()), axis=0)
     indirect_edges = triangles[..., -1]
 
@@ -248,7 +240,7 @@ def get_indirect_edges(vertices, faces):
 
 def make_surf_graph(vertices, faces, mask=None):
     """
-    Constructs adjacency graph from `surf`.
+    Construct adjacency graph from `surf`.
 
     Parameters
     ----------
@@ -270,7 +262,6 @@ def make_surf_graph(vertices, faces, mask=None):
     ValueError
         Inconsistent number of vertices in `mask` and `vertices`
     """
-
     if mask is not None and len(mask) != len(vertices):
         raise ValueError('Supplied `mask` array has different number of '
                          'vertices than supplied `vertices`.')
@@ -294,7 +285,7 @@ def make_surf_graph(vertices, faces, mask=None):
 
 def _get_graph_distance(vertex, graph, labels=None):
     """
-    Gets surface distance of `vertex` to all other vertices in `graph`
+    Get surface distance of `vertex` to all other vertices in `graph`.
 
     Parameters
     ----------
@@ -312,7 +303,6 @@ def _get_graph_distance(vertex, graph, labels=None):
         Distance of `vertex` to all other vertices in `graph` (or to all
         parcels in `labels`, if provided)
     """
-
     dist = sparse.csgraph.dijkstra(graph, directed=False, indices=[vertex])
 
     if labels is not None:
@@ -326,7 +316,7 @@ def _get_graph_distance(vertex, graph, labels=None):
 def get_surface_distance(surface, parcellation=None, medial=None,
                          medial_labels=None, drop=None, n_proc=1):
     """
-    Calculates surface distance for vertices in `surface`
+    Calculate surface distance for vertices in `surface`.
 
     Parameters
     ----------
@@ -362,7 +352,6 @@ def get_surface_distance(surface, parcellation=None, medial=None,
     distance : (N, N) numpy.ndarray
         Surface distance between vertices/parcels on `surface`
     """
-
     if drop is None:
         drop = PARCIGNORE
 
@@ -403,7 +392,7 @@ def get_surface_distance(surface, parcellation=None, medial=None,
 
 def _geodesic_parcel_centroid(vertices, faces, inds):
     """
-    Calculates parcel centroids based on surface distance
+    Calculate parcel centroids based on surface distance.
 
     Parameters
     ----------
@@ -415,11 +404,10 @@ def _geodesic_parcel_centroid(vertices, faces, inds):
         Indices of `vertices` that belong to parcel
 
     Returns
-    --------
+    -------
     roi : (3,) numpy.ndarray
         Vertex corresponding to centroid of parcel
     """
-
     mask = np.ones(len(vertices), dtype=bool)
     mask[inds] = False
     mat = make_surf_graph(vertices, faces, mask=mask)

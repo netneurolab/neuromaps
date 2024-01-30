@@ -1,3 +1,108 @@
+[project]
+name = "neuromaps"
+description = "A toolbox for projecting, resampling, and comparing brain maps"
+readme = "README.rst"
+requires-python = ">=3.8"
+license = {file = "LICENSE"}
+keywords = ["network neuroscience", "brain maps", "annotated connectomes"]
+authors = [
+  {name = "Network Neuroscience Lab", email = "neuromaps-aaaadd3nmllrgres4illspuqqm@netneurolab.slack.com"},
+]
+maintainers = [
+  {name = "Network Neuroscience Lab", email = "neuromaps-aaaadd3nmllrgres4illspuqqm@netneurolab.slack.com"},
+]
+
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: BSD License",
+  "Programming Language :: Python :: 3 :: Only"
+]
+
+dependencies = [
+  "numpy >=1.14.0",
+  "scipy >=0.17",
+  "matplotlib",
+  "scikit-learn",
+  "nibabel >=3.0.0",
+  "nilearn"
+]
+
+dynamic=["version"]
+
+[project.optional-dependencies]
+doc = [
+  "sphinx >=2.0, <7.0.0",
+  "sphinx_rtd_theme",
+  "sphinx-gallery"
+]
+nulls = [
+  "brainsmash >=0.10.0",
+  "brainspace"
+]
+style = [
+  "flake8",
+  "ruff"
+]
+test = [
+  "netneurotools",
+  "coverage",
+  "pytest >=3.6",
+  "pytest-cov",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/netneurolab/neuromaps"
+
 [build-system]
-requires = ["setuptools >= 38.3.0", "wheel", "versioneer-518"]
+requires = ["setuptools", "versioneer[toml]"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages]
+find = {}
+
+[tool.setuptools.dynamic]
+version = {attr = "neuromaps.__version__"}
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "neuromaps/_version.py"
+versionfile_build = "neuromaps/_version.py"
+tag_prefix = ""
+parentdir_prefix = ""
+
+[tool.ruff]
+select = ["E", "F", "B", "D", "NPY"]
+ignore = ["E402"]
+line-length = 88
+exclude = [
+  "setup.py",
+  "versioneer.py",
+  "neuromaps/_version.py",
+  "docs/conf.py",
+  "examples/*",
+]
+target-version = "py38"
+
+[tool.ruff.pydocstyle]
+convention = "numpy"
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = ["D104"]
+"neuromaps/tests/*" = ["B011"]
+"neuromaps/nulls/tests/*" = ["B011"]
+"neuromaps/datasets/tests/*" = ["B011"]
+
+[tool.coverage.run]
+source = ["neuromaps"]
+omit = [
+  "neuromaps/tests/*",
+  "neuromaps/nulls/tests/*",
+  "neuromaps/datasets/tests/*",
+  "neuromaps/_version.py",
+]
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg,versioneer.py'
+# ignore-words-list = ''

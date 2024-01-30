@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Implementation of surrogate map generation as in Burt et al., 2018, Nat Neuro
-"""
+"""Implementation of surrogate map generation as in Burt et al., 2018, Nat Neuro."""
 
 import warnings
 
@@ -13,7 +11,7 @@ from scipy.stats import boxcox
 
 def _make_weight_matrix(x, d0):
     """
-    Constructs weight matrix from distance matrix + autocorrelation estimate
+    Construct weight matrix from distance matrix + autocorrelation estimate.
 
     Parameters
     ----------
@@ -27,7 +25,6 @@ def _make_weight_matrix(x, d0):
     W : numpy.ndarray
         Weight matrix
     """
-
     with np.errstate(over='ignore'):
         weight = np.exp(-x / d0) * np.logical_not(np.eye(len(x), dtype=bool))
 
@@ -37,7 +34,7 @@ def _make_weight_matrix(x, d0):
 
 def estimate_rho_d0(x, y, rho=None, d0=None):
     """
-    Uses a least-squares fit to estimate `rho` and `d0`
+    Use a least-squares fit to estimate `rho` and `d0`.
 
     Parameters
     ----------
@@ -79,7 +76,7 @@ def estimate_rho_d0(x, y, rho=None, d0=None):
 def make_surrogate(x, y, rho=None, d0=None, seed=None, return_order=False,
                    return_params=False):
     """
-    Generates surrogate map of `y`, retaining characteristic spatial features
+    Generate surrogate map of `y`, retaining characteristic spatial features.
 
     Parameters
     ----------
@@ -105,7 +102,6 @@ def make_surrogate(x, y, rho=None, d0=None, seed=None, return_order=False,
     order : array_like
         Rank-order of `surrogate` before values were replaced with `y`
     """
-
     rs = np.random.default_rng(seed)
 
     if rho is None or d0 is None:
@@ -132,7 +128,7 @@ def make_surrogate(x, y, rho=None, d0=None, seed=None, return_order=False,
 def batch_surrogates(x, y, rho=None, d0=None, seed=None, n_surr=1000,
                      n_jobs=1):
     """
-    Generates `n_surr` surrogates maps of `y` using Burt-2018 method
+    Generate `n_surr` surrogates maps of `y` using Burt-2018 method.
 
     Parameters
     ----------
@@ -152,13 +148,13 @@ def batch_surrogates(x, y, rho=None, d0=None, seed=None, n_surr=1000,
     surrs : (N, `n_surr`)
         Generated surrogate maps
     """
-
     try:
         from joblib import Parallel, delayed
         joblib_avail = True
     except ImportError:
         if n_jobs != 1:
-            warnings.warn('joblib not available; cannot parallelize')
+            warnings.warn('joblib not available; cannot parallelize',
+                          stacklevel=2)
         joblib_avail = False
 
     def _quick_surr(iw, ysort, seed=None):

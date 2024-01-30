@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-CARET files I/O
-"""
+"""For reading and writing CARET files."""
 
 from io import BytesIO
 import re
@@ -13,7 +11,7 @@ import numpy as np
 
 def read_surface_shape(fn):
     """
-    Reads surface_shape CARET file
+    Read surface_shape CARET file.
 
     Parameters
     ----------
@@ -27,7 +25,6 @@ def read_surface_shape(fn):
     data : (N, F) np.ndarray
         Data from `fn`
     """
-
     with open(fn, 'rb') as src:
         surfshape = src.read()
     msg = b'BEGIN-DATA\n'
@@ -47,7 +44,7 @@ def read_surface_shape(fn):
 
 def read_coords(fn):
     """
-    Reads coords CARET file
+    Read coords CARET file.
 
     Parameters
     ----------
@@ -59,7 +56,6 @@ def read_coords(fn):
     coords : (N, 3) np.ndarray
         Coordinates from `fn`
     """
-
     with open(fn, 'rb') as src:
         coords = src.read()
     msg = b'EndHeader\n'
@@ -73,7 +69,7 @@ def read_coords(fn):
 
 def read_topo(fn):
     """
-    Reads topo CARET file
+    Read topo CARET file.
 
     Parameters
     ----------
@@ -85,7 +81,6 @@ def read_topo(fn):
     topo : (T, 3) np.ndarray
         Topology from `fn`
     """
-
     with open(fn, 'rb') as src:
         topo = src.read()
     msg = b'tag-version 1\n'
@@ -105,7 +100,7 @@ def read_topo(fn):
 
 def read_deform_map(fn):
     """
-    Reads deform_map CARET file
+    Read deform_map CARET file.
 
     Parameters
     ----------
@@ -119,7 +114,6 @@ def read_deform_map(fn):
     barycentric : (N, 3) np.ndarray
         Barycentric coordinates for surface
     """
-
     with open(fn, 'rb') as src:
         deform = src.read()
     msg = b'DATA-START\n'
@@ -138,7 +132,7 @@ def read_deform_map(fn):
 
 def apply_deform_map(source, deformation, method='nearest'):
     """
-    Applies `deformation` map to `source` brainmap
+    Apply `deformation` map to `source` brainmap.
 
     Parameters
     ----------
@@ -155,7 +149,6 @@ def apply_deform_map(source, deformation, method='nearest'):
     projected : (N,) np.ndarray
         Data from `source` projected to surface specified in `deformation`
     """
-
     methods = {'nearest'}
     if method not in methods:
         raise ValueError(f'Invalid method {method}. Must be one of {methods}')

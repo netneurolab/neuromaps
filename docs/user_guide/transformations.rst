@@ -17,7 +17,7 @@ system is involved), which we discuss below.
 Transforming from volumetric spaces
 -----------------------------------
 
-Curently ``neuromaps`` only supports transforming brain annotations *from*
+Currently ``neuromaps`` only supports transforming brain annotations *from*
 MNI152 volumetric space to one of the other three surface-based coordinate
 systems (though work in ongoing to integrate transformations in the other
 direction!). This transformation is achieved through a process known as
@@ -53,6 +53,13 @@ It's just as easy to transform the data to a different space:
     >>> fsavg_lh, fsavg_rh = fsavg
     >>> print(fsavg_lh.agg_data().shape)
     (163842,)
+
+.. important::
+
+    Partial volume effects (PVE) in PET images are increased when volumetric
+    data is transformed to the surface, resulting in maps that are heavily
+    biased by the underlying curvature of the surface. For this reason, it is
+    generally not recommended to transform PET volumes to the surface.
 
 Note that you can also transform between different resolutions within the
 MNI152 coordinate system:

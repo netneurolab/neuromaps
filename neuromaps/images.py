@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for operating on images + surfaces
-"""
+"""Functions for operating on images + surfaces."""
 
 import gzip
 import os
@@ -21,7 +19,7 @@ PARCIGNORE = [
 
 def construct_surf_gii(vert, tri):
     """
-    Constructs surface gifti image from `vert` and `tri`
+    Construct surface gifti image from `vert` and `tri`.
 
     Parameters
     ----------
@@ -35,7 +33,6 @@ def construct_surf_gii(vert, tri):
     img : nib.gifti.GiftiImage
         Surface image
     """
-
     vert = nib.gifti.GiftiDataArray(vert, 'NIFTI_INTENT_POINTSET',
                                     'NIFTI_TYPE_FLOAT32',
                                     coordsys=nib.gifti.GiftiCoordSystem(3, 3))
@@ -49,7 +46,7 @@ def construct_surf_gii(vert, tri):
 def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE',
                         labels=None):
     """
-    Constructs shape gifti image from `data`
+    Construct shape gifti image from `data`.
 
     Parameters
     ----------
@@ -61,7 +58,6 @@ def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE',
     img : nib.gifti.GiftiImage
         Shape image
     """
-
     intent_dtypes = {
         'NIFTI_INTENT_SHAPE': 'float32',
         'NIFTI_INTENT_LABEL': 'int32'
@@ -96,7 +92,7 @@ def construct_shape_gii(data, names=None, intent='NIFTI_INTENT_SHAPE',
 
 def fix_coordsys(fn, val=3):
     """
-    Sets {xform,data}space of coordsys for GIFTI image `fn` to `val`
+    Set {xform,data}space of coordsys for GIFTI image `fn` to `val`.
 
     Parameters
     ----------
@@ -108,7 +104,6 @@ def fix_coordsys(fn, val=3):
     fn : os.PathLike
         Path to GIFTI image
     """
-
     fn = Path(fn)
     img = nib.load(fn)
     for attr in ('dataspace', 'xformspace'):
@@ -119,8 +114,10 @@ def fix_coordsys(fn, val=3):
 
 def load_nifti(img):
     """
-    Loads nifti file `img`. If `img` is already a loaded (i.e. is a
-    nib.Nifti1Image object), it is returned as-is.
+    Load nifti file `img`. 
+    
+    If `img` is already a loaded (i.e. is a nib.Nifti1Image object),
+    it is returned as-is.
 
     Parameters
     ----------
@@ -132,20 +129,17 @@ def load_nifti(img):
     img : nib.Nifti1Image
         Loaded NIFTI image
     """
-
     try:
         img = nib.load(img)
     except (TypeError) as err:
-        msg = ('stat: path should be string, bytes, os.PathLike or integer, '
-               'not Nifti1Image')
-        if not str(err) == msg:
+        if not ("os.PathLike" in str(err) and "not Nifti1Image" in str(err)):
             raise err
     return img
 
 
 def load_gifti(img):
     """
-    Loads gifti file `img`
+    Load gifti file `img`.
 
     Will try to gunzip `img` if gzip is detected, and will pass pre-loaded
     GiftiImage object
@@ -160,7 +154,6 @@ def load_gifti(img):
     img : nib.GiftiImage
         Loaded GIFTI images
     """
-
     try:
         img = nib.load(img)
     except (ImageFileError, TypeError) as err:
@@ -170,8 +163,10 @@ def load_gifti(img):
                 img = nib.GiftiImage.from_bytes(gz.read())
         # it's not a pre-loaded GiftiImage so error out
         elif (isinstance(err, TypeError)
-              and not str(err) == 'stat: path should be string, bytes, os.'
-                                  'PathLike or integer, not GiftiImage'):
+              and not (
+                  "os.PathLike" in str(err) and "not GiftiImage" in str(err)
+                  )
+              ):
             raise err
 
     return img
@@ -179,8 +174,7 @@ def load_gifti(img):
 
 def load_data(data):
     """
-    Small utility function to load and stack `data` images (gifti / nifti) into
-    numpy arrays.
+    Load and stack `data` images (gifti / nifti) into numpy arrays.
 
     Parameters
     ----------
@@ -198,7 +192,6 @@ def load_data(data):
     out : np.ndarray
         Loaded `data`
     """
-
     if (isinstance(data, (str, os.PathLike, np.ndarray))
             or not isinstance(data, Iterable)):
         data = (data,)
@@ -209,8 +202,11 @@ def load_data(data):
     except (AttributeError, TypeError, ValueError, OSError) as err:
         # niimg_like or path_like (nifti)
         if (isinstance(err, AttributeError)
-            or str(err) == 'stat: path should be string, bytes, os.'
-                           'PathLike or integer, not Nifti1Image'):
+            or (
+                "os.PathLike" in str(err) 
+                and "not Nifti1Image" in str(err)
+                )
+           ):
             out = np.stack([load_nifti(img).get_fdata() for img in data],
                            axis=3)
         # array_like (parcellated)
@@ -226,7 +222,7 @@ def load_data(data):
 
 def obj_to_gifti(obj, fn=None):
     """
-    Converts CIVET `obj` surface file to GIFTI format
+    Convert CIVET `obj` surface file to GIFTI format.
 
     Parameters
     ----------
@@ -241,7 +237,6 @@ def obj_to_gifti(obj, fn=None):
     fn : os.PathLike
         Path to saved image file
     """
-
     from neuromaps.civet import read_civet_surf
 
     img = construct_surf_gii(*read_civet_surf(Path(obj)))
@@ -257,7 +252,7 @@ def obj_to_gifti(obj, fn=None):
 
 def fssurf_to_gifti(surf, fn=None):
     """
-    Converts FreeSurfer `surf` surface file to GIFTI format
+    Convert FreeSurfer `surf` surface file to GIFTI format.
 
     Parameters
     ----------
@@ -272,7 +267,6 @@ def fssurf_to_gifti(surf, fn=None):
     fn : os.PathLike
         Path to saved image file
     """
-
     img = construct_surf_gii(*nib.freesurfer.read_geometry(Path(surf)))
     if fn is None:
         fn = surf + '.surf.gii'
@@ -284,7 +278,7 @@ def fssurf_to_gifti(surf, fn=None):
 
 def fsmorph_to_gifti(morph, fn=None, modifier=None):
     """
-    Converts FreeSurfer `morph` data file to GIFTI format
+    Convert FreeSurfer `morph` data file to GIFTI format.
 
     Parameters
     ----------
@@ -301,7 +295,6 @@ def fsmorph_to_gifti(morph, fn=None, modifier=None):
     fn : os.PathLike
         Path to saved image file
     """
-
     data = nib.freesurfer.read_morph_data(Path(morph))
     if modifier is not None:
         data *= float(modifier)
@@ -316,7 +309,7 @@ def fsmorph_to_gifti(morph, fn=None, modifier=None):
 
 def interp_surface(data, src, trg, method='nearest'):
     """
-    Interpolate `data` on `src` surface to `trg` surface
+    Interpolate `data` on `src` surface to `trg` surface.
 
     Parameters
     ----------
@@ -334,7 +327,6 @@ def interp_surface(data, src, trg, method='nearest'):
     interp : np.ndarray
         Input `data` interpolated to `trg` surface
     """
-
     if method not in ('nearest', 'linear'):
         raise ValueError(f'Provided method {method} invalid')
 
@@ -350,7 +342,7 @@ def interp_surface(data, src, trg, method='nearest'):
 
 def vertex_areas(surface):
     """
-    Calculates vertex areas from `surface` file
+    Calculate vertex areas from `surface` file.
 
     Vertex area is calculated as the sum of 1/3 the area of each triangle in
     which the vertex participates
@@ -366,7 +358,6 @@ def vertex_areas(surface):
     areas : np.ndarray
         Vertex areas
     """
-
     vert, tri = load_gifti(surface).agg_data()
     vectors = np.diff(vert[tri], axis=1)
     cross = np.cross(vectors[:, 0], vectors[:, 1])
@@ -378,7 +369,7 @@ def vertex_areas(surface):
 
 def average_surfaces(*surfs):
     """
-    Generates average surface from input `surfs`
+    Generate average surface from input `surfs`.
 
     Parameters
     ----------
@@ -390,7 +381,6 @@ def average_surfaces(*surfs):
     average : nib.gifti.GiftiImage
         Averaged surface
     """
-
     n_surfs = len(surfs)
     vertices = triangles = None
     for surf in surfs:
@@ -409,7 +399,7 @@ def average_surfaces(*surfs):
 
 def _relabel(labels, minval=0, bgval=None):
     """
-    Relabels `labels` so that they're consecutive
+    Relabel `labels` so that they're consecutive.
 
     Parameters
     ----------
@@ -423,11 +413,10 @@ def _relabel(labels, minval=0, bgval=None):
         will be set to `bgval`. Default: None
 
     Returns
-    ------
+    -------
     labels : (N,) np.ndarray
         New labels
     """
-
     labels = np.unique(labels, return_inverse=True)[-1] + minval
     if bgval is not None:
         labels[labels == minval] = bgval
@@ -436,7 +425,7 @@ def _relabel(labels, minval=0, bgval=None):
 
 def relabel_gifti(parcellation, background=None, offset=None):
     """
-    Updates GIFTI images so label IDs are consecutive across hemispheres
+    Update GIFTI images so label IDs are consecutive across hemispheres.
 
     Parameters
     ----------
@@ -457,7 +446,6 @@ def relabel_gifti(parcellation, background=None, offset=None):
     relabelled : (2,) tuple-of-nib.gifti.GiftiImage
         Re-labelled `parcellation` files
     """
-
     relabelled = tuple()
     minval = 0
     if not isinstance(parcellation, tuple):
@@ -506,7 +494,7 @@ def relabel_gifti(parcellation, background=None, offset=None):
 
 def annot_to_gifti(parcellation, background=None):
     """
-    Converts FreeSurfer-style annotation `parcellation` files to GIFTI images
+    Convert FreeSurfer-style annotation `parcellation` files to GIFTI images.
 
     Parameters
     ----------
@@ -523,7 +511,6 @@ def annot_to_gifti(parcellation, background=None):
     gifti : tuple-of-nib.GiftiImage
         Converted GIFTI images
     """
-
     if not isinstance(parcellation, tuple):
         parcellation = (parcellation,)
 
@@ -547,7 +534,7 @@ def annot_to_gifti(parcellation, background=None):
 
 def dlabel_to_gifti(parcellation):
     """
-    Converts CIFTI dlabel file to GIFTI images
+    Convert CIFTI dlabel file to GIFTI images.
 
     Parameters
     ----------
@@ -559,7 +546,6 @@ def dlabel_to_gifti(parcellation):
     gifti : tuple-of-nib.GiftiImage
         Converted GIFTI images
     """
-
     structures = ('CORTEX_LEFT', 'CORTEX_RIGHT')
 
     dlabel = nib.load(parcellation)
@@ -594,7 +580,7 @@ def dlabel_to_gifti(parcellation):
 
 def minc_to_nifti(img, fn=None):
     """
-    Converts MINC `img` to NIfTI format (and re-orients to RAS)
+    Convert MINC `img` to NIfTI format (and re-orients to RAS).
 
     Parameters
     ----------
@@ -610,7 +596,6 @@ def minc_to_nifti(img, fn=None):
     out : nib.Nifti1Image or os.PathLike
         Converted image (if `fn` is None) or path to saved file on disk
     """
-
     mnc = nib.load(img)
     nifti = nib.Nifti1Image(np.asarray(mnc.dataobj), mnc.affine)
 

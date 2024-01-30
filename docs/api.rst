@@ -126,7 +126,7 @@ Reference API
 
 .. _ref_points:
 
-:mod:`neuromaps.points` - Triangle mesh utilites
+:mod:`neuromaps.points` - Triangle mesh utilities
 ------------------------------------------------
 .. automodule:: neuromaps.points
     :no-members:

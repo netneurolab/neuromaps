@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-Functionality for parcellating data
-"""
+"""Functionality for parcellating data."""
 
 import nibabel as nib
-from nilearn.input_data import NiftiLabelsMasker
+from nilearn.maskers import NiftiLabelsMasker
 from nilearn.image import new_img_like
 from nilearn.masking import compute_background_mask
 import numpy as np
@@ -17,20 +15,18 @@ from neuromaps.nulls.spins import vertices_to_parcels, parcels_to_vertices
 
 
 def _gifti_to_array(gifti):
-    """ Converts tuple of `gifti` to numpy array
-    """
+    """Convert tuple of `gifti` to numpy array."""
     return np.hstack([load_gifti(img).agg_data() for img in gifti])
 
 
 def _array_to_gifti(data):
-    """ Converts numpy `array` to tuple of gifti images
-    """
+    """Convert numpy `array` to tuple of gifti images."""
     return tuple(construct_shape_gii(arr) for arr in np.split(data, 2))
 
 
 class Parcellater():
     """
-    Class for parcellating arbitrary volumetric / surface data
+    Class for parcellating arbitrary volumetric / surface data.
 
     Parameters
     ----------
@@ -80,9 +76,7 @@ class Parcellater():
             raise ValueError(f'Invalid value for `space`: {space}')
 
     def fit(self):
-        """ Prepare parcellation for data extraction
-        """
-
+        """Prepare parcellation for data extraction."""
         if not self._volumetric:
             self.parcellation = tuple(
                 load_gifti(img) for img in self.parcellation
@@ -93,7 +87,7 @@ class Parcellater():
     def transform(self, data, space, ignore_background_data=False,
                   background_value=None, hemi=None):
         """
-        Applies parcellation to `data` in `space`
+        Apply parcellation to `data` in `space`.
 
         Parameters
         ----------
@@ -126,7 +120,6 @@ class Parcellater():
         parcellated : np.ndarray
             Parcellated `data`
         """
-
         self._check_fitted()
 
         space = ALIAS.get(space, space)
@@ -147,7 +140,14 @@ class Parcellater():
                              'hemisphere: {self.hemi}')
 
         if isinstance(data, np.ndarray):
-            data = _array_to_gifti(data)
+            if space == 'MNI152':
+                raise ValueError('Volumetric data to be parcellated should be '
+                                 'provided as a Nifti1Image with the correct '
+                                 'affine defined. You can use '
+                                 'nibabel.nifti1.Nifti1Image to construct a '
+                                 'Nifti1Image from your array.')
+            else:
+                data = _array_to_gifti(data)
         if self.resampling_target in ('data', None):
             resampling_method = 'nearest'
         else:
@@ -195,7 +195,7 @@ class Parcellater():
 
     def inverse_transform(self, data):
         """
-        Project `data` to space + density of parcellation
+        Project `data` to space + density of parcellation.
 
         Parameters
         ----------
@@ -207,7 +207,6 @@ class Parcellater():
         data : Nifti1Image or tuple-of-nib.GiftiImage
             Provided `data` in space + resolution of parcellation
         """
-
         if not self._volumetric:
             verts = parcels_to_vertices(data, self.parcellation)
             img = _array_to_gifti(verts)
@@ -219,12 +218,12 @@ class Parcellater():
 
     def fit_transform(self, data, space, ignore_background_data=False,
                       background_value=None, hemi=None):
-        """ Prepare and perform parcellation of `data`
-        """
+        """Prepare and perform parcellation of `data`."""
         return self.fit().transform(data, space, ignore_background_data,
                                     background_value, hemi)
 
     def _check_fitted(self):
+        """Check if Parcellater has been fit."""
         if not hasattr(self, '_fit'):
             raise ValueError(f'It seems that {self.__class__.__name__} has '
                              'not been fit. You must call `.fit()` before '

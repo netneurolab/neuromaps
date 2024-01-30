@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for comparing data
-"""
+"""Functions for comparing data."""
 
 import nibabel as nib
 import numpy as np
@@ -33,8 +31,7 @@ src, trg : tuple-of-nib.GiftiImage
 )
 
 
-def downsample_only(src, trg, src_space, trg_space, method='linear',
-                    hemi=None):
+def downsample_only(src, trg, src_space, trg_space, method='linear', hemi=None): # noqa: D103
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
     src_num, trg_num = int(src_den[:-1]), int(trg_den[:-1])
     src_space, trg_space = src_space.lower(), trg_space.lower()
@@ -50,7 +47,7 @@ def downsample_only(src, trg, src_space, trg_space, method='linear',
 
 
 downsample_only.__doc__ = """\
-Resamples `src` and `trg` to match such that neither is upsampled
+Resample `src` and `trg` to match such that neither is upsampled.
 
 If density of `src` is greater than `trg` then `src` is resampled to
 `trg`; otherwise, `trg` is resampled to `src`
@@ -66,8 +63,7 @@ Returns
 """.format(**_resampling_docs)
 
 
-def transform_to_src(src, trg, src_space, trg_space, method='linear',
-                     hemi=None):
+def transform_to_src(src, trg, src_space, trg_space, method='linear', hemi=None): # noqa: D103
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{trg_space.lower()}_to_{src_space.lower()}')
@@ -77,7 +73,7 @@ def transform_to_src(src, trg, src_space, trg_space, method='linear',
 
 
 transform_to_src.__doc__ = """\
-Resamples `trg` to match space and density of `src`
+Resample `trg` to match space and density of `src`.
 
 Parameters
 ----------
@@ -90,8 +86,7 @@ Returns
 """.format(**_resampling_docs)
 
 
-def transform_to_trg(src, trg, src_space, trg_space, hemi=None,
-                     method='linear'):
+def transform_to_trg(src, trg, src_space, trg_space, hemi=None, method='linear'): # noqa: D103
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{src_space.lower()}_to_{trg_space.lower()}')
@@ -101,7 +96,7 @@ def transform_to_trg(src, trg, src_space, trg_space, hemi=None,
 
 
 transform_to_trg.__doc__ = """\
-Resamples `trg` to match space and density of `src`
+Resample `trg` to match space and density of `src`.
 
 Parameters
 ----------
@@ -113,7 +108,7 @@ Returns
 """.format(**_resampling_docs)
 
 
-def transform_to_alt(src, trg, src_space, trg_space, method='linear',
+def transform_to_alt(src, trg, src_space, trg_space, method='linear',  # noqa: D103
                      hemi=None, alt_space='fsaverage', alt_density='41k'):
     src, _ = transform_to_trg(src, alt_density, src_space, alt_space,
                               hemi=hemi, method=method)
@@ -124,7 +119,7 @@ def transform_to_alt(src, trg, src_space, trg_space, method='linear',
 
 
 transform_to_alt.__doc__ = """\
-Resamples `src` and `trg` to `alt_space` and `alt_density`
+Resample `src` and `trg` to `alt_space` and `alt_density`.
 
 Parameters
 ----------
@@ -143,7 +138,7 @@ Returns
 """.format(**_resampling_docs)
 
 
-def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):
+def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None): # noqa: D103
     if src_space != 'MNI152':
         raise ValueError('Cannot perform MNI transformation when src_space is '
                          f'not "MNI152." Received: {src_space}.')
@@ -157,7 +152,7 @@ def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):
 
 
 mni_transform.__doc__ = """\
-Resamples `src` in MNI152 to `trg` space
+Resample `src` in MNI152 to `trg` space.
 
 Parameters
 ----------
@@ -174,7 +169,7 @@ Returns
 
 def _check_altspec(spec):
     """
-    Confirms that specified alternative `spec` is valid (space, density) format
+    Confirm that specified alternative `spec` is valid (space, density) format.
 
     Parameters
     ----------
@@ -191,7 +186,6 @@ def _check_altspec(spec):
     ValueError
         If `spec` is not valid format
     """
-
     invalid_spec = spec is None or len(spec) != 2
     if not invalid_spec:
         space, den = spec
@@ -205,7 +199,7 @@ def _check_altspec(spec):
     return (space, den)
 
 
-def resample_images(src, trg, src_space, trg_space, method='linear',
+def resample_images(src, trg, src_space, trg_space, method='linear',  # noqa: D103
                     hemi=None, resampling='downsample_only', alt_spec=None):
 
     resamplings = ('downsample_only', 'transform_to_src', 'transform_to_trg',
@@ -254,7 +248,7 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
     elif trg_space == 'MNI152' and src_space != 'MNI152':
         trg, src = mni_transform(trg, src, trg_space, src_space,
                                  method=method, hemi=hemi)
-    elif src_space == 'MNI152' and src_space == 'MNI152':
+    elif src_space == 'MNI152' and trg_space == 'MNI152':
         src, trg = load_nifti(src), load_nifti(trg)
         srcres = np.prod(nib.affines.voxel_sizes(src.affine))
         trgres = np.prod(nib.affines.voxel_sizes(trg.affine))
@@ -279,7 +273,7 @@ def resample_images(src, trg, src_space, trg_space, method='linear',
 
 
 resample_images.__doc__ = """\
-Resamples images `src` and `trg` to same space/density with `resampling` method
+Resample images `src` and `trg` to same space/density with `resampling` method.
 
 Parameters
 ----------

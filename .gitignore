@@ -95,3 +95,6 @@ ENV/
 .ropeproject
 
 .imdone
+
+# Ruff
+.ruff_cache/

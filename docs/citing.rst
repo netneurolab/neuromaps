@@ -8,9 +8,16 @@ We're thrilled you've found ``neuromaps`` useful in your work! Please cite the
 following manuscripts when referencing your use of the toolbox:
 
 1. Markello, RD, Hansen, JY, Liu, ZQ, Bazinet, V, Shafiei, G, Suarez, LE, 
-   Blostein, N, Seidlitz, J, Baillet, S, Satterthwaite, TD & Chakravarty, M. 
-   (2022). Neuromaps: structural and functional interpretation of brain maps. 
-   Biorxiv. doi:`10.1101/bioRxiv.475081 <https://doi.org/10.1101/2022.01.06.475081>`__
+   Blostein, N, Seidlitz, J, Baillet, S, Satterthwaite, TD, Chakravarty, MM, Raznahan, A, Misic, B. 
+   (2022). neuromaps: structural and functional interpretation of brain maps. 
+   Nature Methods. doi:`10.1038/s41592-022-01625-w <https://doi.org/10.1038/s41592-022-01625-w>`__
+2. If you use volume-to-surface transformations (registration fusion), please cite `Buckner et al 2011    <https://journals.physiology.org/doi/full/10.1152/jn.00339.2011>`_ (original proposition) and `Wu et al 2018 <https://onlinelibrary.wiley.com/doi/10.1002/hbm.24213>`_ (first implementation of MNI152 to fsaverage transformation).
+3. If you use surface-to-surface transformations (multimodal surface matching), please cite `Robinson et  al 2014 <https://www.sciencedirect.com/science/article/pii/S1053811914004546?via%3Dihub>`_ and `Robinson et al 2018 <https://www.sciencedirect.com/science/article/pii/S1053811917308649?via%3Dihub>`_.
+4. If you use data included in ``neuromaps``, please cite the the original papers that publish the data.
+A table with references for each brain map can be found in our `wiki <https://github.com/netneurolab/neuromaps/wiki>`_, or more specifically, at `this <https://docs.google.com/spreadsheets/d/1oZecOsvtQEh5pQkIf8cB6CyhPKVrQuko/edit?rtpof=true&sd=true#gid=1162991686>`_ link.
+5. If you use the spatial null models, there is an associated citation with each type of null model.
+They can be found in the docstring of the function, and also `here <https://netneurolab.github.io/neuromaps/api.html#module-neuromaps.nulls>`_. 
+
 
 Additionally, to cite the specific version of the toolbox used in your analyses
 you can use the following Zenodo reference:
@@ -49,11 +56,6 @@ you can use the following Zenodo reference:
 .. Note that this will always point to the most recent ``neuromaps`` release; for
 .. older releases please refer to the `Zenodo listing <https://zenodo.org/search?
 .. page=1&size=20&q=conceptrecid:%223451463%22&sort=-version&all_versions=True>`__.
-
-If you use data included in the ``neuromaps`` repository, be sure to cite the original 
-paper that published this data. The first item of the annotation (the source) will 
-represent the last name of the first author and the year of publication. Alternatively, 
-the source may be a toolbox. Most citations can be found in the `preprint <https://www.biorxiv.org/content/10.1101/2022.01.06.475081v1>`_ 
 
 For more information about why citing software is important please refer to
 `this article <https://www.software.ac.uk/how-cite-software>`_ from the

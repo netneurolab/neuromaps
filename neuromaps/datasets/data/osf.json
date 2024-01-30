@@ -49,16 +49,16 @@
         "4k": {
             "url": [
                 "4mw3a",
-                "60b684b19096b7020e6424b1"
+                "63eadf00cb544b03fa9e6f00"
             ],
-            "md5": "b7ba3039b3fff65c9f396e2eb1b064c8"
+            "md5": "72b7b17d389a04774ca6fd4ca28b4087"
         },
         "8k": {
             "url": [
                 "4mw3a",
-                "60b684b39096b7021b63cf7f"
+                "63eadef9b3fed60444e3434f"
             ],
-            "md5": "3879107951b1543654b9a689b485fc44"
+            "md5": "a1226aee262475e23d2cc37b84ef261d"
         },
         "32k": {
             "url": [
@@ -228,6 +228,48 @@
         },
         {
             "source": "beliveau2017",
+            "desc": "az10419369",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-az10419369_space-fsaverage_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "beliveau2017/az10419369/fsaverage/",
+            "checksum": "23501cf62b1e7c2881d830cdf4d0ebff",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638543b0723a11190518c8a6"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "az10419369",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-az10419369_space-fsaverage_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "beliveau2017/az10419369/fsaverage/",
+            "checksum": "df01756cd50af0e9ebcc2c6df0405135",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638543a2c86e2818da88f993"
+            ]
+        },
+        {
+            "source": "beliveau2017",
             "desc": "cimbi36",
             "space": "MNI152",
             "res": "1mm",
@@ -244,6 +286,48 @@
             "url": [
                 "4mw3a",
                 "6196cb34bbe37803bd59f194"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "cimbi36",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-cimbi36_space-fsaverage_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "beliveau2017/cimbi36/fsaverage/",
+            "checksum": "2dcf2c82b5fb96ac6921d560a3416e64",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638543bf228a5a18987bc2c1"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "cimbi36",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-cimbi36_space-fsaverage_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "beliveau2017/cimbi36/fsaverage/",
+            "checksum": "d31200bc45b31953f6d8c3632b5d7044",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638543cdc86e2818da88f9e7"
             ]
         },
         {
@@ -268,6 +352,48 @@
         },
         {
             "source": "beliveau2017",
+            "desc": "cumi101",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-cumi101_space-fsaverage_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "beliveau2017/cumi101/fsaverage/",
+            "checksum": "e76c623cb51a28f2105d26dab0f2ebe0",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638543ea1daa6b183975935a"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "cumi101",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-cumi101_space-fsaverage_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "beliveau2017/cumi101/fsaverage/",
+            "checksum": "7b5bab02f7edbdc255b5c72c93189d4e",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638543dbc86e2818d988f7ea"
+            ]
+        },
+        {
+            "source": "beliveau2017",
             "desc": "dasb",
             "space": "MNI152",
             "res": "1mm",
@@ -288,6 +414,48 @@
         },
         {
             "source": "beliveau2017",
+            "desc": "dasb",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-dasb_space-fsaverage_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "beliveau2017/dasb/fsaverage/",
+            "checksum": "21fb41e524fbb5cdf2d60a3ffdd49712",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "63854394228a5a18987bc26e"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "dasb",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-beliveau2017_desc-dasb_space-fsaverage_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "beliveau2017/dasb/fsaverage/",
+            "checksum": "e4921dcc6da907318ef47d7b15250b84",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "63854385c86e2818da88f94b"
+            ]
+        },
+        {
+            "source": "beliveau2017",
             "desc": "sb207145",
             "space": "MNI152",
             "res": "1mm",
@@ -304,6 +472,48 @@
             "url": [
                 "4mw3a",
                 "6196cb10bbe37803b559fe58"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "sb207145",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "L",
+            "format": "space",
+            "fname": "source-beliveau2017_desc-sb207145_space-fsaverage_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "beliveau2017/sb207145/fsaverage/",
+            "checksum": "5520fb0ed11a4037b22de7b63fa9704b",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638542c2c86e2818d588f461"
+            ]
+        },
+        {
+            "source": "beliveau2017",
+            "desc": "sb207145",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "R",
+            "format": "space",
+            "fname": "source-beliveau2017_desc-sb207145_space-fsaverage_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "beliveau2017/sb207145/fsaverage/",
+            "checksum": "4bb6b0f54f2cdf3b3dba9e63cf3daa8d",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638542b2a98e5f1ac2103866"
             ]
         },
         {
@@ -819,7 +1029,7 @@
             "redir": null,
             "url": [
                 "4mw3a",
-                "6130fe40ab8bca0225edc458"
+                "6130fe34af610c0217dfe61a"
             ]
         },
         {
@@ -1533,13 +1743,13 @@
             ]
         },
         {
-            "source": "norgaard2020",
+            "source": "norgaard2021",
             "desc": "flumazenil",
             "space": "MNI152",
             "res": "1mm",
             "format": "volume",
-            "fname": "source-norgaard2020_desc-flumazenil_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "norgaard2020/flumazenil/MNI152/",
+            "fname": "source-norgaard2021_desc-flumazenil_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "norgaard2021/flumazenil/MNI152/",
             "checksum": "e4eab79ed371d7362741f66bb44388d8",
             "title": null,
             "tags": [
@@ -1549,7 +1759,49 @@
             "redir": null,
             "url": [
                 "4mw3a",
-                "6196caeb0b0c1e03bf7fdd23"
+                "6385541b228a5a18da7bd628"
+            ]
+        },
+        {
+            "source": "norgaard2021",
+            "desc": "flumazenil",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-norgaard2021_desc-flumazenil_space-fsaverage_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "norgaard2021/flumazenil/fsaverage/",
+            "checksum": "3735d34649c932a9eecce57ff688030c",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "638553fe228a5a18d67bcac8"
+            ]
+        },
+        {
+            "source": "norgaard2021",
+            "desc": "flumazenil",
+            "space": "fsaverage",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-norgaard2021_desc-flumazenil_space-fsaverage_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "norgaard2021/flumazenil/fsaverage/",
+            "checksum": "4f711daa3327499295fb7e9b13552197",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6385540d228a5a18d67bcadd"
             ]
         },
         {
@@ -1605,7 +1857,8 @@
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
@@ -1626,7 +1879,8 @@
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
@@ -1647,7 +1901,8 @@
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
@@ -1668,7 +1923,8 @@
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
@@ -1689,7 +1945,8 @@
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
@@ -1710,7 +1967,8 @@
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
@@ -1720,44 +1978,46 @@
         },
         {
             "source": "raichle",
-            "desc": "cmruglu",
+            "desc": "cmrglc",
             "space": "fsLR",
             "den": "164k",
             "hemi": "L",
             "format": "surface",
-            "fname": "source-raichle_desc-cmruglu_space-fsLR_den-164k_hemi-L_feature.func.gii",
-            "rel_path": "raichle/cmruglu/fsLR/",
+            "fname": "source-raichle_desc-cmrglc_space-fsLR_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "raichle/cmrglc/fsLR/",
             "checksum": "0f427e8f30382f5db7f267a82bb1d92c",
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+                "metabolism"
             ],
             "redir": null,
             "url": [
                 "4mw3a",
-                "6130ff79ab8bca0226edd4a8"
+                "65578943062a3e1d45edfde0"
             ]
         },
         {
             "source": "raichle",
-            "desc": "cmruglu",
+            "desc": "cmrglc",
             "space": "fsLR",
             "den": "164k",
             "hemi": "R",
             "format": "surface",
-            "fname": "source-raichle_desc-cmruglu_space-fsLR_den-164k_hemi-R_feature.func.gii",
-            "rel_path": "raichle/cmruglu/fsLR/",
+            "fname": "source-raichle_desc-cmrglc_space-fsLR_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "raichle/cmrglc/fsLR/",
             "checksum": "ee06cb63b4c21ef661b7d86689bb59ab",
             "title": null,
             "tags": [
                 "functional",
-                "MRI"
+                "PET",
+		        "metabolism"
             ],
             "redir": null,
             "url": [
                 "4mw3a",
-                "6130ff854e5ee5021029a186"
+                "6557895258788123a33e772d"
             ]
         },
         {
@@ -2181,6 +2441,25 @@
                 "4mw3a",
                 "6196cadc1088a703e8bce0f4"
             ]
+        },
+        {
+            "source": "vijay2018",
+            "desc": "ly2795050",
+            "space": "MNI152",
+            "res": "2mm",
+            "format": "volume",
+            "fname": "source-vijay2018_desc-ly2795050_space-MNI152_res-2mm_feature.nii.gz",
+            "rel_path": "vijay2018/ly2795050/MNI152",
+            "checksum": "209455eb30f2328a96bf2719bd5e4654",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6566590ea7a4834be871422b"]
         },
         {
             "source": "xu2020",

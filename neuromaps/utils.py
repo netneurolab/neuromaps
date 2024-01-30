@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Utility functions
-"""
+"""Utility functions."""
 
 import os
 from pathlib import Path
@@ -11,7 +9,7 @@ import subprocess
 
 def tmpname(suffix, prefix=None, directory=None):
     """
-    Little helper function because :man_shrugging:
+    Little helper function because :man_shrugging:.
 
     Parameters
     ----------
@@ -23,7 +21,6 @@ def tmpname(suffix, prefix=None, directory=None):
     fn : str
         Temporary filename; user is responsible for deletion
     """
-
     fd, fn = tempfile.mkstemp(suffix=suffix, prefix=prefix, dir=directory)
     os.close(fd)
 
@@ -31,8 +28,8 @@ def tmpname(suffix, prefix=None, directory=None):
 
 
 def run(cmd, env=None, return_proc=False, quiet=False, **kwargs):
-    """
-    Runs `cmd` via shell subprocess with provided environment `env`
+    r"""
+    Run `cmd` via shell subprocess with provided environment `env`.
 
     Parameters
     ----------
@@ -63,9 +60,8 @@ def run(cmd, env=None, return_proc=False, quiet=False, **kwargs):
     >>> p.returncode
     0
     >>> p.stdout  # doctest: +SKIP
-    'hello world\\n'
+    'hello world\n'
     """
-
     merged_env = os.environ.copy()
     if env is not None:
         if not isinstance(env, dict):
@@ -84,7 +80,7 @@ def run(cmd, env=None, return_proc=False, quiet=False, **kwargs):
         raise subprocess.SubprocessError(
             f'Command failed with non-zero exit status {err.returncode}. '
             f'Error traceback: "{err.stderr.strip()}"'
-        )
+        ) from err
 
     if return_proc:
         return proc
@@ -92,7 +88,7 @@ def run(cmd, env=None, return_proc=False, quiet=False, **kwargs):
 
 def check_fs_subjid(subject_id, subjects_dir=None):
     """
-    Checks that `subject_id` exists in provided FreeSurfer `subjects_dir`
+    Check that `subject_id` exists in provided FreeSurfer `subjects_dir`.
 
     Parameters
     ----------
@@ -113,7 +109,6 @@ def check_fs_subjid(subject_id, subjects_dir=None):
     ------
     FileNotFoundError
     """
-
     # check inputs for subjects_dir and subject_id
     if subjects_dir is None or not os.path.isdir(subjects_dir):
         try:

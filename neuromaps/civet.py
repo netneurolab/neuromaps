@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Functions for working with CIVET data
-"""
+"""Functions for working with CIVET data."""
 
 import os
 
@@ -12,7 +10,7 @@ from neuromaps.points import get_shared_triangles, which_triangle
 
 def read_civet_surf(fname):
     """
-    Reads a CIVET-style .obj geometry file
+    Read a CIVET-style .obj geometry file.
 
     Parameters
     ----------
@@ -26,7 +24,6 @@ def read_civet_surf(fname):
     triangles : (T, 3)
         Triangles comprising surface mesh
     """
-
     k, polygons = 0, []
     with open(fname, 'r') as src:
         n_vert = int(src.readline().split()[6])
@@ -47,7 +44,7 @@ def read_civet_surf(fname):
 
 def read_surfmap(surfmap):
     """
-    Reads surface map from CIVET
+    Read surface map from CIVET.
 
     Parameters
     ----------
@@ -63,7 +60,6 @@ def read_surfmap(surfmap):
     t : (N, 3) array_like
         Resampling weights
     """
-
     control, v0, v1, t1, t2 = np.loadtxt(surfmap, skiprows=4).T
     control = control.astype(int)
     v0 = v0.astype(int)
@@ -75,7 +71,7 @@ def read_surfmap(surfmap):
 
 def resample_surface_map(source, morph, target, surfmap):
     """
-    Resamples `morph` data defined on `source` surface to `target` surface
+    Resample `morph` data defined on `source` surface to `target` surface.
 
     Uses `surfmap` to define mapping
 
@@ -95,7 +91,6 @@ def resample_surface_map(source, morph, target, surfmap):
     resampled : np.ndarray
         Provided `morph` data resampled to `target` surface
     """
-
     if isinstance(source, (str, os.PathLike)):
         source = read_civet_surf(source)
     if isinstance(morph, (str, os.PathLike)):
