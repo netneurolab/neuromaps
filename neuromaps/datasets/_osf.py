@@ -5,7 +5,11 @@ import os
 from pkg_resources import resource_filename
 import json
 
-from nilearn.datasets.utils import _md5_sum_file
+try:
+    # nilearn 0.10.3
+    from nilearn.datasets._utils import _md5_sum_file
+except ImportError:
+    from nilearn.datasets.utils import _md5_sum_file
 
 from neuromaps.datasets.utils import _get_session
 
