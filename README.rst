@@ -43,18 +43,12 @@ Features
 Installation requirements
 -------------------------
 
-Currently, ``neuromaps`` works with Python 3.7+ and requires a few
-dependencies:
+Currently, ``neuromaps`` works with Python 3.8+.
+You can install stable versions of ``neuromaps`` from PyPI with ``pip install neuromaps``.
+However, we recommend installing from the source repository to get the latest features and bug fixes.
 
-- matplotlib
-- nibabel (>=3.0)
-- nilearn (>=0.7)
-- numpy (>=1.14)
-- scikit-learn (>=0.17)
-- scipy
-
-You can get started by installing ``neuromaps`` from the source repository
-with:
+You can install ``neuromaps`` from the source repository with ``pip install git+https://github.com/netneurolab/neuromaps.git``
+or by cloning the repository and installing from the local directory:
 
 .. code-block:: bash
 
