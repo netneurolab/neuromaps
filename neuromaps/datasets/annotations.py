@@ -8,7 +8,11 @@ import shutil
 import numpy as np
 import warnings
 
-from nilearn.datasets.utils import _fetch_file
+try:
+    # nilearn 0.10.3
+    from nilearn.datasets._utils import fetch_single_file as _fetch_file
+except ImportError:
+    from nilearn.datasets.utils import _fetch_file
 
 from neuromaps.datasets.utils import (get_data_dir, get_dataset_info,
                                       _get_token, _get_session)

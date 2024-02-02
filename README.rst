@@ -43,18 +43,12 @@ Features
 Installation requirements
 -------------------------
 
-Currently, ``neuromaps`` works with Python 3.7+ and requires a few
-dependencies:
+Currently, ``neuromaps`` works with Python 3.8+.
+You can install stable versions of ``neuromaps`` from PyPI with ``pip install neuromaps``.
+However, we recommend installing from the source repository to get the latest features and bug fixes.
 
-- matplotlib
-- nibabel (>=3.0)
-- nilearn (>=0.7)
-- numpy (>=1.14)
-- scikit-learn (>=0.17)
-- scipy
-
-You can get started by installing ``neuromaps`` from the source repository
-with:
+You can install ``neuromaps`` from the source repository with ``pip install git+https://github.com/netneurolab/neuromaps.git``
+or by cloning the repository and installing from the local directory:
 
 .. code-block:: bash
 
@@ -79,7 +73,7 @@ Please be sure to cite the appropriate literature when using ``neuromaps``, whic
 - If you use volume-to-surface transformations (registration fusion), please cite `Buckner et al 2011 <https://journals.physiology.org/doi/full/10.1152/jn.00339.2011>`_ (original proposition) and `Wu et al 2018 <https://onlinelibrary.wiley.com/doi/10.1002/hbm.24213>`_ (first implementation of MNI152 to fsaverage transformation).
 - If you use surface-to-surface transformations (multimodal surface matching), please cite `Robinson et al 2014 <https://www.sciencedirect.com/science/article/pii/S1053811914004546?via%3Dihub>`_ and `Robinson et al 2018 <https://www.sciencedirect.com/science/article/pii/S1053811917308649?via%3Dihub>`_.
 - If you use data included in ``neuromaps``, please cite the the original papers that publish the data. A table with references for each brain annotation can be found in our `wiki <https://github.com/netneurolab/neuromaps/wiki>`_, or more specifically, at `this <https://docs.google.com/spreadsheets/d/1oZecOsvtQEh5pQkIf8cB6CyhPKVrQuko/edit?rtpof=true&sd=true#gid=1162991686>`_ link.
-- If you use the spatial null models, there is an associated citation with each type of null model. They can be found in the docstring of the function, and also `here <https://netneurolab.github.io/neuromaps/api.html#module-neuromaps.nulls>`_. 
+- If you use the spatial null models, there is an associated citation with each type of null model. They can be found in the docstring of the function, and also the `full list <https://netneurolab.github.io/neuromaps/api.html#module-neuromaps.nulls>`_ of functions.
 
 License information
 -------------------
