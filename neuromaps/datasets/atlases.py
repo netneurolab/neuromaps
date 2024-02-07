@@ -13,13 +13,14 @@ from neuromaps.datasets.utils import get_data_dir, get_dataset_info
 SURFACE = namedtuple('Surface', ('L', 'R'))
 ALIAS = dict(
     fslr='fsLR', fsavg='fsaverage', mni152='MNI152', mni='MNI152',
-    FSLR='fsLR', CIVET='civet'
+    FSLR='fsLR', CIVET='civet', bigbrain='BigBrain'
 )
 DENSITIES = dict(
     civet=['41k', '164k'],
     fsaverage=['3k', '10k', '41k', '164k'],
     fsLR=['4k', '8k', '32k', '164k'],
     MNI152=['1mm', '2mm', '3mm'],
+    BigBrain=['164k']
 )
 
 
@@ -195,6 +196,30 @@ Returns
 -------
 {surfatlas}
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsLR']))
+
+
+def fetch_bigbrain(density='164k', url=None, data_dir=None, verbose=1):
+    keys = ['white', 'pial']
+    return _fetch_atlas(
+        'BigBrain', density, keys, url=url, data_dir=data_dir, verbose=verbose
+    )
+
+
+fetch_bigbrain.__doc__ = """
+Fetch BigBrain surface atlas.
+
+Parameters
+----------
+density : {{'{densities}'}}, optional
+    Density of BigBrain atlas to fetch. Default: '164k'
+{url}
+{data_dir}
+{verbose}
+
+Returns
+-------
+{surfatlas}
+""".format(**_atlas_docs, densities="', '".join(DENSITIES['BigBrain']))
 
 
 def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1): # noqa: D103
