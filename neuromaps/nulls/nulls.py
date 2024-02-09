@@ -608,7 +608,7 @@ def burt2018(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: 
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
-                            tempdir=None, **kwargs)
+                            tempdir=tempdir, **kwargs)
 
 
 burt2018.__doc__ = """\
@@ -699,7 +699,7 @@ def moran(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D10
     return _make_surrogates(data, 'moran', atlas=atlas, density=density,
                             parcellation=parcellation, n_perm=n_perm,
                             seed=seed, n_proc=n_proc, distmat=distmat,
-                            tempdir=None, **kwargs)
+                            tempdir=tempdir, **kwargs)
 
 
 moran.__doc__ = """\
