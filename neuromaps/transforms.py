@@ -619,3 +619,118 @@ def fsaverage_to_fsaverage(data, target_density='41k', hemi=None,
     srcparams = dict(space='fsaverage', den=density, trg='')
     trgparams = dict(space='fsaverage', den=target_density, trg='')
     return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def bigbrain_to_fslr(data, target_density='164k', hemi=None, method='linear'):
+    """
+    Resample `data` on the BigBrain surface to the fsLR surface.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'4k', '8k', '32k', '164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='BigBrain', den=density, trg='_space-fsLR')
+    trgparams = dict(space='fsLR', den=target_density, trg='')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def bigbrain_to_fsaverage(data, target_density='164k', hemi=None,
+                          method='linear'):
+    """
+    Resample `data` on the BigBrain surface to the fsaverage surface.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'3k', '10k', '41k', '164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='BigBrain', den=density, trg='_space-fsaverage')
+    trgparams = dict(space='fsaverage', den=target_density, trg='')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def fsaverage_to_bigbrain(data, target_density='164k', hemi=None,
+                          method='linear'):
+    """
+    Resample `data` on fsLR surface to new density.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='fsaverage', den=density, trg='')
+    trgparams = dict(space='BigBrain', den=target_density,
+                     trg='_space-fsaverage')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def fslr_to_bigbrain(data, target_density='164k', hemi=None, method='linear'):
+    """
+    Resample `data` on fsLR surface to new density.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='fsLR', den=density, trg='')
+    trgparams = dict(space='BigBrain', den=target_density, trg='_space-fsLR')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
