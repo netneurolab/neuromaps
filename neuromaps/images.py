@@ -208,7 +208,6 @@ def load_data(data):
             out = np.vstack(data_gii)
         else:
             out = np.hstack(data_gii)
-        # out = np.hstack([load_gifti(img).agg_data() for img in data])
     except (AttributeError, TypeError, ValueError, OSError) as err:
         # niimg_like or path_like (nifti)
         if (isinstance(err, AttributeError)
