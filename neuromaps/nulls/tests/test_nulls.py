@@ -62,8 +62,3 @@ def test_burt2020():
 def test_moran():
     """Test moran null model."""
     assert False
-    
-@pytest.mark.xfail
-def test_eigenstrapping():
-    """Test eigenstrapping null model."""
-    assert False
