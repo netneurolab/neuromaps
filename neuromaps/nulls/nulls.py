@@ -19,15 +19,24 @@ try:
     _brainspace_avail = True
 except ImportError:
     _brainspace_avail = False
+    
+try:
+    from eigenstrapping.datasets import fetch_data
+    _eigenstrapping_avail = True
+except ImportError:
+    _eigenstrapping_avail = False
 
 from neuromaps.datasets import fetch_atlas
 from neuromaps.datasets.atlases import _sanitize_atlas
-from neuromaps.images import load_data, load_nifti, PARCIGNORE
+from neuromaps.images import load_data, load_nifti, load_gifti, PARCIGNORE
 from neuromaps.points import get_surface_distance
 from neuromaps.transforms import mni152_to_mni152
 from neuromaps.nulls.burt import batch_surrogates
 from neuromaps.nulls.spins import (gen_spinsamples, get_parcel_centroids,
                                    load_spins, spin_data, spin_parcels)
+from neuromaps.nulls.eigen import (gen_eigensamples, #gen_vol_eigensamples, 
+                                   write_rotated, eigenstrap_data, 
+                                   load_rotated, get_parcel_emodes)
 HEMI = dict(left='L', lh='L', right='R', rh='R')
 
 
@@ -126,6 +135,41 @@ kwargs : key-value pairs
 nulls : np.ndarray
     Generated null distribution, where each column represents a unique null
     map\
+""",
+    emodes="""\
+emodes : array_like or str or os.PathLike, optional
+    Filepath to or pre-generated eigenmodes array. If not specified eigenmodes
+    are loaded for surfaces specified by `atlas` and `density` or calculated 
+    if `surfaces` is specified. Default: None\
+""",
+    evals="""\
+evals : array_like or str or os.PathLike, optional
+    Filepath to or pre-generated eigenvalue array corresponding to `emodes`. If
+    not specified eigenvalues are loaded for surfaces specified by `atlas` and
+    `density` or calculated if `surfaces` is specified. Default: None\
+""",
+    num_modes="""\
+num_modes : int, optional
+    Number of eigenmodes in `emodes` to use for generating nulls. Must be smaller
+    than the number of points in `data`. Default: 100\
+""",
+    rotated_modes="""\
+rotated_modes : array_like or str or os.PathLike
+    Filepath to or pre-loaded eigenmode rotation arrays. If not specified rotated modes
+    are generated. Default: None\        
+""",
+    savepath="""\
+savepath : os.PathLike, optional
+    Filepath specifying where `rotated_modes` are to be saved for future use.
+    Default: None\        
+""",
+    volume="""\
+volume : nib.Nifti1Image or str or os.PathLike
+    Filepath to or pre-loaded nifti image. Default: None\
+""",
+    verbose="""\
+verbose : bool, optional
+    Whether to print occasional status messages. Default: False\
 """
 )
 
@@ -526,7 +570,7 @@ def _vol_surrogates(data, atlas, density, parcellation, distmat, tempdir=None,
 def _make_surrogates(data, method, atlas='fsaverage', density='10k',
                      parcellation=None, n_perm=1000, seed=None, distmat=None,
                      n_proc=1, tempdir=None, **kwargs):
-    if method not in ('burt2018', 'burt2020', 'moran'):
+    if method not in ('burt2018', 'burt2020', 'moran', 'eigenstrapping'):
         raise ValueError(f'Invalid null method: {method}')
 
     atlas = _sanitize_atlas(atlas)
@@ -736,4 +780,118 @@ References
    analysis of macroscale gradients in neuroimaging and connectomics datasets.
    Communications Biology, 3(1), 1-10.
 .. [SN11] https://github.com/MICA-MNI/BrainSpace/
+""".format(**_nulls_input_docs)
+
+def eigenstrapping(data, atlas='fsaverage', density='10k', 
+                   parcellation=None, n_perm=1000, seed=None, emodes=None, 
+                   evals=None, num_modes=100, rotated_modes=None, 
+                   savepath=None, surfaces=None, volume=None, 
+                   n_proc=1, verbose=False, tempdir=None, **kwargs):
+    
+    if n_proc > 1 and tempdir is not None:
+        os.environ['JOBLIB_TEMP_FOLDER'] = f'{tempdir}'
+        
+    atlas = _sanitize_atlas(atlas)
+    
+    if not _eigenstrapping_avail:
+        raise ImportError('Cannot run eigenstrapping null model when `eigenstrapping` '
+                          'is not installed. Please download and install the repo '
+                          'from https://github.com/SNG-newy/eigenstrapping and try again.')
+    
+    if volume is None:
+        if verbose:
+            msg = 'Surface eigenstrapping initialized'
+            print(msg, end='\r', flush=True)
+            
+        if (emodes is None or evals is None) and surfaces is None:
+            if verbose:
+                msg = 'No surface or precomputed eigenmode input. Downloading eigenmodes for {} atlas with {} density'.format(str(atlas), str(density))
+                print(msg, end='\r', flush=True)
+            
+            emodes = fetch_data(name='eigenmodes', space=atlas, den=density, format='emodes')
+            evals = fetch_data(name='eigenmodes', space=atlas, den=density, format='evals')
+        
+        emodes, evals, hemiid = get_parcel_emodes(
+            emodes, evals, parcellation=parcellation, atlas=atlas, density=density, num_modes=num_modes)
+        
+        if rotated_modes is None:
+            if verbose:
+                msg = 'Generating eigenmode rotations'
+                print(msg, end='\r', flush=True)
+            
+            rotated_modes = gen_eigensamples(
+                emodes, 
+                evals, 
+                hemiid=hemiid,
+                num_modes=num_modes, 
+                n_rotate=n_perm, 
+                seed=seed,
+                n_proc=n_proc
+                )
+        else:
+            if verbose:
+                msg = 'Loading eigenmode rotations'
+                print(msg, end='\r', flush=True)
+            rotated_modes = load_rotated(rotated_modes, n_perm=n_perm)
+            
+    else:
+        # if verbose:
+        #     msg = 'Volumetric eigenstrapping initialized'
+        #     print(msg, end='\r', flush=True)
+        
+        # rotated_modes = gen_vol_eigensamples(
+        #     volume, 
+        #     num_modes=num_modes, 
+        #     n_rotate=n_perm, 
+        #     seed=seed
+        #     )
+        raise NotImplementedError('Volumetric eigenstrapping not currently '
+                                  'functional in `neuromaps`, please use the '
+                                  '`eigenstrapping` functions to generate volumetric '
+                                  'surrogates.')
+    
+    if savepath is not None:
+        fn = write_rotated(savepath, rotated_modes)
+        print('Rotated eigenmodes array written to {}'.format(str(fn)))
+    
+    return eigenstrap_data(data, emodes, evals, hemiid=hemiid, rotated_modes=rotated_modes, 
+                           atlas=atlas, density=density, seed=seed, num_modes=num_modes, 
+                           n_rotate=n_perm, n_proc=n_proc, **kwargs)
+
+eigenstrapping.__doc__ = """\
+Generate null maps for `data` using method from [SN12]_.
+
+Method exploits the orthogonality of geometric basis sets (eigenmodes) to
+generate surrogate maps with similar properties to `data`
+
+Parameters
+----------
+{data}
+{atlas_density}
+{parcellation}
+{n_perm}
+{seed}
+{emodes}
+{evals}
+{num_modes}
+{rotated_modes}
+{savepath}
+{surfaces}
+{volume}
+{n_proc}
+{verbose}
+{kwargs}
+
+Returns
+-------
+{nulls}
+
+References
+----------
+.. [SN12] Koussis, N.C., Pang, J.C., Jeganathan, J., Paton, B., 
+    Fornito, A., Robinson, P.A., Misic, B., Breakspear, M. (2024). 
+    Generation of surrogate brain maps preserving spatial 
+    autocorrelation through random rotation of geometric eigenmodes. 
+    bioRxiv 2024.02.07.579070
+.. [SN13] https://github.com/SNG-newy/eigenstrapping
 """.format(**_nulls_input_docs)
