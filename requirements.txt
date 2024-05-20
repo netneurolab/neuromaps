@@ -1,4 +1,4 @@
-matplotlib
+matplotlib>=3.5.0
 nibabel>=3.0.0
 nilearn
 numpy>=1.14.0

@@ -1,14 +1,8 @@
 # -*- coding: utf-8 -*-
 """Functionality for plotting."""
 
-from os import name
-from re import A
+import matplotlib
 from matplotlib import colors as mcolors, pyplot as plt
-try:
-    # if matplotlib version is >= 3.6.0
-    from matplotlib.colors.ColorSequenceRegistry import register as register_cmap
-except ImportError:
-    from matplotlib.cm import register_cmap
 from mpl_toolkits.mplot3d import Axes3D  # noqa
 from nilearn.plotting import plot_surf
 import numpy as np
@@ -18,12 +12,16 @@ from neuromaps.images import load_gifti
 from neuromaps.transforms import _check_hemi
 
 HEMI = dict(L='left', R='right')
-register_cmap(
-    'caret_blueorange', mcolors.LinearSegmentedColormap.from_list('blend', [
-        '#00d2ff', '#009eff', '#006cfe', '#0043fe',
-        '#fd4604', '#fe6b01', '#ffd100', '#ffff04'
-    ])
+
+matplotlib.colormaps.register(
+    mcolors.LinearSegmentedColormap.from_list(
+        'caret_blueorange', [
+            '#00d2ff', '#009eff', '#006cfe', '#0043fe',
+            '#fd4604', '#fe6b01', '#ffd100', '#ffff04'
+            ]),
+    name="caret_blueorange"
 )
+
 
 def plot_surf_template(data, template, density, surf='inflated',
                        hemi=None, data_dir=None, mask_medial=True, **kwargs):
