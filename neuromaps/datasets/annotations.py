@@ -9,7 +9,6 @@ import re
 import shutil
 import pandas as pd
 from pkg_resources import resource_filename
-import numpy as np
 import warnings
 
 try:
@@ -18,20 +17,16 @@ try:
 except ImportError:
     from nilearn.datasets.utils import _fetch_file
 
-from neuromaps.datasets.utils import (get_data_dir, get_dataset_info,
-                                      _get_token, _get_session)
+from neuromaps.datasets.utils import (
+    NEUROMAPS_META,
+    get_data_dir, get_dataset_info, _get_token, _get_session
+)
 
 try:
     from rich.console import Console
     _rich_avail = True
 except ImportError:
     _rich_avail = False
-
-try:
-    import jinja2  # noqa: F401
-    _jinja2_avail = True
-except ImportError:
-    _jinja2_avail = False
 
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
@@ -243,22 +238,63 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
             shutil.move(dl_file, fn)
         data.append(str(fn))
 
+    # get meta_id for each dataset
+    def _matched_to_meta_id(matched, dedup=True):
+        meta_ids = []
+        for entry in matched:
+            # get unique identifier for each entry
+            if entry["format"] == "volume":
+                meta_id = {k:entry[k] for k in ['source', 'desc', 'space', 'res']}
+            elif entry["format"] == "surface":
+                meta_id = {k:entry[k] for k in ['source', 'desc', 'space', 'den']}
+            else:
+                raise ValueError(f"Invalid format for entry: {entry}")
+            if dedup:
+                if meta_id not in meta_ids:
+                    meta_ids.append(meta_id)
+            else:
+                meta_ids.append(meta_id)
+        return meta_ids
+    
+    def _matched_to_meta(matched):
+        meta_ids = _matched_to_meta_id(matched)
+        matched_meta = []
+        for meta_id in meta_ids:
+            for meta_entry in NEUROMAPS_META["annotations"]:
+                if meta_id == meta_entry["annot"]:
+                    matched_meta.append(meta_entry)
+                    break
+            else:
+                raise ValueError(f"Missing metadata for {meta_id}")
+        return meta_ids, matched_meta
+    
+    meta_ids, matched_meta = _matched_to_meta(info)
+    
     # warning for specific maps
-    warn = [np.logical_and(np.logical_or(dset['source'] == 'beliveau2017',
-                                         dset['source'] == 'norgaard2021'),
-                           dset['space'] == 'MNI152') for dset in info]
-    if any(warn):
-        warnings.warn('Data from beliveau2017 and norgaard2021 is best used in'
-                      ' the provided fsaverage space '
-                      '(e.g. source=\'beliveau2017\', space=\'fsaverage\', '
-                      'den=\'164k\'). MNI152 maps should only be used for '
-                      'subcortical data.', stacklevel=2)
+    if verbose > 0:
+        for _id, entry in zip(meta_ids, matched_meta):
+            if "warning" in entry:
+                print(f"[Warning] for {_id}: {entry['warning']}")
+    
+    # print references
+    if verbose > 0:
+        print(
+            "\n[References] Please cite the following "
+            "papers if you are using this data:"
+        )
+        for _id, entry in zip(meta_ids, matched_meta):
+            print(f"  For {_id}:")
+            for bib_category in ["primary", "secondary"]:
+                print(f"  [{bib_category}]:")
+                for bib_item in entry["refs"][bib_category]:
+                    print(f"    {bib_item['citation']}")
+
     return _groupby_match(data, return_single=return_single)
 
 
 def get_annotations_desc(annots):
     """
-    Returns detailed descriptions for annotations as a pandas dataframe
+    Return detailed descriptions for annotations as a pandas dataframe.
 
     Parameters
     ----------
@@ -320,7 +356,7 @@ def get_annotations_desc(annots):
 
 def get_annotations_summary(annots, return_full=False):
     """
-    Prints summary information for annotations in the console
+    Print summary information for annotations in the console.
 
     Parameters
     ----------
@@ -370,7 +406,7 @@ def get_annotations_summary(annots, return_full=False):
 
 def get_annotations_report(annots):
     """
-    Generates a latex table report for annotations
+    Generate a latex table report for annotations.
 
     Parameters
     ----------
@@ -378,9 +414,11 @@ def get_annotations_report(annots):
         List of tuples identifying annotations, in the same form as returned
         by `available_annotations()`.
     """
-    if not _jinja2_avail:
+    try:
+        import jinja2  # noqa: F401
+    except ImportError:
         raise ImportError("This function requires the Jinja2 package to work. "
-                          "Please `pip install Jinja2` as try again.")
+                          "Please `pip install Jinja2` and try again.")
 
     df_annot_info = get_annotations_desc(annots, expand_index=False)
 

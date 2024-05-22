@@ -3,9 +3,15 @@
 
 import json
 import os
-from pkg_resources import resource_filename
-from nilearn.datasets.utils import _md5_sum_file
+import importlib.resources
 import requests
+
+try:
+    # nilearn 0.10.3
+    from nilearn.datasets._utils import _md5_sum_file
+except ImportError:
+    pass
+
 
 # osf repo prefix
 RESTRICTED = ["grh4d"]
@@ -21,81 +27,6 @@ COND_KEYS = ['title', 'tags', 'redir', 'url']
 INFO_KEYS = ['annot', 'full_desc', 'refs', 'demographics']
 INFO_REFS_KEYS = ['primary', 'secondary']
 INFO_DEMO_KEYS = ['N', 'age']
-
-
-def _osfify_urls(data, return_restricted=True):
-    """
-    Format `data` object with OSF API URL.
-
-    Parameters
-    ----------
-    data : object
-        If dict with a `url` key, will format OSF_API with relevant values
-    return_restricted : bool, optional
-        Whether to return restricted annotations. These will only be accessible
-        with a valid OSF token. Default: True
-
-    Returns
-    -------
-    data : object
-        Input data with all `url` dict keys formatted
-    """
-    OSF_API = "https://files.osf.io/v1/resources/{}/providers/osfstorage/{}"
-
-    if isinstance(data, str) or data is None:
-        return data
-    elif 'url' in data:
-        # if url is None then we this is a malformed entry and we should ignore
-        if data['url'] is None:
-            return
-        # if the url isn't a string assume we're supposed to format it
-        elif not isinstance(data['url'], str):
-            if data['url'][0] in RESTRICTED and not return_restricted:
-                return
-            data['url'] = OSF_API.format(*data['url'])
-
-    try:
-        for key, value in data.items():
-            data[key] = _osfify_urls(value, return_restricted)
-    except AttributeError:
-        for n, value in enumerate(data):
-            data[n] = _osfify_urls(value, return_restricted)
-        # drop the invalid entries
-        data = [d for d in data if d is not None]
-
-    return data
-
-
-def get_dataset_info(name, return_restricted=True):
-    """
-    Return information for requested dataset `name`.
-
-    Parameters
-    ----------
-    name : str
-        Name of dataset
-    return_restricted : bool, optional
-        Whether to return restricted annotations. These will only be accessible
-        with a valid OSF token. Default: True
-
-    Returns
-    -------
-    dataset : dict or list-of-dict
-        Information on requested data
-    """
-    fn = resource_filename('neuromaps',
-                           os.path.join('datasets', 'data', 'osf.json'))
-    with open(fn) as src:
-        osf_resources = _osfify_urls(json.load(src), return_restricted)
-
-    try:
-        resource = osf_resources[name]
-    except KeyError:
-        raise KeyError("Provided dataset '{}' is not valid. Must be one of: {}"
-                       .format(name, sorted(osf_resources.keys()))) from None
-
-    return resource
-
 
 def get_data_dir(data_dir=None):
     """
@@ -171,6 +102,170 @@ def _get_session(token=None):
     return session
 
 
+def _osfify_urls(data, return_restricted=True):
+    """
+    Format `data` object with OSF API URL.
+
+    Parameters
+    ----------
+    data : object
+        If dict with a `url` key, will format OSF_API with relevant values
+    return_restricted : bool, optional
+        Whether to return restricted annotations. These will only be accessible
+        with a valid OSF token. Default: True
+
+    Returns
+    -------
+    data : object
+        Input data with all `url` dict keys formatted
+    """
+    OSF_API = "https://files.osf.io/v1/resources/{}/providers/osfstorage/{}"
+
+    if isinstance(data, str) or data is None:
+        return data
+    elif 'url' in data:
+        # if url is None then we this is a malformed entry and we should ignore
+        if data['url'] is None:
+            return
+        # if the url isn't a string assume we're supposed to format it
+        elif not isinstance(data['url'], str):
+            if data['url'][0] in RESTRICTED and not return_restricted:
+                return
+            data['url'] = OSF_API.format(*data['url'])
+
+    try:
+        for key, value in data.items():
+            data[key] = _osfify_urls(value, return_restricted)
+    except AttributeError:
+        for n, value in enumerate(data):
+            data[n] = _osfify_urls(value, return_restricted)
+        # drop the invalid entries
+        data = [d for d in data if d is not None]
+
+    return data
+
+
+def _load_resource_json(relative_path):
+    """
+    Load JSON file from package resources.
+
+    Parameters
+    ----------
+    relative_path : str
+        Path to JSON file relative to package resources
+
+    Returns
+    -------
+    resource_json : dict
+        JSON file loaded as a dictionary
+    """
+    # handling pkg_resources.resource_filename deprecation
+    if getattr(importlib.resources, 'files', None) is not None:
+        f_resource = importlib.resources.files("neuromaps") / relative_path
+    else:
+        from pkg_resources import resource_filename
+        f_resource = resource_filename('neuromaps', relative_path)
+
+    with open(f_resource) as src:
+        resource_json = json.load(src)
+
+    return resource_json
+
+
+NEUROMAPS_DATASETS = _load_resource_json('datasets/data/osf.json')
+NEUROMAPS_DATASETS = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=True)
+NEUROMAPS_DATASETS_PUBLIC = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=False)
+
+def get_dataset_info(name, return_restricted=True):
+    """
+    Return information for requested dataset `name`.
+
+    Parameters
+    ----------
+    name : str
+        Name of dataset
+    return_restricted : bool, optional
+        Whether to return restricted annotations. These will only be accessible
+        with a valid OSF token. Default: True
+
+    Returns
+    -------
+    dataset : dict or list-of-dict
+        Information on requested data
+    """
+    try:
+        if return_restricted:
+            return NEUROMAPS_DATASETS[name]
+        else:
+            return NEUROMAPS_DATASETS_PUBLIC[name]
+    except KeyError:
+        raise KeyError(
+            f"Provided dataset '{name}' is not valid. "
+            f"Must be one of: {sorted(NEUROMAPS_DATASETS.keys())}"
+        ) from None
+
+
+NEUROMAPS_META = _load_resource_json('datasets/data/meta.json')
+
+
+def get_meta_info(name):
+    """
+    Return metadata for requested dataset `name`.
+
+    Parameters
+    ----------
+    name : str
+        Name of dataset
+    return_restricted : bool, optional
+        Whether to return restricted annotations. These will only be accessible
+        with a valid OSF token. Default: True
+
+    Returns
+    -------
+    dataset : dict or list-of-dict
+        Information on requested data
+    """
+    try:
+        return NEUROMAPS_META[name]
+    except KeyError:
+        raise KeyError(
+            f"Provided dataset '{name}' is not valid. "
+            f"Must be one of: {sorted(NEUROMAPS_META.keys())}"
+        ) from None
+
+
+def get_references(name, verbose=1, return_dict=False):
+    """
+    Return reference information for dataset `name`.
+
+    Parameters
+    ----------
+    name : str
+        Name of dataset
+
+    Returns
+    -------
+    reference : str
+        Reference information for dataset
+    """
+    pass
+    # try:
+    #     curr_refs = NNT_REFERENCES[name]
+    #     if verbose:
+    #         print("Please cite the following papers if you are using this function:")
+    #         for bib_category, bib_category_items in curr_refs.items():
+    #             print(f"  [{bib_category}]:")
+    #             for bib_item in bib_category_items:
+    #                 print(f"    {bib_item['citation']}")
+
+    #     if return_dict:
+    #         return curr_refs
+
+    # except KeyError:
+    #     raise KeyError("Provided dataset '{}' is not valid. Must be one of: {}"
+    #                    .format(name, sorted(NNT_REFERENCES.keys()))) from None
+
+
 def parse_filename(fname, return_ext=True, verbose=False):
     """
     Parses `fname` (in BIDS-inspired format) and returns dictionary
@@ -192,7 +287,6 @@ def parse_filename(fname, return_ext=True, verbose=False):
     ext : str
         Extension of `fname`, only returned if `return_ext=True`
     """
-
     try:
         base, *ext = fname.split('.')
         fname_dict = dict([
@@ -226,7 +320,6 @@ def parse_fname_list(fname, verbose=False):
     data : list-of-dict
         Information about filenames in `fname`
     """
-
     with open(fname, 'r', encoding='utf-8') as src:
         fname_list = [name.strip() for name in src.readlines()]
     data = [
@@ -255,7 +348,6 @@ def parse_json(fname, root='annotations'):
     data : dict
         Data from `fname` JSON file
     """
-
     if isinstance(root, str):
         root = [root]
 
@@ -268,86 +360,110 @@ def parse_json(fname, root='annotations'):
     return data
 
 
-def generate_auto_keys(data_dict, file_path=None):
+def _get_osf_url(fname, project, token=None):
     """
-    Adds automatically-generated keys to `item`
-
-    Generated keys include: ['format', 'fname', 'rel_path', 'checksum']
-    Supposedly this function will fill these keys, however, if file_path
-    is not give, 'checksum' will be None. The 'format' key can also be
-    pre-given.
+    Get OSF API URL path for `fname` in `project`.
 
     Parameters
     ----------
-    data_dict : dict
-        Dict about annotation
-    file_path : str or os.PathLike, optional
-        Full path to file to generate checksum for. Default: None
+    fname : str
+        Filepath as it exists on OSF
+    project : str
+        Project ID on OSF
+    token : str, optional
+        OSF personal access token for accessing restricted annotations. Will
+        also check the environmental variable 'NEUROMAPS_OSF_TOKEN' if not
+        provided; if that is not set no token will be provided and restricted
+        annotations will be inaccessible. Default: None
 
     Returns
     -------
-    item : dict
-        Updated dict about annotation
+    path : str
+        Path to `fname` on OSF project `project`
     """
+    url = f'https://files.osf.io/v1/resources/{project}/providers/osfstorage/'
+    session = _get_session(token=token)
+    path = ''
+    for pathpart in fname.strip('/').split('/'):
+        out = session.get(url + path)
+        out.raise_for_status()
+        for item in out.json()['data']:
+            if item['attributes']['name'] == pathpart:
+                break
+        path = item['attributes']['path'][1:]
 
-    item = data_dict.copy()
-
-    pref = 'source-{source}_desc-{desc}_space-{space}'
-    surffmt = pref + '_den-{den}_hemi-{hemi}_feature.func.gii'
-    volfmt = pref + '_res-{res}_feature.nii.gz'
-
-    # 'format' and 'fname'
-    if ('den' in data_dict or 'hemi' in data_dict) and 'res' not in data_dict:
-        item['format'] = 'surface'
-        item['fname'] = surffmt.format(**item)
-    elif 'res' in data_dict and \
-         'den' not in data_dict and \
-         'hemi' not in data_dict:
-        item['format'] = 'volume'
-        item['fname'] = volfmt.format(**item)
-    else:
-        raise ValueError('Wrong data_dict keys passed: '
-                         'conflicts in file format.')
-
-    # 'rel_path'
-    item['rel_path'] = os.path.join(*[
-        item[key] for key in ['source', 'desc', 'space']
-    ])
-
-    # 'checksum', optionally
-    if file_path is not None and os.path.isfile(file_path):
-        item['checksum'] = _md5_sum_file(file_path)
-    else:
-        item['checksum'] = None
-
-    return item
+    return path
 
 
-def clean_contrib_keys(info, file_path=None):
+def _check_meta_json():
+    # reload the datasets and meta json files
+    NEUROMAPS_DATASETS = _load_resource_json('datasets/data/osf.json')
+    NEUROMAPS_DATASETS = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=True)
+    NEUROMAPS_META = _load_resource_json('datasets/data/meta.json')
+
+    for entry in NEUROMAPS_DATASETS["annotations"]:
+        # get unique identifier for each entry
+        if entry["format"] == "volume":
+            meta_id = {k:entry[k] for k in ['source', 'desc', 'space', 'res']}
+        elif entry["format"] == "surface":
+            meta_id = {k:entry[k] for k in ['source', 'desc', 'space', 'den']}
+        else:
+            raise ValueError(f"Invalid format for entry: {entry}")
+        # check existence in meta.json
+        print("Checking for missing metadata entries...")
+        for meta_entry in NEUROMAPS_META["annotations"]:
+            if meta_id == meta_entry["annot"]:
+                break
+        else:
+            print(f"Missing metadata for {meta_id}")
+
+
+def _fill_meta_json_refs(bib_file, json_file, overwrite=False, use_defaults=False):
     """
-    Cleans contributor keys in `info` dictionary for the contribution pipeline
+    Fill in citation information for references in a JSON file.
+    For internal use only.
 
     Parameters
     ----------
-    info : dict
-        Dict about annotation
-    file_path : str or os.PathLike, optional
-        Full path to file to generate checksum for. Default: None
+    bib_file : str
+        Path to BibTeX file containing references
+    json_file : str
+        Path to JSON file containing references
+    overwrite : bool, optional
+        Whether to overwrite existing citation information. Default: False
+    use_defaults : bool, optional
+        Whether to use default paths for `bib_file` and `json_file`. Default: False
 
     Returns
     -------
-    output : dict
-        Updated dict about annotation
+    None
     """
-    if 'den' in info:
-        curr_keys = FNAME_SURF_KEYS + AUTO_KEYS + COND_KEYS
-    elif 'res' in info:
-        curr_keys = FNAME_VOL_KEYS + AUTO_KEYS + COND_KEYS
-    else:
-        raise ValueError('Error in input info dict')
+    if use_defaults:
+        bib_file = \
+            importlib.resources.files("neuromaps") / "datasets/data/neuromaps.bib"
+        json_file = \
+            importlib.resources.files("neuromaps") / "datasets/data/meta.json"
 
-    output = {key: (info[key] if key in info else None) for key in curr_keys}
+    from pybtex import PybtexEngine
+    engine = PybtexEngine()
 
-    output = generate_auto_keys(output, file_path)
+    def _get_citation(key):
+        s = engine.format_from_file(
+            filename=bib_file, style="unsrt",
+            citations=[key], output_backend="plaintext"
+            )
+        return s.strip("\n").replace("[1] ", "")
 
-    return output
+    with open(json_file) as src:
+        nm_meta = json.load(src)
+
+    for entry in nm_meta["annotations"]:
+        for bib_category in ["primary", "secondary"]:
+            for bib_item in entry["refs"][bib_category]:
+                if bib_item["bibkey"] not in ["", None]:
+                    if bib_item["citation"] == "" or overwrite:
+                        bib_item["citation"] = _get_citation(bib_item["bibkey"])
+
+    with open(json_file, "w") as dst:
+        json.dump(nm_meta, dst, indent=4)
+
