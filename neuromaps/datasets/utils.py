@@ -416,7 +416,7 @@ def _check_meta_json():
 def _fill_meta_json_refs(bib_file, json_file, overwrite=False, use_defaults=False):
     """
     Fill in citation information for references in a JSON file.
-    
+
     For internal use only.
 
     Parameters
@@ -462,4 +462,3 @@ def _fill_meta_json_refs(bib_file, json_file, overwrite=False, use_defaults=Fals
 
     with open(json_file, "w") as dst:
         json.dump(nm_meta, dst, indent=4)
-
