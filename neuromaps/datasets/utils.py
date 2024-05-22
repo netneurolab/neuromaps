@@ -483,7 +483,7 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
     ----------
     listofmaps_file : str
         Path to write the list of maps
-    
+
     Returns
     -------
     None
@@ -520,7 +520,7 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
             )
         else:
             raise ValueError(f"Invalid format for entry: {entry}")
-        
+
         if meta_id in meta_ids:
             continue
         meta_ids.append(meta_id)
@@ -530,7 +530,7 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
             if meta_id == _meta_entry["annot"]:
                 meta_entry = _meta_entry
                 break
-        
+
         section_title = "-".join(key)
         output += [
             f"{section_title}",
@@ -555,16 +555,17 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
             "",
             ".. code:: python",
             "",
-            f"    # get annotation",
+            "    # get annotation",
             f"    fetch_annotation({key_str})",
             "",
-            f"    # describe annotation",
+            "    # describe annotation",
             f"    describe_annotations({key})",
             "",
-            f"    # file location",
+            "    # file location",
             f"    # $NEUROMAPS_DATA/{entry['rel_path']}",
             "",
-            f"    # file name (for surface data, replace L/R to get the other hemisphere)",
+            "    # file name (for surface data, replace"
+            "L/R to get the other hemisphere)",
             f"    # {entry['fname']}",
             ""
         ]
@@ -585,7 +586,7 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
                         f"    - {bib_item['citation']}"
                     ]
         output.append("\n----\n")
-    
+
     output = output[:-1]
 
     with open(listofmaps_file, "w") as dst:
