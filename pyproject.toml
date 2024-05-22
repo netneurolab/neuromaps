@@ -115,5 +115,5 @@ omit = [
 ]
 
 [tool.codespell]
-skip = '.git,*.pdf,*.svg,versioneer.py'
+skip = '.git,*.pdf,*.svg,versioneer.py,*.json,*.bib'
 # ignore-words-list = ''
