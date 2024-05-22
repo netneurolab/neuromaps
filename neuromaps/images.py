@@ -114,8 +114,8 @@ def fix_coordsys(fn, val=3):
 
 def load_nifti(img):
     """
-    Load nifti file `img`. 
-    
+    Load nifti file `img`.
+
     If `img` is already a loaded (i.e. is a nib.Nifti1Image object),
     it is returned as-is.
 
@@ -203,7 +203,7 @@ def load_data(data):
         # niimg_like or path_like (nifti)
         if (isinstance(err, AttributeError)
             or (
-                "os.PathLike" in str(err) 
+                "os.PathLike" in str(err)
                 and "not Nifti1Image" in str(err)
                 )
            ):

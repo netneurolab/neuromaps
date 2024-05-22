@@ -14,4 +14,3 @@ from .atlases import (fetch_all_atlases, fetch_atlas, fetch_civet,
 from .annotations import (
     available_annotations, available_tags, fetch_annotation
 )
-

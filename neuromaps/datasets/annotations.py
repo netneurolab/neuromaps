@@ -292,13 +292,13 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
 
     # get meta_id for each dataset
     meta_ids, matched_meta = _matched_to_meta(info)
-    
+
     # warning for specific maps
     if verbose > 0:
         for _id, entry in zip(meta_ids, matched_meta):
             if "warning" in entry:
                 print(f"[Warning] for {_id}: {entry['warning']}")
-    
+
     # print references
     if verbose > 0:
         print(
@@ -381,7 +381,6 @@ def describe_annotations(annots, format="plaintext"):
             print("   Secondary references:")
             for ref in row["refs.secondary"]:
                 print(f"      ({ref['bibkey']}) {ref['citation']}")
-            return None
     elif format == "dataframe":
         return df_annot_info[[
             "annot.key", "full_desc",
@@ -407,9 +406,11 @@ def describe_annotations(annots, format="plaintext"):
                 f"{i + 1} "
                 f"& {row['annot.source']} & {row['annot.desc']} "
                 f"& {row['annot.space']} & {row['annot.denres']} "
-                f"& {row['full_desc']} & \citep{{{','.join(refs)}}} "
+                rf"& {row['full_desc']} & \citep{{{','.join(refs)}}} "
                 "\\\\"
             )
     else:
         raise ValueError("Invalid format. Must be one of 'plaintext', "
                          "'dataframe', or 'latex'.")
+
+    return None
