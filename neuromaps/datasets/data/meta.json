@@ -397,6 +397,33 @@
         },
         {
             "annot": {
+                "source": "castrillon2023",
+                "desc": "cmrglc",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "Glucose metabolism",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Gabriel Castrillon, Samira Epp, Antonia Bose, Laura Fraticelli, Andr\u00e9 Hechler, Roman Belenya, Andreas Ranft, Igor Yakushev, Lukas Utz, Lalith Sundar, and others. An energy costly architecture of neuromodulators for human brain evolution and cognition. Science advances, 9(50):eadi7632, 2023.",
+                        "bibkey": "castrillon2023energy"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        },
+        {
+            "annot": {
                 "source": "ding2010",
                 "desc": "mrb",
                 "space": "MNI152",
