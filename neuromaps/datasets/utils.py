@@ -471,3 +471,122 @@ def _fill_meta_json_refs(bib_file, json_file, overwrite=False, use_defaults=Fals
 
     with open(json_file, "w") as dst:
         json.dump(nm_meta, dst, indent=4)
+
+
+def _gen_doc_listofmaps_rst(listofmaps_file):
+    """
+    Generate a list of maps in reStructuredText format.
+
+    For internal use only.
+
+    Parameters
+    ----------
+    listofmaps_file : str
+        Path to write the list of maps
+    
+    Returns
+    -------
+    None
+    """
+    output = []
+
+    output += [
+        ".. _listofmaps:",
+        "",
+        "------------",
+        "List of Maps",
+        "------------",
+        ""
+        "This is a complete list of maps available "
+        "in the `neuromaps` package. ",
+        "\n----\n",
+    ]
+    meta_ids = []
+    for entry in NEUROMAPS_DATASETS["annotations"]:
+        # get unique identifier for each entry
+        volume_keys = ['source', 'desc', 'space', 'res']
+        surface_keys = ['source', 'desc', 'space', 'den']
+        if entry["format"] == "volume":
+            meta_id = {k: entry[k] for k in volume_keys}
+            key = tuple([entry[k] for k in volume_keys])
+            key_str = ", ".join(
+                [f"{k}='{entry[k]}'" for k in volume_keys]
+            )
+        elif entry["format"] == "surface":
+            meta_id = {k: entry[k] for k in surface_keys}
+            key = tuple([entry[k] for k in surface_keys])
+            key_str = ", ".join(
+                [f"{k}='{entry[k]}'" for k in surface_keys]
+            )
+        else:
+            raise ValueError(f"Invalid format for entry: {entry}")
+        
+        if meta_id in meta_ids:
+            continue
+        meta_ids.append(meta_id)
+
+        meta_entry = None
+        for _meta_entry in NEUROMAPS_META["annotations"]:
+            if meta_id == _meta_entry["annot"]:
+                meta_entry = _meta_entry
+                break
+        
+        section_title = "-".join(key)
+        output += [
+            f"{section_title}",
+            "=" * len(section_title),
+            "",
+            "**Annotation identifier**",
+            "",
+            f"*{meta_entry['annot']}*",
+            "",
+            "**Full description**",
+            "",
+            f"{meta_entry['full_desc']}",
+            "",
+            f"**Demographics**: "
+            f"N = {meta_entry['demographics']['N']}, "
+            f"Age = {meta_entry['demographics']['age']}",
+            "",
+            f"**Tags**: "
+            f"{', '.join(entry['tags'])}",
+            "",
+            "**How to use**",
+            "",
+            ".. code:: python",
+            "",
+            f"    # get annotation",
+            f"    fetch_annotation({key_str})",
+            "",
+            f"    # describe annotation",
+            f"    describe_annotations({key})",
+            "",
+            f"    # file location",
+            f"    # $NEUROMAPS_DATA/{entry['rel_path']}",
+            "",
+            f"    # file name (for surface data, replace L/R to get the other hemisphere)",
+            f"    # {entry['fname']}",
+            ""
+        ]
+
+        if "warning" in meta_entry:
+            output += [
+                "**Warning**",
+                "",
+                f"{meta_entry['warning']}",
+                ""
+            ]
+
+        output.append("**References**")
+        for bib_category in ["primary", "secondary"]:
+            for bib_item in meta_entry["refs"][bib_category]:
+                if bib_item["bibkey"] not in ["", None]:
+                    output += [
+                        f"    - {bib_item['citation']}"
+                    ]
+        output.append("\n----\n")
+    
+    output = output[:-1]
+
+    with open(listofmaps_file, "w") as dst:
+        dst.write("\n".join(output))

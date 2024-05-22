@@ -2,6 +2,7 @@
 docs/generated/
 docs/auto_examples/
 docs/modules/
+docs/sg_execution_times.rst
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

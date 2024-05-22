@@ -2399,7 +2399,9 @@
             "rel_path": "sydnor2021/SAaxis/fsLR/",
             "checksum": "b15cca875e26a4d5281e4c0f7de698e7",
             "title": null,
-            "tags": null,
+            "tags": [
+                "MRI"
+            ],
             "redir": null,
             "url": [
                 "4mw3a",
@@ -2417,7 +2419,9 @@
             "rel_path": "sydnor2021/SAaxis/fsLR/",
             "checksum": "5a01ee61055ac887b2d8b1075d64fc2c",
             "title": null,
-            "tags": null,
+            "tags": [
+                "MRI"
+            ],
             "redir": null,
             "url": [
                 "4mw3a",
