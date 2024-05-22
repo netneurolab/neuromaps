@@ -14,4 +14,4 @@ from .atlases import (fetch_all_atlases, fetch_atlas, fetch_civet,  # noqa
 from .annotations import (available_annotations, available_tags,  # noqa
                           fetch_annotation,  get_annotations_summary, 
                           get_annotations_desc, get_annotations_report)
-from .contributions import (upload_annotation)
+
