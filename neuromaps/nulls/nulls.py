@@ -130,7 +130,7 @@ nulls : np.ndarray
 )
 
 
-def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def alexander_bloch(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
                     n_perm=1000, seed=None, spins=None, surfaces=None):
     if spins is None:
         if surfaces is None:
@@ -178,7 +178,7 @@ References
 vazquez_rodriguez = alexander_bloch
 
 
-def vasa(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def vasa(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
          n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `vasa()` null method without specifying '
@@ -229,7 +229,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def hungarian(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def hungarian(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
               n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `hungarian()` null method without '
@@ -278,7 +278,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def baum(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def baum(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
          n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `baum()` null method without specifying '
@@ -326,7 +326,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def cornblath(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def cornblath(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
               n_perm=1000, seed=None, spins=None, surfaces=None):
     if parcellation is None:
         raise ValueError('Cannot use `cornblath()` null method without '
@@ -370,7 +370,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def _get_distmat(hemisphere, atlas='fsaverage', density='10k', # noqa: D103
+def _get_distmat(hemisphere, atlas='fsaverage', density='10k',  # noqa: D103
                  parcellation=None, drop=None, n_proc=1):
     hemi = HEMI.get(hemisphere, hemisphere)
     if hemi not in ('L', 'R'):
@@ -602,7 +602,7 @@ Returns
 """.format(**_nulls_input_docs)
 
 
-def burt2018(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def burt2018(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
              n_perm=1000, seed=None, distmat=None, tempdir=None, n_proc=1,
              **kwargs):
     return _make_surrogates(data, 'burt2018', atlas=atlas, density=density,
@@ -641,7 +641,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def burt2020(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def burt2020(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
              n_perm=1000, seed=None, distmat=None, n_proc=1, tempdir=None,
              **kwargs):
     if not _brainsmash_avail:
@@ -689,7 +689,7 @@ References
 """.format(**_nulls_input_docs)
 
 
-def moran(data, atlas='fsaverage', density='10k', parcellation=None, # noqa: D103
+def moran(data, atlas='fsaverage', density='10k', parcellation=None,  # noqa: D103
           n_perm=1000, seed=None, distmat=None, tempdir=None, n_proc=1,
           **kwargs):
     if not _brainspace_avail:

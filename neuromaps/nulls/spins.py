@@ -144,7 +144,7 @@ def get_parcel_centroids(surfaces, parcellation=None, method='surface',
             centroids.append(vertices)
             hemiid.extend([n] * len(vertices))
 
-    return np.row_stack(centroids), np.asarray(hemiid)
+    return np.vstack(centroids), np.asarray(hemiid)
 
 
 def _gen_rotation(seed=None):

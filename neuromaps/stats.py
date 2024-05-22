@@ -233,7 +233,7 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     If either input contains nan and nan_policy is set to 'omit', both arrays
     will be masked to omit the nan entries.
     """
-    a, b, axis = _chk2_asarray(a, b, 0)
+    a, b, _ = _chk2_asarray(a, b, 0)
     if len(a) != len(b):
         raise ValueError('Provided arrays do not have same length')
 

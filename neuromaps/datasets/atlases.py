@@ -127,7 +127,7 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
     return _bunch_outputs(keys, data, atlas != 'MNI152')
 
 
-def fetch_civet(density='41k', url=None, data_dir=None, verbose=1): # noqa: D103
+def fetch_civet(density='41k', url=None, data_dir=None, verbose=1):  # noqa: D103
     keys = ['white', 'midthickness', 'inflated', 'veryinflated', 'sphere']
     return _fetch_atlas(
         'civet', density, keys, url=url, data_dir=data_dir, verbose=verbose
@@ -151,7 +151,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['civet']))
 
 
-def fetch_fsaverage(density='41k', url=None, data_dir=None, verbose=1): # noqa: D103
+def fetch_fsaverage(density='41k', url=None, data_dir=None, verbose=1):  # noqa: D103
     keys = ['white', 'pial', 'inflated', 'sphere']
     return _fetch_atlas(
         'fsaverage', density, keys, url=url, data_dir=data_dir, verbose=verbose
@@ -175,7 +175,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsaverage']))
 
 
-def fetch_fslr(density='32k', url=None, data_dir=None, verbose=1): # noqa: D103
+def fetch_fslr(density='32k', url=None, data_dir=None, verbose=1):  # noqa: D103
     keys = ['midthickness', 'inflated', 'veryinflated', 'sphere']
     if density in ('4k', '8k'):
         keys.remove('veryinflated')
@@ -201,7 +201,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsLR']))
 
 
-def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1): # noqa: D103
+def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):  # noqa: D103
     keys = ['2009cAsym_T1w', '2009cAsym_T2w', '2009cAsym_PD',
             '2009cAsym_brainmask', '2009cAsym_CSF', '2009cAsym_GM',
             '2009cAsym_WM']
@@ -229,7 +229,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['MNI152']))
 
 
-def fetch_regfusion(atlas, url=None, data_dir=None, verbose=1): # noqa: D103
+def fetch_regfusion(atlas, url=None, data_dir=None, verbose=1):  # noqa: D103
     atlas = _sanitize_atlas(atlas)
     densities = DENSITIES[atlas].copy()
     invalid = dict(civet=('164k',), fsLR=('4k', '8k'))
@@ -280,7 +280,7 @@ regfusion : dict
 """.format(**_atlas_docs)
 
 
-def fetch_atlas(atlas, density, url=None, data_dir=None, verbose=1): # noqa: D103
+def fetch_atlas(atlas, density, url=None, data_dir=None, verbose=1):  # noqa: D103
     atlas = _sanitize_atlas(atlas)
     fetcher = globals()[f'fetch_{atlas.lower()}']
     return fetcher(density, url=url, data_dir=data_dir, verbose=verbose)
@@ -305,7 +305,7 @@ Returns
 """.format(**_atlas_docs, atlases="', '".join(DENSITIES.keys()))
 
 
-def fetch_all_atlases(data_dir=None, verbose=1): # noqa: D103
+def fetch_all_atlases(data_dir=None, verbose=1):  # noqa: D103
     atlases = {'regfusion': {}}
     for key, resolutions in DENSITIES.items():
         atlases[key] = {}
@@ -334,7 +334,7 @@ atlases : dict
 """
 
 
-def get_atlas_dir(atlas, data_dir=None): # noqa: D103
+def get_atlas_dir(atlas, data_dir=None):  # noqa: D103
     try:
         atlas = _sanitize_atlas(atlas)
     except ValueError as err:

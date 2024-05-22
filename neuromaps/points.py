@@ -269,7 +269,7 @@ def make_surf_graph(vertices, faces, mask=None):
     # get all (direct + indirect) edges from surface
     direct_edges, direct_weights = get_direct_edges(vertices, faces)
     indirect_edges, indirect_weights = get_indirect_edges(vertices, faces)
-    edges = np.row_stack((direct_edges, indirect_edges))
+    edges = np.vstack((direct_edges, indirect_edges))
     weights = np.hstack((direct_weights, indirect_weights))
 
     # remove edges that include a vertex in `mask`
@@ -374,13 +374,13 @@ def get_surface_distance(surface, parcellation=None, medial=None,
 
     # calculate distance from each vertex to all other vertices
     graph = make_surf_graph(vert, faces, mask=mask)
-    dist = np.row_stack(Parallel(n_jobs=n_proc, max_nbytes=None)(
+    dist = np.vstack(Parallel(n_jobs=n_proc, max_nbytes=None)(
         delayed(_get_graph_distance)(n, graph, labels) for n in range(n_vert)
     ))
 
     # average distance for all vertices within a parcel + set diagonal to 0
     if labels is not None:
-        dist = np.row_stack([
+        dist = np.vstack([
             dist[labels == lab].mean(axis=0) for lab in np.unique(labels)
         ])
         dist[np.diag_indices_from(dist)] = 0
