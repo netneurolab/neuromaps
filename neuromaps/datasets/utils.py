@@ -6,13 +6,6 @@ import os
 import importlib.resources
 import requests
 
-try:
-    # nilearn 0.10.3
-    from nilearn.datasets._utils import _md5_sum_file
-except ImportError:
-    pass
-
-
 # osf repo prefix
 RESTRICTED = ["grh4d"]
 
@@ -27,6 +20,7 @@ COND_KEYS = ['title', 'tags', 'redir', 'url']
 INFO_KEYS = ['annot', 'full_desc', 'refs', 'demographics']
 INFO_REFS_KEYS = ['primary', 'secondary']
 INFO_DEMO_KEYS = ['N', 'age']
+
 
 def get_data_dir(data_dir=None):
     """
@@ -176,6 +170,7 @@ NEUROMAPS_DATASETS = _load_resource_json('datasets/data/osf.json')
 NEUROMAPS_DATASETS = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=True)
 NEUROMAPS_DATASETS_PUBLIC = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=False)
 
+
 def get_dataset_info(name, return_restricted=True):
     """
     Return information for requested dataset `name`.
@@ -268,7 +263,7 @@ def get_references(name, verbose=1, return_dict=False):
 
 def parse_filename(fname, return_ext=True, verbose=False):
     """
-    Parses `fname` (in BIDS-inspired format) and returns dictionary
+    Parse `fname` (in BIDS-inspired format) and returns dictionary.
 
     Parameters
     ----------
@@ -307,7 +302,7 @@ def parse_filename(fname, return_ext=True, verbose=False):
 
 def parse_fname_list(fname, verbose=False):
     """
-    Reads in list of BIDS-inspired filenames from `fname` and parses keys
+    Read in list of BIDS-inspired filenames from `fname` and parses keys.
 
     Parameters
     ----------
@@ -334,7 +329,7 @@ def parse_fname_list(fname, verbose=False):
 
 def parse_json(fname, root='annotations'):
     """
-    Loads JSON from `fname` and returns value of `root` key(s)
+    Load JSON from `fname` and returns value of `root` key(s).
 
     Parameters
     ----------
@@ -404,9 +399,9 @@ def _check_meta_json():
     for entry in NEUROMAPS_DATASETS["annotations"]:
         # get unique identifier for each entry
         if entry["format"] == "volume":
-            meta_id = {k:entry[k] for k in ['source', 'desc', 'space', 'res']}
+            meta_id = {k: entry[k] for k in ['source', 'desc', 'space', 'res']}
         elif entry["format"] == "surface":
-            meta_id = {k:entry[k] for k in ['source', 'desc', 'space', 'den']}
+            meta_id = {k: entry[k] for k in ['source', 'desc', 'space', 'den']}
         else:
             raise ValueError(f"Invalid format for entry: {entry}")
         # check existence in meta.json
@@ -421,6 +416,7 @@ def _check_meta_json():
 def _fill_meta_json_refs(bib_file, json_file, overwrite=False, use_defaults=False):
     """
     Fill in citation information for references in a JSON file.
+    
     For internal use only.
 
     Parameters
