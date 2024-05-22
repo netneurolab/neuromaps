@@ -517,6 +517,28 @@
             ]
         },
         {
+            "source": "castrillon2023",
+            "desc": "cmrglc",
+            "space": "MNI152",
+            "res": "3mm",
+            "format": "volume",
+            "fname": "source-castrillon2023_desc-cmrglc_space-MNI152_res-3mm_feature.nii.gz",
+            "rel_path": "castrillon2023/cmrglc/MNI152/",
+            "checksum": "76693c27ee2dccdf9886b1362151ecf7",
+            "title": null,
+            "tags": [
+                "functional",
+                "PET",
+                "metabolism",
+                "resteyesopen"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "664e17ac65e1de09e2893cdd"
+            ]
+        },
+        {
             "source": "ding2010",
             "desc": "mrb",
             "space": "MNI152",
