@@ -12,7 +12,7 @@ RESTRICTED = ["grh4d"]
 # uniquely identify each item ('hemi' can be None)
 FNAME_SURF_KEYS = ['source', 'desc', 'space', 'den', 'hemi']
 FNAME_VOL_KEYS = ['source', 'desc', 'space', 'res']
-# auto-generated (checksum can be None if file doest not exist)
+# auto-generated (checksum can be None if file doesn't not exist)
 AUTO_KEYS = ['format', 'fname', 'rel_path', 'checksum']
 # required keys but values are all optional
 COND_KEYS = ['title', 'tags', 'redir', 'url']
