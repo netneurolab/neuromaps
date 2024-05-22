@@ -8,6 +8,7 @@ Contents
 
    installation
    usage
+   listofmaps
    auto_examples/index.rst
    contributing
    citing
