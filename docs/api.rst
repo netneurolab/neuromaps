@@ -33,10 +33,9 @@ Reference API
    neuromaps.datasets.available_annotations
    neuromaps.datasets.available_tags
    neuromaps.datasets.fetch_annotation
+   neuromaps.datasets.describe_annotations
 
    neuromaps.datasets.get_atlas_dir
-
-   neuromaps.datasets.upload_annotation
 
 .. _ref_images:
 

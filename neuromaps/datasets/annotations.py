@@ -5,7 +5,7 @@ from collections import defaultdict
 from pathlib import Path
 import re
 import shutil
-import numpy as np
+import pandas as pd
 import warnings
 
 try:
@@ -14,8 +14,10 @@ try:
 except ImportError:
     from nilearn.datasets.utils import _fetch_file
 
-from neuromaps.datasets.utils import (get_data_dir, get_dataset_info,
-                                      _get_token, _get_session)
+from neuromaps.datasets.utils import (
+    NEUROMAPS_META,
+    get_data_dir, get_dataset_info, _get_token, _get_session
+)
 
 MATCH = re.compile(
     r'source-(\S+)_desc-(\S+)_space-(\S+)_(?:den|res)-(\d+[k|m]{1,2})_'
@@ -104,6 +106,67 @@ def _match_annot(info, **kwargs):
             out.append(dset)
 
     return out
+
+
+def _matched_to_meta_id(matched, dedup=True):
+    """
+    Get unique identifiers for each entry in `matched`.
+
+    Parameters
+    ----------
+    matched : list-of-dict
+        Annotations to get unique identifiers for
+    dedup : bool, optional
+        If True, only return unique identifiers. Default: True
+
+    Returns
+    -------
+    meta_ids : list-of-dict
+        Unique identifiers for each entry in `matched`
+    """
+    meta_ids = []
+    for entry in matched:
+        # get unique identifier for each entry
+        if entry["format"] == "volume":
+            meta_id = {k: entry[k] for k in ['source', 'desc', 'space', 'res']}
+        elif entry["format"] == "surface":
+            meta_id = {k: entry[k] for k in ['source', 'desc', 'space', 'den']}
+        else:
+            raise ValueError(f"Invalid format for entry: {entry}")
+        if dedup:
+            if meta_id not in meta_ids:
+                meta_ids.append(meta_id)
+        else:
+            meta_ids.append(meta_id)
+    return meta_ids
+
+
+def _matched_to_meta(matched):
+    """
+    Get metadata for each entry in `matched`.
+
+    Parameters
+    ----------
+    matched : list-of-dict
+        Annotations to get metadata for
+
+    Returns
+    -------
+    meta_ids : list-of-dict
+        Unique identifiers for each entry in `matched`
+    matched_meta : list-of-dict
+        Metadata for each entry in `matched`
+    """
+    meta_ids = _matched_to_meta_id(matched)
+    matched_meta = []
+    for meta_id in meta_ids:
+        for meta_entry in NEUROMAPS_META["annotations"]:
+            if meta_id == meta_entry["annot"]:
+                matched_meta.append(meta_entry)
+                break
+        else:
+            raise ValueError(f"Missing metadata for {meta_id}")
+    return meta_ids, matched_meta
 
 
 def available_annotations(source=None, desc=None, space=None, den=None,
@@ -227,14 +290,127 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
             shutil.move(dl_file, fn)
         data.append(str(fn))
 
+    # get meta_id for each dataset
+    meta_ids, matched_meta = _matched_to_meta(info)
+
     # warning for specific maps
-    warn = [np.logical_and(np.logical_or(dset['source'] == 'beliveau2017',
-                                         dset['source'] == 'norgaard2021'),
-                           dset['space'] == 'MNI152') for dset in info]
-    if any(warn):
-        warnings.warn('Data from beliveau2017 and norgaard2021 is best used in'
-                      ' the provided fsaverage space '
-                      '(e.g. source=\'beliveau2017\', space=\'fsaverage\', '
-                      'den=\'164k\'). MNI152 maps should only be used for '
-                      'subcortical data.', stacklevel=2)
+    if verbose > 0:
+        for _id, entry in zip(meta_ids, matched_meta):
+            if "warning" in entry:
+                print(f"[Warning] for {_id}: {entry['warning']}")
+
+    # print references
+    if verbose > 0:
+        print(
+            "\n[References] Please cite the following "
+            "papers if you are using this data:"
+        )
+        for _id, entry in zip(meta_ids, matched_meta):
+            print(f"  For {_id}:")
+            for bib_category in ["primary", "secondary"]:
+                print(f"  [{bib_category}]:")
+                for bib_item in entry["refs"][bib_category]:
+                    print(f"    {bib_item['citation']}")
+
     return _groupby_match(data, return_single=return_single)
+
+
+def describe_annotations(annots, format="plaintext"):
+    """
+    Return detailed descriptions for annotations as a pandas dataframe.
+
+    If `format` is 'plaintext', will print the descriptions to the console.
+
+    If `format` is 'dataframe', will return a pandas dataframe containing the
+    descriptions.
+
+    If `format` is 'latex', will print the descriptions in a format suitable
+    for inclusion in a LaTeX document.
+
+    Parameters
+    ----------
+    annots : tuple or list of tuples
+        List of tuples identifying annotations, in the same form as returned
+        by `available_annotations()`.
+    format : str, optional
+        Format to return annotations. Must be one of 'plaintext', 'dataframe',
+        or 'latex'. Default: 'plaintext'
+
+    Returns
+    -------
+    df_annot_info : pandas.DataFrame or None
+        Dataframe containing detailed descriptions for annotations
+    """
+    if not isinstance(annots, list):
+        annots = [annots]
+
+    df_annot_info = pd.json_normalize(NEUROMAPS_META["annotations"])
+    df_annot_info["annot.denres"] = df_annot_info["annot.den"].combine_first(
+        df_annot_info["annot.res"]
+    )
+    df_annot_info["annot.key"] = list(zip(
+        df_annot_info["annot.source"],
+        df_annot_info["annot.desc"],
+        df_annot_info["annot.space"],
+        df_annot_info["annot.denres"]
+    ))
+    df_annot_info_keys_list = df_annot_info["annot.key"].tolist()
+
+    # find the annotations that are not available
+    annots_not_avail = []
+    for annot in annots:
+        if annot not in df_annot_info_keys_list:
+            annots_not_avail.append(annot)
+    if len(annots_not_avail) > 0:
+        raise warnings.warn(
+            f"Annotations {annots_not_avail} are not available.",
+            stacklevel=2
+        )
+
+    annots_avail = [_ for _ in annots if _ not in annots_not_avail]
+    df_annot_info = \
+        df_annot_info.set_index("annot.key").loc[annots_avail, :].reset_index()
+
+    if format == "plaintext":
+        for i, row in df_annot_info.iterrows():
+            print(f"{i + 1}. {row['annot.key']} - {row['full_desc']}")
+            print(f"   N {row['demographics.N']} - Age {row['demographics.age']}")
+            print("   Primary references:")
+            for ref in row["refs.primary"]:
+                print(f"      ({ref['bibkey']}) {ref['citation']}")
+            print("   Secondary references:")
+            for ref in row["refs.secondary"]:
+                print(f"      ({ref['bibkey']}) {ref['citation']}")
+    elif format == "dataframe":
+        return df_annot_info[[
+            "annot.key", "full_desc",
+            "refs.primary", "refs.secondary",
+            "demographics.N", "demographics.age"
+        ]]
+    elif format == "latex":
+        print(
+                "  "
+                "& source & short description "
+                "& space & density or resolution "
+                "& full description & references "
+                "\\\\"
+            )
+        for i, row in df_annot_info.iterrows():
+            refs = [
+                _['bibkey'] for _ in row["refs.primary"]
+            ] + [
+                _['bibkey'] for _ in row["refs.secondary"]
+            ]
+            refs = [_ for _ in refs if _ != ""]
+            print(
+                f"{i + 1} "
+                f"& {row['annot.source']} & {row['annot.desc']} "
+                f"& {row['annot.space']} & {row['annot.denres']} "
+                rf"& {row['full_desc']} & \citep{{{','.join(refs)}}} "
+                "\\\\"
+            )
+    else:
+        raise ValueError("Invalid format. Must be one of 'plaintext', "
+                         "'dataframe', or 'latex'.")
+
+    return None

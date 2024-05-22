@@ -480,7 +480,7 @@
             "space": "fsaverage",
             "den": "164k",
             "hemi": "L",
-            "format": "space",
+            "format": "surface",
             "fname": "source-beliveau2017_desc-sb207145_space-fsaverage_den-164k_hemi-L_feature.func.gii",
             "rel_path": "beliveau2017/sb207145/fsaverage/",
             "checksum": "5520fb0ed11a4037b22de7b63fa9704b",
@@ -501,7 +501,7 @@
             "space": "fsaverage",
             "den": "164k",
             "hemi": "R",
-            "format": "space",
+            "format": "surface",
             "fname": "source-beliveau2017_desc-sb207145_space-fsaverage_den-164k_hemi-R_feature.func.gii",
             "rel_path": "beliveau2017/sb207145/fsaverage/",
             "checksum": "4bb6b0f54f2cdf3b3dba9e63cf3daa8d",
@@ -2399,7 +2399,9 @@
             "rel_path": "sydnor2021/SAaxis/fsLR/",
             "checksum": "b15cca875e26a4d5281e4c0f7de698e7",
             "title": null,
-            "tags": null,
+            "tags": [
+                "MRI"
+            ],
             "redir": null,
             "url": [
                 "4mw3a",
@@ -2417,7 +2419,9 @@
             "rel_path": "sydnor2021/SAaxis/fsLR/",
             "checksum": "5a01ee61055ac887b2d8b1075d64fc2c",
             "title": null,
-            "tags": null,
+            "tags": [
+                "MRI"
+            ],
             "redir": null,
             "url": [
                 "4mw3a",

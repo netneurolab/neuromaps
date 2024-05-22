@@ -3,7 +3,7 @@
 
 import os
 import pytest
-
+from pkg_resources import resource_filename
 from neuromaps.datasets import utils
 
 
@@ -41,3 +41,22 @@ def test__get_token():
 def test__get_session():
     """Test getting the OSF session."""
     assert False
+
+
+@pytest.mark.xfail
+def test_parse_filename():
+    """Test parsing filenames."""
+    assert False
+
+
+@pytest.mark.xfail
+def test_parse_fname_list():
+    """Test parsing filename lists."""
+    assert False
+
+
+def test_parse_json():
+    """Test parsing JSON files."""
+    osf = resource_filename('neuromaps', 'datasets/data/osf.json')
+    out = utils.parse_json(osf)
+    assert isinstance(out, list) and all(isinstance(i, dict) for i in out)
