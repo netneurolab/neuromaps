@@ -391,6 +391,15 @@ def _get_osf_url(fname, project, token=None):
 
 
 def _check_meta_json():
+    """
+    Check for errors in meta.json.
+
+    For internal use only.
+
+    Returns
+    -------
+    None
+    """
     # reload the datasets and meta json files
     NEUROMAPS_DATASETS = _load_resource_json('datasets/data/osf.json')
     NEUROMAPS_DATASETS = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=True)
