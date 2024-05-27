@@ -38,7 +38,8 @@ doc = [
 ]
 nulls = [
   "brainsmash >=0.10.0",
-  "brainspace"
+  "brainspace",
+  "eigenstrapping @ git+https://github.com/SNG-newy/eigenstrapping.git@main"
 ]
 style = [
   "flake8",

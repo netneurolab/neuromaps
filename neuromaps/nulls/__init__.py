@@ -2,10 +2,11 @@
 
 __all__ = [
     'naive_nonparametric', 'alexander_bloch', 'vazquez_rodriguez', 'vasa',
-    'hungarian', 'baum', 'cornblath', 'burt2018', 'burt2020', 'moran'
+    'hungarian', 'baum', 'cornblath', 'burt2018', 'burt2020', 'moran', 
+    'eigenstrapping'
 ]
 
 from neuromaps.nulls.nulls import (
     alexander_bloch, vazquez_rodriguez, vasa, hungarian, baum, cornblath,
-    burt2018, burt2020, moran
+    burt2018, burt2020, moran, eigenstrapping
 )
