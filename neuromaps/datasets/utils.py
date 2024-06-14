@@ -71,7 +71,6 @@ def get_dataset_info(name, return_restricted=True):
     """
     # temporary fix to be removed by the osf fix
     if getattr(importlib.resources, 'files', None) is not None:
-        _importlib_avail = True
         fn = importlib.resources.files("neuromaps") / "datasets/data/osf.json"
     else:
         from pkg_resources import resource_filename
