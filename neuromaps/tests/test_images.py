@@ -30,10 +30,36 @@ def test_fix_coordsys():
     assert False
 
 
-@pytest.mark.xfail
-def test_load_nifti():
+@pytest.fixture(scope="session")
+def valid_nifti_file(request, tmp_path_factory):
+    """Return a valid NIfTI file."""
+    return_type = request.param["return_type"]
+    rng = np.random.default_rng()
+    data = rng.random((10, 10, 10))
+    nifti_img = nib.Nifti1Image(data, affine=np.eye(4))
+    valid_nifti_file_path = \
+        tmp_path_factory.mktemp("nifti") / "valid_nifti_file.nii.gz"
+    nib.save(nifti_img, str(valid_nifti_file_path))
+    if return_type == "str":
+        return str(valid_nifti_file_path)
+    elif return_type == "path":
+        return valid_nifti_file_path
+    elif return_type == "object":
+        return nifti_img
+    return None
+
+
+@pytest.mark.parametrize(
+    "valid_nifti_file", [
+        pytest.param({"return_type": "str"}, id="str"),
+        pytest.param({"return_type": "path"}, id="path"),
+        pytest.param({"return_type": "object"}, id="object")
+    ], indirect=True
+)
+def test_load_nifti(valid_nifti_file):
     """Test loading a NIfTI image."""
-    assert False
+    res = images.load_nifti(valid_nifti_file)
+    assert isinstance(res, nib.Nifti1Image)
 
 
 @pytest.mark.xfail
