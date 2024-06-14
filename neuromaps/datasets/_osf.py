@@ -2,7 +2,7 @@
 """Functions for working with data/osf.json file."""
 
 import os
-from pkg_resources import resource_filename
+import importlib.resources
 import json
 
 try:
@@ -27,9 +27,14 @@ REDIR_KEYS = ['space', 'den']
 INFO_KEYS = ['source', 'refs', 'comments', 'demographics']
 
 # distribution JSON
-OSFJSON = resource_filename(
-    'neuromaps', os.path.join('datasets', 'data', 'osf.json')
-)
+
+# temporary fix to be removed by the osf fix
+if getattr(importlib.resources, 'files', None) is not None:
+    OSFJSON = importlib.resources.files("neuromaps") / "datasets/data/osf.json"
+else:
+    from pkg_resources import resource_filename
+    OSFJSON = resource_filename('neuromaps',
+                            os.path.join('datasets', 'data', 'osf.json'))
 
 
 def parse_filename(fname, return_ext=True, verbose=False):

@@ -132,7 +132,7 @@ def load_nifti(img):
     try:
         img = nib.load(img)
     except (TypeError) as err:
-        if not ("os.PathLike" in str(err) and "not Nifti1Image" in str(err)):
+        if not ("os.PathLike" in str(err) and "Nifti1Image" in str(err)):
             raise err
     return img
 
@@ -164,7 +164,7 @@ def load_gifti(img):
         # it's not a pre-loaded GiftiImage so error out
         elif (isinstance(err, TypeError)
               and not (
-                  "os.PathLike" in str(err) and "not GiftiImage" in str(err)
+                  "os.PathLike" in str(err) and "GiftiImage" in str(err)
                   )
               ):
             raise err
@@ -213,7 +213,7 @@ def load_data(data):
         if (isinstance(err, AttributeError)
             or (
                 "os.PathLike" in str(err)
-                and "not Nifti1Image" in str(err)
+                and "Nifti1Image" in str(err)
                 )
            ):
             out = np.stack([load_nifti(img).get_fdata() for img in data],

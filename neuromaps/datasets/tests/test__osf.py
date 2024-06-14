@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """For testing neuromaps.datasets._osf functionality."""
 
-from pkg_resources import resource_filename
+import os
+import importlib.resources
 
 import pytest
 
@@ -22,7 +23,13 @@ def test_parse_fname_list():
 
 def test_parse_json():
     """Test parsing a JSON file."""
-    osf = resource_filename('neuromaps', 'datasets/data/osf.json')
+    # temporary fix to be removed by the osf fix
+    if getattr(importlib.resources, 'files', None) is not None:
+        osf = importlib.resources.files("neuromaps") / "datasets/data/osf.json"
+    else:
+        from pkg_resources import resource_filename
+        osf = resource_filename('neuromaps',
+                                os.path.join('datasets', 'data', 'osf.json'))
     out = _osf.parse_json(osf)
     assert isinstance(out, list) and all(isinstance(i, dict) for i in out)
 

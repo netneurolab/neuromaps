@@ -271,7 +271,7 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     if return_pval:
         # taken from scipy.stats
         ab = (n_obs / 2) - 1
-        prob = 2 * special.btdtr(ab, ab, 0.5 * (1 - np.abs(corr)))
+        prob = 2 * special.betainc(ab, ab, 0.5 * (1 - np.abs(corr)))
 
         return corr, prob
 
