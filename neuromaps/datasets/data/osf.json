@@ -698,6 +698,25 @@
             ]
         },
         {
+            "source": "galovic2021",
+            "desc": "ge179",
+            "space": "MNI152",
+            "res": "1mm",
+            "format": "volume",
+            "fname": "source-galovic2021_desc-ge179_space-MNI152_res-1mm_feature.nii.gz",
+            "rel_path": "galovic2021/ly2795050/MNI152",
+            "checksum": "266466b0d9b4a9c96b2a4096707f2019",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "669020298566c6024172096f"]
+        },
+        {
             "source": "hcps1200",
             "desc": "megalpha",
             "space": "fsLR",
@@ -1218,6 +1237,24 @@
             ]
         },
         {
+            "source": "kim2020",
+            "desc": "ps13",
+            "space": "MNI152",
+            "res": "2mm",
+            "format": "volume",
+            "fname": "source-kim2020_desc-ps13_space-MNI152_res-2mm_feature.nii.gz",
+            "rel_path": "kim2020/ps13/MNI152",
+            "checksum": "fa0ee0e8461a2290ff7a9767eb4a7982",
+            "title": null,
+            "tags": [
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "669020438566c6024e7211c0"]
+        },
+        {
             "source": "laurikainen2018",
             "desc": "fmpepd2",
             "space": "MNI152",
@@ -1236,6 +1273,62 @@
                 "4mw3a",
                 "6196ca7a1088a703e8bcdfd8"
             ]
+        },
+        {
+            "source": "lois2018",
+            "desc": "pbr28",
+            "space": "MNI152",
+            "res": "2mm",
+            "format": "volume",
+            "fname": "source-lois2018_desc-pbr28_space-MNI152_res-2mm_feature.nii.gz",
+            "rel_path": "lois2018/pbr28/MNI152",
+            "checksum": "f5fa4f570a912c68e8bfb55d7537f9c8",
+            "title": null,
+            "tags": [
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "66902031b12638024c361fcf"]
+        },
+        {
+            "source": "lukow2022",
+            "desc": "ro154513",
+            "space": "MNI152",
+            "res": "2mm",
+            "format": "volume",
+            "fname": "source-lukow2022_desc-ro154513_space-MNI152_res-2mm_feature.nii.gz",
+            "rel_path": "lukow2022/ro154513/MNI152",
+            "checksum": "851a8bb81f450e276ad1aec2557399a5",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "66902824f36f7f028fbf4a88"]
+        },
+        {
+            "source": "malen2022",
+            "desc": "raclopride",
+            "space": "MNI152",
+            "res": "2mm",
+            "format": "volume",
+            "fname": "source-malen2022_desc-raclopride_space-MNI152_res-2mm_feature.nii.gz",
+            "rel_path": "malen2022/raclopride/MNI152",
+            "checksum": "dc68f60876c1fa97fd3a41a0cd50ac07",
+            "title": null,
+            "tags": [
+                "receptors",
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6690204a44dc2402248cb51c"]
         },
         {
             "source": "margulies2016",
@@ -2486,6 +2579,24 @@
             "url": [
                 "4mw3a",
                 "6566590ea7a4834be871422b"]
+        },
+        {
+            "source": "wey2016",
+            "desc": "martinostat",
+            "space": "MNI152",
+            "res": "2mm",
+            "format": "volume",
+            "fname": "source-wey2016_desc-martinostat_space-MNI152_res-2mm_feature.nii.gz",
+            "rel_path": "wey2016/martinostat/MNI152",
+            "checksum": "2fde75710590b05af9bbe920d3cbe7f9",
+            "title": null,
+            "tags": [
+                "PET"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6690203a97fcbf0267852295"]
         },
         {
             "source": "xu2020",
