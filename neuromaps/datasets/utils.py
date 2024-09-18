@@ -414,7 +414,7 @@ def _check_meta_json():
         else:
             raise ValueError(f"Invalid format for entry: {entry}")
         # check existence in meta.json
-        print("Checking for missing metadata entries...")
+        # print(f"Checking for missing metadata entries for {meta_id}")
         for meta_entry in NEUROMAPS_META["annotations"]:
             if meta_id == meta_entry["annot"]:
                 break
