@@ -82,10 +82,13 @@ def plot_surf_template(data, template, density, surf='inflated',
             ax.disable_mouse_rotation()
             plot_surf(geom, img, hemi=HEMI[hemi], axes=ax, view=view, **opts)
             poly = ax.collections[0]
-            poly.set_facecolors(
-                _fix_facecolors(ax, poly._original_facecolor,
-                                *geom, view, hemi)
-            )
+            try:
+                poly.set_facecolors(
+                    _fix_facecolors(ax, poly._original_facecolor,
+                                    *geom, view, hemi)
+                )
+            except AttributeError:
+                pass
 
     if not opts.get('colorbar', False):
         fig.tight_layout()
