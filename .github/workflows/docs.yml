@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   deploy_page:
+    if: github.repository_owner == 'netneurolab'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
