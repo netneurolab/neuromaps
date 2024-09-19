@@ -565,7 +565,7 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
             "    # file location",
             f"    # $NEUROMAPS_DATA/{entry['rel_path']}",
             "",
-            "    # file name (for surface data, replace"
+            "    # file name (for surface data, replace "
             "L/R to get the other hemisphere)",
             f"    # {entry['fname']}",
             ""
@@ -576,6 +576,14 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
                 "**Warning**",
                 "",
                 f"{meta_entry['warning']}",
+                ""
+            ]
+
+        if "license" in meta_entry:
+            output += [
+                "**License**: "
+                f"`{meta_entry['license']['type']} "
+                f"<{meta_entry['license']['url']}>`_",
                 ""
             ]
 
