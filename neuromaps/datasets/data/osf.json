@@ -704,7 +704,7 @@
             "res": "1mm",
             "format": "volume",
             "fname": "source-galovic2021_desc-ge179_space-MNI152_res-1mm_feature.nii.gz",
-            "rel_path": "galovic2021/ly2795050/MNI152",
+            "rel_path": "galovic2021/ge179/MNI152",
             "checksum": "266466b0d9b4a9c96b2a4096707f2019",
             "title": null,
             "tags": [

@@ -306,7 +306,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
             "papers if you are using this data:"
         )
         for _id, entry in zip(meta_ids, matched_meta):
-            print(f"  For {_id}:")
+            print(f"\n  For {_id}:")
             for bib_category in ["primary", "secondary"]:
                 print(f"  [{bib_category}]:")
                 for bib_item in entry["refs"][bib_category]:
