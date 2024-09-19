@@ -1542,6 +1542,8 @@ PET tracer binding (Vt) to COX-1 (cyclooxygenase-1)
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-kim2020_desc-ps13_space-MNI152_res-2mm_feature.nii.gz
 
+**License**: `CC0 <https://creativecommons.org/publicdomain/zero/1.0/>`_
+
 **References**
     - Min-Jeong Kim, Jae-Hoon Lee, Fernanda Juarez Anaya, Jinsoo Hong, William Miller, Sanjay Telu, Prachi Singh, Michelle Y Cortes, Katharine Henry, George L Tye, and others. First-in-human evaluation of [11 c] ps13, a novel pet radioligand, to quantify cyclooxygenase-1 in the brain. European journal of nuclear medicine and molecular imaging, 47:3143–3151, 2020.
     - Doug Greve, Paul Wighton, Melanie Ganz, Martin Nørgaard, Paolo Zanotti-Fregonara, Cyril Pernet, Anthony Galassi, Adam Thomas, Nafiseh Ghazanfari, Jeih-San Liow, Granville Matheson, Gitte Knudsen, and Robert Innis. "a pet molecular imaging brain atlas of cyclooxygenase-1 (kim 2021)". 2023. doi:doi:10.18112/openneuro.ds004401.v1.0.1.
@@ -1615,6 +1617,8 @@ PET tracer binding (SUVR) to TSPO (translocator protein)
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-lois2018_desc-pbr28_space-MNI152_res-2mm_feature.nii.gz
 
+**License**: `MIT <https://github.com/hookerlab/huntington-with-pbr28/blob/v1.0.0/LICENSE>`_
+
 **References**
     - Cristina Lois, Iván González, David Izquierdo-García, Nicole R Zürcher, Paul Wilkens, Marco L Loggia, Jacob M Hooker, and H Diana Rosas. Neuroinflammation in huntington’s disease: new insights with 11c-pbr28 pet/mri. ACS chemical neuroscience, 9(11):2563–2571, 2018.
     - Ivan Gonzalez and Cristina Lois. hookerlab/huntington-with-pbr28: ACS Chemical Neuroscience submission. 2018. URL: https://doi.org/10.5281/zenodo.1174364, doi:10.5281/zenodo.1174364.
@@ -1652,6 +1656,8 @@ PET tracer binding (BPnd) to GABAa receptor, alpha5 subunit
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-lukow2022_desc-ro154513_space-MNI152_res-2mm_feature.nii.gz
 
+**License**: `CC BY 4.0 <https://creativecommons.org/licenses/by/4.0/>`_
+
 **References**
     - Paulina Barbara Lukow, Daniel Martins, Mattia Veronese, Anthony Christopher Vernon, Philip McGuire, Federico Edoardo Turkheimer, and Gemma Modinos. Cellular and molecular signatures of in vivo imaging measures of gabaergic neurotransmission in the human brain. Communications Biology, 5(1):372, 2022.
 
@@ -1687,6 +1693,8 @@ PET tracer binding (BPnd) to D2 (dopamine receptor)
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-malen2022_desc-raclopride_space-MNI152_res-2mm_feature.nii.gz
+
+**License**: `CC0 <https://creativecommons.org/publicdomain/zero/1.0/>`_
 
 **References**
     - Tuulia Malén, Tomi Karjalainen, Janne Isojärvi, Aki Vehtari, Paul-Christian Bürkner, Vesa Putkinen, Valtteri Kaasinen, Jarmo Hietala, Pirjo Nuutila, Juha Rinne, and others. Atlas of type 2 dopamine receptors in the human brain: age and sex dependent variability in a large pet cohort. NeuroImage, 255:119149, 2022.
@@ -3143,6 +3151,8 @@ PET tracer binding (SUVR) to class 1 HDAC isoforms 1, 2, and 3 (histone deacetyl
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-wey2016_desc-martinostat_space-MNI152_res-2mm_feature.nii.gz
+
+**License**: `CC0 <https://creativecommons.org/publicdomain/zero/1.0/>`_
 
 **References**
     - Hsiao-Ying Wey, Tonya M Gilbert, Nicole R Zürcher, Angela She, Anisha Bhanot, Brendan D Taillon, Fredrick A Schroeder, Changing Wang, Stephen J Haggarty, and Jacob M Hooker. Insights into neuroepigenetics through human histone deacetylase pet imaging. Science translational medicine, 8(351):351ra106–351ra106, 2016.

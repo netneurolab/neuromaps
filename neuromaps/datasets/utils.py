@@ -579,6 +579,14 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
                 ""
             ]
 
+        if "license" in meta_entry:
+            output += [
+                "**License**: "
+                f"`{meta_entry['license']['type']} "
+                f"<{meta_entry['license']['url']}>`_",
+                ""
+            ]
+
         output.append("**References**")
         for bib_category in ["primary", "secondary"]:
             for bib_item in meta_entry["refs"][bib_category]:

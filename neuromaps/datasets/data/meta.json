@@ -1266,6 +1266,10 @@
             "demographics": {
                 "N": 10,
                 "age": "29.3 +/- 7.2"
+            },
+            "license": {
+                "type": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/"
             }
         },
         {
@@ -1324,6 +1328,10 @@
             "demographics": {
                 "N": 6,
                 "age": "57.8 +/- 8.1"
+            },
+            "license": {
+                "type": "MIT",
+                "url": "https://github.com/hookerlab/huntington-with-pbr28/blob/v1.0.0/LICENSE"
             }
         },
         {
@@ -1351,6 +1359,10 @@
             "demographics": {
                 "N": 10,
                 "age": "25.40 +/- 3.20"
+            },
+            "license": {
+                "type": "CC BY 4.0",
+                "url": "https://creativecommons.org/licenses/by/4.0/"
             }
         },
         {
@@ -1378,6 +1390,10 @@
             "demographics": {
                 "N": 156,
                 "age": "27.76 +/- 9.44"
+            },
+            "license": {
+                "type": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/"
             }
         },
         {
@@ -2491,6 +2507,10 @@
             "demographics": {
                 "N": 8,
                 "age": "28.6 +/- 7.6"
+            },
+            "license": {
+                "type": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/"
             }
         },
         {
