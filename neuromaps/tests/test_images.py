@@ -70,7 +70,7 @@ def dummy_img(request, tmp_path_factory):
 @pytest.mark.parametrize(
     "dummy_img", [
         pytest.param(
-            {"file_type": "nifti", "return_type": _}, 
+            {"file_type": "nifti", "return_type": _},
             id=_
         ) for _ in ["str", "path", "object"]
     ], indirect=True
@@ -84,7 +84,7 @@ def test_load_nifti(dummy_img):
 @pytest.mark.parametrize(
     "dummy_img", [
         pytest.param(
-            {"file_type": "gifti", "return_type": _}, 
+            {"file_type": "gifti", "return_type": _},
             id=_
         ) for _ in ["str", "path", "object"]
     ], indirect=True
