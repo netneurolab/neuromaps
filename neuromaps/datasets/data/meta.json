@@ -731,7 +731,42 @@
             },
             "demographics": {
                 "N": 8,
-                "age": "31.69 +- 8.95"
+                "age": "31.69 +/- 8.95"
+            }
+        },
+        {
+            "annot": {
+                "source": "galovic2021",
+                "desc": "ge179",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to NMDA (glutamate receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Marian Galovic, Adam Al-Diwani, Umesh Vivekananda, Francisco Torrealdea, Kjell Erlandsson, Tim D Fryer, Young T Hong, Benjamin A Thomas, Colm J McGinnity, Evan Edmond, and others. In vivo nmda receptor function in people with nmda receptor antibody encephalitis. medRxiv, pages 2021\u201312, 2021.",
+                        "bibkey": "galovic2021vivo"
+                    },
+                    {
+                        "citation": "Marian Galovic, Kjell Erlandsson, Tim D Fryer, Young T Hong, Roido Manavaki, Hasan Sari, Sarah Chetcuti, Benjamin A Thomas, Martin Fisher, Selena Sephton, and others. Validation of a combined image derived input function and venous sampling approach for the quantification of [18f] ge-179 pet binding in the brain. Neuroimage, 237:118194, 2021.",
+                        "bibkey": "galovic2021validation"
+                    },
+                    {
+                        "citation": "Colm J McGinnity, Alexander Hammers, Daniela A Ria\u00f1o Barros, Sajinder K Luthra, Paul A Jones, William Trigg, Caroline Micallef, Mark R Symms, David J Brooks, Matthias J Koepp, and others. Initial evaluation of 18f-ge-179, a putative pet tracer for activated n-methyl d-aspartate receptors. Journal of Nuclear Medicine, 55(3):423\u2013430, 2014.",
+                        "bibkey": "mcginnity2014initial"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 29,
+                "age": "40.9 +/- 12.7"
             }
         },
         {
@@ -1204,6 +1239,37 @@
         },
         {
             "annot": {
+                "source": "kim2020",
+                "desc": "ps13",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to COX-1 (cyclooxygenase-1)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Min-Jeong Kim, Jae-Hoon Lee, Fernanda Juarez Anaya, Jinsoo Hong, William Miller, Sanjay Telu, Prachi Singh, Michelle Y Cortes, Katharine Henry, George L Tye, and others. First-in-human evaluation of [11 c] ps13, a novel pet radioligand, to quantify cyclooxygenase-1 in the brain. European journal of nuclear medicine and molecular imaging, 47:3143\u20133151, 2020.",
+                        "bibkey": "kim2020first"
+                    },
+                    {
+                        "citation": "Doug Greve, Paul Wighton, Melanie Ganz, Martin N\u00f8rgaard, Paolo Zanotti-Fregonara, Cyril Pernet, Anthony Galassi, Adam Thomas, Nafiseh Ghazanfari, Jeih-San Liow, Granville Matheson, Gitte Knudsen, and Robert Innis. \"a pet molecular imaging brain atlas of cyclooxygenase-1 (kim 2021)\". 2023. doi:doi:10.18112/openneuro.ds004401.v1.0.1.",
+                        "bibkey": "ds004401:1.0.1"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 10,
+                "age": "29.3 +/- 7.2"
+            }
+        },
+        {
+            "annot": {
                 "source": "laurikainen2018",
                 "desc": "fmpepd2",
                 "space": "MNI152",
@@ -1227,6 +1293,91 @@
             "demographics": {
                 "N": 22,
                 "age": "27.5 +/- 8.05"
+            }
+        },
+        {
+            "annot": {
+                "source": "lois2018",
+                "desc": "pbr28",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to TSPO (translocator protein)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Cristina Lois, Iva\u0301n Gonza\u0301lez, David Izquierdo-Garc\u00eda, Nicole R Zu\u0308rcher, Paul Wilkens, Marco L Loggia, Jacob M Hooker, and H Diana Rosas. Neuroinflammation in huntington\u2019s disease: new insights with 11c-pbr28 pet/mri. ACS chemical neuroscience, 9(11):2563\u20132571, 2018.",
+                        "bibkey": "lois2018neuroinflammation"
+                    },
+                    {
+                        "citation": "Ivan Gonzalez and Cristina Lois. hookerlab/huntington-with-pbr28: ACS Chemical Neuroscience submission. 2018. URL: https://doi.org/10.5281/zenodo.1174364, doi:10.5281/zenodo.1174364.",
+                        "bibkey": "ivangonzalez2018zenodo1174364"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 6,
+                "age": "57.8 +/- 8.1"
+            }
+        },
+        {
+            "annot": {
+                "source": "lukow2022",
+                "desc": "ro154513",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to GABAa receptor, alpha5 subunit",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Paulina Barbara Lukow, Daniel Martins, Mattia Veronese, Anthony Christopher Vernon, Philip McGuire, Federico Edoardo Turkheimer, and Gemma Modinos. Cellular and molecular signatures of in vivo imaging measures of gabaergic neurotransmission in the human brain. Communications Biology, 5(1):372, 2022.",
+                        "bibkey": "lukow2022cellular"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 10,
+                "age": "25.40 +/- 3.20"
+            }
+        },
+        {
+            "annot": {
+                "source": "malen2022",
+                "desc": "raclopride",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D2 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Tuulia Mal\u00e9n, Tomi Karjalainen, Janne Isoj\u00e4rvi, Aki Vehtari, Paul-Christian B\u00fcrkner, Vesa Putkinen, Valtteri Kaasinen, Jarmo Hietala, Pirjo Nuutila, Juha Rinne, and others. Atlas of type 2 dopamine receptors in the human brain: age and sex dependent variability in a large pet cohort. NeuroImage, 255:119149, 2022.",
+                        "bibkey": "malen2022atlas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 156,
+                "age": "27.76 +/- 9.44"
             }
         },
         {
@@ -2313,6 +2464,33 @@
             "demographics": {
                 "N": 28,
                 "age": "33.5 +/- 11.3"
+            }
+        },
+        {
+            "annot": {
+                "source": "wey2016",
+                "desc": "martinostat",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to class 1 HDAC isoforms 1, 2, and 3 (histone deacetylase)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Hsiao-Ying Wey, Tonya M Gilbert, Nicole R Z\u00fcrcher, Angela She, Anisha Bhanot, Brendan D Taillon, Fredrick A Schroeder, Changing Wang, Stephen J Haggarty, and Jacob M Hooker. Insights into neuroepigenetics through human histone deacetylase pet imaging. Science translational medicine, 8(351):351ra106\u2013351ra106, 2016.",
+                        "bibkey": "wey2016insights"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 8,
+                "age": "28.6 +/- 7.6"
             }
         },
         {
