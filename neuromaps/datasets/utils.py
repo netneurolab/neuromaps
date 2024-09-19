@@ -166,9 +166,10 @@ def _load_resource_json(relative_path):
     return resource_json
 
 
-NEUROMAPS_DATASETS = _load_resource_json('datasets/data/osf.json')
-NEUROMAPS_DATASETS = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=True)
-NEUROMAPS_DATASETS_PUBLIC = _osfify_urls(NEUROMAPS_DATASETS, return_restricted=False)
+NEUROMAPS_DATASETS = _osfify_urls(
+    _load_resource_json('datasets/data/osf.json'), return_restricted=True)
+NEUROMAPS_DATASETS_PUBLIC = _osfify_urls(
+    _load_resource_json('datasets/data/osf.json'), return_restricted=False)
 
 
 def get_dataset_info(name, return_restricted=True):
