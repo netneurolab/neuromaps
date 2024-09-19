@@ -146,7 +146,11 @@
                 "N": 36,
                 "age": "27.8 +/- 6.9"
             },
-            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data."
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
         },
         {
             "annot": {
@@ -173,6 +177,10 @@
             "demographics": {
                 "N": 36,
                 "age": "27.8 +/- 6.9"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
             }
         },
         {
@@ -201,7 +209,11 @@
                 "N": 29,
                 "age": "22.6 +/- 2.7"
             },
-            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data."
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
         },
         {
             "annot": {
@@ -228,6 +240,10 @@
             "demographics": {
                 "N": 29,
                 "age": "22.6 +/- 2.7"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
             }
         },
         {
@@ -256,7 +272,11 @@
                 "N": 8,
                 "age": "28.4 +/- 8.8"
             },
-            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data."
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
         },
         {
             "annot": {
@@ -283,6 +303,10 @@
             "demographics": {
                 "N": 8,
                 "age": "28.4 +/- 8.8"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
             }
         },
         {
@@ -311,7 +335,11 @@
                 "N": 100,
                 "age": "25.1 +/- 5.8"
             },
-            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data."
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
         },
         {
             "annot": {
@@ -338,6 +366,10 @@
             "demographics": {
                 "N": 100,
                 "age": "25.1 +/- 5.8"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
             }
         },
         {
@@ -366,7 +398,11 @@
                 "N": 59,
                 "age": "25.9 +/- 5.3"
             },
-            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data."
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
         },
         {
             "annot": {
@@ -393,6 +429,10 @@
             "demographics": {
                 "N": 59,
                 "age": "25.9 +/- 5.3"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
             }
         },
         {
@@ -1777,7 +1817,11 @@
                 "N": 16,
                 "age": "26.6 +/- 8"
             },
-            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data."
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
         },
         {
             "annot": {
@@ -1804,6 +1848,10 @@
             "demographics": {
                 "N": 16,
                 "age": "26.6 +/- 8"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
             }
         },
         {
