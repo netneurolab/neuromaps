@@ -859,7 +859,7 @@ gallezot2017-gsk189254-MNI152-1mm
 
 PET tracer binding (Vt) to H3 (histamine receptor)
 
-**Demographics**: N = 8, Age = 31.69 +- 8.95
+**Demographics**: N = 8, Age = 31.69 +/- 8.95
 
 **Tags**: receptors, PET
 
@@ -883,6 +883,45 @@ PET tracer binding (Vt) to H3 (histamine receptor)
     - Jean-Dominique Gallezot, Nabeel Nabulsi, Alexander Neumeister, Beata Planeta-Wilson, Wendol A Williams, Tarun Singhal, Sunhee Kim, R Paul Maguire, Timothy McCarthy, J James Frost, and others. Kinetic modeling of the serotonin 5-ht1b receptor radioligand [11c] p943 in humans. Journal of Cerebral Blood Flow & Metabolism, 30(1):196–210, 2010.
     - Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin Nørgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, Étienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569–1581, 2022.
     - Sharon Ashworth, Eugenii A Rabiner, Roger N Gunn, Christophe Plisson, Alan A Wilson, Robert A Comley, Robert YK Lai, Antony D Gee, Marc Laruelle, and Vincent J Cunningham. Evaluation of 11c-gsk189254 as a novel radioligand for the h3 receptor in humans using pet. Journal of Nuclear Medicine, 51(7):1021–1029, 2010.
+
+----
+
+galovic2021-ge179-MNI152-1mm
+============================
+
+**Annotation identifier**
+
+*{'source': 'galovic2021', 'desc': 'ge179', 'space': 'MNI152', 'res': '1mm'}*
+
+**Full description**
+
+PET tracer binding (Vt) to NMDA (glutamate receptor)
+
+**Demographics**: N = 29, Age = 40.9 +/- 12.7
+
+**Tags**: receptors, PET
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='galovic2021', desc='ge179', space='MNI152', res='1mm')
+
+    # describe annotation
+    describe_annotations(('galovic2021', 'ge179', 'MNI152', '1mm'))
+
+    # file location
+    # $NEUROMAPS_DATA/galovic2021/ge179/MNI152
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-galovic2021_desc-ge179_space-MNI152_res-1mm_feature.nii.gz
+
+**References**
+    - Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin Nørgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, Étienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569–1581, 2022.
+    - Marian Galovic, Adam Al-Diwani, Umesh Vivekananda, Francisco Torrealdea, Kjell Erlandsson, Tim D Fryer, Young T Hong, Benjamin A Thomas, Colm J McGinnity, Evan Edmond, and others. In vivo nmda receptor function in people with nmda receptor antibody encephalitis. medRxiv, pages 2021–12, 2021.
+    - Marian Galovic, Kjell Erlandsson, Tim D Fryer, Young T Hong, Roido Manavaki, Hasan Sari, Sarah Chetcuti, Benjamin A Thomas, Martin Fisher, Selena Sephton, and others. Validation of a combined image derived input function and venous sampling approach for the quantification of [18f] ge-179 pet binding in the brain. Neuroimage, 237:118194, 2021.
+    - Colm J McGinnity, Alexander Hammers, Daniela A Riaño Barros, Sajinder K Luthra, Paul A Jones, William Trigg, Caroline Micallef, Mark R Symms, David J Brooks, Matthias J Koepp, and others. Initial evaluation of 18f-ge-179, a putative pet tracer for activated n-methyl d-aspartate receptors. Journal of Nuclear Medicine, 55(3):423–430, 2014.
 
 ----
 
@@ -1472,6 +1511,43 @@ PET tracer binding (BPnd) to MOR (mu-opioid receptor)
 
 ----
 
+kim2020-ps13-MNI152-2mm
+=======================
+
+**Annotation identifier**
+
+*{'source': 'kim2020', 'desc': 'ps13', 'space': 'MNI152', 'res': '2mm'}*
+
+**Full description**
+
+PET tracer binding (Vt) to COX-1 (cyclooxygenase-1)
+
+**Demographics**: N = 10, Age = 29.3 +/- 7.2
+
+**Tags**: PET
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='kim2020', desc='ps13', space='MNI152', res='2mm')
+
+    # describe annotation
+    describe_annotations(('kim2020', 'ps13', 'MNI152', '2mm'))
+
+    # file location
+    # $NEUROMAPS_DATA/kim2020/ps13/MNI152
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-kim2020_desc-ps13_space-MNI152_res-2mm_feature.nii.gz
+
+**References**
+    - Min-Jeong Kim, Jae-Hoon Lee, Fernanda Juarez Anaya, Jinsoo Hong, William Miller, Sanjay Telu, Prachi Singh, Michelle Y Cortes, Katharine Henry, George L Tye, and others. First-in-human evaluation of [11 c] ps13, a novel pet radioligand, to quantify cyclooxygenase-1 in the brain. European journal of nuclear medicine and molecular imaging, 47:3143–3151, 2020.
+    - Doug Greve, Paul Wighton, Melanie Ganz, Martin Nørgaard, Paolo Zanotti-Fregonara, Cyril Pernet, Anthony Galassi, Adam Thomas, Nafiseh Ghazanfari, Jeih-San Liow, Granville Matheson, Gitte Knudsen, and Robert Innis. "a pet molecular imaging brain atlas of cyclooxygenase-1 (kim 2021)". 2023. doi:doi:10.18112/openneuro.ds004401.v1.0.1.
+
+----
+
 laurikainen2018-fmpepd2-MNI152-1mm
 ==================================
 
@@ -1505,6 +1581,115 @@ PET tracer binding (Vt) to CB1 (cannabinoid receptor)
 
 **References**
     - Heikki Laurikainen, Lauri Tuominen, Maria Tikka, Harri Merisaari, Reetta-Liina Armio, Elina Sormunen, Faith Borgan, Mattia Veronese, Oliver Howes, Merja Haaparanta-Solin, and others. Sex difference in brain cb1 receptor availability in man. Neuroimage, 184:834–842, 2019.
+
+----
+
+lois2018-pbr28-MNI152-2mm
+=========================
+
+**Annotation identifier**
+
+*{'source': 'lois2018', 'desc': 'pbr28', 'space': 'MNI152', 'res': '2mm'}*
+
+**Full description**
+
+PET tracer binding (SUVR) to TSPO (translocator protein)
+
+**Demographics**: N = 6, Age = 57.8 +/- 8.1
+
+**Tags**: PET
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='lois2018', desc='pbr28', space='MNI152', res='2mm')
+
+    # describe annotation
+    describe_annotations(('lois2018', 'pbr28', 'MNI152', '2mm'))
+
+    # file location
+    # $NEUROMAPS_DATA/lois2018/pbr28/MNI152
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-lois2018_desc-pbr28_space-MNI152_res-2mm_feature.nii.gz
+
+**References**
+    - Cristina Lois, Iván González, David Izquierdo-García, Nicole R Zürcher, Paul Wilkens, Marco L Loggia, Jacob M Hooker, and H Diana Rosas. Neuroinflammation in huntington’s disease: new insights with 11c-pbr28 pet/mri. ACS chemical neuroscience, 9(11):2563–2571, 2018.
+    - Ivan Gonzalez and Cristina Lois. hookerlab/huntington-with-pbr28: ACS Chemical Neuroscience submission. 2018. URL: https://doi.org/10.5281/zenodo.1174364, doi:10.5281/zenodo.1174364.
+
+----
+
+lukow2022-ro154513-MNI152-2mm
+=============================
+
+**Annotation identifier**
+
+*{'source': 'lukow2022', 'desc': 'ro154513', 'space': 'MNI152', 'res': '2mm'}*
+
+**Full description**
+
+PET tracer binding (BPnd) to GABAa receptor, alpha5 subunit
+
+**Demographics**: N = 10, Age = 25.40 +/- 3.20
+
+**Tags**: receptors, PET
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='lukow2022', desc='ro154513', space='MNI152', res='2mm')
+
+    # describe annotation
+    describe_annotations(('lukow2022', 'ro154513', 'MNI152', '2mm'))
+
+    # file location
+    # $NEUROMAPS_DATA/lukow2022/ro154513/MNI152
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-lukow2022_desc-ro154513_space-MNI152_res-2mm_feature.nii.gz
+
+**References**
+    - Paulina Barbara Lukow, Daniel Martins, Mattia Veronese, Anthony Christopher Vernon, Philip McGuire, Federico Edoardo Turkheimer, and Gemma Modinos. Cellular and molecular signatures of in vivo imaging measures of gabaergic neurotransmission in the human brain. Communications Biology, 5(1):372, 2022.
+
+----
+
+malen2022-raclopride-MNI152-2mm
+===============================
+
+**Annotation identifier**
+
+*{'source': 'malen2022', 'desc': 'raclopride', 'space': 'MNI152', 'res': '2mm'}*
+
+**Full description**
+
+PET tracer binding (BPnd) to D2 (dopamine receptor)
+
+**Demographics**: N = 156, Age = 27.76 +/- 9.44
+
+**Tags**: receptors, PET
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='malen2022', desc='raclopride', space='MNI152', res='2mm')
+
+    # describe annotation
+    describe_annotations(('malen2022', 'raclopride', 'MNI152', '2mm'))
+
+    # file location
+    # $NEUROMAPS_DATA/malen2022/raclopride/MNI152
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-malen2022_desc-raclopride_space-MNI152_res-2mm_feature.nii.gz
+
+**References**
+    - Tuulia Malén, Tomi Karjalainen, Janne Isojärvi, Aki Vehtari, Paul-Christian Bürkner, Vesa Putkinen, Valtteri Kaasinen, Jarmo Hietala, Pirjo Nuutila, Juha Rinne, and others. Atlas of type 2 dopamine receptors in the human brain: age and sex dependent variability in a large pet cohort. NeuroImage, 255:119149, 2022.
 
 ----
 
@@ -2925,6 +3110,42 @@ PET tracer binding (Vt) to KOR (kappa-opioid receptor)
 
 **References**
     - Aishwarya Vijay, Dana Cavallo, Alissa Goldberg, Bart de Laat, Nabeel Nabulsi, Yiyun Huang, Suchitra Krishnan-Sarin, and Evan D Morris. Pet imaging reveals lower kappa opioid receptor availability in alcoholics but no effect of age. Neuropsychopharmacology, 43(13):2539–2547, 2018.
+
+----
+
+wey2016-martinostat-MNI152-2mm
+==============================
+
+**Annotation identifier**
+
+*{'source': 'wey2016', 'desc': 'martinostat', 'space': 'MNI152', 'res': '2mm'}*
+
+**Full description**
+
+PET tracer binding (SUVR) to class 1 HDAC isoforms 1, 2, and 3 (histone deacetylase)
+
+**Demographics**: N = 8, Age = 28.6 +/- 7.6
+
+**Tags**: PET
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wey2016', desc='martinostat', space='MNI152', res='2mm')
+
+    # describe annotation
+    describe_annotations(('wey2016', 'martinostat', 'MNI152', '2mm'))
+
+    # file location
+    # $NEUROMAPS_DATA/wey2016/martinostat/MNI152
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wey2016_desc-martinostat_space-MNI152_res-2mm_feature.nii.gz
+
+**References**
+    - Hsiao-Ying Wey, Tonya M Gilbert, Nicole R Zürcher, Angela She, Anisha Bhanot, Brendan D Taillon, Fredrick A Schroeder, Changing Wang, Stephen J Haggarty, and Jacob M Hooker. Insights into neuroepigenetics through human histone deacetylase pet imaging. Science translational medicine, 8(351):351ra106–351ra106, 2016.
 
 ----
 

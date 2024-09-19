@@ -565,7 +565,7 @@ def _gen_doc_listofmaps_rst(listofmaps_file):
             "    # file location",
             f"    # $NEUROMAPS_DATA/{entry['rel_path']}",
             "",
-            "    # file name (for surface data, replace"
+            "    # file name (for surface data, replace "
             "L/R to get the other hemisphere)",
             f"    # {entry['fname']}",
             ""
