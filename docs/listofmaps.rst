@@ -189,6 +189,8 @@ PET tracer binding (Bmax) to 5-HT1b (serotonin receptor)
 
 This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.
 
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
 
@@ -224,6 +226,8 @@ PET tracer binding (Bmax) to 5-HT1b (serotonin receptor)
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-beliveau2017_desc-az10419369_space-fsaverage_den-164k_hemi-L_feature.func.gii
+
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
 
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
@@ -265,6 +269,8 @@ PET tracer binding (Bmax) to 5-HT2a (serotonin receptor)
 
 This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.
 
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
 
@@ -300,6 +306,8 @@ PET tracer binding (Bmax) to 5-HT2a (serotonin receptor)
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-beliveau2017_desc-cimbi36_space-fsaverage_den-164k_hemi-L_feature.func.gii
+
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
 
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
@@ -341,6 +349,8 @@ PET tracer binding (Bmax) to 5-HT1a (serotonin receptor)
 
 This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.
 
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
 
@@ -376,6 +386,8 @@ PET tracer binding (Bmax) to 5-HT1a (serotonin receptor)
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-beliveau2017_desc-cumi101_space-fsaverage_den-164k_hemi-L_feature.func.gii
+
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
 
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
@@ -417,6 +429,8 @@ PET tracer binding (Bmax) to 5-HTT (serotonin transporter)
 
 This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.
 
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
 
@@ -452,6 +466,8 @@ PET tracer binding (Bmax) to 5-HTT (serotonin transporter)
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-beliveau2017_desc-dasb_space-fsaverage_den-164k_hemi-L_feature.func.gii
+
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
 
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
@@ -493,6 +509,8 @@ PET tracer binding (Bmax) to 5-HT4 (serotonin receptor)
 
 This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.
 
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
 
@@ -528,6 +546,8 @@ PET tracer binding (Bmax) to 5-HT4 (serotonin receptor)
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-beliveau2017_desc-sb207145_space-fsaverage_den-164k_hemi-L_feature.func.gii
+
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
 
 **References**
     - Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte Højgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120–128, 2017.
@@ -2206,6 +2226,8 @@ PET and autoradiography informed GABAa benzodiazepine binding-site density (Bmax
 
 This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.
 
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
+
 **References**
     - Martin Nørgaard, Vincent Beliveau, Melanie Ganz, Claus Svarer, Lars H Pinborg, Sune H Keller, Peter S Jensen, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's benzodiazepine binding site of gabaa receptors. NeuroImage, 232:117878, 2021.
 
@@ -2241,6 +2263,8 @@ PET and autoradiography informed GABAa benzodiazepine binding-site density (Bmax
 
     # file name (for surface data, replace L/R to get the other hemisphere)
     # source-norgaard2021_desc-flumazenil_space-fsaverage_den-164k_hemi-L_feature.func.gii
+
+**License**: `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`_
 
 **References**
     - Martin Nørgaard, Vincent Beliveau, Melanie Ganz, Claus Svarer, Lars H Pinborg, Sune H Keller, Peter S Jensen, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's benzodiazepine binding site of gabaa receptors. NeuroImage, 232:117878, 2021.
