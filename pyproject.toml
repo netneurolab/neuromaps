@@ -32,7 +32,7 @@ dynamic=["version"]
 
 [project.optional-dependencies]
 doc = [
-  "sphinx >=2.0, <7.0.0",
+  "sphinx >=2.0",
   "sphinx_rtd_theme",
   "sphinx-gallery"
 ]
@@ -58,8 +58,14 @@ test = [
 requires = ["setuptools", "versioneer[toml]"]
 build-backend = "setuptools.build_meta"
 
+[tool.setuptools]
+include-package-data = true
+
 [tool.setuptools.packages]
 find = {}
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.bib"]
 
 [tool.setuptools.dynamic]
 version = {attr = "neuromaps.__version__"}
@@ -84,11 +90,10 @@ exclude = [
 target-version = "py38"
 
 [tool.ruff.lint]
-select = ["E", "F", "B", "D", "NPY"]
+select = ["E", "F", "B", "W", "D", "NPY"]
 ignore = [
-    "E402"
+    "E402"  # Module level import not at top of cell
 ]
-extend-select = ["E302"]
 preview = true
 
 [tool.ruff.lint.pydocstyle]
@@ -110,5 +115,5 @@ omit = [
 ]
 
 [tool.codespell]
-skip = '.git,*.pdf,*.svg,versioneer.py'
+skip = '.git,*.pdf,*.svg,versioneer.py,*.json,*.bib,./docs/listofmaps.rst'
 # ignore-words-list = ''

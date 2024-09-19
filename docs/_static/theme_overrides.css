@@ -15,3 +15,8 @@
 .headerlink::after {
     font-size: 0px;
 }
+
+/* https://stackoverflow.com/questions/56195758/different-maxdepth-for-specific-entries-in-toctree-sphinx */
+.rst-content .toctree-wrapper:not(:last-child) ul {
+   margin-bottom: 12px;
+}

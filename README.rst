@@ -30,6 +30,8 @@ Documentation can be found `here <https://netneurolab.github.io/neuromaps/>`_.
 
 The accompanying paper is published in `Nature Methods <https://www.nature.com/articles/s41592-022-01625-w>`_ (`postprint <https://github.com/netneurolab/neuromaps/blob/main/markello2022natmethods.pdf>`_).
 
+Check all the brain maps we have `here <https://netneurolab.github.io/neuromaps/listofmaps.html>`_!
+
 Features
 --------
 
@@ -66,14 +68,17 @@ order to use most of the transformation / resampling functionality of
 Citation
 --------
 
-If you use the ``neuromaps`` toolbox, please cite our `paper <https://www.nature.com/articles/s41592-022-01625-w>`_.
 **Importantly**, ``neuromaps`` implements and builds on tools that have been previously developed, and we redistribute data that was acquired elsewhere.
-Please be sure to cite the appropriate literature when using ``neuromaps``, which we detail below.
+If you use the ``neuromaps`` toolbox, please ensure proper attribution of the original data sources. Here's a quick checklist:
 
-- If you use volume-to-surface transformations (registration fusion), please cite `Buckner et al 2011 <https://journals.physiology.org/doi/full/10.1152/jn.00339.2011>`_ (original proposition) and `Wu et al 2018 <https://onlinelibrary.wiley.com/doi/10.1002/hbm.24213>`_ (first implementation of MNI152 to fsaverage transformation).
-- If you use surface-to-surface transformations (multimodal surface matching), please cite `Robinson et al 2014 <https://www.sciencedirect.com/science/article/pii/S1053811914004546?via%3Dihub>`_ and `Robinson et al 2018 <https://www.sciencedirect.com/science/article/pii/S1053811917308649?via%3Dihub>`_.
-- If you use data included in ``neuromaps``, please cite the the original papers that publish the data. A table with references for each brain annotation can be found in our `wiki <https://github.com/netneurolab/neuromaps/wiki>`_, or more specifically, at `this <https://docs.google.com/spreadsheets/d/1oZecOsvtQEh5pQkIf8cB6CyhPKVrQuko/edit?rtpof=true&sd=true#gid=1162991686>`_ link.
-- If you use the spatial null models, there is an associated citation with each type of null model. They can be found in the docstring of the function, and also the `full list <https://netneurolab.github.io/neuromaps/api.html#module-neuromaps.nulls>`_ of functions.
+- Cite the ``neuromaps`` `paper <https://www.nature.com/articles/s41592-022-01625-w>`_.
+- Cite the original papers that publish the data you are using. A complete list with references for each brain annotation can be found `in the documentation <https://netneurolab.github.io/neuromaps/listofmaps.html>`_, or `in this Google Sheet <https://docs.google.com/spreadsheets/d/1oZecOsvtQEh5pQkIf8cB6CyhPKVrQuko/edit?rtpof=true&sd=true#gid=1162991686>`_. We also provide a standalone bibliography file and a helper function to generate the citations.
+- Cite the transformations used
+
+  - Volume-to-surface transformations (registration fusion): `Buckner et al 2011 <https://journals.physiology.org/doi/full/10.1152/jn.00339.2011>`_ (original proposition) and `Wu et al 2018 <https://onlinelibrary.wiley.com/doi/10.1002/hbm.24213>`_ (first implementation of MNI152 to fsaverage transformation).
+  - Surface-to-surface transformations (multimodal surface matching): `Robinson et al 2014 <https://www.sciencedirect.com/science/article/pii/S1053811914004546>`_ and `Robinson et al 2018 <https://www.sciencedirect.com/science/article/pii/S1053811917308649>`_.
+
+- Cite the spatial null models used (see API documentation)
 
 License information
 -------------------
