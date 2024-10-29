@@ -11,8 +11,12 @@ significance of the association between the tested maps. Enter: the
 
 This module provides access to a variety of null models that can be used to
 generate "null" brain maps that retain aspects of the spatial autocorrelation
-of the original brain maps. (For a review of these models refer to `Markello &
-Misic, 2021, NeuroImage <https://doi.org/10.1016/j.neuroimage.2021.118052>`_.)
+of the original brain maps. 
+
+For a review of these models, please refer to
+`Markello & Misic, 2021, NeuroImage <https://doi.org/10.1016/j.neuroimage.2021.118052>`_.
+We also recommend watching  `this recorded session <https://www.youtube.com/watch?v=6DjpNddINZ8>`_
+from the OHBM 2024 Educational Course if you are new to this topic.
 
 There are four available null models that can be used with voxel- and
 vertex-wise data and eight null models that can be used with parcellated data.
