@@ -197,7 +197,7 @@ considerations. While the function supports both voxelwise and parcellated analy
 processing high-resolution volumetric data (especially at 1mm or 2mm resolution) can
 be **extremely** demanding. The calculations for voxelwise data can take several days
 to complete even on high-performance computing nodes, and may require hundreds of GBs
-of temporary storage space. This is an inherent limitation of the oirginal model that
+of temporary storage space. This is an inherent limitation of the original model that
 currently has no immediate workaround (see `BrainSMASH <https://github.com/murraylab/brainsmash>`_).
 We welcome any suggestions for improving this method's computational efficiency and
 performance.
