@@ -28,18 +28,15 @@ to make sure it is properly installed.
 Basic installation
 ==================
 
-This package requires Python 3.7+. Assuming you have the correct version of
-Python installed, you can install ``neuromaps`` by opening a terminal and
-running the following:
+Currently, ``neuromaps`` works with Python 3.8+.
+You can install stable versions of ``neuromaps`` from PyPI with ``pip install neuromaps``.
+However, we recommend installing from the source repository to get the latest features and bug fixes.
 
-.. .. code-block:: bash
-
-..     pip install neuromaps
-
-.. Alternatively, you can install the most up-to-date version of from GitHub:
+You can install ``neuromaps`` from the source repository with ``pip install git+https://github.com/netneurolab/neuromaps.git``
+or by cloning the repository and installing from the local directory:
 
 .. code-block:: bash
 
-   git clone https://github.com/netneurolab/neuromaps.git
-   cd neuromaps
-   pip install .
+    git clone https://github.com/netneurolab/neuromaps
+    cd neuromaps
+    pip install .
