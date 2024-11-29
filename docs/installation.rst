@@ -37,6 +37,6 @@ or by cloning the repository and installing from the local directory:
 
 .. code-block:: bash
 
-    git clone https://github.com/netneurolab/neuromaps
-    cd neuromaps
-    pip install .
+   git clone https://github.com/netneurolab/neuromaps.git
+   cd neuromaps
+   pip install .
