@@ -285,7 +285,7 @@ def fetch_annotation(*, source=None, desc=None, space=None, den=None, res=None,
     for dset in info:
         fn = Path(data_dir) / 'annotations' / dset['rel_path'] / dset['fname']
         if not fn.exists():
-            dl_file = _fetch_file(dset['url'], str(fn.parent), verbose=verbose,
+            dl_file = _fetch_file(dset['url'], fn.parent, verbose=verbose,
                                   md5sum=dset['checksum'], session=session)
             shutil.move(dl_file, fn)
         data.append(str(fn))
