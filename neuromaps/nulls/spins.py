@@ -516,8 +516,8 @@ def parcels_to_vertices(data, parcellation):
     parcellation : tuple-of-str or os.PathLike
         Filepaths to parcellation images to project `data` to vertices
 
-    Reurns
-    ------
+    Returns
+    -------
     projected : numpy.ndarray
         Vertex-level data
     """
