@@ -15,7 +15,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -45,7 +45,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
       - name: Display Python version
@@ -74,12 +74,8 @@ jobs:
           python -c "from neuromaps import parcellate; from neuromaps.datasets import available_annotations"
       - name: Run tests
         run: pytest --doctest-modules --cov=neuromaps --cov-report=xml --junitxml=junit/test-results.xml --verbose --pyargs neuromaps
-      - uses: codecov/codecov-action@v3
-        with:
-          files: ./coverage.xml
-          verbose: true
       - name: Upload pytest test results
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: pytest-results-${{ matrix.os }}-${{ matrix.python-version }}
           path: junit/test-results.xml

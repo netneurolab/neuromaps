@@ -20,7 +20,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.8
       - name: Install dependencies
@@ -39,8 +39,8 @@ jobs:
         run: |
           cd docs && make clean html
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
             path: 'docs/_build/html'
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
