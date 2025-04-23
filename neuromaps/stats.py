@@ -278,51 +278,14 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     return corr
 
 
-def _sw_nest_enrich_score(L, network_ind, one_sided=True):
-    """
-    Calculate the network enrichment score for a given statistic.
-
-    Parameters
-    ----------
-    L : array_like, shape (n_vertices,)
-        Statistics
-    network_ind : array_like, shape (n_vertices,)
-        Network indicator, where 1 indicates membership in the network of
-        interest and 0 otherwise.
-    one_sided : bool, optional
-        Whether to perform a one-sided test. Default: True
-
-    Returns
-    -------
-    enrich_score : float
-        Network enrichment score
-    """
-    L_order = np.argsort(L)[::-1]
-    L_sorted = L[L_order]
-    network_ind_sorted = network_ind[L_order]
-
-    if one_sided:
-        L_sorted_abs = np.abs(L_sorted)
-        P_hit_numerator = np.cumsum(L_sorted_abs * network_ind_sorted)
-    else:
-        P_hit_numerator = np.cumsum(network_ind_sorted)
-    P_hit = P_hit_numerator / P_hit_numerator[-1]
-
-    P_miss_numerator = np.cumsum(1 - network_ind_sorted)
-    P_miss = P_miss_numerator / P_miss_numerator[-1]
-
-    running_sum = P_hit - P_miss
-    enrich_score = np.max(np.abs(running_sum))
-
-    return enrich_score
-
-
 def sw_nest(stat_emp, stat_perm, network_ind, one_sided=True):
     """
     Network Enrichment Significance Testing (NEST) from Weinstein et al., 2024.
 
     Check `original implementation <https://github.com/smweinst/NEST>`_ for more
     details.
+
+    This is a wrapper for the netneurotools implementation.
 
     Parameters
     ----------
@@ -352,8 +315,48 @@ def sw_nest(stat_emp, stat_perm, network_ind, one_sided=True):
        https://doi.org/10.1002/hbm.26714
 
     """
-    es_emp = _sw_nest_enrich_score(stat_emp, network_ind, one_sided=one_sided)
-    es_perm = np.array([
-        _sw_nest_enrich_score(s, network_ind, one_sided=one_sided) for s in stat_perm
-    ])
-    return (1 + np.sum(es_perm > es_emp)) / (1 + len(es_perm))
+    try:
+        from netneurotools.stats import sw_nest
+    except ImportError:
+        raise ImportError('netneurotools is required for this function. ') from None
+
+    return sw_nest(stat_emp, stat_perm, network_ind, one_sided=one_sided)
+
+
+def sw_spice(X, Y, n_perm=10000, rng=None):
+    """
+    Simple Permutation-based Intermodal Correspondence (SPICE) from Weinstein et al., 2021.
+
+    Check `original implementation <https://github.com/smweinst/spice_test>`_ for more details.
+    
+    This is a wrapper for the netneurotools implementation. 
+    
+    Parameters
+    ----------
+    X : array_like, shape (n_subjects, n_features)
+        Data matrix for the first modality
+    Y : array_like, shape (n_subjects, n_features)
+        Data matrix for the second modality
+    n_perm : int, optional
+        Number of permutations to assess. Default: 10000
+    rng : {int, np.random.Generator, np.random.RandomState}, optional
+        Random number generator. Default: None
+    
+    Returns
+    -------
+    p : float
+        Significance level
+    
+    References
+    ----------
+    .. [1] Weinstein, S. M., Vandekar, S. N., Adebimpe, A., Tapera, T. M.,
+        Robert‐Fitzgerald, T., Gur, R. C., ... & Shinohara, R. T. (2021). A
+        simple permutation‐based test of intermodal correspondence. Human brain
+        mapping, 42(16), 5175-5187.
+    """  # noqa E501
+    try:
+        from netneurotools.stats import sw_spice
+    except ImportError:
+        raise ImportError('netneurotools is required for this function. ') from None
+
+    return sw_spice(X, Y, n_perm=n_perm, rng=rng)
