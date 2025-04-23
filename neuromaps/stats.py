@@ -323,6 +323,72 @@ def sw_nest(stat_emp, stat_perm, network_ind, one_sided=True):
     return sw_nest(stat_emp, stat_perm, network_ind, one_sided=one_sided)
 
 
+def sw_nest_perm_ols(
+    observed_vars,  # (N, P)
+    predictor_vars,  # (N,) or (N, 1)
+    covariate_vars=None,  # (N,) or (N, C)
+    freedman_lane=False,
+    n_perm=1000,
+    rng=None
+):
+    """
+    Network Enrichment Significance Testing (NEST) from Weinstein et al., 2024.
+
+    This function implements the permutation test for OLS from the NEST paper.
+    Note that it does not generate the network enrichment score, but rather
+    returns the empirical and permuted statistics for use in the `sw_nest` function.
+    Check `original implementation <https://github.com/smweinst/NEST>`_ for more
+    details.
+
+    This is a wrapper for the netneurotools implementation.
+
+    Parameters
+    ----------
+    observed_vars : array_like, shape (n_subjects, n_vertices)
+        Observed variables
+    predictor_vars : array_like, shape (n_subjects,)
+        Predictor variable
+    covariate_vars : array_like, shape (n_subjects, n_covars), optional
+        Covariate variables. Default: None
+    freedman_lane : bool, optional
+        Whether to use the Freedman-Lane method. Default: False
+    n_perm : int, optional
+        Number of permutations to assess. Default: 1000
+    rng : {int, np.random.Generator, np.random.RandomState}, optional
+        Random number generator. Default: None
+
+    Returns
+    -------
+    empirical : array_like, shape (n_vertices,)
+        Empirical statistics
+    permuted : array_like, shape (n_permutations, n_vertices)
+        Permuted statistics. Each row corresponds to a permutation calculated by
+        permuting the subjects and re-estimating the statistic.
+
+    References
+    ----------
+    .. [1] Weinstein, S. M., Vandekar, S. N., Li, B., Alexander-Bloch, A. F.,
+       Raznahan, A., Li, M., Gur, R. E., Gur, R. C., Roalf, D. R., Park, M. T.
+       M., Chakravarty, M., Baller, E. B., Linn, K. A., Satterthwaite, T. D., &
+       Shinohara, R. T. (2024). Network enrichment significance testing in
+       brain-phenotype association studies. Human Brain Mapping, 45(8), e26714.
+       https://doi.org/10.1002/hbm.26714
+    """
+    try:
+        from netneurotools.stats import sw_nest_perm_ols
+    except ImportError:
+        raise ImportError('netneurotools is required for this function. ') from None
+
+    return sw_nest_perm_ols(
+        observed_vars,
+        predictor_vars,
+        covariate_vars=covariate_vars,
+        freedman_lane=freedman_lane,
+        n_perm=n_perm,
+        rng=rng
+    )
+
+
 def sw_spice(X, Y, n_perm=10000, rng=None):
     """
     Simple Permutation-based Intermodal Correspondence (SPICE) from Weinstein et al., 2021.
