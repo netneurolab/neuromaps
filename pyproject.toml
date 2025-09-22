@@ -2,7 +2,7 @@
 name = "neuromaps"
 description = "A toolbox for projecting, resampling, and comparing brain maps"
 readme = "README.rst"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = {file = "LICENSE"}
 keywords = ["network neuroscience", "brain maps", "annotated connectomes"]
 authors = [
@@ -20,12 +20,17 @@ classifiers = [
 ]
 
 dependencies = [
-  "numpy >=1.14.0",
-  "scipy >=0.17",
-  "matplotlib >=3.5.0",
+  "numpy>=1.14.0",
+  "scipy>=0.17",
+  "matplotlib>=3.5.0",
   "scikit-learn",
-  "nibabel >=3.0.0",
-  "nilearn"
+  "nibabel>=3.0.0",
+  "nilearn",
+  "pytest>=8.3.5",
+  "packaging>=25.0",
+  "pandas>=2.0.3",
+  "niwrap>=0.6.3",
+  "styxsingularity>=0.5.1",
 ]
 
 dynamic=["version"]

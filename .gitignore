@@ -99,3 +99,6 @@ ENV/
 
 # Ruff
 .ruff_cache/
+
+# niwrap temp data
+.temp-niwrap-data
