@@ -5,10 +5,7 @@ from functools import partial
 
 import numpy as np
 from scipy import special, stats as sstats
-try:
-    from scipy.stats._stats_py import _chk2_asarray  # scipy >= 1.8.0
-except ImportError:
-    from scipy.stats.stats import _chk2_asarray  # scipy < 1.8.0
+from neuromaps.utils import _chk2_asarray
 from sklearn.utils.validation import check_random_state
 
 from neuromaps.images import load_data
