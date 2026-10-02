@@ -27,9 +27,11 @@ def test__array_to_gifti(hemi, n_images, n_vertices):
     assert tuple(len(image.agg_data()) for image in images) == n_vertices
 
 
-def test_Parcellater_single_hemi_array(monkeypatch):
-    """Test parcellating single-hemisphere array data."""
-    labels = np.ones(642, dtype=int)
+@pytest.mark.parametrize('hemi', ['L', 'R'])
+@pytest.mark.parametrize('resampling_target', [None, 'data', 'parcellation'])
+def test_Parcellater_single_hemi_array(hemi, resampling_target):
+    """Test single-hemisphere data through the real fsaverage-3k path."""
+    labels = np.ones(2562, dtype=int)
     labels[0] = 0
     atlas = construct_shape_gii(
         labels,
@@ -37,17 +39,11 @@ def test_Parcellater_single_hemi_array(monkeypatch):
         labels=['background', 'parcel'],
     )
 
-    def _resample_images(data, parc, *args, **kwargs):
-        assert len(data) == 1
-        assert len(data[0].agg_data()) == 642
-        return data, parc
-
-    monkeypatch.setattr(parcellate, 'resample_images', _resample_images)
     result = parcellate.Parcellater(
-        atlas, 'fsaverage', resampling_target=None, hemi='L'
-    ).fit_transform(np.arange(642), 'fsaverage', hemi='L')
+        atlas, 'fsaverage', resampling_target=resampling_target, hemi=hemi
+    ).fit_transform(np.arange(2562), 'fsaverage', hemi=hemi)
 
-    assert result == pytest.approx(321.0)
+    assert result == pytest.approx(1281.0)
 
 
 @pytest.mark.xfail
