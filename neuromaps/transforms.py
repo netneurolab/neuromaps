@@ -2,6 +2,7 @@
 """Functionality for transforming files between spaces."""
 
 import os
+import shlex
 from pathlib import Path
 
 import nibabel as nib
@@ -359,7 +360,8 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
             trgmask=trgdir / MLFMT.format(**trgparams)
         )
         for fn in (func, MASKSURF):
-            run(fn.format(**params), quiet=True)
+            command = [arg.format(**params) for arg in shlex.split(fn)]
+            run(command, quiet=True, shell=False)
         resampled += (construct_shape_gii(load_data(params['out'])),)
         params['out'].unlink()
         if tmpimg is not None:
