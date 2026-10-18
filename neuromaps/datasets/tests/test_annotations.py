@@ -32,6 +32,11 @@ def test_available_tags():
     assert all(f in restricted for f in unrestricted)
 
 
+def test_fetch_annotation_smoke():
+    """Smoke test of fetching an annotation."""
+    annotations.fetch_annotation(source="abagen")
+
+
 @pytest.mark.xfail
 def test_fetch_annotation():
     """Test fetching an annotation."""

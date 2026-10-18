@@ -31,7 +31,7 @@ src, trg : tuple-of-nib.GiftiImage
 )
 
 
-def downsample_only(src, trg, src_space, trg_space, method='linear', hemi=None): # noqa: D103
+def downsample_only(src, trg, src_space, trg_space, method='linear', hemi=None):  # noqa: D103
     src_den, trg_den = transforms._estimate_density((src, trg), hemi)
     src_num, trg_num = int(src_den[:-1]), int(trg_den[:-1])
     src_space, trg_space = src_space.lower(), trg_space.lower()
@@ -63,8 +63,8 @@ Returns
 """.format(**_resampling_docs)
 
 
-def transform_to_src(src, trg, src_space, trg_space, method='linear', hemi=None): # noqa: D103
-    src_den, trg_den = transforms._estimate_density((src, trg), hemi)
+def transform_to_src(src, trg, src_space, trg_space, method='linear', hemi=None):  # noqa: D103
+    src_den, _ = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{trg_space.lower()}_to_{src_space.lower()}')
     trg = func(trg, src_den, hemi=hemi, method=method)
@@ -86,8 +86,8 @@ Returns
 """.format(**_resampling_docs)
 
 
-def transform_to_trg(src, trg, src_space, trg_space, hemi=None, method='linear'): # noqa: D103
-    src_den, trg_den = transforms._estimate_density((src, trg), hemi)
+def transform_to_trg(src, trg, src_space, trg_space, hemi=None, method='linear'):  # noqa: D103
+    _, trg_den = transforms._estimate_density((src, trg), hemi)
 
     func = getattr(transforms, f'{src_space.lower()}_to_{trg_space.lower()}')
     src = func(src, trg_den, hemi=hemi, method=method)
@@ -138,7 +138,7 @@ Returns
 """.format(**_resampling_docs)
 
 
-def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None): # noqa: D103
+def mni_transform(src, trg, src_space, trg_space, method='linear', hemi=None):  # noqa: D103
     if src_space != 'MNI152':
         raise ValueError('Cannot perform MNI transformation when src_space is '
                          f'not "MNI152." Received: {src_space}.')

@@ -5,10 +5,7 @@ from functools import partial
 
 import numpy as np
 from scipy import special, stats as sstats
-try:
-    from scipy.stats._stats_py import _chk2_asarray  # scipy >= 1.8.0
-except ImportError:
-    from scipy.stats.stats import _chk2_asarray  # scipy < 1.8.0
+from neuromaps.utils import _chk2_asarray
 from sklearn.utils.validation import check_random_state
 
 from neuromaps.images import load_data
@@ -233,7 +230,7 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     If either input contains nan and nan_policy is set to 'omit', both arrays
     will be masked to omit the nan entries.
     """
-    a, b, axis = _chk2_asarray(a, b, 0)
+    a, b, _ = _chk2_asarray(a, b, 0)
     if len(a) != len(b):
         raise ValueError('Provided arrays do not have same length')
 
@@ -271,7 +268,7 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     if return_pval:
         # taken from scipy.stats
         ab = (n_obs / 2) - 1
-        prob = 2 * special.btdtr(ab, ab, 0.5 * (1 - np.abs(corr)))
+        prob = 2 * special.betainc(ab, ab, 0.5 * (1 - np.abs(corr)))
 
         return corr, prob
 

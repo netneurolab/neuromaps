@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Functionality for plotting."""
 
+import matplotlib
 from matplotlib import colors as mcolors, pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D  # noqa
 from nilearn.plotting import plot_surf
@@ -11,11 +12,14 @@ from neuromaps.images import load_gifti
 from neuromaps.transforms import _check_hemi
 
 HEMI = dict(L='left', R='right')
-plt.cm.register_cmap(
-    'caret_blueorange', mcolors.LinearSegmentedColormap.from_list('blend', [
-        '#00d2ff', '#009eff', '#006cfe', '#0043fe',
-        '#fd4604', '#fe6b01', '#ffd100', '#ffff04'
-    ])
+
+matplotlib.colormaps.register(
+    mcolors.LinearSegmentedColormap.from_list(
+        'caret_blueorange', [
+            '#00d2ff', '#009eff', '#006cfe', '#0043fe',
+            '#fd4604', '#fe6b01', '#ffd100', '#ffff04'
+            ]),
+    name="caret_blueorange"
 )
 
 
@@ -78,10 +82,13 @@ def plot_surf_template(data, template, density, surf='inflated',
             ax.disable_mouse_rotation()
             plot_surf(geom, img, hemi=HEMI[hemi], axes=ax, view=view, **opts)
             poly = ax.collections[0]
-            poly.set_facecolors(
-                _fix_facecolors(ax, poly._original_facecolor,
-                                *geom, view, hemi)
-            )
+            try:
+                poly.set_facecolors(
+                    _fix_facecolors(ax, poly._original_facecolor,
+                                    *geom, view, hemi)
+                )
+            except AttributeError:
+                pass
 
     if not opts.get('colorbar', False):
         fig.tight_layout()

@@ -144,7 +144,7 @@ def get_parcel_centroids(surfaces, parcellation=None, method='surface',
             centroids.append(vertices)
             hemiid.extend([n] * len(vertices))
 
-    return np.row_stack(centroids), np.asarray(hemiid)
+    return np.vstack(centroids), np.asarray(hemiid)
 
 
 def _gen_rotation(seed=None):
@@ -516,8 +516,8 @@ def parcels_to_vertices(data, parcellation):
     parcellation : tuple-of-str or os.PathLike
         Filepaths to parcellation images to project `data` to vertices
 
-    Reurns
-    ------
+    Returns
+    -------
     projected : numpy.ndarray
         Vertex-level data
     """

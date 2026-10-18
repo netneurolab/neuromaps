@@ -2,6 +2,7 @@
 """Utility functions."""
 
 import os
+import numpy as np
 from pathlib import Path
 import tempfile
 import subprocess
@@ -125,3 +126,27 @@ def check_fs_subjid(subject_id, subjects_dir=None):
                                 .format(subject_id, subjects_dir))
 
     return subject_id, subjects_dir
+
+
+def _chk2_asarray(a, b, axis):
+    """
+    Evaluate and converts two input sequences into validated NumPy arrays.
+
+    This function was in the private API of scipy, but was recently removed:
+    https://github.com/scipy/scipy/pull/23088
+    """
+    if axis is None:
+        a = np.ravel(a)
+        b = np.ravel(b)
+        outaxis = 0
+    else:
+        a = np.asarray(a)
+        b = np.asarray(b)
+        outaxis = axis
+
+    if a.ndim == 0:
+        a = np.atleast_1d(a)
+    if b.ndim == 0:
+        b = np.atleast_1d(b)
+
+    return a, b, outaxis

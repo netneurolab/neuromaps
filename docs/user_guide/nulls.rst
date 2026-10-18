@@ -11,8 +11,12 @@ significance of the association between the tested maps. Enter: the
 
 This module provides access to a variety of null models that can be used to
 generate "null" brain maps that retain aspects of the spatial autocorrelation
-of the original brain maps. (For a review of these models refer to `Markello &
-Misic, 2021, NeuroImage <https://doi.org/10.1016/j.neuroimage.2021.118052>`_.)
+of the original brain maps. 
+
+For a review of these models, please refer to
+`Markello & Misic, 2021, NeuroImage <https://doi.org/10.1016/j.neuroimage.2021.118052>`_.
+We also recommend watching  `this recorded session <https://www.youtube.com/watch?v=6DjpNddINZ8>`_
+from the OHBM 2024 Educational Course if you are new to this topic.
 
 There are four available null models that can be used with voxel- and
 vertex-wise data and eight null models that can be used with parcellated data.
@@ -161,6 +165,11 @@ non-significant.
 Nulls for volumetric data
 -------------------------
 
+.. warning::
+   Nulls for high-resolution volumetric data (especially at 1mm or 2mm resolution) can
+   be **extremely** demanding (days & hundreds of GBs). This is an inherent limitation
+   of the original model that currently has no immediate workaround!
+
 The majority of spatial nulls work best with data represented in one of the
 surface-based coordinate systems. If you are working with data that are
 represented in the MNI152 system you must use one of the following three null
@@ -186,12 +195,22 @@ You would call the functions in the same manner as above:
     >>> print(nulls.shape)
     (224705, 100)
 
-However, this process will take much more time than for equivalent data
-represented in a surface-based system, and will need to store the full distance
-matrix out as a temporary file (potentially many GB of disk space!). If
-possible it is recommended that you mask your data (i.e., with a gray matter
-mask) before generating nulls using this procedure.
 
-Note that you can provide parcellation images for volumetric data as described
-above! Simply pass the volumetric parcellation image to the ``parcellation``
-keyword argument and the function will take care of the rest.
+When working with volumetric data, please note some important computational
+considerations. While the function supports both voxelwise and parcellated analyses,
+processing high-resolution volumetric data (especially at 1mm or 2mm resolution) can
+be **extremely** demanding. The calculations for voxelwise data can take several days
+to complete even on high-performance computing nodes, and may require hundreds of GBs
+of temporary storage space. This is an inherent limitation of the original model that
+currently has no immediate workaround (see `BrainSMASH <https://github.com/murraylab/brainsmash>`_).
+We welcome any suggestions for improving this method's computational efficiency and
+performance.
+
+To make your analysis more tractable, we recommend you consider using parcellated
+data instead of voxelwise analysis. Parcellation dramatically reduces both computation
+time and storage requirements.
+
+For voxelwise input, if possible it is recommended that you mask your data
+(i.e., with a gray matter mask) before generating nulls using this procedure. To use
+parcellation images for volumetric data, simply pass the volumetric parcellation image
+to the ``parcellation`` keyword argument and the function will take care of the rest.

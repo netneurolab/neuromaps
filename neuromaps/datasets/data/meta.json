@@ -1,0 +1,2619 @@
+{
+    "annotations": [
+        {
+            "annot": {
+                "source": "abagen",
+                "desc": "genepc1",
+                "space": "fsaverage",
+                "den": "10k"
+            },
+            "full_desc": "PC1 of genes in the Allen Human Brain Atlas",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Michael J Hawrylycz, Ed S Lein, Angela L Guillozet-Bongaarts, Elaine H Shen, Lydia Ng, Jeremy A Miller, Louie N Van De Lagemaat, Kimberly A Smith, Amanda Ebbert, Zackery L Riley, and others. An anatomically comprehensive atlas of the adult human brain transcriptome. Nature, 489(7416):391, 2012.",
+                        "bibkey": "hawrylycz2012nature"
+                    },
+                    {
+                        "citation": "Ross D Markello, Aurina Arnatkeviciute, Jean-Baptiste Poline, Ben D Fulcher, Alex Fornito, and Bratislav Misic. Standardizing workflows in imaging transcriptomics with the abagen toolbox. eLife, 10:e72129, 2021.",
+                        "bibkey": "markello2021elife"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 6,
+                "age": "24-55"
+            }
+        },
+        {
+            "annot": {
+                "source": "aghourian2017",
+                "desc": "feobv",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to VAChT (acetylcholine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "M Aghourian, C Legault-Denis, JP Soucy, P Rosa-Neto, S Gauthier, A Kostikov, P Gravel, and MA Bedard. Quantification of brain cholinergic denervation in alzheimer\u2019s disease using pet imaging with [18 f]-feobv. Molecular psychiatry, 22(11):1531\u20131538, 2017.",
+                        "bibkey": "aghourian2017molpsychiatry"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 18,
+                "age": "66.8 +/- 6.8"
+            }
+        },
+        {
+            "annot": {
+                "source": "alarkurtti2015",
+                "desc": "raclopride",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D2 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Kati Alakurtti, Jarkko J Johansson, Juho Joutsa, Matti Laine, Lars B\u00e4ckman, Lars Nyberg, and Juha O Rinne. Long-term test\u2013retest reliability of striatal and extrastriatal dopamine d2/3 receptor binding: study with [11c] raclopride and high-resolution pet. Journal of Cerebral Blood Flow & Metabolism, 35(7):1199\u20131205, 2015.",
+                        "bibkey": "alakurtti2015jcerebbloodflowmetab"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 7,
+                "age": "24 +/- 2"
+            }
+        },
+        {
+            "annot": {
+                "source": "bedard2019",
+                "desc": "feobv",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to VAChT (acetylcholine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Marc-Andre Bedard, Meghmik Aghourian, Camille Legault-Denis, Ronald B Postuma, Jean-Paul Soucy, Jean-Fran\u00e7ois Gagnon, Am\u00e9lie Pelletier, and Jacques Montplaisir. Brain cholinergic alterations in idiopathic rem sleep behaviour disorder: a pet imaging study with 18f-feobv. Sleep medicine, 58:35\u201341, 2019.",
+                        "bibkey": "bedard2019sleepmed"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 5,
+                "age": "68.3 +/- 3.1"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "az10419369",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT1b (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 36,
+                "age": "27.8 +/- 6.9"
+            },
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "az10419369",
+                "space": "fsaverage",
+                "den": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT1b (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 36,
+                "age": "27.8 +/- 6.9"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "cimbi36",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT2a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 29,
+                "age": "22.6 +/- 2.7"
+            },
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "cimbi36",
+                "space": "fsaverage",
+                "den": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT2a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 29,
+                "age": "22.6 +/- 2.7"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "cumi101",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT1a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 8,
+                "age": "28.4 +/- 8.8"
+            },
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "cumi101",
+                "space": "fsaverage",
+                "den": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT1a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 8,
+                "age": "28.4 +/- 8.8"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "dasb",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HTT (serotonin transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 100,
+                "age": "25.1 +/- 5.8"
+            },
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "dasb",
+                "space": "fsaverage",
+                "den": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HTT (serotonin transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 100,
+                "age": "25.1 +/- 5.8"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "sb207145",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT4 (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 59,
+                "age": "25.9 +/- 5.3"
+            },
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "beliveau2017",
+                "desc": "sb207145",
+                "space": "fsaverage",
+                "den": "164k"
+            },
+            "full_desc": "PET tracer binding (Bmax) to 5-HT4 (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Vincent Beliveau, Melanie Ganz, Ling Feng, Brice Ozenne, Liselotte H\u00f8jgaard, Patrick M Fisher, Claus Svarer, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's serotonin system. Journal of Neuroscience, 37(1):120\u2013128, 2017.",
+                        "bibkey": "beliveau2017jneurosci"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 59,
+                "age": "25.9 +/- 5.3"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "castrillon2023",
+                "desc": "cmrglc",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "Glucose metabolism",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Gabriel Castrillon, Samira Epp, Antonia Bose, Laura Fraticelli, Andr\u00e9 Hechler, Roman Belenya, Andreas Ranft, Igor Yakushev, Lukas Utz, Lalith Sundar, and others. An energy costly architecture of neuromodulators for human brain evolution and cognition. Science advances, 9(50):eadi7632, 2023.",
+                        "bibkey": "castrillon2023energy"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "ding2010",
+                "desc": "mrb",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to NET (norepinephrine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Yu-Shin Ding, Tarun Singhal, Beata Planeta-Wilson, Jean-Dominique Gallezot, Nabeel Nabulsi, David Labaree, Jim Ropchan, Shannan Henry, Wendol Williams, Richard E Carson, and others. Pet imaging of the effects of age and cocaine on the norepinephrine transporter in the human brain using (s, s)-[11c] o-methylreboxetine and hrrt. Synapse, 64(1):30\u201338, 2010.",
+                        "bibkey": "ding2010synapse"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "R Li Chiang-shan, Marc N Potenza, Dianne E Lee, Beata Planeta, Jean-Dominique Gallezot, David Labaree, Shannan Henry, Nabeel Nabulsi, Rajita Sinha, Yu-Shin Ding, and others. Decreased norepinephrine transporter availability in obesity: positron emission tomography imaging with (s, s)-[11c] o-methylreboxetine. Neuroimage, 86:306\u2013310, 2014.",
+                        "bibkey": "li2014neuroimage"
+                    },
+                    {
+                        "citation": "Elizabeth Sanchez-Rangel, Jean-Dominique Gallezot, Catherine W Yeckel, Wai Lam, Renata Belfort-DeAguiar, Ming-Kai Chen, Richard E Carson, Robert Sherwin, and Janice J Hwang. Norepinephrine transporter availability in brown fat is reduced in obesity: a human pet study with [11 c] mrb. International Journal of Obesity, 44(4):964\u2013967, 2020.",
+                        "bibkey": "sanchez2020jintobesity"
+                    },
+                    {
+                        "citation": "Renata Belfort-DeAguiar, Jean-Dominique Gallezot, Janice J Hwang, Ahmed Elshafie, Catherine W Yeckel, Owen Chan, Richard E Carson, Yu-Shin Ding, and Robert S Sherwin. Noradrenergic activity in the human brain: a mechanism supporting the defense against hypoglycemia. The Journal of Clinical Endocrinology & Metabolism, 103(6):2244\u20132252, 2018.",
+                        "bibkey": "belfort2018jclinendocrinolmetab"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 77,
+                "age": "33.4 +/- 9.17"
+            }
+        },
+        {
+            "annot": {
+                "source": "dubois2015",
+                "desc": "abp688",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to mGluR5 (glutamate receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Jonathan M DuBois, Olivier G Rousset, Jared Rowley, Manuel Porras-Betancourt, Andrew J Reader, Aurelie Labbe, Gassan Massarweh, Jean-Paul Soucy, Pedro Rosa-Neto, and Eliane Kobayashi. Characterization of age/sex and the regional distribution of mglur5 availability in the healthy human brain measured by high-resolution [11 c] abp688 pet. European journal of nuclear medicine and molecular imaging, 43(1):152\u2013162, 2016.",
+                        "bibkey": "dubois2016eurjnuclmedmolimaging"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 28,
+                "age": "33.1 +/- 11.2"
+            }
+        },
+        {
+            "annot": {
+                "source": "dukart2018",
+                "desc": "flumazenil",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to GABAa (gaba receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Juergen Dukart, \u0160tefan Holiga, Christopher Chatham, Peter Hawkins, Anna Forsyth, Rebecca McMillan, Jim Myers, Anne R Lingford-Hughes, David J Nutt, Emilio Merlo-Pich, and others. Cerebral blood flow predicts differential neurotransmitter activity. Scientific reports, 8(1):1\u201311, 2018.",
+                        "bibkey": "dukart2018scirep"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 6,
+                "age": "43 +/- 4"
+            }
+        },
+        {
+            "annot": {
+                "source": "dukart2018",
+                "desc": "fpcit",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "SPECT tracer binding (SUVR) to DAT (dopamine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Juergen Dukart, \u0160tefan Holiga, Christopher Chatham, Peter Hawkins, Anna Forsyth, Rebecca McMillan, Jim Myers, Anne R Lingford-Hughes, David J Nutt, Emilio Merlo-Pich, and others. Cerebral blood flow predicts differential neurotransmitter activity. Scientific reports, 8(1):1\u201311, 2018.",
+                        "bibkey": "dukart2018scirep"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 174,
+                "age": "61 +/- 11"
+            }
+        },
+        {
+            "annot": {
+                "source": "fazio2016",
+                "desc": "madam",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HTT (serotonin transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Patrik Fazio, Martin Schain, Katarina Varn\u00e4s, Christer Halldin, Lars Farde, and Andrea Varrone. Mapping the distribution of serotonin transporter in the human brainstem with high-resolution pet: validation using postmortem autoradiography data. Neuroimage, 133:313\u2013320, 2016.",
+                        "bibkey": "fazio2016neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 10,
+                "age": "51-67"
+            }
+        },
+        {
+            "annot": {
+                "source": "finnema2016",
+                "desc": "ucbj",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to SV2A (synaptic vesicle glycoprotein 2A, a synapse marker)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Sjoerd J Finnema, Nabeel B Nabulsi, Jo\u00ebl Mercier, Shu-fei Lin, Ming-Kai Chen, David Matuskey, Jean-Dominique Gallezot, Shannan Henry, Jonas Hannestad, Yiyun Huang, and others. Kinetic evaluation and test\u2013retest reproducibility of [11c] ucb-j, a novel radioligand for positron emission tomography imaging of synaptic vesicle glycoprotein 2a in humans. Journal of Cerebral Blood Flow & Metabolism, 38(11):2041\u20132052, 2018.",
+                        "bibkey": "finnema2018jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Mika Naganawa, Nabeel Nabulsi, Shannan Henry, David Matuskey, Shu-Fei Lin, Lawrence Slieker, Adam J Schwarz, Nancy Kant, Cynthia Jesudason, Kevin Ruley, and others. First-in-human assessment of 11c-lsn3172176, an m1 muscarinic acetylcholine receptor pet radiotracer. Journal of Nuclear Medicine, 62(4):553\u2013560, 2021.",
+                        "bibkey": "naganawa2021jnuclmed"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Jacob W Vogel, Kelly Smart, Carrie E Bearden, Martine Hoogman, Barbara Franke, Daan Van Rooij, Jan Buitelaar, Carrie R McDonald, and others. Local molecular and global connectomic contributions to cross-disorder cortical abnormalities. Nature communications, 13(1):1\u201317, 2022.",
+                        "bibkey": "hansen2022natcommun"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Ming-Kai Chen, Adam P Mecca, Mika Naganawa, Jean-Dominique Gallezot, Takuya Toyonaga, Jayanta Mondal, Sjoerd J Finnema, Shu-fei Lin, Ryan S O\u2019Dell, Julia W McDonald, and others. Comparison of [11c] ucb-j and [18f] fdg pet in alzheimer\u2019s disease: a tracer kinetic modeling study. Journal of Cerebral Blood Flow & Metabolism, pages 0271678X211004312, 2021.",
+                        "bibkey": "chen2021jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Ryan S O\u2019Dell, Adam P Mecca, Ming-Kai Chen, Mika Naganawa, Takuya Toyonaga, Yihuan Lu, Tyler A Godek, Joanna E Harris, Hugh H Bartlett, Emmie R Banks, and others. Association of a\u03b2 deposition and regional synaptic density in early alzheimer\u2019s disease: a pet imaging study with [11 c] ucb-j. Alzheimer's Research & Therapy, 13(1):1\u201312, 2021.",
+                        "bibkey": "odell2021alzheimersresther"
+                    },
+                    {
+                        "citation": "Kelly Smart, Heather Liu, David Matuskey, Ming-Kai Chen, Kristen Torres, Nabeel Nabulsi, David Labaree, Jim Ropchan, Ansel T Hillmer, Yiyun Huang, and others. Binding of the synaptic vesicle radiotracer [11c] ucb-j is unchanged during functional brain activation using a visual stimulation task. Journal of Cerebral Blood Flow & Metabolism, 41(5):1067\u20131079, 2021.",
+                        "bibkey": "smart2021jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Julian J Weiss, Rachela Calvi, Mika Naganawa, Takuya Toyonaga, Shelli F Farhadian, Michelle Chintanaphol, Jennifer Chiarelle, Ming-Qiang Zheng, Jim Ropchan, Yiyun Huang, Robert H Pietrzak, Richard E Carson, and Serena Spudich. Preliminary in vivo evidence of reduced synaptic density in human immunodeficiency virus (hiv) despite antiretroviral therapy. Clinical Infectious Diseases, 73(8):1404\u20131411, 2021.",
+                        "bibkey": "weiss2021clininfectdis"
+                    },
+                    {
+                        "citation": "Rajiv Radhakrishnan, Patrick D Skosnik, Mohini Ranganathan, Mika Naganawa, Takuya Toyonaga, Sjoerd Finnema, Ansel T Hillmer, Irina Esterlis, Yiyun Huang, Nabeel Nabulsi, and others. In vivo evidence of lower synaptic vesicle density in schizophrenia. Molecular Psychiatry, pages 1\u20139, 2021.",
+                        "bibkey": "radhakrishnan2021molpsychiatry"
+                    },
+                    {
+                        "citation": "Deepak Cyril D\u2019Souza, Jose A Cortes-Briones, Mohini Ranganathan, Halle Thurnauer, Gina Creatura, Toral Surti, Beata Planeta, Alexander Neumeister, Brian Pittman, Marc D Normandin, and others. Rapid changes in cannabinoid 1 receptor availability in cannabis-dependent male subjects after abstinence from cannabis. Biological psychiatry: cognitive neuroscience and neuroimaging, 1(1):60\u201367, 2016.",
+                        "bibkey": "dsouza2016biolpsychiatrycognneuroscineuroimaging"
+                    },
+                    {
+                        "citation": "Sjoerd J Finnema, Takuya Toyonaga, Kamil Detyniecki, Ming-Kai Chen, Mark Dias, Qianyu Wang, Shu-Fei Lin, Mika Naganawa, Jean-Dominique Gallezot, Yihuan Lu, and others. Reduced synaptic vesicle protein 2a binding in temporal lobe epilepsy: a [11c] ucb-j positron emission tomography study. Epilepsia, 61(10):2183\u20132193, 2020.",
+                        "bibkey": "finnema2020epilepsia"
+                    },
+                    {
+                        "citation": "Jason Bini, Daniel Holden, Kathryn Fontaine, Tim Mulnix, Yihuan Lu, David Matuskey, Jim Ropchan, Nabeel Nabulsi, Yiyun Huang, and Richard E Carson. Human adult and adolescent biodistribution and dosimetry of the synaptic vesicle glycoprotein 2a radioligand 11 c-ucb-j. EJNMMI research, 10(1):1\u20138, 2020.",
+                        "bibkey": "bini2020eurjmedmolimaging"
+                    },
+                    {
+                        "citation": "Adam P Mecca, Ming-Kai Chen, Ryan S O'Dell, Mika Naganawa, Takuya Toyonaga, Tyler A Godek, Joanna E Harris, Hugh H Bartlett, Wenzhen Zhao, Nabeel B Nabulsi, and others. In vivo measurement of widespread synaptic loss in alzheimer's disease with sv2a pet. Alzheimer's & Dementia, 16(7):974\u2013982, 2020.",
+                        "bibkey": "mecca2020alzheimersdement"
+                    },
+                    {
+                        "citation": "Sjoerd J Finnema, Samantha Rossano, Mika Naganawa, Shannan Henry, Hong Gao, Richard Pracitto, Ralph P Maguire, Jo\u00ebl Mercier, Sophie Kervyn, Jean-Marie Nicolas, and others. A single-center, open-label positron emission tomography study to evaluate brivaracetam and levetiracetam synaptic vesicle glycoprotein 2a binding in healthy volunteers. Epilepsia, 60(5):958\u2013967, 2019.",
+                        "bibkey": "finnema2019epilepsia"
+                    },
+                    {
+                        "citation": "Sophie E Holmes, Dustin Scheinost, Sjoerd J Finnema, Mika Naganawa, Margaret T Davis, Nicole DellaGioia, Nabeel Nabulsi, David Matuskey, Gustavo A Angarita, Robert H Pietrzak, and others. Lower synaptic density is associated with depression severity and network alterations. Nature communications, 10(1):1\u201310, 2019.",
+                        "bibkey": "holmes2019natcommun"
+                    },
+                    {
+                        "citation": "Ming-Kai Chen, Adam P Mecca, Mika Naganawa, Sjoerd J Finnema, Takuya Toyonaga, Shu-fei Lin, Soheila Najafzadeh, Jim Ropchan, Yihuan Lu, Julia W McDonald, and others. Assessing synaptic density in alzheimer disease with synaptic vesicle glycoprotein 2a positron emission tomographic imaging. JAMA neurology, 75(10):1215\u20131224, 2018.",
+                        "bibkey": "chen2018jamaneurology"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 76,
+                "age": "48.9 +/- 18.4"
+            }
+        },
+        {
+            "annot": {
+                "source": "gallezot2010",
+                "desc": "p943",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HT1b (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Jean-Dominique Gallezot, Nabeel Nabulsi, Alexander Neumeister, Beata Planeta-Wilson, Wendol A Williams, Tarun Singhal, Sunhee Kim, R Paul Maguire, Timothy McCarthy, J James Frost, and others. Kinetic modeling of the serotonin 5-ht1b receptor radioligand [11c] p943 in humans. Journal of Cerebral Blood Flow & Metabolism, 30(1):196\u2013210, 2010.",
+                        "bibkey": "gallezot2010jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "James W Murrough, Shannan Henry, Jian Hu, Jean-Dominique Gallezot, Beata Planeta-Wilson, John F Neumaier, and Alexander Neumeister. Reduced ventral striatal/ventral pallidal serotonin 1b receptor binding potential in major depressive disorder. Psychopharmacology, 213(2):547\u2013553, 2011.",
+                        "bibkey": "murrough2011psychopharm"
+                    },
+                    {
+                        "citation": "James W Murrough, Christoph Czermak, Shannan Henry, Nabeel Nabulsi, Jean-Dominique Gallezot, Ralitza Gueorguieva, Beata Planeta-Wilson, John H Krystal, John F Neumaier, Yiyun Huang, and others. The effect of early trauma exposure on serotonin type 1b receptor expression revealed by reduced selective radioligand binding. Archives of general psychiatry, 68(9):892\u2013900, 2011.",
+                        "bibkey": "murrough2011archgenpsychiatry"
+                    },
+                    {
+                        "citation": "David Matuskey, Zubin Bhagwagar, Beata Planeta, Brian Pittman, Jean-Dominique Gallezot, Jason Chen, Jane Wanyiri, Soheila Najafzadeh, Jim Ropchan, Paul Geha, and others. Reductions in brain 5-ht1b receptor availability in primarily cocaine-dependent humans. Biological psychiatry, 76(10):816\u2013822, 2014.",
+                        "bibkey": "matuskey2014biolpsychiatry"
+                    },
+                    {
+                        "citation": "Christopher Pittenger, Thomas G Adams Jr, Jean-Dominique Gallezot, Michael J Crowley, Nabeel Nabulsi, James Ropchan, Hong Gao, Stephen A Kichuk, Ryan Simpson, Eileen Billingslea, and others. Ocd is associated with an altered association between sensorimotor gating and cortical and subcortical 5-ht1b receptor binding. Journal of affective disorders, 196:87\u201396, 2016.",
+                        "bibkey": "pittenger2016jaffectdisord"
+                    },
+                    {
+                        "citation": "Aybala Saricicek, Jason Chen, Beata Planeta, Barbara Ruf, Kalyani Subramanyam, Kathleen Maloney, David Matuskey, David Labaree, Lorenz Deserno, Alexander Neumeister, and others. Test\u2013retest reliability of the novel 5-ht 1b receptor pet radioligand [11 c] p943. European journal of nuclear medicine and molecular imaging, 42(3):468\u2013477, 2015.",
+                        "bibkey": "saricicek2015eurjnuclmedmolimaging"
+                    },
+                    {
+                        "citation": "Stephen R Baldassarri, Eunkyung Park, Sjoerd J Finnema, Beata Planeta, Nabeel Nabulsi, Soheila Najafzadeh, Jim Ropchan, Yiyun Huang, Jonas Hannestad, Kathleen Maloney, and others. Inverse changes in raphe and cortical 5-ht1b receptor availability after acute tryptophan depletion in healthy human subjects. Synapse, 74(10):e22159, 2020.",
+                        "bibkey": "baldassarri2020synapse"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 23,
+                "age": "28.7 +/- 7"
+            }
+        },
+        {
+            "annot": {
+                "source": "gallezot2017",
+                "desc": "gsk189254",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to H3 (histamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Jean-Dominique Gallezot, Nabeel Nabulsi, Alexander Neumeister, Beata Planeta-Wilson, Wendol A Williams, Tarun Singhal, Sunhee Kim, R Paul Maguire, Timothy McCarthy, J James Frost, and others. Kinetic modeling of the serotonin 5-ht1b receptor radioligand [11c] p943 in humans. Journal of Cerebral Blood Flow & Metabolism, 30(1):196\u2013210, 2010.",
+                        "bibkey": "gallezot2010jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Sharon Ashworth, Eugenii A Rabiner, Roger N Gunn, Christophe Plisson, Alan A Wilson, Robert A Comley, Robert YK Lai, Antony D Gee, Marc Laruelle, and Vincent J Cunningham. Evaluation of 11c-gsk189254 as a novel radioligand for the h3 receptor in humans using pet. Journal of Nuclear Medicine, 51(7):1021\u20131029, 2010.",
+                        "bibkey": "ashworth2010jnuclmed"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 8,
+                "age": "31.69 +/- 8.95"
+            }
+        },
+        {
+            "annot": {
+                "source": "galovic2021",
+                "desc": "ge179",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to NMDA (glutamate receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Marian Galovic, Adam Al-Diwani, Umesh Vivekananda, Francisco Torrealdea, Kjell Erlandsson, Tim D Fryer, Young T Hong, Benjamin A Thomas, Colm J McGinnity, Evan Edmond, and others. In vivo nmda receptor function in people with nmda receptor antibody encephalitis. medRxiv, pages 2021\u201312, 2021.",
+                        "bibkey": "galovic2021vivo"
+                    },
+                    {
+                        "citation": "Marian Galovic, Kjell Erlandsson, Tim D Fryer, Young T Hong, Roido Manavaki, Hasan Sari, Sarah Chetcuti, Benjamin A Thomas, Martin Fisher, Selena Sephton, and others. Validation of a combined image derived input function and venous sampling approach for the quantification of [18f] ge-179 pet binding in the brain. Neuroimage, 237:118194, 2021.",
+                        "bibkey": "galovic2021validation"
+                    },
+                    {
+                        "citation": "Colm J McGinnity, Alexander Hammers, Daniela A Ria\u00f1o Barros, Sajinder K Luthra, Paul A Jones, William Trigg, Caroline Micallef, Mark R Symms, David J Brooks, Matthias J Koepp, and others. Initial evaluation of 18f-ge-179, a putative pet tracer for activated n-methyl d-aspartate receptors. Journal of Nuclear Medicine, 55(3):423\u2013430, 2014.",
+                        "bibkey": "mcginnity2014initial"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 29,
+                "age": "40.9 +/- 12.7"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "megalpha",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG alpha (8-12 Hz) power distribution from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "megbeta",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG beta (15-29 Hz) power distribution from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "megdelta",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG delta (2-4 Hz) power distribution from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "meggamma1",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG low gamma (30-59 Hz) power distribution from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "meggamma2",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG high gamma (60-90 Hz) power distribution from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "megtheta",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG theta (5-7 Hz) power distribution from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "megtimescale",
+                "space": "fsLR",
+                "den": "4k"
+            },
+            "full_desc": "MEG intrinsic timescale from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "David C Van Essen, Stephen M Smith, Deanna M Barch, Timothy EJ Behrens, Essa Yacoub, Kamil Ugurbil, Wu-Minn HCP Consortium, and others. The wu-minn human connectome project: an overview. Neuroimage, 80:62\u201379, 2013.",
+                        "bibkey": "van2013neuroimage"
+                    },
+                    {
+                        "citation": "Golia Shafiei, Sylvain Baillet, and Bratislav Misic. Human electromagnetic and haemodynamic networks systematically converge in unimodal cortex and diverge in transmodal cortex. PLoS biology, 20(8):e3001735, 2022.",
+                        "bibkey": "shafiei2022plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "myelinmap",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "MRI T1w/T2w ratio from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Matthew F Glasser, Timothy S Coalson, Emma C Robinson, Carl D Hacker, John Harwell, Essa Yacoub, Kamil Ugurbil, Jesper Andersson, Christian F Beckmann, Mark Jenkinson, and others. A multi-modal parcellation of human cerebral cortex. Nature, 536(7615):171\u2013178, 2016.",
+                        "bibkey": "glasser2016multi"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hcps1200",
+                "desc": "thickness",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "MRI cortical thickness from the Human Connectome Project S1200 release",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Matthew F Glasser, Timothy S Coalson, Emma C Robinson, Carl D Hacker, John Harwell, Essa Yacoub, Kamil Ugurbil, Jesper Andersson, Christian F Beckmann, Mark Jenkinson, and others. A multi-modal parcellation of human cerebral cortex. Nature, 536(7615):171\u2013178, 2016.",
+                        "bibkey": "glasser2016multi"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": "22-35"
+            }
+        },
+        {
+            "annot": {
+                "source": "hesse2017",
+                "desc": "methylreboxetine",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to NET (norepinephrine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Swen Hesse, Georg-Alexander Becker, Michael Rullmann, Anke Bresch, Julia Luthardt, Mohammed K Hankir, Franziska Zientek, Georg Rei\u00dfig, Marianne Patt, Katrin Arelin, and others. Central noradrenaline transporter availability in highly obese, non-depressed individuals. European journal of nuclear medicine and molecular imaging, 44(6):1056\u20131064, 2017.",
+                        "bibkey": "hesse2017eurjnuclmedmolimaging"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 10,
+                "age": "33.3 (mean)"
+            }
+        },
+        {
+            "annot": {
+                "source": "hill2010",
+                "desc": "devexp",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Developmental cortical expansion",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Jason Hill, Terrie Inder, Jeffrey Neil, Donna Dierker, John Harwell, and David Van Essen. Similar patterns of cortical expansion during human development and evolution. Proceedings of the National Academy of Sciences, 107(29):13135\u201313140, 2010.",
+                        "bibkey": "hill2010pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "hill2010",
+                "desc": "evoexp",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Evolutionary cortical expansion",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Jason Hill, Terrie Inder, Jeffrey Neil, Donna Dierker, John Harwell, and David Van Essen. Similar patterns of cortical expansion during human development and evolution. Proceedings of the National Academy of Sciences, 107(29):13135\u201313140, 2010.",
+                        "bibkey": "hill2010pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "hillmer2016",
+                "desc": "flubatine",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to a4b2 (acetylcholine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Ansel T Hillmer, I Esterlis, Jean-Dominique Gallezot, F Bois, Ming-Qiang Zheng, Nabeel Nabulsi, Shu-Fei Lin, RL Papke, Yiyun Huang, Osama Sabri, and others. Imaging of cerebral \u03b14\u03b22* nicotinic acetylcholine receptors with (-)-[18f] flubatine pet: implementation of bolus plus constant infusion and sensitivity to acetylcholine in human brain. Neuroimage, 141:71\u201380, 2016.",
+                        "bibkey": "hillmer2016neuroimage"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Stephen R Baldassarri, Ansel T Hillmer, Jon Mikael Anderson, Peter Jatlow, Nabeel Nabulsi, David Labaree, Kelly P Cosgrove, Stephanie S O\u2019Malley, Thomas Eissenberg, Suchitra Krishnan-Sarin, and others. Use of electronic cigarettes leads to significant beta2-nicotinic acetylcholine receptor occupancy: evidence from a pet imaging study. Nicotine and Tobacco Research, 20(4):425\u2013433, 2018.",
+                        "bibkey": "baldassarri2018nicotinetobres"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 30,
+                "age": "33.50 +/- 10.71"
+            }
+        },
+        {
+            "annot": {
+                "source": "jaworska2020",
+                "desc": "fallypride",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D2 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Natalia Jaworska, Sylvia ML Cox, Maria Tippler, Natalie Castellanos-Ryan, Chawki Benkelfat, Sophie Parent, Alain Dagher, Frank Vitaro, Michel Boivin, Robert O Pihl, and others. Extra-striatal d 2/3 receptor availability in youth at risk for addiction. Neuropsychopharmacology, 45(9):1498\u20131505, 2020.",
+                        "bibkey": "jaworska2020neuropsychopharmacology"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 49,
+                "age": "18.41 +/- 0.57"
+            }
+        },
+        {
+            "annot": {
+                "source": "kaller2017",
+                "desc": "sch23390",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D1 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Simon Kaller, Michael Rullmann, Marianne Patt, Georg-Alexander Becker, Julia Luthardt, Johanna Girbardt, Philipp M Meyer, Peter Werner, Henryk Barthel, Anke Bresch, and others. Test\u2013retest measurements of dopamine d 1-type receptors using simultaneous pet/mri imaging. European journal of nuclear medicine and molecular imaging, 44(6):1025\u20131032, 2017.",
+                        "bibkey": "kaller2017eurjnuclmedmolimaging"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 13,
+                "age": "33 +/- 13"
+            }
+        },
+        {
+            "annot": {
+                "source": "kantonen2020",
+                "desc": "carfentanil",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to MOR (mu-opioid receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Tatu Kantonen, Tomi Karjalainen, Janne Isoj\u00e4rvi, Pirjo Nuutila, Jouni Tuisku, Juha Rinne, Jarmo Hietala, Valtteri Kaasinen, Kari Kalliokoski, Harry Scheinin, and others. Interindividual variability and lateralization of \u00b5-opioid receptors in the human brain. NeuroImage, 217:116922, 2020.",
+                        "bibkey": "kantonen2020neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 204,
+                "age": "32.3 +/- 10.8"
+            }
+        },
+        {
+            "annot": {
+                "source": "kim2020",
+                "desc": "ps13",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to COX-1 (cyclooxygenase-1)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Min-Jeong Kim, Jae-Hoon Lee, Fernanda Juarez Anaya, Jinsoo Hong, William Miller, Sanjay Telu, Prachi Singh, Michelle Y Cortes, Katharine Henry, George L Tye, and others. First-in-human evaluation of [11 c] ps13, a novel pet radioligand, to quantify cyclooxygenase-1 in the brain. European journal of nuclear medicine and molecular imaging, 47:3143\u20133151, 2020.",
+                        "bibkey": "kim2020first"
+                    },
+                    {
+                        "citation": "Doug Greve, Paul Wighton, Melanie Ganz, Martin N\u00f8rgaard, Paolo Zanotti-Fregonara, Cyril Pernet, Anthony Galassi, Adam Thomas, Nafiseh Ghazanfari, Jeih-San Liow, Granville Matheson, Gitte Knudsen, and Robert Innis. \"a pet molecular imaging brain atlas of cyclooxygenase-1 (kim 2021)\". 2023. doi:doi:10.18112/openneuro.ds004401.v1.0.1.",
+                        "bibkey": "ds004401:1.0.1"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 10,
+                "age": "29.3 +/- 7.2"
+            },
+            "license": {
+                "type": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "laurikainen2018",
+                "desc": "fmpepd2",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to CB1 (cannabinoid receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Heikki Laurikainen, Lauri Tuominen, Maria Tikka, Harri Merisaari, Reetta-Liina Armio, Elina Sormunen, Faith Borgan, Mattia Veronese, Oliver Howes, Merja Haaparanta-Solin, and others. Sex difference in brain cb1 receptor availability in man. Neuroimage, 184:834\u2013842, 2019.",
+                        "bibkey": "laurikainen2019neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 22,
+                "age": "27.5 +/- 8.05"
+            }
+        },
+        {
+            "annot": {
+                "source": "lois2018",
+                "desc": "pbr28",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to TSPO (translocator protein)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Cristina Lois, Iva\u0301n Gonza\u0301lez, David Izquierdo-Garc\u00eda, Nicole R Zu\u0308rcher, Paul Wilkens, Marco L Loggia, Jacob M Hooker, and H Diana Rosas. Neuroinflammation in huntington\u2019s disease: new insights with 11c-pbr28 pet/mri. ACS chemical neuroscience, 9(11):2563\u20132571, 2018.",
+                        "bibkey": "lois2018neuroinflammation"
+                    },
+                    {
+                        "citation": "Ivan Gonzalez and Cristina Lois. hookerlab/huntington-with-pbr28: ACS Chemical Neuroscience submission. 2018. URL: https://doi.org/10.5281/zenodo.1174364, doi:10.5281/zenodo.1174364.",
+                        "bibkey": "ivangonzalez2018zenodo1174364"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 6,
+                "age": "57.8 +/- 8.1"
+            },
+            "license": {
+                "type": "MIT",
+                "url": "https://github.com/hookerlab/huntington-with-pbr28/blob/v1.0.0/LICENSE"
+            }
+        },
+        {
+            "annot": {
+                "source": "lukow2022",
+                "desc": "ro154513",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to GABAa receptor, alpha5 subunit",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Paulina Barbara Lukow, Daniel Martins, Mattia Veronese, Anthony Christopher Vernon, Philip McGuire, Federico Edoardo Turkheimer, and Gemma Modinos. Cellular and molecular signatures of in vivo imaging measures of gabaergic neurotransmission in the human brain. Communications Biology, 5(1):372, 2022.",
+                        "bibkey": "lukow2022cellular"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 10,
+                "age": "25.40 +/- 3.20"
+            },
+            "license": {
+                "type": "CC BY 4.0",
+                "url": "https://creativecommons.org/licenses/by/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "malen2022",
+                "desc": "raclopride",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D2 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Tuulia Mal\u00e9n, Tomi Karjalainen, Janne Isoj\u00e4rvi, Aki Vehtari, Paul-Christian B\u00fcrkner, Vesa Putkinen, Valtteri Kaasinen, Jarmo Hietala, Pirjo Nuutila, Juha Rinne, and others. Atlas of type 2 dopamine receptors in the human brain: age and sex dependent variability in a large pet cohort. NeuroImage, 255:119149, 2022.",
+                        "bibkey": "malen2022atlas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 156,
+                "age": "27.76 +/- 9.44"
+            },
+            "license": {
+                "type": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient01",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 1 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient02",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 2 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient03",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 3 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient04",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 4 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient05",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 5 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient06",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 6 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient07",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 7 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient08",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 8 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient09",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 9 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "margulies2016",
+                "desc": "fcgradient10",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Diffusion map embedding gradient 10 of group-averaged functional connectivity",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Daniel S Margulies, Satrajit S Ghosh, Alexandros Goulas, Marcel Falkiewicz, Julia M Huntenburg, Georg Langs, Gleb Bezgin, Simon B Eickhoff, F Xavier Castellanos, Michael Petrides, and others. Situating the default-mode network along a principal gradient of macroscale cortical organization. Proc Natl Acad Sci USA, 113(44):12574\u201312579, 2016.",
+                        "bibkey": "margulies2016pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 820,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "mueller2013",
+                "desc": "intersubjvar",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Intersubject variability of resting-state functional connectivity.",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Sophia Mueller, Danhong Wang, Michael D Fox, BT Thomas Yeo, Jorge Sepulcre, Mert R Sabuncu, Rebecca Shafee, Jie Lu, and Hesheng Liu. Individual variability in functional connectivity architecture of the human brain. Neuron, 77(3):586\u2013595, 2013.",
+                        "bibkey": "mueller2013individual"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 25,
+                "age": "51.8 +/- 6.99"
+            }
+        },
+        {
+            "annot": {
+                "source": "naganawa2020",
+                "desc": "lsn3172176",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to M1 (acetylcholine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Mika Naganawa, Nabeel Nabulsi, Shannan Henry, David Matuskey, Shu-Fei Lin, Lawrence Slieker, Adam J Schwarz, Nancy Kant, Cynthia Jesudason, Kevin Ruley, and others. First-in-human assessment of 11c-lsn3172176, an m1 muscarinic acetylcholine receptor pet radiotracer. Journal of Nuclear Medicine, 62(4):553\u2013560, 2021.",
+                        "bibkey": "naganawa2021jnuclmed"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 24,
+                "age": "40.45 +/- 11.71"
+            }
+        },
+        {
+            "annot": {
+                "source": "neurosynth",
+                "desc": "cogpc1",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PC1 of Neurosynth terms in the Cognitive Atlas (123 terms total)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Tal Yarkoni, Russell A Poldrack, Thomas E Nichols, David C Van Essen, and Tor D Wager. Large-scale automated synthesis of human functional neuroimaging data. Nature Methods, 8(8):665, 2011.",
+                        "bibkey": "yarkoni2011natmethods"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Russell A Poldrack, Aniket Kittur, Donald Kalar, Eric Miller, Christian Seppa, Yolanda Gil, D Stott Parker, Fred W Sabb, and Robert M Bilder. The cognitive atlas: toward a knowledge foundation for cognitive neuroscience. Frontiers Neuroinform, 5:17, 2011.",
+                        "bibkey": "poldrack2011frontneuroinform"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "norgaard2021",
+                "desc": "flumazenil",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET and autoradiography informed GABAa benzodiazepine binding-site density (Bmax; gaba receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Martin N\u00f8rgaard, Vincent Beliveau, Melanie Ganz, Claus Svarer, Lars H Pinborg, Sune H Keller, Peter S Jensen, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's benzodiazepine binding site of gabaa receptors. NeuroImage, 232:117878, 2021.",
+                        "bibkey": "norgaard2021neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 16,
+                "age": "26.6 +/- 8"
+            },
+            "warning": "This annotation is best used in the provided fsaverage space. MNI152 maps should only be used for subcortical data.",
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "norgaard2021",
+                "desc": "flumazenil",
+                "space": "fsaverage",
+                "den": "164k"
+            },
+            "full_desc": "PET and autoradiography informed GABAa benzodiazepine binding-site density (Bmax; gaba receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Martin N\u00f8rgaard, Vincent Beliveau, Melanie Ganz, Claus Svarer, Lars H Pinborg, Sune H Keller, Peter S Jensen, Douglas N Greve, and Gitte M Knudsen. A high-resolution in vivo atlas of the human brain's benzodiazepine binding site of gabaa receptors. NeuroImage, 232:117878, 2021.",
+                        "bibkey": "norgaard2021neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 16,
+                "age": "26.6 +/- 8"
+            },
+            "license": {
+                "type": "CC BY-NC-SA 4.0",
+                "url": "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "normandin2015",
+                "desc": "omar",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to CB1 (cannabinoid receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Marc D Normandin, Ming-Qiang Zheng, Kuo-Shyan Lin, N Scott Mason, Shu-Fei Lin, Jim Ropchan, David Labaree, Shannan Henry, Wendol A Williams, Richard E Carson, and others. Imaging the cannabinoid cb1 receptor in humans with [11c] omar: assessment of kinetic analysis methods, test\u2013retest reproducibility, and gender differences. Journal of Cerebral Blood Flow & Metabolism, 35(8):1313\u20131322, 2015.",
+                        "bibkey": "normandin2015jcerebbloodflowmetab"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Deepak Cyril D\u2019Souza, Jose A Cortes-Briones, Mohini Ranganathan, Halle Thurnauer, Gina Creatura, Toral Surti, Beata Planeta, Alexander Neumeister, Brian Pittman, Marc D Normandin, and others. Rapid changes in cannabinoid 1 receptor availability in cannabis-dependent male subjects after abstinence from cannabis. Biological psychiatry: cognitive neuroscience and neuroimaging, 1(1):60\u201367, 2016.",
+                        "bibkey": "dsouza2016biolpsychiatrycognneuroscineuroimaging"
+                    },
+                    {
+                        "citation": "Mohini Ranganathan, Jose Cortes-Briones, Rajiv Radhakrishnan, Halle Thurnauer, Beata Planeta, Patrick Skosnik, Hong Gao, David Labaree, Alexander Neumeister, Brian Pittman, and others. Reduced brain cannabinoid receptor availability in schizophrenia. Biological psychiatry, 79(12):997\u20131005, 2016.",
+                        "bibkey": "ranganathan2016biolpsychiatry"
+                    },
+                    {
+                        "citation": "Alexander Neumeister, Marc D Normandin, James W Murrough, Shannan Henry, Christopher R Bailey, David A Luckenbaugh, Keri Tuit, Ming-Qiang Zheng, Isaac R Galatzer-Levy, Rajita Sinha, and others. Positron emission tomography shows elevated cannabinoid cb 1 receptor binding in men with alcohol dependence. Alcoholism: Clinical and Experimental Research, 36(12):2104\u20132109, 2012.",
+                        "bibkey": "neumeister2012alcoholclinexpres"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 77,
+                "age": "30.01 +/- 8.87"
+            }
+        },
+        {
+            "annot": {
+                "source": "radnakrishnan2018",
+                "desc": "gsk215083",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HT6 (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Rajiv Radhakrishnan, Nabeel Nabulsi, Edward Gaiser, Jean-Dominique Gallezot, Shannan Henry, Beata Planeta, Shu-fei Lin, Jim Ropchan, Wendol Williams, Evan Morris, and others. Age-related change in 5-ht6 receptor availability in healthy male volunteers measured with 11c-gsk215083 pet. Journal of Nuclear Medicine, 59(9):1445\u20131450, 2018.",
+                        "bibkey": "radhakrishnan2018jnuclmed"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Rajiv Radhakrishnan, David Matuskey, Nabeel Nabulsi, Edward Gaiser, Jean-Dominique Gallezot, Shannan Henry, Beata Planeta, Shu-fei Lin, Jim Ropchan, Yiyun Huang, and others. In vivo 5-ht6 and 5-ht2a receptor availability in antipsychotic treated schizophrenia patients vs. unmedicated healthy humans measured with [11c] gsk215083 pet. Psychiatry Research: Neuroimaging, 295:111007, 2020.",
+                        "bibkey": "radhakrishnan2020psychiatryresneuroimaging"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 30,
+                "age": "36.6 +/- 9.04"
+            }
+        },
+        {
+            "annot": {
+                "source": "raichle",
+                "desc": "cbf",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Cerebral blood flow",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "S Neil Vaishnavi, Andrei G Vlassenko, Melissa M Rundle, Abraham Z Snyder, Mark A Mintun, and Marcus E Raichle. Regional aerobic glycolysis in the human brain. Proceedings of the National Academy of Sciences, 107(41):17757\u201317762, 2010.",
+                        "bibkey": "vaishnavi2010pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "25.4 +/- 2.6"
+            }
+        },
+        {
+            "annot": {
+                "source": "raichle",
+                "desc": "cbv",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Cerebral blood volume",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "S Neil Vaishnavi, Andrei G Vlassenko, Melissa M Rundle, Abraham Z Snyder, Mark A Mintun, and Marcus E Raichle. Regional aerobic glycolysis in the human brain. Proceedings of the National Academy of Sciences, 107(41):17757\u201317762, 2010.",
+                        "bibkey": "vaishnavi2010pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "25.4 +/- 2.6"
+            }
+        },
+        {
+            "annot": {
+                "source": "raichle",
+                "desc": "cmr02",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Oxygen metabolism",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "S Neil Vaishnavi, Andrei G Vlassenko, Melissa M Rundle, Abraham Z Snyder, Mark A Mintun, and Marcus E Raichle. Regional aerobic glycolysis in the human brain. Proceedings of the National Academy of Sciences, 107(41):17757\u201317762, 2010.",
+                        "bibkey": "vaishnavi2010pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "25.4 +/- 2.6"
+            }
+        },
+        {
+            "annot": {
+                "source": "raichle",
+                "desc": "cmrglc",
+                "space": "fsLR",
+                "den": "164k"
+            },
+            "full_desc": "Glucose metabolism",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "S Neil Vaishnavi, Andrei G Vlassenko, Melissa M Rundle, Abraham Z Snyder, Mark A Mintun, and Marcus E Raichle. Regional aerobic glycolysis in the human brain. Proceedings of the National Academy of Sciences, 107(41):17757\u201317762, 2010.",
+                        "bibkey": "vaishnavi2010pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 33,
+                "age": "25.4 +/- 2.6"
+            }
+        },
+        {
+            "annot": {
+                "source": "reardon2018",
+                "desc": "scalinghcp",
+                "space": "civet",
+                "den": "41k"
+            },
+            "full_desc": "Cortical areal scaling during development from the HCP dataset (S1200 release)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "PK Reardon, Jakob Seidlitz, Simon Vandekar, Siyuan Liu, Raihaan Patel, Min Tae M Park, Aaron Alexander-Bloch, Liv S Clasen, Jonathan D Blumenthal, Francois M Lalonde, and others. Normative brain size variation and brain shape diversity in humans. Science, 360(6394):1222\u20131227, 2018.",
+                        "bibkey": "reardon2018science"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1113,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "reardon2018",
+                "desc": "scalingnih",
+                "space": "civet",
+                "den": "41k"
+            },
+            "full_desc": "Cortical areal scaling during development from the NIH dataset",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "PK Reardon, Jakob Seidlitz, Simon Vandekar, Siyuan Liu, Raihaan Patel, Min Tae M Park, Aaron Alexander-Bloch, Liv S Clasen, Jonathan D Blumenthal, Francois M Lalonde, and others. Normative brain size variation and brain shape diversity in humans. Science, 360(6394):1222\u20131227, 2018.",
+                        "bibkey": "reardon2018science"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1531,
+                "age": " 5-25"
+            }
+        },
+        {
+            "annot": {
+                "source": "reardon2018",
+                "desc": "scalingpnc",
+                "space": "civet",
+                "den": "41k"
+            },
+            "full_desc": "Cortical areal scaling during development from the PNC dataset",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "PK Reardon, Jakob Seidlitz, Simon Vandekar, Siyuan Liu, Raihaan Patel, Min Tae M Park, Aaron Alexander-Bloch, Liv S Clasen, Jonathan D Blumenthal, Francois M Lalonde, and others. Normative brain size variation and brain shape diversity in humans. Science, 360(6394):1222\u20131227, 2018.",
+                        "bibkey": "reardon2018science"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1373,
+                "age": " 8-23"
+            }
+        },
+        {
+            "annot": {
+                "source": "rosaneto",
+                "desc": "abp688",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to mGluR5 (glutamate receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 22,
+                "age": "67.9 +/- 9.6"
+            }
+        },
+        {
+            "annot": {
+                "source": "sandiego2015",
+                "desc": "flb457",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D2 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Christine M Sandiego, Jean-Dominique Gallezot, Keunpoong Lim, Jim Ropchan, Shu-fei Lin, Hong Gao, Evan D Morris, and Kelly P Cosgrove. Reference region modeling approaches for amphetamine challenge studies with [11c] flb 457 and pet. Journal of Cerebral Blood Flow & Metabolism, 35(4):623\u2013629, 2015.",
+                        "bibkey": "sandiego2015jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Christopher T Smith, Jennifer L Crawford, Linh C Dang, Kendra L Seaman, M Danica San Juan, Aishwarya Vijay, Daniel T Katz, David Matuskey, Ronald L Cowan, Evan D Morris, and others. Partial-volume correction increases estimated dopamine d2-like receptor binding potential and reduces adult age differences. Journal of Cerebral Blood Flow & Metabolism, 39(5):822\u2013833, 2019.",
+                        "bibkey": "smith2019jcerebbloodflowmetab"
+                    },
+                    {
+                        "citation": "Yasmin Zakiniaeiz, Ansel T Hillmer, David Matuskey, Nabeel Nabulsi, Jim Ropchan, Carolyn M Mazure, Marina R Picciotto, Yiyun Huang, Sherry A McKee, Evan D Morris, and others. Sex differences in amphetamine-induced dopamine release in the dorsolateral prefrontal cortex of tobacco smokers. Neuropsychopharmacology, 44(13):2205\u20132211, 2019.",
+                        "bibkey": "zakiniaeiz2019neuropsychopharm"
+                    },
+                    {
+                        "citation": "Mark Slifstein, Elsmarieke Van De Giessen, Jared Van Snellenberg, Judy L Thompson, Rajesh Narendran, Roberto Gil, Elizabeth Hackett, Ragy Girgis, Najate Ojeil, Holly Moore, and others. Deficits in prefrontal cortical and extrastriatal dopamine release in schizophrenia: a positron emission tomographic functional magnetic resonance imaging study. JAMA psychiatry, 72(4):316\u2013324, 2015.",
+                        "bibkey": "slifstein2015jamapsychiatry"
+                    },
+                    {
+                        "citation": "Christine M Sandiego, David Matuskey, Meaghan Lavery, Erin McGovern, Yiyun Huang, Nabeel Nabulsi, Jim Ropchan, Marina R Picciotto, Evan D Morris, Sherry A McKee, and others. The effect of treatment with guanfacine, an alpha2 adrenergic agonist, on dopaminergic tone in tobacco smokers: an [11 c] flb457 pet study. Neuropsychopharmacology, 43(5):1052\u20131058, 2018.",
+                        "bibkey": "sandiego2018neuropsychopharm"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 55,
+                "age": "32.45 +/- 9.69"
+            }
+        },
+        {
+            "annot": {
+                "source": "sasaki2012",
+                "desc": "fepe2i",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to DAT (dopamine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Takeshi Sasaki, Hiroshi Ito, Yasuyuki Kimura, Ryosuke Arakawa, Harumasa Takano, Chie Seki, Fumitoshi Kodaka, Saori Fujie, Keisuke Takahata, Tsuyoshi Nogami, and others. Quantification of dopamine transporter in human brain using pet with 18f-fe-pe2i. Journal of Nuclear Medicine, 53(7):1065\u20131073, 2012.",
+                        "bibkey": "sasaki2012jnuclmed"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 6,
+                "age": "31.06 +/- 7.7"
+            }
+        },
+        {
+            "annot": {
+                "source": "satterthwaite2014",
+                "desc": "meancbf",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "Cerebral blood flow",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Theodore D Satterthwaite, Russell T Shinohara, Daniel H Wolf, Ryan D Hopson, Mark A Elliott, Simon N Vandekar, Kosha Ruparel, Monica E Calkins, David R Roalf, Efstathios D Gennatas, and others. Impact of puberty on the evolution of cerebral perfusion during adolescence. Proceedings of the National Academy of Sciences, 111(23):8643\u20138648, 2014.",
+                        "bibkey": "satterthwaite2014pnas"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 922,
+                "age": " 8-22"
+            }
+        },
+        {
+            "annot": {
+                "source": "savli2012",
+                "desc": "altanserin",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HT2a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Markus Savli, Andreas Bauer, Markus Mitterhauser, Yu-Shin Ding, Andreas Hahn, Tina Kroll, Alexander Neumeister, Daniela Haeusler, Johanna Ungersboeck, Shannan Henry, and others. Normative database of the serotonergic system in healthy subjects using multi-tracer pet. Neuroimage, 63(1):447\u2013459, 2012.",
+                        "bibkey": "savli2012neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 19,
+                "age": "28.2 +/- 5.7"
+            }
+        },
+        {
+            "annot": {
+                "source": "savli2012",
+                "desc": "dasb",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HTT (serotonin transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Markus Savli, Andreas Bauer, Markus Mitterhauser, Yu-Shin Ding, Andreas Hahn, Tina Kroll, Alexander Neumeister, Daniela Haeusler, Johanna Ungersboeck, Shannan Henry, and others. Normative database of the serotonergic system in healthy subjects using multi-tracer pet. Neuroimage, 63(1):447\u2013459, 2012.",
+                        "bibkey": "savli2012neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 18,
+                "age": "30.5 +/- 9.5"
+            }
+        },
+        {
+            "annot": {
+                "source": "savli2012",
+                "desc": "p943",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HT1b (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Markus Savli, Andreas Bauer, Markus Mitterhauser, Yu-Shin Ding, Andreas Hahn, Tina Kroll, Alexander Neumeister, Daniela Haeusler, Johanna Ungersboeck, Shannan Henry, and others. Normative database of the serotonergic system in healthy subjects using multi-tracer pet. Neuroimage, 63(1):447\u2013459, 2012.",
+                        "bibkey": "savli2012neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 23,
+                "age": "28.7 +/- 7"
+            }
+        },
+        {
+            "annot": {
+                "source": "savli2012",
+                "desc": "way100635",
+                "space": "MNI152",
+                "res": "3mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to 5-HT1a (serotonin receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Markus Savli, Andreas Bauer, Markus Mitterhauser, Yu-Shin Ding, Andreas Hahn, Tina Kroll, Alexander Neumeister, Daniela Haeusler, Johanna Ungersboeck, Shannan Henry, and others. Normative database of the serotonergic system in healthy subjects using multi-tracer pet. Neuroimage, 63(1):447\u2013459, 2012.",
+                        "bibkey": "savli2012neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 35,
+                "age": "26.3 +/- 5.2"
+            }
+        },
+        {
+            "annot": {
+                "source": "smart2019",
+                "desc": "abp688",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to mGluR5 (glutamate receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Kelly Smart, Sylvia ML Cox, Stephanie G Scala, Maria Tippler, Natalia Jaworska, Michel Boivin, Jean R S\u00e9guin, Chawki Benkelfat, and Marco Leyton. Sex differences in [11 c] abp688 binding: a positron emission tomography study of mglu5 receptors. European journal of nuclear medicine and molecular imaging, 46(5):1179\u20131183, 2019.",
+                        "bibkey": "smart2019eurjnuclmedmolimaging"
+                    },
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 73,
+                "age": "19.9 +/- 3.04"
+            }
+        },
+        {
+            "annot": {
+                "source": "smith2017",
+                "desc": "flb457",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to D2 (dopamine receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Christopher T Smith, Jennifer L Crawford, Linh C Dang, Kendra L Seaman, M Danica San Juan, Aishwarya Vijay, Daniel T Katz, David Matuskey, Ronald L Cowan, Evan D Morris, and others. Partial-volume correction increases estimated dopamine d2-like receptor binding potential and reduces adult age differences. Journal of Cerebral Blood Flow & Metabolism, 39(5):822\u2013833, 2019.",
+                        "bibkey": "smith2019jcerebbloodflowmetab"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 37,
+                "age": "48.36 +/- 16.93"
+            }
+        },
+        {
+            "annot": {
+                "source": "spreng",
+                "desc": "feobv",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to VAChT (acetylcholine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 3,
+                "age": "66.6 +/- 0.94"
+            }
+        },
+        {
+            "annot": {
+                "source": "sydnor2021",
+                "desc": "SAaxis",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Sensory-association mean rank axis",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Valerie J Sydnor, Bart Larsen, Danielle S Bassett, Aaron Alexander-Bloch, Damien A Fair, Conor Liston, Allyson P Mackey, Michael P Milham, Adam Pines, David R Roalf, and others. Neurodevelopment of the association cortices: patterns, mechanisms, and implications for psychopathology. Neuron, 109(18):2820\u20132846, 2021.",
+                        "bibkey": "sydnor2021neuron"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 3,
+                "age": "66.6 +/- 0.94"
+            }
+        },
+        {
+            "annot": {
+                "source": "tuominen",
+                "desc": "feobv",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to VAChT (acetylcholine transporter)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Justine Y Hansen, Golia Shafiei, Ross D Markello, Kelly Smart, Sylvia ML Cox, Martin N\u00f8rgaard, Vincent Beliveau, Yanjun Wu, Jean-Dominique Gallezot, \u00c9tienne Aumont, and others. Mapping neurotransmitter systems to the structural and functional organization of the human neocortex. Nature neuroscience, 25(11):1569\u20131581, 2022.",
+                        "bibkey": "hansen2022natneuro"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 4,
+                "age": "37 +/- 10.2"
+            }
+        },
+        {
+            "annot": {
+                "source": "turtonen2020",
+                "desc": "carfentanil",
+                "space": "MNI152",
+                "res": "1mm"
+            },
+            "full_desc": "PET tracer binding (BPnd) to MOR (mu-opioid receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Otto Turtonen, Aino Saarinen, Lauri Nummenmaa, Lauri Tuominen, Maria Tikka, Reetta-Liina Armio, Airi Hautam\u00e4ki, Heikki Laurikainen, Olli Raitakari, Liisa Keltikangas-J\u00e4rvinen, and others. Adult attachment system links with brain mu opioid receptor availability in vivo. Biological Psychiatry: Cognitive Neuroscience and Neuroimaging, 6(3):360\u2013369, 2021.",
+                        "bibkey": "turtonen2021biolpsychiatrycnni"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 39,
+                "age": "39.38 +/- 5.05"
+            }
+        },
+        {
+            "annot": {
+                "source": "vijay2018",
+                "desc": "ly2795050",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (Vt) to KOR (kappa-opioid receptor)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Aishwarya Vijay, Dana Cavallo, Alissa Goldberg, Bart de Laat, Nabeel Nabulsi, Yiyun Huang, Suchitra Krishnan-Sarin, and Evan D Morris. Pet imaging reveals lower kappa opioid receptor availability in alcoholics but no effect of age. Neuropsychopharmacology, 43(13):2539\u20132547, 2018.",
+                        "bibkey": "vijay2018pet"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 28,
+                "age": "33.5 +/- 11.3"
+            }
+        },
+        {
+            "annot": {
+                "source": "wey2016",
+                "desc": "martinostat",
+                "space": "MNI152",
+                "res": "2mm"
+            },
+            "full_desc": "PET tracer binding (SUVR) to class 1 HDAC isoforms 1, 2, and 3 (histone deacetylase)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Hsiao-Ying Wey, Tonya M Gilbert, Nicole R Z\u00fcrcher, Angela She, Anisha Bhanot, Brendan D Taillon, Fredrick A Schroeder, Changing Wang, Stephen J Haggarty, and Jacob M Hooker. Insights into neuroepigenetics through human histone deacetylase pet imaging. Science translational medicine, 8(351):351ra106\u2013351ra106, 2016.",
+                        "bibkey": "wey2016insights"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 8,
+                "age": "28.6 +/- 7.6"
+            },
+            "license": {
+                "type": "CC0",
+                "url": "https://creativecommons.org/publicdomain/zero/1.0/"
+            }
+        },
+        {
+            "annot": {
+                "source": "xu2020",
+                "desc": "FChomology",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Cross-species functional homology",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Ting Xu, Karl-Heinz Nenning, Ernst Schwartz, Seok-Jun Hong, Joshua T Vogelstein, Alexandros Goulas, Damien A Fair, Charles E Schroeder, Daniel S Margulies, Jonny Smallwood, and others. Cross-species functional alignment reveals evolutionary hierarchy within the connectome. Neuroimage, 223:117346, 2020.",
+                        "bibkey": "xu2020neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        },
+        {
+            "annot": {
+                "source": "xu2020",
+                "desc": "evoexp",
+                "space": "fsLR",
+                "den": "32k"
+            },
+            "full_desc": "Evolutionary cortical expansion",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Ting Xu, Karl-Heinz Nenning, Ernst Schwartz, Seok-Jun Hong, Joshua T Vogelstein, Alexandros Goulas, Damien A Fair, Charles E Schroeder, Daniel S Margulies, Jonny Smallwood, and others. Cross-species functional alignment reveals evolutionary hierarchy within the connectome. Neuroimage, 223:117346, 2020.",
+                        "bibkey": "xu2020neuroimage"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "",
+                        "bibkey": ""
+                    }
+                ]
+            },
+            "demographics": {
+                "N": null,
+                "age": null
+            }
+        }
+    ]
+}

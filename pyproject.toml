@@ -22,7 +22,7 @@ classifiers = [
 dependencies = [
   "numpy >=1.14.0",
   "scipy >=0.17",
-  "matplotlib",
+  "matplotlib >=3.5.0",
   "scikit-learn",
   "nibabel >=3.0.0",
   "nilearn"
@@ -32,7 +32,7 @@ dynamic=["version"]
 
 [project.optional-dependencies]
 doc = [
-  "sphinx >=2.0, <7.0.0",
+  "sphinx >=2.0",
   "sphinx_rtd_theme",
   "sphinx-gallery"
 ]
@@ -59,7 +59,16 @@ requires = ["setuptools", "versioneer[toml]"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["neuromaps"]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = [
+  "neuromaps",
+  "neuromaps.*"
+]
+
+[tool.setuptools.package-data]
+"*" = ["*.json", "*.bib"]
 
 [tool.setuptools.dynamic]
 version = {attr = "neuromaps.__version__"}
@@ -73,8 +82,6 @@ tag_prefix = ""
 parentdir_prefix = ""
 
 [tool.ruff]
-select = ["E", "F", "B", "D", "NPY"]
-ignore = ["E402"]
 line-length = 88
 exclude = [
   "setup.py",
@@ -85,10 +92,17 @@ exclude = [
 ]
 target-version = "py38"
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint]
+select = ["E", "F", "B", "W", "D", "NPY"]
+ignore = [
+    "E402"  # Module level import not at top of cell
+]
+preview = true
+
+[tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["D104"]
 "neuromaps/tests/*" = ["B011"]
 "neuromaps/nulls/tests/*" = ["B011"]
@@ -104,5 +118,5 @@ omit = [
 ]
 
 [tool.codespell]
-skip = '.git,*.pdf,*.svg,versioneer.py'
+skip = '.git,*.pdf,*.svg,versioneer.py,*.json,*.bib,./docs/listofmaps.rst'
 # ignore-words-list = ''

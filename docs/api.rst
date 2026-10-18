@@ -18,6 +18,26 @@ Reference API
 
 .. currentmodule:: neuromaps.datasets
 
+Functions to show all available annotations
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
+
+   neuromaps.datasets.available_annotations
+   neuromaps.datasets.available_tags
+
+Functions to fetch and describe the annotations
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
+
+   neuromaps.datasets.fetch_annotation
+   neuromaps.datasets.describe_annotations
+
+Functions to fetch the atlases
+
 .. autosummary::
    :template: function.rst
    :toctree: generated/
@@ -29,14 +49,7 @@ Reference API
    neuromaps.datasets.fetch_mni152
    neuromaps.datasets.fetch_regfusion
    neuromaps.datasets.fetch_all_atlases
-
-   neuromaps.datasets.available_annotations
-   neuromaps.datasets.available_tags
-   neuromaps.datasets.fetch_annotation
-
    neuromaps.datasets.get_atlas_dir
-
-   neuromaps.datasets.upload_annotation
 
 .. _ref_images:
 
@@ -48,17 +61,20 @@ Reference API
 
 .. currentmodule:: neuromaps.images
 
+Functions to load the images and surfaces
+
 .. autosummary::
    :template: function.rst
    :toctree: generated/
 
-
    neuromaps.images.load_gifti
    neuromaps.images.load_nifti
 
-   neuromaps.images.average_surfaces
-   neuromaps.images.interp_surface
-   neuromaps.images.vertex_areas
+Functions to convert surfaces to GIFTI format
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
 
    neuromaps.images.relabel_gifti
    neuromaps.images.annot_to_gifti
@@ -66,6 +82,16 @@ Reference API
    neuromaps.images.obj_to_gifti
    neuromaps.images.fssurf_to_gifti
    neuromaps.images.fsmorph_to_gifti
+
+Functions to work with surfaces
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
+
+   neuromaps.images.average_surfaces
+   neuromaps.images.interp_surface
+   neuromaps.images.vertex_areas
 
 .. _ref_nulls:
 
@@ -77,6 +103,8 @@ Reference API
 
 .. currentmodule:: neuromaps.nulls
 
+Spatial permutation null models (for surface images only)
+
 .. autosummary::
    :template: function.rst
    :toctree: generated/
@@ -87,6 +115,12 @@ Reference API
    neuromaps.nulls.hungarian
    neuromaps.nulls.baum
    neuromaps.nulls.cornblath
+
+Parametric spatial null models (for volumetric and surface images)
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
 
    neuromaps.nulls.burt2018
    neuromaps.nulls.burt2020
@@ -127,7 +161,7 @@ Reference API
 .. _ref_points:
 
 :mod:`neuromaps.points` - Triangle mesh utilities
-------------------------------------------------
+-------------------------------------------------
 .. automodule:: neuromaps.points
     :no-members:
     :no-inherited-members:
@@ -184,6 +218,8 @@ Reference API
 
 .. currentmodule:: neuromaps.transforms
 
+Volume-to-surface transformations
+
 .. autosummary::
    :template: function.rst
    :toctree: generated/
@@ -191,7 +227,20 @@ Reference API
    neuromaps.transforms.mni152_to_civet
    neuromaps.transforms.mni152_to_fsaverage
    neuromaps.transforms.mni152_to_fslr
+
+Volume-to-volume transformations
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
+
    neuromaps.transforms.mni152_to_mni152
+
+Surface-to-surface transformations
+
+.. autosummary::
+   :template: function.rst
+   :toctree: generated/
 
    neuromaps.transforms.civet_to_fslr
    neuromaps.transforms.fslr_to_civet

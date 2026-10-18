@@ -31,15 +31,7 @@ that generated the data. Here are four examples:
 Note that the surface based maps would be accompanied with a second file 
 with the other hemisphere.
 
-New brain maps can be contributed to ``neuromaps`` using the 
-:func:`neuromaps.datasets.contributions.upload_annotation` function.
-
-.. code-block::
-
-    >>> from neuromaps.datasets.contributions import upload_annotation
-    >>> files = ["path/to/files"]  # tuple of all the files you want to upload
-    >>> upload_annotation(files, "your.email@institution.com")
-
-If this returns a response object of ``200``, it worked!
-Note that your data will not be integrated with neuromaps until the maintainers 
-have approved of the data.
+Please `open an issue
+<https://github.com/netneurolab/neuromaps/issues/new?assignees=&labels=enhancement&projects=&template=brain-map-request.yml&title=%5BENH%5D+Request+to+add+brain+map>`_
+in the `neuromaps GitHub repository <https://github.com/netneurolab/neuromaps>`_
+for your contributed brain map, or to request the addition of a new brain map.

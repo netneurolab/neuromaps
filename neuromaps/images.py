@@ -114,8 +114,8 @@ def fix_coordsys(fn, val=3):
 
 def load_nifti(img):
     """
-    Load nifti file `img`. 
-    
+    Load nifti file `img`.
+
     If `img` is already a loaded (i.e. is a nib.Nifti1Image object),
     it is returned as-is.
 
@@ -132,9 +132,7 @@ def load_nifti(img):
     try:
         img = nib.load(img)
     except (TypeError) as err:
-        msg = ('stat: path should be string, bytes, os.PathLike or integer, '
-               'not Nifti1Image')
-        if not str(err) == msg:
+        if not ("os.PathLike" in str(err) and "Nifti1Image" in str(err)):
             raise err
     return img
 
@@ -165,8 +163,10 @@ def load_gifti(img):
                 img = nib.GiftiImage.from_bytes(gz.read())
         # it's not a pre-loaded GiftiImage so error out
         elif (isinstance(err, TypeError)
-              and not str(err) == 'stat: path should be string, bytes, os.'
-                                  'PathLike or integer, not GiftiImage'):
+              and not (
+                  "os.PathLike" in str(err) and "GiftiImage" in str(err)
+                  )
+              ):
             raise err
 
     return img
@@ -196,14 +196,26 @@ def load_data(data):
             or not isinstance(data, Iterable)):
         data = (data,)
 
-    try:
-        # giimg_like or path_like (gifti)
-        out = np.hstack([load_gifti(img).agg_data() for img in data])
+    try:  # giimg_like or path_like (gifti)
+        data_gii = []
+        for img in data:
+            data_hemi = load_gifti(img).agg_data()
+            # More than one data arrays without NIFTI_INTENT_TIMESERIES
+            if isinstance(data_hemi, tuple):
+                data_hemi = np.asarray(data_hemi).T
+            data_gii += [data_hemi]
+        if np.ndim(data_gii) > 2:
+            out = np.vstack(data_gii)
+        else:
+            out = np.hstack(data_gii)
     except (AttributeError, TypeError, ValueError, OSError) as err:
         # niimg_like or path_like (nifti)
         if (isinstance(err, AttributeError)
-            or str(err) == 'stat: path should be string, bytes, os.'
-                           'PathLike or integer, not Nifti1Image'):
+            or (
+                "os.PathLike" in str(err)
+                and "Nifti1Image" in str(err)
+                )
+           ):
             out = np.stack([load_nifti(img).get_fdata() for img in data],
                            axis=3)
         # array_like (parcellated)
