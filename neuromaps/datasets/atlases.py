@@ -202,7 +202,7 @@ Returns
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsLR']))
 
 
-def fetch_bigbrain(density='164k', url=None, data_dir=None, verbose=1):
+def fetch_bigbrain(density='164k', url=None, data_dir=None, verbose=1):  # noqa: D103
     keys = ['white', 'pial']
     return _fetch_atlas(
         'BigBrain', density, keys, url=url, data_dir=data_dir, verbose=verbose
