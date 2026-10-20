@@ -210,7 +210,8 @@ class Parcellater():
         """
         if not self._volumetric:
             verts = parcels_to_vertices(data, self.parcellation)
-            img = _array_to_gifti(verts)
+            hemi = self.hemi[0] if len(self.hemi) == 1 else None
+            img = _array_to_gifti(verts, hemi=hemi)
         else:
             data = np.atleast_2d(data)
             img = NiftiLabelsMasker(self.parcellation).fit() \
