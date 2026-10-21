@@ -24,8 +24,8 @@ Functions to show all available annotations
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.datasets.available_annotations
-   neuromaps.datasets.available_tags
+   available_annotations
+   available_tags
 
 Functions to fetch and describe the annotations
 
@@ -33,8 +33,8 @@ Functions to fetch and describe the annotations
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.datasets.fetch_annotation
-   neuromaps.datasets.describe_annotations
+   fetch_annotation
+   describe_annotations
 
 Functions to fetch the atlases
 
@@ -42,14 +42,14 @@ Functions to fetch the atlases
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.datasets.fetch_atlas
-   neuromaps.datasets.fetch_civet
-   neuromaps.datasets.fetch_fsaverage
-   neuromaps.datasets.fetch_fslr
-   neuromaps.datasets.fetch_mni152
-   neuromaps.datasets.fetch_regfusion
-   neuromaps.datasets.fetch_all_atlases
-   neuromaps.datasets.get_atlas_dir
+   fetch_atlas
+   fetch_civet
+   fetch_fsaverage
+   fetch_fslr
+   fetch_mni152
+   fetch_regfusion
+   fetch_all_atlases
+   get_atlas_dir
 
 .. _ref_images:
 
@@ -67,8 +67,8 @@ Functions to load the images and surfaces
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.images.load_gifti
-   neuromaps.images.load_nifti
+   load_gifti
+   load_nifti
 
 Functions to convert surfaces to GIFTI format
 
@@ -76,12 +76,12 @@ Functions to convert surfaces to GIFTI format
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.images.relabel_gifti
-   neuromaps.images.annot_to_gifti
-   neuromaps.images.dlabel_to_gifti
-   neuromaps.images.obj_to_gifti
-   neuromaps.images.fssurf_to_gifti
-   neuromaps.images.fsmorph_to_gifti
+   relabel_gifti
+   annot_to_gifti
+   dlabel_to_gifti
+   obj_to_gifti
+   fssurf_to_gifti
+   fsmorph_to_gifti
 
 Functions to work with surfaces
 
@@ -89,9 +89,9 @@ Functions to work with surfaces
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.images.average_surfaces
-   neuromaps.images.interp_surface
-   neuromaps.images.vertex_areas
+   average_surfaces
+   interp_surface
+   vertex_areas
 
 .. _ref_nulls:
 
@@ -109,12 +109,12 @@ Spatial permutation null models (for surface images only)
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.nulls.alexander_bloch
-   neuromaps.nulls.vazquez_rodriguez
-   neuromaps.nulls.vasa
-   neuromaps.nulls.hungarian
-   neuromaps.nulls.baum
-   neuromaps.nulls.cornblath
+   alexander_bloch
+   vazquez_rodriguez
+   vasa
+   hungarian
+   baum
+   cornblath
 
 Parametric spatial null models (for volumetric and surface images)
 
@@ -122,9 +122,9 @@ Parametric spatial null models (for volumetric and surface images)
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.nulls.burt2018
-   neuromaps.nulls.burt2020
-   neuromaps.nulls.moran
+   burt2018
+   burt2020
+   moran
 
 .. _ref_parcellating:
 
@@ -140,7 +140,7 @@ Parametric spatial null models (for volumetric and surface images)
    :template: class.rst
    :toctree: generated/
 
-   neuromaps.parcellate.Parcellater
+   Parcellater
 
 .. _ref_plotting:
 
@@ -156,7 +156,7 @@ Parametric spatial null models (for volumetric and surface images)
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.plotting.plot_surf_template
+   plot_surf_template
 
 .. _ref_points:
 
@@ -172,8 +172,8 @@ Parametric spatial null models (for volumetric and surface images)
     :template: function.rst
     :toctree: generated/
 
-    neuromaps.points.make_surf_graph
-    neuromaps.points.get_surface_distance
+    make_surf_graph
+    get_surface_distance
 
 .. _ref_resampling:
 
@@ -189,7 +189,7 @@ Parametric spatial null models (for volumetric and surface images)
     :template: function.rst
     :toctree: generated/
 
-    neuromaps.resampling.resample_images
+    resample_images
 
 .. _ref_stats:
 
@@ -205,8 +205,8 @@ Parametric spatial null models (for volumetric and surface images)
     :template: function.rst
     :toctree: generated/
 
-    neuromaps.stats.compare_images
-    neuromaps.stats.permtest_metric
+    compare_images
+    permtest_metric
 
 .. _ref_transforms:
 
@@ -224,9 +224,9 @@ Volume-to-surface transformations
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.transforms.mni152_to_civet
-   neuromaps.transforms.mni152_to_fsaverage
-   neuromaps.transforms.mni152_to_fslr
+   mni152_to_civet
+   mni152_to_fsaverage
+   mni152_to_fslr
 
 Volume-to-volume transformations
 
@@ -234,7 +234,7 @@ Volume-to-volume transformations
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.transforms.mni152_to_mni152
+   mni152_to_mni152
 
 Surface-to-surface transformations
 
@@ -242,12 +242,12 @@ Surface-to-surface transformations
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.transforms.civet_to_fslr
-   neuromaps.transforms.fslr_to_civet
-   neuromaps.transforms.civet_to_fsaverage
-   neuromaps.transforms.fsaverage_to_civet
-   neuromaps.transforms.civet_to_civet
-   neuromaps.transforms.fslr_to_fsaverage
-   neuromaps.transforms.fsaverage_to_fslr
-   neuromaps.transforms.fslr_to_fslr
-   neuromaps.transforms.fsaverage_to_fsaverage
+   civet_to_fslr
+   fslr_to_civet
+   civet_to_fsaverage
+   fsaverage_to_civet
+   civet_to_civet
+   fslr_to_fsaverage
+   fsaverage_to_fslr
+   fslr_to_fslr
+   fsaverage_to_fsaverage
