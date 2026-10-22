@@ -3,6 +3,7 @@
 
 import numpy as np
 import pytest
+from scipy import stats as sstats
 
 from neuromaps import stats
 
@@ -23,6 +24,40 @@ def test_permtest_metric():
     r, p = stats.permtest_metric(np.c_[x, x[::-1]], np.c_[y, y])
     assert np.allclose(r, [0.0345815411043023, 0.03338608427980476])
     assert np.allclose(p, [0.7192807192807192, 0.7472527472527473])
+
+
+def test_spearmanr_nulls():
+    """Test that supplied nulls are ranked when metric is spearmanr."""
+    rs = np.random.default_rng(12345678)
+    x, y = rs.random(size=(2, 100)) + 1
+    x[x.argmax()] = 1e8
+    nulls = np.column_stack([np.roll(x, k) for k in range(1, 100)])
+    ranked = sstats.rankdata(nulls, axis=0)
+    for func in (stats.compare_images, stats.permtest_metric):
+        r, p, n = func(x, y, metric='spearmanr', nulls=nulls,
+                       return_nulls=True)
+        rr, pr, nr = func(x, y, metric='spearmanr', nulls=ranked,
+                          return_nulls=True)
+        assert np.allclose([r, p], [rr, pr])
+        assert np.allclose(n, nr)
+
+
+def test_spearmanr_nulls_nan():
+    """Test spearmanr nulls with missing values match pairwise Spearman."""
+    rs = np.random.default_rng(12345678)
+    x, y = rs.random(size=(2, 100)) + 1
+    nulls = np.column_stack([np.roll(x, k) for k in range(1, 100)])
+    nulls[rs.random(nulls.shape) < 0.1] = np.nan
+    expected = [sstats.spearmanr(v[~np.isnan(v)], y[~np.isnan(v)])[0]
+                for v in nulls.T]
+    for func in (stats.compare_images, stats.permtest_metric):
+        _, _, n = func(x, y, metric='spearmanr', nulls=nulls,
+                       nan_policy='omit', return_nulls=True)
+        assert np.allclose(n, expected)
+
+    x[0] = np.nan
+    r, _ = stats.permtest_metric(x, y, metric='spearmanr', nan_policy='omit')
+    assert np.isclose(r, sstats.spearmanr(x[1:], y[1:])[0])
 
 
 @pytest.mark.parametrize('x, y, expected', [
