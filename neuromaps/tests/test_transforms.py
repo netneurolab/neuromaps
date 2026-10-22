@@ -110,3 +110,56 @@ def test_fslr_to_fslr():
 def test_fsaverage_to_fsaverage():
     """Test projecting a surface to another surface."""
     assert False
+
+
+@pytest.mark.parametrize('method, operation', [
+    ('linear', '-metric-resample'),
+    ('nearest', '-label-resample'),
+])
+def test_surface_resampling_literal_paths(tmp_path, method, operation):
+    """Keep surface paths literal when invoking Workbench."""
+    import subprocess
+    from unittest.mock import patch
+
+    image = (tmp_path / 'input scan;literal.func.gii').resolve()
+    atlas = tmp_path / 'atlas files;literal'
+    output = tmp_path / 'output scan;literal.func.gii'
+    output.touch()
+    sentinel = object()
+    with patch.multiple(
+        transforms,
+        fetch_atlas=lambda *args: None,
+        get_atlas_dir=lambda *args: atlas,
+        tmpname=lambda *args: output,
+        load_data=lambda *args: sentinel,
+        construct_shape_gii=lambda data: data,
+    ), patch('subprocess.run', return_value=subprocess.CompletedProcess([], 0)) as run:
+        result = transforms._surf_to_surf(
+            image,
+            {'space': 'fsaverage', 'den': '3k', 'trg': ''},
+            {'space': 'fsLR', 'den': '32k', 'trg': ''},
+            method=method, hemi='L',
+        )
+
+    assert result == (sentinel,)
+    assert run.call_count == 2
+    resample, mask = run.call_args_list
+    assert resample.args[0][:3] == ['wb_command', operation, str(image)]
+    assert resample.args[0][3:5] == [
+        str(atlas / 'tpl-fsaverage_den-3k_hemi-L_sphere.surf.gii'),
+        str(atlas / 'tpl-fsLR_den-32k_hemi-L_sphere.surf.gii'),
+    ]
+    assert resample.args[0][6] == str(output)
+    assert resample.args[0][8:10] == [
+        str(atlas / 'tpl-fsaverage_den-3k_hemi-L_desc-vaavg_midthickness.shape.gii'),
+        str(atlas / 'tpl-fsLR_den-32k_hemi-L_desc-vaavg_midthickness.shape.gii'),
+    ]
+    assert resample.args[0][11] == str(
+        atlas / 'tpl-fsaverage_den-3k_hemi-L_desc-nomedialwall_dparc.label.gii'
+    )
+    assert mask.args[0] == [
+        'wb_command', '-metric-mask', str(output),
+        str(atlas / 'tpl-fsLR_den-32k_hemi-L_desc-nomedialwall_dparc.label.gii'),
+        str(output),
+    ]
+    assert all(call.kwargs['shell'] is False for call in run.call_args_list)
