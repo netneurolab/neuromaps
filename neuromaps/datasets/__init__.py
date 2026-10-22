@@ -1,17 +1,16 @@
 """Functions for fetching datasets."""
 
 
-from .atlases import (fetch_all_atlases, fetch_atlas, fetch_civet,
-                      fetch_fsaverage, fetch_fslr, fetch_mni152,
+from .atlases import (fetch_all_atlases, fetch_atlas, fetch_bigbrain,
+                      fetch_civet, fetch_fsaverage, fetch_fslr, fetch_mni152,
                       fetch_regfusion, get_atlas_dir, DENSITIES, ALIAS)
 from .annotations import (
     available_annotations, available_tags, fetch_annotation, describe_annotations
 )
 
-
 __all__ = [
-    'fetch_all_atlases', 'fetch_atlas', 'fetch_civet', 'fetch_fsaverage',
-    'fetch_fslr', 'fetch_mni152', 'fetch_regfusion', 'get_atlas_dir',
-    'DENSITIES', 'ALIAS', 'available_annotations', 'available_tags',
-    'fetch_annotation', "describe_annotations"
+    'fetch_all_atlases', 'fetch_atlas', 'fetch_bigbrain', 'fetch_civet',
+    'fetch_fsaverage', 'fetch_fslr', 'fetch_mni152', 'fetch_regfusion',
+    'get_atlas_dir', 'DENSITIES', 'ALIAS', 'available_annotations',
+    'available_tags', 'fetch_annotation', 'describe_annotations'
 ]
