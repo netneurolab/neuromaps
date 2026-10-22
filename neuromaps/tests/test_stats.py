@@ -42,6 +42,24 @@ def test_spearmanr_nulls():
         assert np.allclose(n, nr)
 
 
+def test_spearmanr_nulls_nan():
+    """Test spearmanr nulls with missing values match pairwise Spearman."""
+    rs = np.random.default_rng(12345678)
+    x, y = rs.random(size=(2, 100)) + 1
+    nulls = np.column_stack([np.roll(x, k) for k in range(1, 100)])
+    nulls[rs.random(nulls.shape) < 0.1] = np.nan
+    expected = [sstats.spearmanr(v[~np.isnan(v)], y[~np.isnan(v)])[0]
+                for v in nulls.T]
+    for func in (stats.compare_images, stats.permtest_metric):
+        _, _, n = func(x, y, metric='spearmanr', nulls=nulls,
+                       nan_policy='omit', return_nulls=True)
+        assert np.allclose(n, expected)
+
+    x[0] = np.nan
+    r, _ = stats.permtest_metric(x, y, metric='spearmanr', nan_policy='omit')
+    assert np.isclose(r, sstats.spearmanr(x[1:], y[1:])[0])
+
+
 @pytest.mark.parametrize('x, y, expected', [
     # basic one-dimensional input
     (range(5), range(5), (1.0, 0.0)),

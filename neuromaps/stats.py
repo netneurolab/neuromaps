@@ -83,23 +83,18 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
     elif nan_policy == 'propagate':
         mask = np.logical_not(zeromask)
     srcdata, trgdata = srcdata[mask], trgdata[mask]
-    if nulls is not None:
-        nulls = nulls[mask]
-
-    if metric in methods:
-        if metric == 'spearmanr':
-            srcdata = sstats.rankdata(srcdata)
-            trgdata = sstats.rankdata(trgdata)
-            if nulls is not None:
-                nulls = _rank_nulls(nulls)
-        metric = partial(efficient_pearsonr, return_pval=False)
 
     if nulls is not None:
         n_perm = nulls.shape[-1]
+        nulls = nulls[mask]
         return permtest_metric(srcdata, trgdata, metric, n_perm=n_perm,
                                nulls=nulls, nan_policy=nan_policy,
                                return_nulls=return_nulls)
 
+    if metric == 'pearsonr':
+        return efficient_pearsonr(srcdata, trgdata, return_pval=False)
+    if metric == 'spearmanr':
+        return sstats.spearmanr(srcdata, trgdata)[0]
     return metric(srcdata, trgdata)
 
 
@@ -174,13 +169,12 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     if a.size == 0 or b.size == 0:
         return np.nan, np.nan
 
-    methods = ('pearsonr', 'spearmanr')
-    if metric in methods:
-        if metric == 'spearmanr':
-            a, b = sstats.rankdata(a), sstats.rankdata(b)
-            if nulls is not None:
-                nulls = _rank_nulls(nulls)
+    if metric == 'pearsonr':
         compfunc = partial(efficient_pearsonr, return_pval=False)
+    elif metric == 'spearmanr':
+        def compfunc(a, b, nan_policy):
+            # np.float64 because spearmanr may return a Python float nan
+            return np.float64(sstats.spearmanr(a, b, nan_policy=nan_policy)[0])
     else:
         compfunc = nan_wrap
 
@@ -206,13 +200,6 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         return true_sim, pvals, nulldist
 
     return true_sim, pvals
-
-
-def _rank_nulls(nulls):
-    """Rank each column of `nulls`, keeping NaNs as NaNs."""
-    nanmask = np.isnan(nulls)
-    return np.where(nanmask, np.nan, sstats.rankdata(
-        np.where(nanmask, np.inf, nulls), axis=0))
 
 
 def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
