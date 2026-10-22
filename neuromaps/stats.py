@@ -67,11 +67,15 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
 
     srcdata, trgdata = load_data(src), load_data(trg)
 
+    if nan_policy not in ('propagate', 'raise', 'omit'):
+        raise ValueError(f'Value for nan_policy "{nan_policy}" not allowed')
+
     # drop NaNs (if nan_policy==`omit`) and zeros (if ignore_zero=True)
     zeromask = np.zeros(len(srcdata), dtype=bool)
     if ignore_zero:
         zeromask = np.logical_or(np.isclose(srcdata, 0),
                                  np.isclose(trgdata, 0))
+    mask = np.logical_not(zeromask)
     nanmask = np.logical_or(np.isnan(srcdata), np.isnan(trgdata))
     if nan_policy == 'raise':
         if np.any(nanmask):
@@ -83,20 +87,50 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         mask = np.logical_not(zeromask)
     srcdata, trgdata = srcdata[mask], trgdata[mask]
 
-    if metric in methods:
-        if metric == 'spearmanr':
-            srcdata = sstats.rankdata(srcdata)
-            trgdata = sstats.rankdata(trgdata)
-        metric = partial(efficient_pearsonr, return_pval=False)
-
     if nulls is not None:
+        # Preserve the metric name: permtest_metric must apply exactly the
+        # same statistic to the observed maps and to every supplied null map.
         n_perm = nulls.shape[-1]
         nulls = nulls[mask]
         return permtest_metric(srcdata, trgdata, metric, n_perm=n_perm,
                                nulls=nulls, nan_policy=nan_policy,
                                return_nulls=return_nulls)
 
+    if metric == 'spearmanr':
+        return _spearmanr(srcdata, trgdata, nan_policy=nan_policy)
+    if metric == 'pearsonr':
+        return efficient_pearsonr(srcdata, trgdata, return_pval=False,
+                                  nan_policy=nan_policy)
     return metric(srcdata, trgdata)
+
+
+def _spearmanr(a, b, nan_policy='propagate'):
+    """Compute matching-column rank correlations on each pair's support."""
+    if nan_policy not in ('propagate', 'raise', 'omit'):
+        raise ValueError(f'Value for nan_policy "{nan_policy}" not allowed')
+    a, b, _ = _chk2_asarray(a, b, 0)
+    if len(a) != len(b):
+        raise ValueError('Provided arrays do not have same length')
+    if a.size == 0 or b.size == 0:
+        return np.nan
+    a, b = np.broadcast_arrays(a.reshape(len(a), -1),
+                               b.reshape(len(b), -1))
+    correlations = np.full(a.shape[1], np.nan)
+    for column in range(a.shape[1]):
+        x, y = a[:, column], b[:, column]
+        missing = np.isnan(x) | np.isnan(y)
+        if nan_policy == 'raise' and np.any(missing):
+            raise ValueError('Input contains nan')
+        if nan_policy == 'propagate' and np.any(missing):
+            continue
+        if nan_policy == 'omit':
+            x, y = x[~missing], y[~missing]
+        if len(x) < 2 or np.all(x == x[0]) or np.all(y == y[0]):
+            continue
+        # Ranking must happen after pairwise omission, separately for every
+        # null comparison. Original-map ranks are not valid for a new support.
+        correlations[column] = sstats.spearmanr(x, y)[0]
+    return np.squeeze(correlations) / 1
 
 
 def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
@@ -147,6 +181,13 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
 
     Notes
     -----
+    For Spearman comparisons, observed data and every null map are ranked
+    separately after pairwise NaN handling. Supplied null maps may contain raw
+    values; callers do not need to pre-rank them. If any Spearman statistic is
+    undefined, its p-value is NaN rather than treating that draw as evidence
+    against the null. The supplied null-generation model remains the caller's
+    responsibility.
+
     The lowest p-value that can be returned by this function is equal to 1 /
     (`n_perm` + 1).
     """
@@ -169,10 +210,9 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     if a.size == 0 or b.size == 0:
         return np.nan, np.nan
 
-    methods = ('pearsonr', 'spearmanr')
-    if metric in methods:
-        if metric == 'spearmanr':
-            a, b = sstats.rankdata(a), sstats.rankdata(b)
+    if metric == 'spearmanr':
+        compfunc = _spearmanr
+    elif metric == 'pearsonr':
         compfunc = partial(efficient_pearsonr, return_pval=False)
     else:
         compfunc = nan_wrap
@@ -183,6 +223,9 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     # divide by one forces coercion to float if ndim = 0
     true_sim = compfunc(a, b, nan_policy=nan_policy) / 1
     abs_true = np.abs(true_sim)
+    if metric == 'spearmanr':
+        # Count theoretical ties despite rounding in correlation arithmetic.
+        abs_true = abs_true - 100 * np.finfo(float).eps * abs_true
 
     permutations = np.ones(true_sim.shape)
     nulldist = np.zeros(((n_perm, ) + true_sim.shape))
@@ -194,6 +237,12 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         nulldist[perm] = nullcomp
 
     pvals = permutations / (n_perm + 1)  # + 1 in denom accounts for true_sim
+    if metric == 'spearmanr':
+        # An undefined observed or null statistic is not a non-exceedance.
+        # Do not silently turn a failed comparison into a small p-value.
+        invalid = (~np.isfinite(true_sim)
+                   | np.any(~np.isfinite(nulldist), axis=0))
+        pvals = np.where(invalid, np.nan, pvals) / 1
 
     if return_nulls:
         return true_sim, pvals, nulldist
