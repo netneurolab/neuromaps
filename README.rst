@@ -77,6 +77,7 @@ If you use the ``neuromaps`` toolbox, please ensure proper attribution of the or
 
   - Volume-to-surface transformations (registration fusion): `Buckner et al 2011 <https://journals.physiology.org/doi/full/10.1152/jn.00339.2011>`_ (original proposition) and `Wu et al 2018 <https://onlinelibrary.wiley.com/doi/10.1002/hbm.24213>`_ (first implementation of MNI152 to fsaverage transformation).
   - Surface-to-surface transformations (multimodal surface matching): `Robinson et al 2014 <https://www.sciencedirect.com/science/article/pii/S1053811914004546>`_ and `Robinson et al 2018 <https://www.sciencedirect.com/science/article/pii/S1053811917308649>`_.
+  - Bigbrain-to-fsaverage/fslr transformations (BigBrainWarp): `Paquola et al 2021 <https://doi.org/10.7554/eLife.70119>`_ and `Lewis et al 2020 <https://drive.google.com/file/d/1vAqLRV8Ue7rf3gsNHMixFqlLxBjxtmc8/view>`_.
 
 - Cite the spatial null models used (see API documentation)
 
