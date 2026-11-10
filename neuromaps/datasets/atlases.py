@@ -103,6 +103,12 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
             ]
 
     else:
+        if atlas == 'BigBrain':
+            extra_files = ('nomedialwall_dparc.label',)
+        else:
+            extra_files = ('nomedialwall_dparc.label',
+                          'sulc_midthickness.shape',
+                          'vaavg_midthickness.shape')
         filenames = [
             'tpl-{}_den-{}_hemi-{}_{}.surf.gii'
             .format(atlas, density, hemi, surf)
@@ -110,10 +116,8 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
             for hemi in ('L', 'R')
         ] + [
             'tpl-{}_den-{}_hemi-{}_desc-{}.gii'
-            .format(atlas, density, hemi, desc)
-            for desc in ('nomedialwall_dparc.label',
-                         'sulc_midthickness.shape',
-                         'vaavg_midthickness.shape')
+            .format(atlas, density, hemi, file)
+            for file in extra_files
             for hemi in ('L', 'R')
         ]
         keys += ['medial', 'sulc', 'vaavg']
@@ -203,7 +207,7 @@ Returns
 
 
 def fetch_bigbrain(density='164k', url=None, data_dir=None, verbose=1):  # noqa: D103
-    keys = ['white', 'pial']
+    keys = ['white']
     return _fetch_atlas(
         'BigBrain', density, keys, url=url, data_dir=data_dir, verbose=verbose
     )
