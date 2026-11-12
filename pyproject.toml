@@ -21,7 +21,7 @@ classifiers = [
 
 dependencies = [
   "numpy >=1.14.0",
-  "scipy >=0.17",
+  "scipy >=1.4.0",
   "matplotlib >=3.5.0",
   "scikit-learn",
   "nibabel >=3.0.0",

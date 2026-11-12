@@ -33,7 +33,8 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         `trg` data. Default: True
     nulls : array_like, optional
         Null data for `src` to use in generating a non-parametric p-value.
-        If not specified a parametric p-value is generated. Default: None
+        If not specified a parametric p-value is generated. If `metric` is
+        'spearmanr', each null map is ranked before comparison. Default: None
     nan_policy : {'propagate', 'raise', 'omit'}, optional
         Defines how to handle when input contains nan. 'propagate' propagates
         the nan values to the callable metric (will return nan if the metric
@@ -83,12 +84,6 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         mask = np.logical_not(zeromask)
     srcdata, trgdata = srcdata[mask], trgdata[mask]
 
-    if metric in methods:
-        if metric == 'spearmanr':
-            srcdata = sstats.rankdata(srcdata)
-            trgdata = sstats.rankdata(trgdata)
-        metric = partial(efficient_pearsonr, return_pval=False)
-
     if nulls is not None:
         n_perm = nulls.shape[-1]
         nulls = nulls[mask]
@@ -96,6 +91,10 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
                                nulls=nulls, nan_policy=nan_policy,
                                return_nulls=return_nulls)
 
+    if metric == 'pearsonr':
+        return efficient_pearsonr(srcdata, trgdata, return_pval=False)
+    if metric == 'spearmanr':
+        return sstats.spearmanr(srcdata, trgdata)[0]
     return metric(srcdata, trgdata)
 
 
@@ -126,7 +125,8 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         Null array used in place of shuffled `a` array to compute null
         distribution of correlations. Array must have the same length as `a`
         and `b`. Providing this will override the value supplied to `n_perm`.
-        When not specified a standard permutation is used to shuffle `a`.
+        When not specified a standard permutation is used to shuffle `a`. If
+        `metric` is 'spearmanr', each null map is ranked before comparison.
         Default: None
     nan_policy : {'propagate', 'raise', 'omit'}, optional
         Defines how to handle when inputs contain nan. 'propagate' returns nan,
@@ -169,11 +169,12 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     if a.size == 0 or b.size == 0:
         return np.nan, np.nan
 
-    methods = ('pearsonr', 'spearmanr')
-    if metric in methods:
-        if metric == 'spearmanr':
-            a, b = sstats.rankdata(a), sstats.rankdata(b)
+    if metric == 'pearsonr':
         compfunc = partial(efficient_pearsonr, return_pval=False)
+    elif metric == 'spearmanr':
+        def compfunc(a, b, nan_policy):
+            # np.float64 because spearmanr may return a Python float nan
+            return np.float64(sstats.spearmanr(a, b, nan_policy=nan_policy)[0])
     else:
         compfunc = nan_wrap
 
