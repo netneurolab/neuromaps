@@ -215,7 +215,7 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     # corresponding p-values to nan instead.
     if nan_policy == 'propagate':
         invalid = np.logical_or(np.isnan(true_sim),
-                                np.any(np.isnan(nulldist, axis=0)))
+                                np.any(np.isnan(nulldist), axis=0))
         pvals = np.where(invalid, np.nan, pvals)
 
     if return_nulls:
@@ -224,7 +224,7 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
     return true_sim, pvals
 
 
-def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
+def efficient_pearsonr(a, b, nan_policy='propagate', return_pval=True):
     """
     Compute correlation of matching columns in `a` and `b`.
 
@@ -233,9 +233,6 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
     a,b : array_like
         Sample observations. These arrays must have the same length and either
         an equivalent number of columns or be broadcastable
-    ddof : int, optional
-        Degrees of freedom correction in the calculation of the standard
-        deviation. Default: 1
     nan_policy : {'propagate', 'raise', 'omit'}, optional
         Defines how to handle when input contains nan. 'propagate' returns nan,
         'raise' throws an error, 'omit' performs the calculations ignoring nan
@@ -280,8 +277,8 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
         b = np.ma.masked_array(b, mask, copy=False, fill_value=np.nan)
 
     with np.errstate(invalid='ignore'):
-        corr = (sstats.zscore(a, ddof=ddof, nan_policy=nan_policy)
-                * sstats.zscore(b, ddof=ddof, nan_policy=nan_policy))
+        corr = (sstats.zscore(a, nan_policy=nan_policy)
+                * sstats.zscore(b, nan_policy=nan_policy))
 
     sumfunc, n_obs = np.sum, len(a)
     if nan_policy == 'omit':
@@ -289,7 +286,7 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
         sumfunc = np.nansum
         n_obs = np.squeeze(np.sum(np.logical_not(np.isnan(corr)), axis=0))
 
-    corr = sumfunc(corr, axis=0) / (n_obs - 1)
+    corr = sumfunc(corr, axis=0) / n_obs
     corr = np.squeeze(np.clip(corr, -1, 1)) / 1
 
     if return_pval:
