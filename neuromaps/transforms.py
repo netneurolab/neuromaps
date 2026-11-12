@@ -359,7 +359,8 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
             trgmask=trgdir / MLFMT.format(**trgparams)
         )
         for fn in (func, MASKSURF):
-            run(fn.format(**params), quiet=True)
+            run([a.format(**params) for a in fn.split()], quiet=True,
+                shell=False)
         resampled += (construct_shape_gii(load_data(params['out'])),)
         params['out'].unlink()
         if tmpimg is not None:
