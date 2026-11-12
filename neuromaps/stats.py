@@ -33,8 +33,9 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
         `trg` data. Default: True
     nulls : array_like, optional
         Null data for `src` to use in generating a non-parametric p-value.
-        If not specified a parametric p-value is generated. If `metric` is
-        'spearmanr', each null map is ranked before comparison. Default: None
+        If not specified, no p-value is computed and only the similarity is
+        returned. If `metric` is 'spearmanr', each null map is ranked before
+        comparison. Default: None
     nan_policy : {'propagate', 'raise', 'omit'}, optional
         Defines how to handle when input contains nan. 'propagate' propagates
         the nan values to the callable metric (will return nan if the metric
@@ -77,13 +78,16 @@ def compare_images(src, trg, metric='pearsonr', ignore_zero=True, nulls=None,
     if nan_policy == 'raise':
         if np.any(nanmask):
             raise ValueError('Inputs contain nan')
+        mask = np.logical_not(zeromask)
     elif nan_policy == 'omit':
         mask = np.logical_and(np.logical_not(zeromask),
                               np.logical_not(nanmask))
     elif nan_policy == 'propagate':
         mask = np.logical_not(zeromask)
-    srcdata, trgdata = srcdata[mask], trgdata[mask]
+    else:
+        raise ValueError(f'Value for nan_policy "{nan_policy}" not allowed')
 
+    srcdata, trgdata = srcdata[mask], trgdata[mask]
     if nulls is not None:
         n_perm = nulls.shape[-1]
         nulls = nulls[mask]
@@ -160,26 +164,36 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
             a, b = a[~nanmask], b[~nanmask]
         return metric(a, b)
 
-    a, b, _ = _chk2_asarray(a, b, 0)
-    rs = check_random_state(seed)
-
-    if len(a) != len(b):
-        raise ValueError('Provided arrays do not have same length')
-
-    if a.size == 0 or b.size == 0:
-        return np.nan, np.nan
-
     if metric == 'pearsonr':
         compfunc = partial(efficient_pearsonr, return_pval=False)
     elif metric == 'spearmanr':
         def compfunc(a, b, nan_policy):
             # np.float64 because spearmanr may return a Python float nan
             return np.float64(sstats.spearmanr(a, b, nan_policy=nan_policy)[0])
+    elif not callable(metric):
+        raise ValueError(f'Invalid `metric`: {metric}')
+    elif not np.isscalar(metric([1, 1], [1, 1])):
+        raise ValueError('Provided callable `metric` must accept two '
+                            'inputs and return single value.')
     else:
         compfunc = nan_wrap
 
+    if nan_policy not in ('propagate', 'raise', 'omit'):
+        raise ValueError(f'Value for nan_policy "{nan_policy}" not allowed')
+
+    a, b, _ = _chk2_asarray(a, b, 0)
+    rs = check_random_state(seed)
+
+    if len(a) != len(b):
+        raise ValueError('Provided arrays do not have same length')
+
     if nulls is not None:
         n_perm = nulls.shape[-1]
+
+    if a.size == 0 or b.size == 0:
+        if return_nulls:
+            return np.nan, np.nan, np.full(n_perm, np.nan)
+        return np.nan, np.nan
 
     # divide by one forces coercion to float if ndim = 0
     true_sim = compfunc(a, b, nan_policy=nan_policy) / 1
@@ -195,6 +209,14 @@ def permtest_metric(a, b, metric='pearsonr', n_perm=1000, seed=0, nulls=None,
         nulldist[perm] = nullcomp
 
     pvals = permutations / (n_perm + 1)  # + 1 in denom accounts for true_sim
+
+    # When `nullcomp` is `nan`, np.abs(nullcomp) >= abs_true evaluates
+    # to False, which can result in misleading p-values. Set the
+    # corresponding p-values to nan instead.
+    if nan_policy == 'propagate':
+        invalid = np.logical_or(np.isnan(true_sim),
+                                np.any(np.isnan(nulldist, axis=0)))
+        pvals = np.where(invalid, np.nan, pvals)
 
     if return_nulls:
         return true_sim, pvals, nulldist
@@ -218,6 +240,8 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
         Defines how to handle when input contains nan. 'propagate' returns nan,
         'raise' throws an error, 'omit' performs the calculations ignoring nan
         values. Default: 'propagate'
+    return_pval: bool, optional
+        Whether to return a parametric p-value for the correlation.
 
     Returns
     -------
@@ -236,7 +260,9 @@ def efficient_pearsonr(a, b, ddof=1, nan_policy='propagate', return_pval=True):
         raise ValueError('Provided arrays do not have same length')
 
     if a.size == 0 or b.size == 0:
-        return np.nan, np.nan
+        if return_pval:
+            return np.nan, np.nan
+        return np.nan
 
     if nan_policy not in ('propagate', 'raise', 'omit'):
         raise ValueError(f'Value for nan_policy "{nan_policy}" not allowed')
