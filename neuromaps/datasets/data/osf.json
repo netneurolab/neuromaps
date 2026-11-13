@@ -1,4 +1,13 @@
 {
+    "BigBrain": {
+        "164k": {
+            "url": [
+                "4mw3a",
+                "6af38560c1413aa079f8da24"
+            ],
+            "md5": "d8d03565e1968226aa398a5dddf9a3bf"
+        }
+    },
     "civet": {
         "41k": {
             "url": [
@@ -2579,6 +2588,234 @@
             "url": [
                 "4mw3a",
                 "6566590ea7a4834be871422b"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer1thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer1thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "wagstyl2020/layer1thickness/BigBrain",
+            "checksum": "112a7f1e1c16eb4bb7f35610abd83f5f",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38ca8762df963a3003317"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer1thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer1thickness_space-BigBrain_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "wagstyl2020/layer1thickness/BigBrain",
+            "checksum": "e7a0dd09baaee1882ec48bdca493770c",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38ca891ccd6bddeeb3037"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer2thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer2thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "wagstyl2020/layer2thickness/BigBrain",
+            "checksum": "6ca51a07c6d1d40d9418ca3ba87c2451",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cb39edcef40ae9d8da1"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer2thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer2thickness_space-BigBrain_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "wagstyl2020/layer2thickness/BigBrain",
+            "checksum": "e653285efe1dc2e24780a7d9becb0bda",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cb3963d5439909d8cfe"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer3thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer3thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "wagstyl2020/layer3thickness/BigBrain",
+            "checksum": "2a9bf7dd721cebdbabe359e0859216ae",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cbf762df963a300334a"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer3thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer3thickness_space-BigBrain_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "wagstyl2020/layer3thickness/BigBrain",
+            "checksum": "7b55da305cc6df1be5a6964f26e666cd",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cbe963d5439909d8d0b"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer4thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer4thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "wagstyl2020/layer4thickness/BigBrain",
+            "checksum": "99f1b059676c1df896fd73a6500d4a0b",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cc8963d5439909d8d2e"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer4thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer4thickness_space-BigBrain_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "wagstyl2020/layer4thickness/BigBrain",
+            "checksum": "1b5182d237a8ffc7b76039427d3c01de",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cc94eab0564c30032b2"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer5thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer5thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "wagstyl2020/layer5thickness/BigBrain",
+            "checksum": "172a743e71543457d8844123606cc257",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cd3963d5439909d8d57"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer5thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer5thickness_space-BigBrain_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "wagstyl2020/layer5thickness/BigBrain",
+            "checksum": "795171f1d9cf3a6d22f27bebac889592",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38cd3762df963a3003371"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer6thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "L",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer6thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii",
+            "rel_path": "wagstyl2020/layer6thickness/BigBrain",
+            "checksum": "1e3f2b4c73bae0a443308ea6f8517236",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38c7aed2f8f9e6c9d8ca5"]
+        },
+        {
+            "source": "wagstyl2020",
+            "desc": "layer6thickness",
+            "space": "BigBrain",
+            "den": "164k",
+            "hemi": "R",
+            "format": "surface",
+            "fname": "source-wagstyl2020_desc-layer6thickness_space-BigBrain_den-164k_hemi-R_feature.func.gii",
+            "rel_path": "wagstyl2020/layer6thickness/BigBrain",
+            "checksum": "660eb3bf1b12d82e5bf432118e1f3333",
+            "title": null,
+            "tags": [
+                "BigBrain"
+            ],
+            "redir": null,
+            "url": [
+                "4mw3a",
+                "6af38c7a29fcae7476eb2fd3"]
         },
         {
             "source": "wey2016",

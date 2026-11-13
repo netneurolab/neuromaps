@@ -17,13 +17,14 @@ from neuromaps.datasets.utils import get_data_dir, get_dataset_info
 SURFACE = namedtuple('Surface', ('L', 'R'))
 ALIAS = dict(
     fslr='fsLR', fsavg='fsaverage', mni152='MNI152', mni='MNI152',
-    FSLR='fsLR', CIVET='civet'
+    FSLR='fsLR', CIVET='civet', bigbrain='BigBrain'
 )
 DENSITIES = dict(
     civet=['41k', '164k'],
     fsaverage=['3k', '10k', '41k', '164k'],
     fsLR=['4k', '8k', '32k', '164k'],
     MNI152=['1mm', '2mm', '3mm'],
+    BigBrain=['164k']
 )
 
 
@@ -102,6 +103,12 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
             ]
 
     else:
+        if atlas == 'BigBrain':
+            extra_files = ('nomedialwall_dparc.label',)
+        else:
+            extra_files = ('nomedialwall_dparc.label',
+                          'sulc_midthickness.shape',
+                          'vaavg_midthickness.shape')
         filenames = [
             'tpl-{}_den-{}_hemi-{}_{}.surf.gii'
             .format(atlas, density, hemi, surf)
@@ -109,10 +116,8 @@ def _fetch_atlas(atlas, density, keys, url=None, data_dir=None, verbose=1):
             for hemi in ('L', 'R')
         ] + [
             'tpl-{}_den-{}_hemi-{}_desc-{}.gii'
-            .format(atlas, density, hemi, desc)
-            for desc in ('nomedialwall_dparc.label',
-                         'sulc_midthickness.shape',
-                         'vaavg_midthickness.shape')
+            .format(atlas, density, hemi, file)
+            for file in extra_files
             for hemi in ('L', 'R')
         ]
         keys += ['medial', 'sulc', 'vaavg']
@@ -199,6 +204,30 @@ Returns
 -------
 {surfatlas}
 """.format(**_atlas_docs, densities="', '".join(DENSITIES['fsLR']))
+
+
+def fetch_bigbrain(density='164k', url=None, data_dir=None, verbose=1):  # noqa: D103
+    keys = ['white']
+    return _fetch_atlas(
+        'BigBrain', density, keys, url=url, data_dir=data_dir, verbose=verbose
+    )
+
+
+fetch_bigbrain.__doc__ = """
+Fetch BigBrain surface atlas.
+
+Parameters
+----------
+density : {{'{densities}'}}, optional
+    Density of BigBrain atlas to fetch. Default: '164k'
+{url}
+{data_dir}
+{verbose}
+
+Returns
+-------
+{surfatlas}
+""".format(**_atlas_docs, densities="', '".join(DENSITIES['BigBrain']))
 
 
 def fetch_mni152(density='1mm', url=None, data_dir=None, verbose=1):  # noqa: D103

@@ -21,6 +21,14 @@ METRICRESAMPLE = 'wb_command -metric-resample {metric} {src} {trg} ' \
 LABELRESAMPLE = 'wb_command -label-resample {metric} {src} {trg} ' \
                 'ADAP_BARY_AREA {out} -area-metrics {srcarea} {trgarea} ' \
                 '-current-roi {srcmask}'
+
+METRICRESAMPLE_BB = 'wb_command -metric-resample {metric} {src} {trg} ' \
+                    'BARYCENTRIC {out} ' \
+                    '-current-roi {srcmask}'
+LABELRESAMPLE_BB = 'wb_command -label-resample {metric} {src} {trg} ' \
+                   'BARYCENTRIC {out} ' \
+                   '-current-roi {srcmask}'
+
 MASKSURF = 'wb_command -metric-mask {out} {trgmask} {out}'
 SURFFMT = 'tpl-{space}{trg}_den-{den}_hemi-{hemi}_sphere.surf.gii'
 VAFMT = 'tpl-{space}_den-{den}_hemi-{hemi}_desc-vaavg_midthickness.shape.gii'
@@ -338,7 +346,10 @@ def _surf_to_surf(data, srcparams, trgparams, method='linear', hemi=None):
     trgdir = get_atlas_dir(trgparams['space'])
 
     resampled = ()
-    func = METRICRESAMPLE if method == 'linear' else LABELRESAMPLE
+    if 'BigBrain' in (srcparams['space'], trgparams['space']):
+        func = METRICRESAMPLE_BB if method == 'linear' else LABELRESAMPLE_BB
+    else:
+        func = METRICRESAMPLE if method == 'linear' else LABELRESAMPLE
     for img, _hemi in _check_hemi(data, hemi):
         srcparams['hemi'] = trgparams['hemi'] = _hemi
         try:
@@ -619,4 +630,119 @@ def fsaverage_to_fsaverage(data, target_density='41k', hemi=None,
     density, = _estimate_density((data,), hemi=hemi)
     srcparams = dict(space='fsaverage', den=density, trg='')
     trgparams = dict(space='fsaverage', den=target_density, trg='')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def bigbrain_to_fslr(data, target_density='164k', hemi=None, method='linear'):
+    """
+    Resample `data` on the BigBrain surface to the fsLR surface.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'4k', '8k', '32k', '164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='BigBrain', den=density, trg='_space-fsLR')
+    trgparams = dict(space='fsLR', den=target_density, trg='')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def bigbrain_to_fsaverage(data, target_density='164k', hemi=None,
+                          method='linear'):
+    """
+    Resample `data` on the BigBrain surface to the fsaverage surface.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'3k', '10k', '41k', '164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='BigBrain', den=density, trg='_space-fsaverage')
+    trgparams = dict(space='fsaverage', den=target_density, trg='')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def fsaverage_to_bigbrain(data, target_density='164k', hemi=None,
+                          method='linear'):
+    """
+    Resample `data` on fsLR surface to new density.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='fsaverage', den=density, trg='')
+    trgparams = dict(space='BigBrain', den=target_density,
+                     trg='_space-fsaverage')
+    return _surf_to_surf(data, srcparams, trgparams, method, hemi)
+
+
+def fslr_to_bigbrain(data, target_density='164k', hemi=None, method='linear'):
+    """
+    Resample `data` on fsLR surface to new density.
+
+    Parameters
+    ----------
+    data : str or os.PathLike or nib.GiftiImage or tuple
+        Input BigBrain data to be resampled
+    target_density : {'164k'}, optional
+        Desired density of output surface. Default: '164k'
+    hemi : {'L', 'R'}, optional
+        If `data` is not a tuple this specifies the hemisphere the data are
+        representing. Default: None
+    method : {'nearest', 'linear'}, optional
+        Method for resampling. Specify 'nearest' if `data` are label images.
+        Default: 'linear'
+
+    Returns
+    -------
+    resampled : tuple-of-nib.GiftiImage
+        Input `data` resampled to new density
+    """
+    density, = _estimate_density((data,), hemi=hemi)
+    srcparams = dict(space='fsLR', den=density, trg='')
+    trgparams = dict(space='BigBrain', den=target_density, trg='_space-fsLR')
     return _surf_to_surf(data, srcparams, trgparams, method, hemi)
