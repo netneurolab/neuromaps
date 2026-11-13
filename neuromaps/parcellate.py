@@ -19,9 +19,10 @@ def _gifti_to_array(gifti):
     return np.hstack([load_gifti(img).agg_data() for img in gifti])
 
 
-def _array_to_gifti(data):
+def _array_to_gifti(data, hemi=None):
     """Convert numpy `array` to tuple of gifti images."""
-    return tuple(construct_shape_gii(arr) for arr in np.split(data, 2))
+    arrays = (data,) if hemi is not None else np.split(data, 2)
+    return tuple(construct_shape_gii(array) for array in arrays)
 
 
 class Parcellater():
@@ -147,7 +148,7 @@ class Parcellater():
                                  'nibabel.nifti1.Nifti1Image to construct a '
                                  'Nifti1Image from your array.')
             else:
-                data = _array_to_gifti(data)
+                data = _array_to_gifti(data, hemi=hemi)
         if self.resampling_target in ('data', None):
             resampling_method = 'nearest'
         else:
@@ -209,7 +210,8 @@ class Parcellater():
         """
         if not self._volumetric:
             verts = parcels_to_vertices(data, self.parcellation)
-            img = _array_to_gifti(verts)
+            hemi = self.hemi[0] if len(self.hemi) == 1 else None
+            img = _array_to_gifti(verts, hemi=hemi)
         else:
             data = np.atleast_2d(data)
             img = NiftiLabelsMasker(self.parcellation).fit() \
