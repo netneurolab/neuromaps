@@ -2532,6 +2532,168 @@
         },
         {
             "annot": {
+                "source": "wagstyl2020",
+                "desc": "layer1thickness",
+                "space": "BigBrain",
+                "den": "164k"
+            },
+            "full_desc": "Laminar thickness (layer 1)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.",
+                        "bibkey": "wagstyl2020plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.",
+                        "bibkey": "amunts2013science"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1,
+                "age": "65"
+            }
+        },
+        {
+            "annot": {
+                "source": "wagstyl2020",
+                "desc": "layer2thickness",
+                "space": "BigBrain",
+                "den": "164k"
+            },
+            "full_desc": "Laminar thickness (layer 2)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.",
+                        "bibkey": "wagstyl2020plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.",
+                        "bibkey": "amunts2013science"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1,
+                "age": "65"
+            }
+        },
+        {
+            "annot": {
+                "source": "wagstyl2020",
+                "desc": "layer3thickness",
+                "space": "BigBrain",
+                "den": "164k"
+            },
+            "full_desc": "Laminar thickness (layer 3)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.",
+                        "bibkey": "wagstyl2020plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.",
+                        "bibkey": "amunts2013science"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1,
+                "age": "65"
+            }
+        },
+        {
+            "annot": {
+                "source": "wagstyl2020",
+                "desc": "layer4thickness",
+                "space": "BigBrain",
+                "den": "164k"
+            },
+            "full_desc": "Laminar thickness (layer 4)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.",
+                        "bibkey": "wagstyl2020plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.",
+                        "bibkey": "amunts2013science"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1,
+                "age": "65"
+            }
+        },
+        {
+            "annot": {
+                "source": "wagstyl2020",
+                "desc": "layer5thickness",
+                "space": "BigBrain",
+                "den": "164k"
+            },
+            "full_desc": "Laminar thickness (layer 5)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.",
+                        "bibkey": "wagstyl2020plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.",
+                        "bibkey": "amunts2013science"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1,
+                "age": "65"
+            }
+        },
+        {
+            "annot": {
+                "source": "wagstyl2020",
+                "desc": "layer6thickness",
+                "space": "BigBrain",
+                "den": "164k"
+            },
+            "full_desc": "Laminar thickness (layer 6)",
+            "refs": {
+                "primary": [
+                    {
+                        "citation": "Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.",
+                        "bibkey": "wagstyl2020plosbiol"
+                    }
+                ],
+                "secondary": [
+                    {
+                        "citation": "Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.",
+                        "bibkey": "amunts2013science"
+                    }
+                ]
+            },
+            "demographics": {
+                "N": 1,
+                "age": "65"
+            }
+        },
+        {
+            "annot": {
                 "source": "wey2016",
                 "desc": "martinostat",
                 "space": "MNI152",

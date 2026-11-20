@@ -46,6 +46,7 @@ Functions to fetch the atlases
    fetch_civet
    fetch_fsaverage
    fetch_fslr
+   fetch_bigbrain
    fetch_mni152
    fetch_regfusion
    fetch_all_atlases
@@ -243,11 +244,15 @@ Surface-to-surface transformations
    :toctree: generated/
 
    civet_to_fslr
-   fslr_to_civet
    civet_to_fsaverage
-   fsaverage_to_civet
    civet_to_civet
+   fslr_to_civet
    fslr_to_fsaverage
-   fsaverage_to_fslr
+   fslr_to_bigbrain
    fslr_to_fslr
+   fsaverage_to_civet
+   fsaverage_to_fslr
+   fsaverage_to_bigbrain
    fsaverage_to_fsaverage
+   bigbrain_to_fslr
+   bigbrain_to_fsaverage
