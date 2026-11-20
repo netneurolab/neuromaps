@@ -3145,6 +3145,228 @@ PET tracer binding (Vt) to KOR (kappa-opioid receptor)
 
 ----
 
+wagstyl2020-layer1thickness-BigBrain-164k
+=========================================
+
+**Annotation identifier**
+
+*{'source': 'wagstyl2020', 'desc': 'layer1thickness', 'space': 'BigBrain', 'den': '164k'}*
+
+**Full description**
+
+Laminar thickness (layer 1)
+
+**Demographics**: N = 1, Age = 65
+
+**Tags**: BigBrain
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wagstyl2020', desc='layer1thickness', space='BigBrain', den='164k')
+
+    # describe annotation
+    describe_annotations(('wagstyl2020', 'layer1thickness', 'BigBrain', '164k'))
+
+    # file location
+    # $NEUROMAPS_DATA/wagstyl2020/layer1thickness/BigBrain
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wagstyl2020_desc-layer1thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii
+
+**References**
+    - Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.
+    - Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.
+
+----
+
+wagstyl2020-layer2thickness-BigBrain-164k
+=========================================
+
+**Annotation identifier**
+
+*{'source': 'wagstyl2020', 'desc': 'layer2thickness', 'space': 'BigBrain', 'den': '164k'}*
+
+**Full description**
+
+Laminar thickness (layer 2)
+
+**Demographics**: N = 1, Age = 65
+
+**Tags**: BigBrain
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wagstyl2020', desc='layer2thickness', space='BigBrain', den='164k')
+
+    # describe annotation
+    describe_annotations(('wagstyl2020', 'layer2thickness', 'BigBrain', '164k'))
+
+    # file location
+    # $NEUROMAPS_DATA/wagstyl2020/layer2thickness/BigBrain
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wagstyl2020_desc-layer2thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii
+
+**References**
+    - Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.
+    - Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.
+
+----
+
+wagstyl2020-layer3thickness-BigBrain-164k
+=========================================
+
+**Annotation identifier**
+
+*{'source': 'wagstyl2020', 'desc': 'layer3thickness', 'space': 'BigBrain', 'den': '164k'}*
+
+**Full description**
+
+Laminar thickness (layer 3)
+
+**Demographics**: N = 1, Age = 65
+
+**Tags**: BigBrain
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wagstyl2020', desc='layer3thickness', space='BigBrain', den='164k')
+
+    # describe annotation
+    describe_annotations(('wagstyl2020', 'layer3thickness', 'BigBrain', '164k'))
+
+    # file location
+    # $NEUROMAPS_DATA/wagstyl2020/layer3thickness/BigBrain
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wagstyl2020_desc-layer3thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii
+
+**References**
+    - Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.
+    - Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.
+
+----
+
+wagstyl2020-layer4thickness-BigBrain-164k
+=========================================
+
+**Annotation identifier**
+
+*{'source': 'wagstyl2020', 'desc': 'layer4thickness', 'space': 'BigBrain', 'den': '164k'}*
+
+**Full description**
+
+Laminar thickness (layer 4)
+
+**Demographics**: N = 1, Age = 65
+
+**Tags**: BigBrain
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wagstyl2020', desc='layer4thickness', space='BigBrain', den='164k')
+
+    # describe annotation
+    describe_annotations(('wagstyl2020', 'layer4thickness', 'BigBrain', '164k'))
+
+    # file location
+    # $NEUROMAPS_DATA/wagstyl2020/layer4thickness/BigBrain
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wagstyl2020_desc-layer4thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii
+
+**References**
+    - Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.
+    - Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.
+
+----
+
+wagstyl2020-layer5thickness-BigBrain-164k
+=========================================
+
+**Annotation identifier**
+
+*{'source': 'wagstyl2020', 'desc': 'layer5thickness', 'space': 'BigBrain', 'den': '164k'}*
+
+**Full description**
+
+Laminar thickness (layer 5)
+
+**Demographics**: N = 1, Age = 65
+
+**Tags**: BigBrain
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wagstyl2020', desc='layer5thickness', space='BigBrain', den='164k')
+
+    # describe annotation
+    describe_annotations(('wagstyl2020', 'layer5thickness', 'BigBrain', '164k'))
+
+    # file location
+    # $NEUROMAPS_DATA/wagstyl2020/layer5thickness/BigBrain
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wagstyl2020_desc-layer5thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii
+
+**References**
+    - Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.
+    - Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.
+
+----
+
+wagstyl2020-layer6thickness-BigBrain-164k
+=========================================
+
+**Annotation identifier**
+
+*{'source': 'wagstyl2020', 'desc': 'layer6thickness', 'space': 'BigBrain', 'den': '164k'}*
+
+**Full description**
+
+Laminar thickness (layer 6)
+
+**Demographics**: N = 1, Age = 65
+
+**Tags**: BigBrain
+
+**How to use**
+
+.. code:: python
+
+    # get annotation
+    fetch_annotation(source='wagstyl2020', desc='layer6thickness', space='BigBrain', den='164k')
+
+    # describe annotation
+    describe_annotations(('wagstyl2020', 'layer6thickness', 'BigBrain', '164k'))
+
+    # file location
+    # $NEUROMAPS_DATA/wagstyl2020/layer6thickness/BigBrain
+
+    # file name (for surface data, replace L/R to get the other hemisphere)
+    # source-wagstyl2020_desc-layer6thickness_space-BigBrain_den-164k_hemi-L_feature.func.gii
+
+**References**
+    - Wagstyl, K., Larocque, S., Cucurull, G., Lepage, C., Cohen, J. P., Bludau, S., ... & Evans, A. C. (2020). BigBrain 3D atlas of cortical layers: Cortical and laminar thickness gradients diverge in sensory and motor cortices. PLoS biology, 18(4), e3000678.
+    - Amunts, K., Lepage, C., Borgeat, L., Mohlberg, H., Dickscheid, T., Rousseau, M. É., ... & Evans, A. C. (2013). BigBrain: an ultrahigh-resolution 3D human brain model. science, 340(6139), 1472-1475.
+
+----
+
 wey2016-martinostat-MNI152-2mm
 ==============================
 

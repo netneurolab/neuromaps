@@ -46,6 +46,7 @@ Functions to fetch the atlases
    neuromaps.datasets.fetch_civet
    neuromaps.datasets.fetch_fsaverage
    neuromaps.datasets.fetch_fslr
+   neuromaps.datasets.fetch_bigbrain
    neuromaps.datasets.fetch_mni152
    neuromaps.datasets.fetch_regfusion
    neuromaps.datasets.fetch_all_atlases
@@ -243,11 +244,15 @@ Surface-to-surface transformations
    :toctree: generated/
 
    neuromaps.transforms.civet_to_fslr
-   neuromaps.transforms.fslr_to_civet
    neuromaps.transforms.civet_to_fsaverage
-   neuromaps.transforms.fsaverage_to_civet
    neuromaps.transforms.civet_to_civet
+   neuromaps.transforms.fslr_to_civet
    neuromaps.transforms.fslr_to_fsaverage
-   neuromaps.transforms.fsaverage_to_fslr
+   neuromaps.transforms.fslr_to_bigbrain
    neuromaps.transforms.fslr_to_fslr
+   neuromaps.transforms.fsaverage_to_civet
+   neuromaps.transforms.fsaverage_to_fslr
+   neuromaps.transforms.fsaverage_to_bigbrain
    neuromaps.transforms.fsaverage_to_fsaverage
+   neuromaps.transforms.bigbrain_to_fslr
+   neuromaps.transforms.bigbrain_to_fsaverage

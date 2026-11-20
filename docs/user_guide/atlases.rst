@@ -14,6 +14,7 @@ The ``neuromaps`` toolbox supports data in four standard coordinate systems:
   2. fsLR (surface) space,
   3. fsaverage (surface) space, and
   4. CIVET (surface) space
+  5. BigBrain (surface) space
 
 `MNI152` space is an relatively arbitrary designation. Here, when we refer to
 the MNI152 coordinate system we are referencing the variation of the MNI ICBM
@@ -21,9 +22,10 @@ the MNI152 coordinate system we are referencing the variation of the MNI ICBM
 throughout the Minn/Wash-U Human Connectome Project processing pipelines. On
 the other hand, `fsLR` space refers to the surface-based coordinate system
 originally developed by the Minn/Wash-U Human Connectome Project; `fsaverage`
-refers to the surface-based coordinate system used throughout FreeSurfer; and
+refers to the surface-based coordinate system used throughout FreeSurfer;
 `CIVET` refers to the surface-based coordinate system derived from the MNI152
-volumetric template and is used in the CIVET processing software.
+volumetric template and is used in the CIVET processing software; and `BigBrain`
+refers to a surface reconstruction of the BigBrain atlas.
 
 All of these coordinate systems have multiple resolutions (or densities), and
 the ``neuromaps`` distributions supports data in the following representations:
@@ -32,6 +34,7 @@ the ``neuromaps`` distributions supports data in the following representations:
   2. fsLR: 4k, 8k, 32k, 164k (number of vertices per hemisphere)
   3. fsaverage: 1k, 3k, 10k, 41k, 164k (number of vertices per hemisphere)
   4. CIVET: 41k (number of vertices per hemisphere)
+  5. BigBrain: 164k (number of vertices per hemisphere)
 
 .. _usage_atlases_access:
 
@@ -55,7 +58,7 @@ following keys:
     >>> print(sorted(mni152))
     ['CSF', 'GM', 'PD', 'T1w', 'T2w', 'WM', 'brainmask']
 
-The corresponding values in the ``mni151`` dictionary all point to gzipped
+The corresponding values in the ``mni152`` dictionary all point to gzipped
 NIFTI files that contain data relevant to the specified key (i.e., probability
 maps for 'CSF', 'GM', and 'WM', whole-brain images for 'T1w' [T1-weighted],
 'T2w' [T2-weighted], and 'PD' [proton density'], and a brain mask for
@@ -68,15 +71,16 @@ maps for 'CSF', 'GM', and 'WM', whole-brain images for 'T1w' [T1-weighted],
     >>> print(brainmask.shape)
     (193, 229, 193)
 
-For surface-based systems (i.e., the fsLR, fsaverage, and CIVET systems), the
-keys in the returned object will vary slightly; however, all of these atlases
-will have the following keys: 'inflated', 'sphere', 'medial', 'sulc', and
-'vaavg'. Here, 'inflated' and 'sphere' refer to two different representations
+For surface-based systems (i.e. the fsLR, fsaverage, CIVET and BigBrain systems),
+the keys in the returned object will vary slightly. fsLR, fsaverage and CIVET
+will have the following keys: 'inflated', 'sphere', 'medial', 'sulc' and 'vaavg'.
+Here, 'inflated' and 'sphere' refer to two different representations
 of the surface mesh, 'medial' is a mask where vertices of the surface along the
 medial wall have values of 1, 'sulc' provides sulcal depth information
 calculated from the relevant surface, and 'vaavg' is the average vertex area
 for each vertex of the surface mesh (derived from a group of participants from
-the Human Connectome Project).
+the Human Connectome Project). For BigBrain, the available keys are: 'white',
+'sphere' and 'medial'.
 
 .. code-block::
 

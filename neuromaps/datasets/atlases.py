@@ -341,7 +341,7 @@ def fetch_all_atlases(data_dir=None, verbose=1):  # noqa: D103
         for res in resolutions:
             atlases[key][res] = \
                 fetch_atlas(key, res, data_dir=data_dir, verbose=verbose)
-        if key != 'MNI152':
+        if key not in ('MNI152', 'BigBrain'):
             atlases['regfusion'][key] = \
                 fetch_regfusion(key, data_dir=data_dir, verbose=verbose)
 
