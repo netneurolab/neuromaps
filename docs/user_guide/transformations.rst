@@ -6,7 +6,7 @@ Transformations between coordinate systems
 Much of the "new" functionality in ``neuromaps`` is hosted in the
 :mod:`neuromaps.transforms` module. The functionality in this module provides
 easy-to-use interfaces for transforming brain annotations between all of the
-:ref:`four standard coordinate systems <usage_atlases>` supported in
+:ref:`five standard coordinate systems <usage_atlases>` supported in
 ``neuromaps``.
 
 The functions take on two formats (depending on whether the MNI152 volumetric
@@ -18,9 +18,10 @@ Transforming from volumetric spaces
 -----------------------------------
 
 Currently ``neuromaps`` only supports transforming brain annotations *from*
-MNI152 volumetric space to one of the other three surface-based coordinate
-systems (though work in ongoing to integrate transformations in the other
-direction!). This transformation is achieved through a process known as
+MNI152 volumetric space to fsaverage, CIVET and fsLR (work is ongoing to
+integrate transformations from MNI152 volumetric space to BigBrain and
+transformations in the inverse direction: from surface to volumetric spaces).
+These transformations are achieved through a process known as
 "registration fusion" (Wu et al., 2018, *Hum Brain Mapping*). In order to
 transform data from MNI152 space to another space you can use any of the
 ``neuromaps.transforms.mni152_to_XXX`` functions, where ``XXX`` is replaced
@@ -84,10 +85,11 @@ Transforming to/from surface spaces
 -----------------------------------
 
 Transforming between surface-based coordinate systems works bidirectionally.
-That is, data in each surface system can be transformed to and from every other
-surface system. Here, the transformation functions take the form of
-``neuromaps.transforms.XXX_to_YYY`` where ``XXX`` is the source system and
-``YYY`` is the target system.
+That is, data in fsaverage, CIVET, fsLR can be transformed to and from every
+other surface system. Data in BigBrain can be transformed to and from
+fsaverage and fsLR (work is ongoing to add Bigbrain to/from CIVET transformations).
+Here, the transformation functions take the form of ``neuromaps.transforms.XXX_to_YYY``
+where ``XXX`` is the source system and ``YYY`` is the target system.
 
 For example, to transform data from the fsaverage to the fsLR coordinate
 system:
@@ -173,19 +175,19 @@ Note that the only accepted values for ``method`` are ``'linear'`` and
 Parcellations
 -------------
 
-We can use an instance of the :class:`neuromaps.parcellate.Parcellater` class 
-to parcellate our data. The ``Parcellater`` class expects a path to the parcellation 
-files or a tuple of parcellation files (left and right). Note that hemisphere 
-business can be handled with the ``hemi`` parameter. The ``Parcellater`` class also 
-expects these files to contain a unique integer ID for each parcel (brain region), 
-and it will ignore all IDs of 0. This means that if your parcellation is not in the 
-right format, you will need to rework it using helper functions such as 
+We can use an instance of the :class:`neuromaps.parcellate.Parcellater` class
+to parcellate our data. The ``Parcellater`` class expects a path to the parcellation
+files or a tuple of parcellation files (left and right). Note that hemisphere
+business can be handled with the ``hemi`` parameter. The ``Parcellater`` class also
+expects these files to contain a unique integer ID for each parcel (brain region),
+and it will ignore all IDs of 0. This means that if your parcellation is not in the
+right format, you will need to rework it using helper functions such as
 :func:`neuromaps.images.relabel_gifti` and :func:`neuromaps.images.annot_to_gifti` .
 
 See :ref:`nulls with parcellated data <usage_nulls>` for another example parcellating,
-in the context of spatial nulls. 
+in the context of spatial nulls.
 
-Here is an example of parcellating volumetric (MNI-152) data into the Lausanne-125 
+Here is an example of parcellating volumetric (MNI-152) data into the Lausanne-125
 (234-node) atlas.
 
 .. code-block::
@@ -200,12 +202,12 @@ Here is an example of parcellating volumetric (MNI-152) data into the Lausanne-1
     >>> glutamate_parc = parc.fit_transform(glutamate, 'mni152')
 
 
-Note that the ``Parcellater`` class needs to know the space you are working in 
-(in this case, ``MNI-152``). 
+Note that the ``Parcellater`` class needs to know the space you are working in
+(in this case, ``MNI-152``).
 
-Here is another example in which surface data (fslR) is parcellated into the 
-Schaefer-400 atlas. Note that in this case the atlas is in ``dlabel.nii`` format. 
-``neuromaps`` requires tuples of gifti (``*.gii``) files but this can be handled 
+Here is another example in which surface data (fslR) is parcellated into the
+Schaefer-400 atlas. Note that in this case the atlas is in ``dlabel.nii`` format.
+``neuromaps`` requires tuples of gifti (``*.gii``) files but this can be handled
 using the :func:`neuromaps.images.dlabel_to_gifti` .
 
 .. code-block::
@@ -213,7 +215,7 @@ using the :func:`neuromaps.images.dlabel_to_gifti` .
     >>> from neuromaps.datasets import fetch_annotation
     >>> from netneurotools import datasets as nntdata
     >>> from neuromaps.parcellate import Parcellater
-    >>> from neuromaps.images import dlabel_to_gifti 
+    >>> from neuromaps.images import dlabel_to_gifti
 
     >>> fc_grad = fetch_annotation(source='margulies2016', desc='fcgradient01', space='fsLR', den='32k')
     >>> schaefer = nntdata.fetch_schaefer2018('fslr32k')['400Parcels7Networks']
@@ -221,7 +223,7 @@ using the :func:`neuromaps.images.dlabel_to_gifti` .
     >>> fc_grad_parc = parc.fit_transform(fcgradient, 'fsLR')
 
 In these two examples, parcellations were fetched using `netneurotools <https://netneurotools.readthedocs.io/en/latest/>`__ .
-But of course you can fetch your parcellation files from wherever you would 
-normally get them. Just make sure they are in ``neuromaps`` format and check 
+But of course you can fetch your parcellation files from wherever you would
+normally get them. Just make sure they are in ``neuromaps`` format and check
 that your parcellation makes sense (i.e. looks the way it should) afterwards.
 
