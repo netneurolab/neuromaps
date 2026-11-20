@@ -42,15 +42,15 @@ Functions to fetch the atlases
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.datasets.fetch_atlas
-   neuromaps.datasets.fetch_civet
-   neuromaps.datasets.fetch_fsaverage
-   neuromaps.datasets.fetch_fslr
-   neuromaps.datasets.fetch_bigbrain
-   neuromaps.datasets.fetch_mni152
-   neuromaps.datasets.fetch_regfusion
-   neuromaps.datasets.fetch_all_atlases
-   neuromaps.datasets.get_atlas_dir
+   fetch_atlas
+   fetch_civet
+   fetch_fsaverage
+   fetch_fslr
+   fetch_bigbrain
+   fetch_mni152
+   fetch_regfusion
+   fetch_all_atlases
+   get_atlas_dir
 
 .. _ref_images:
 
@@ -243,16 +243,16 @@ Surface-to-surface transformations
    :template: function.rst
    :toctree: generated/
 
-   neuromaps.transforms.civet_to_fslr
-   neuromaps.transforms.civet_to_fsaverage
-   neuromaps.transforms.civet_to_civet
-   neuromaps.transforms.fslr_to_civet
-   neuromaps.transforms.fslr_to_fsaverage
-   neuromaps.transforms.fslr_to_bigbrain
-   neuromaps.transforms.fslr_to_fslr
-   neuromaps.transforms.fsaverage_to_civet
-   neuromaps.transforms.fsaverage_to_fslr
-   neuromaps.transforms.fsaverage_to_bigbrain
-   neuromaps.transforms.fsaverage_to_fsaverage
-   neuromaps.transforms.bigbrain_to_fslr
-   neuromaps.transforms.bigbrain_to_fsaverage
+   civet_to_fslr
+   civet_to_fsaverage
+   civet_to_civet
+   fslr_to_civet
+   fslr_to_fsaverage
+   fslr_to_bigbrain
+   fslr_to_fslr
+   fsaverage_to_civet
+   fsaverage_to_fslr
+   fsaverage_to_bigbrain
+   fsaverage_to_fsaverage
+   bigbrain_to_fslr
+   bigbrain_to_fsaverage
